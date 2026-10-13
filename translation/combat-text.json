@@ -1,0 +1,587 @@
+[
+  {
+    "id": "s_62f51d296d3429d8",
+    "file": "src/brogue/Combat.c",
+    "source": "hits",
+    "zh_CN": "击中",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f0846e23e833d665",
+    "file": "src/brogue/Combat.c",
+    "source": "%s splits in two!",
+    "zh_CN": "%s一分为二！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f176738518dd1bbb",
+    "file": "src/brogue/Combat.c",
+    "source": "your %s weakens!",
+    "zh_CN": "你的%s变弱了！",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_0e941c7dc19cc8dd",
+    "file": "src/brogue/Combat.c",
+    "source": "you begin to hallucinate",
+    "zh_CN": "你开始产生幻觉",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_32b7c36ac96f1720",
+    "file": "src/brogue/Combat.c",
+    "source": "%s stole %s!",
+    "zh_CN": "%s偷走了%s！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_a90eb864313e3aea",
+    "file": "src/brogue/Combat.c",
+    "source": "you launch %s backward with the force of your blow",
+    "zh_CN": "你一击将%s击飞",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b9542184417d37d2",
+    "file": "src/brogue/Combat.c",
+    "source": "%s %s on impact with %s",
+    "zh_CN": "%s撞上%s时%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_c8475040c0c792bf",
+    "file": "src/brogue/Combat.c",
+    "source": "is destroyed",
+    "zh_CN": "被摧毁",
+    "mode": "literal",
+    "expected_count": 3,
+    "status": "prototype"
+  },
+  {
+    "id": "s_fff9f2190835c7e6",
+    "file": "src/brogue/Combat.c",
+    "source": "dies",
+    "zh_CN": "死亡",
+    "mode": "literal",
+    "expected_count": 4,
+    "status": "prototype"
+  },
+  {
+    "id": "s_c1c4413b172edc63",
+    "file": "src/brogue/Combat.c",
+    "source": "%s slams against %s",
+    "zh_CN": "%s撞向%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_7026970b82a6cd42",
+    "file": "src/brogue/Combat.c",
+    "source": "%s %s%s when %s slams into $HIMHER",
+    "zh_CN": "%s%s%s，%s撞上$HIMHER",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_3cf67b190c648a71",
+    "file": "src/brogue/Combat.c",
+    "source": "also ",
+    "zh_CN": "也",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f7212cbfc2e7e142",
+    "file": "src/brogue/Combat.c",
+    "source": "your %s trembles and time freezes for a moment",
+    "zh_CN": "你的%s颤动了一下，时间短暂冻结",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_d1a107d3f3f762a2",
+    "file": "src/brogue/Combat.c",
+    "source": "%s suddenly %s",
+    "zh_CN": "%s突然%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_46ae7b8840752648",
+    "file": "src/brogue/Combat.c",
+    "source": "shatters",
+    "zh_CN": "碎裂了",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_80ce659730b1edfb",
+    "file": "src/brogue/Combat.c",
+    "source": "%s is frozen in place",
+    "zh_CN": "%s被冻在原地",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_6f63d9a7170ac856",
+    "file": "src/brogue/Combat.c",
+    "source": "Your %s emits a flash of light, and %sspectral duplicate%s appear%s!",
+    "zh_CN": "你的%s闪出一道强光，出现了光谱分身！%.0s%.0s%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_88da53c87f5949ab",
+    "file": "src/brogue/Combat.c",
+    "source": "spectral %s",
+    "zh_CN": "光谱%s",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_dab38151537365d5",
+    "file": "src/brogue/Combat.c",
+    "source": "spectral hammer",
+    "zh_CN": "光谱战锤",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_df4ee552a8846d77",
+    "file": "src/brogue/Combat.c",
+    "source": "spectral pike",
+    "zh_CN": "光谱长枪",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_152aac9ab5567c7b",
+    "file": "src/brogue/Combat.c",
+    "source": "spectral axe",
+    "zh_CN": "光谱斧",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_487e45fac1bb1bb1",
+    "file": "src/brogue/Combat.c",
+    "source": "spectral weapon",
+    "zh_CN": "光谱武器",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_8db2f07590ea6992",
+    "file": "src/brogue/Combat.c",
+    "source": "%s slows down",
+    "zh_CN": "%s慢了下来",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_1b94eb8933d26f75",
+    "file": "src/brogue/Combat.c",
+    "source": "%s looks very confused",
+    "zh_CN": "%s看起来十分困惑",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e4d916fa9d2e6d4c",
+    "file": "src/brogue/Combat.c",
+    "source": "punch",
+    "zh_CN": "拳击",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_045f8e898315cc6b",
+    "file": "src/brogue/Combat.c",
+    "source": "spectral clone",
+    "zh_CN": "光谱分身",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_54d165cfe0208587",
+    "file": "src/brogue/Combat.c",
+    "source": "Your %s flashes, and spectral images of %s appear!",
+    "zh_CN": "你的%s闪烁起来，出现了%s的光谱影像！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_8a977da5cd5bd994",
+    "file": "src/brogue/Combat.c",
+    "source": "%s %s",
+    "zh_CN": "%s%s",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_3b08f427b01fc2ab",
+    "file": "src/brogue/Combat.c",
+    "source": "Your %s pulses, and the damage is shared with %s!",
+    "zh_CN": "你的%s脉动起来，伤害被分摊给了%s！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_79ef8188828268ee",
+    "file": "src/brogue/Combat.c",
+    "source": "the other adjacent enemies",
+    "zh_CN": "其他相邻敌人",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_bd717c334141e666",
+    "file": "src/brogue/Combat.c",
+    "source": "your %s pulses and absorbs the blow!",
+    "zh_CN": "你的%s脉动起来，吸收了这次打击！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_1b80e1d0ad0be205",
+    "file": "src/brogue/Combat.c",
+    "source": "your %s pulses and %s drops dead!",
+    "zh_CN": "你的%s脉动起来，%s倒地身亡！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_38dd81d03f6c29e0",
+    "file": "src/brogue/Combat.c",
+    "source": "your %s pulses and %s shudders in pain!",
+    "zh_CN": "你的%s脉动起来，%s痛苦地颤抖！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_2b2ee2732cce52c7",
+    "file": "src/brogue/Combat.c",
+    "source": "your %s suddenly feels heavier!",
+    "zh_CN": "你的%s突然变得沉重！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_a55ccd4f314bee2f",
+    "file": "src/brogue/Combat.c",
+    "source": "your %s pulses and you are wracked with pain!",
+    "zh_CN": "你的%s脉动起来，剧痛席卷了你的全身！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_c09c70c31f2106e1",
+    "file": "src/brogue/Combat.c",
+    "source": "flames suddenly explode out of your %s!",
+    "zh_CN": "火焰突然从你的%s中喷涌而出！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_0cc5ef9741aeb9f5",
+    "file": "src/brogue/Combat.c",
+    "source": "you are now familiar enough with your weapon to identify it.",
+    "zh_CN": "你已熟悉自己的武器，可以辨认它了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_aabb0be3ec037ac0",
+    "file": "src/brogue/Combat.c",
+    "source": "%s %s.",
+    "zh_CN": "%s%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_4f616d6e36d7da2c",
+    "file": "src/brogue/Combat.c",
+    "source": "they are",
+    "zh_CN": "这些是",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_1aa0be9277d51408",
+    "file": "src/brogue/Combat.c",
+    "source": "it is",
+    "zh_CN": "这件是",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_0f53608ce2b8d926",
+    "file": "src/brogue/Combat.c",
+    "source": "%s seizes %s!",
+    "zh_CN": "%s抓住了%s！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_0d70610a6bbdf1dc",
+    "file": "src/brogue/Combat.c",
+    "source": "your legs",
+    "zh_CN": "你的双腿",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_c64a8a6d2b5e8f18",
+    "file": "src/brogue/Combat.c",
+    "source": " but %s no damage",
+    "zh_CN": "，但%s造成的伤害为零",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_ac0b52a2ae6ef999",
+    "file": "src/brogue/Combat.c",
+    "source": "do",
+    "zh_CN": "没有",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_961eb43699731759",
+    "file": "src/brogue/Combat.c",
+    "source": "does",
+    "zh_CN": "没有",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_a3740a38b88dcb3c",
+    "file": "src/brogue/Combat.c",
+    "source": " with a vicious lunge attack",
+    "zh_CN": "，并发动凶猛的突刺",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_bc64346f8dd05b20",
+    "file": "src/brogue/Combat.c",
+    "source": " while $HESHE %s paralyzed",
+    "zh_CN": "，$HESHE%s麻痹状态",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_ba78973ddcf98d4e",
+    "file": "src/brogue/Combat.c",
+    "source": "are",
+    "zh_CN": "处于",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_fa51fd49abf67705",
+    "file": "src/brogue/Combat.c",
+    "source": "is",
+    "zh_CN": "处于",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_0ffd33ec99532d75",
+    "file": "src/brogue/Combat.c",
+    "source": " in $HISHER sleep",
+    "zh_CN": "，正在$HISHER睡梦中",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e4893669b31a2154",
+    "file": "src/brogue/Combat.c",
+    "source": ", catching $HIMHER unaware",
+    "zh_CN": "，趁$HIMHER毫无防备",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_4533cbd0a4141c7a",
+    "file": "src/brogue/Combat.c",
+    "source": " while %s dangle%s helplessly",
+    "zh_CN": "，而%s无助地垂%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_2ad8a7049d7c5511",
+    "file": "src/brogue/Combat.c",
+    "source": "it",
+    "zh_CN": "它",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_067a124e12e3c438",
+    "file": "src/brogue/Combat.c",
+    "source": "%s %s %s%s",
+    "zh_CN": "%s%s%s%s",
+    "mode": "literal",
+    "expected_count": 3,
+    "status": "prototype"
+  },
+  {
+    "id": "s_9cff331d66997b55",
+    "file": "src/brogue/Combat.c",
+    "source": "destroyed",
+    "zh_CN": "摧毁",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_ca405b4bdb55a53a",
+    "file": "src/brogue/Combat.c",
+    "source": "dispatched",
+    "zh_CN": "击杀",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_3f876bf23981a0ee",
+    "file": "src/brogue/Combat.c",
+    "source": "defeated",
+    "zh_CN": "击败",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_d37878ed2db76f81",
+    "file": "src/brogue/Combat.c",
+    "source": "you hear something get destroyed in combat",
+    "zh_CN": "你听到战斗中有东西被摧毁",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f2104cb56e9f5ae4",
+    "file": "src/brogue/Combat.c",
+    "source": "you hear something die in combat",
+    "zh_CN": "你听到战斗中有东西死亡",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_dcd2de54dd23fc25",
+    "file": "src/brogue/Combat.c",
+    "source": "you hear combat in the distance",
+    "zh_CN": "你听到远处传来战斗声",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_51f0e1643a7e036a",
+    "file": "src/brogue/Combat.c",
+    "source": "%s missed %s",
+    "zh_CN": "%s没有命中%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_cd69de10f24d3bb7",
+    "file": "src/brogue/Combat.c",
+    "source": "Drained by a cursed ring",
+    "zh_CN": "被诅咒的戒指吸取",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_58a017fa3e6979c4",
+    "file": "src/brogue/Combat.c",
+    "source": "scalding poison fills your veins",
+    "zh_CN": "滚烫的毒液涌入你的血管",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_403b30a01875c060",
+    "file": "src/brogue/Combat.c",
+    "source": "you feel a sense of loss.",
+    "zh_CN": "你感到一阵失落。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_76abec41658d23e2",
+    "file": "src/brogue/Combat.c",
+    "source": "%s appears",
+    "zh_CN": "%s出现了",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  }
+]

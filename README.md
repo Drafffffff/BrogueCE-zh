@@ -1,117 +1,47 @@
-Brogue CE
-=========
+# Brogue CE 中文版
 
-> *Countless adventurers before you have descended this torch-lit staircase,
-> seeking the promised riches below. As you reach the bottom and step into
-> the wide cavern, the doors behind you seal with a powerful magic...*
->
-> ***Welcome to the Dungeons of Doom!***
+保留 Brogue 原版 ASCII 地牢、动态火焰标题和键鼠操作的简体中文版本，基于 CE 1.15.1。
 
-*Brogue* is a single-player strategy game set in the halls of a mysterious
-and randomly-generated dungeon. The objective is simple enough -- retrieve the
-fabled Amulet of Yendor from the 26th level -- but the dungeon is riddled with
-danger. Horrifying creatures and devious, trap-ridden terrain await. Yet it is
-also riddled with weapons, potions, and artifacts of forgotten power. Survival
-demands strength and cunning in equal measure as you descend, making the most
-of what the dungeon gives you. You will make sacrifices, narrow escapes,
-and maybe even some friends along the way -- but will you be one of the
-lucky few to return alive?
+[下载 Release](https://github.com/Drafffffff/BrogueCE-zh/releases) · [掌机移植分支](https://github.com/Drafffffff/BrogueCE-zh/tree/移植)
 
-- [Downloads][releases]
-- [Wiki](https://brogue.fandom.com/wiki/Brogue_Wiki)
-- [Forum (Reddit)](https://www.reddit.com/r/brogueforum/)
-- [Roguelikes Discord](https://discord.gg/9pmFGKx) (we have a #brogue channel)
-- IRC: [##brogue on Libera Chat](https://kiwiirc.com/nextclient/irc.libera.chat/##brogue)
-- [Original website](https://sites.google.com/site/broguegame/)
-- [Android port](https://github.com/bilgincoskun/brogue-android-port/releases)
+| 分支 | 内容 |
+| --- | --- |
+| **汉化**（当前） | 原版桌面游戏 + 中文文本、UTF-8 排版、中文字体；Mac / Linux 键鼠操作 |
+| **移植** | 包含汉化，再增加 RG34XX / NextUI、全手柄操作、掌机镜头与阅读面板 |
 
+## 下载与安装
 
-Playing
--------
+- **Mac Apple Silicon**：下载 `macOS-arm64.zip`，将 `Brogue CE 中文.app` 拖入 Applications。当前预编译包要求 **macOS 26 或以上**；已打包动态库，无需 Homebrew。应用为本地签名，未经过 Apple 公证。源码可以在满足依赖的其他 macOS 版本上自行编译。
+- **Linux x86_64 / Bazzite**：下载 `Linux-x86_64.tar.gz`，解压 `Brogue` 到 `~/Games/`，执行 `~/Games/Brogue/launch.sh`。保留原版键鼠操作，默认全屏；程序使用系统 SDL2、glibc、FreeType，并附 SDL2_image / SDL2_ttf。已在 Bazzite 44 验证，其他发行版需要相应运行库。
+- **Steam**：Linux 包包含封面、竖图、Hero、大透明 Logo 和图标。也可单独下载 `Steam-Artwork.zip`。退出 Steam 后运行 `python3 ~/Games/Brogue/install-steam.py`；有多个 Steam 账户时使用 `--config` 指定账户的 `config` 目录。也可手动添加 `launch.sh` 为非 Steam 游戏并设置图片。
+- **RG34XX**：切换到 `移植` 分支，使用独立的 NextUI Release。
 
-If you downloaded a [release][releases], you can open the game as follows:
+## 键鼠操作
 
-### Windows
+方向键 / `hjklyubn` 移动；`s` 搜索，`z` 等待，`x` 自动探索；`i` 背包，`m` 菜单，`M` 消息历史，`?` 帮助，`S` 保存并退出。地牢底部及物品动作按钮显示真实快捷键。
 
-Run `brogue.exe`.
+瞄准和观察时，**Tab 下一目标，Ctrl+Tab 上一目标**。保留原版目标筛选规则：投掷卷轴等普通物品不会通过 Tab 自动选择怪物；可以用方向键或鼠标指定位置。Shift+Tab 留给 Steam Overlay。
 
-### Mac
+Mac 存档：`~/Library/Application Support/Brogue/Brogue CE/`。Linux 启动器存档：`${XDG_DATA_HOME:-~/.local/share}/brogue-ce-zh/`。更新时替换程序目录，存档位于独立目录。
 
-Run the included app.
+## 汉化与验证范围
 
-As it's an unsigned program, you may have to convince macOS to let you run it.
-You can do this by right-clicking the app and choosing *Open* the first time you
-run it.
+已覆盖标题、菜单、物品名与详情、物品目录、怪物名字与说明、命中和伤害估计、变异与能力、常用战斗 / 地形事件、状态栏和帮助。药水名称使用公开外观色。不会翻译随机卷轴符文、种子、文件名和用户输入的名称。
 
-### Linux
+本次修复怪物详情 / 睡眠状态 / 坠落提示 / 投掷药水结果 / 物品目录漏译，以及桌面软件渲染关闭中文窗口后留下半字残影的问题。检查了 1,809 组怪物、变异、盟友及俘虏说明；同种子中英文数值一致。仍可能存在未触达场景的漏译，首发标记为预发布，欢迎附截图报告。
 
-Run the `./brogue` script in the same the folder as this file.
+![物品目录](docs/images/discoveries.png)
 
-Make sure you have SDL2 and SDL2_image installed via your package manager. The
-required packages are:
+## 从源码构建
 
-- Debian/Ubuntu: `libsdl2-2.0-0 libsdl2-image-2.0-0`
-- Fedora: `SDL2 SDL2_image`
-- Arch: `sdl2 sdl2_image`
+源码已经包含汉化，无需再次运行适配生成器。Linux 安装 C 编译器、Make、SDL2、SDL2_image 和 SDL2_ttf 开发包后：
 
-You can also run `./make-link-for-desktop.sh` to generate a .desktop file to
-place on your desktop or applications folder.
+```sh
+make -j4 RELEASE=YES
+cd bin
+./brogue
+```
 
-### More information
+macOS 安装同名开发依赖后使用 `make -B MAC_APP=YES RELEASE=YES`，应用打包脚本见 `packaging/`。默认中文，设置 `BROGUE_LANG=en` 可对照原版英文；`BROGUE_CJK_FONT` 可指定字体路径。
 
-Graphical tiles are included; press 'G' to toggle them.
-
-For some tips on playing the game, see the original website, linked above. Also
-check out the wiki -- although keep in mind CE may differ from it.
-
-If you downloaded the source code, you will need to build the game first. For
-instructions, see `BUILD.md`.
-
-Brogue supports some command-line options; run `brogue --help` for more info.
-(On Windows, if you want to see output in the command prompt, use
-`brogue-cmd.bat`.)
-
-
-Contributing
-------------
-
-Please see our [contribution guide][contrib] for all the ways you can help make
-Brogue better!
-
-[contrib]: https://github.com/tmewett/BrogueCE/wiki/Contribution-guide
-
-
-About
------
-
-### What is Community Edition?
-
-Brogue was created by Brian Walker. This version, *Brogue: Community Edition*,
-is a continuation of its development. It has several main goals:
-
-- fix bugs and crashes
-- add useful quality of life and non-gameplay features
-- improve the gameplay and keep it exciting
-- ease development and maintenance
-- be a convenient base for forks and ports to new platforms
-
-### How is CE different from the original Brogue?
-
-Please refer to the changelog or release history for a complete list. There is
-also a wiki page: [Changes from original][cfo].
-
-[cfo]: https://github.com/tmewett/BrogueCE/wiki/Changes-from-original
-
-### How is the project run, and how are changes decided?
-
-The project is run with a "benevolent dictator" model, with myself (tmewett) in
-charge. There are many other testers and regular contributors; see the
-contribution guide to get involved!
-
-We always try to make changes in the same spirit as the rest of the game. Anyone
-can propose a change - all discussion occurs in our GitHub issue tracker or on
-our development Discord (see contributing guide). We also make sure that things are
-well play-tested.
-
-
-[releases]: https://github.com/tmewett/BrogueCE/releases
+上游、许可证与字体来源见 [UPSTREAM.md](UPSTREAM.md) 和 [LICENSE.txt](LICENSE.txt)。

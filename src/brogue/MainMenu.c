@@ -22,6 +22,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 #include <time.h>
@@ -49,9 +51,9 @@ static void drawMenuFlames(signed short flames[COLS][(ROWS + MENU_FLAME_ROW_PADD
     versionStringLength = strLenWithoutEscapes(gameConst->versionString);
 
     if (WIZARD_MODE) {
-        strcpy(gameModeString, "Wizard Mode");
+        strcpy(gameModeString, br_tr("Wizard Mode"));
     } else if (rogue.mode == GAME_MODE_EASY) {
-        strcpy(gameModeString, "Easy Mode");
+        strcpy(gameModeString, br_tr("Easy Mode"));
     }
     gameModeStringLength = strLenWithoutEscapes(gameModeString);
 
@@ -260,7 +262,47 @@ static void initializeMainMenuButton(brogueButton *button, char *textWithHotkey,
     char textWithoutHotkey[BUTTON_TEXT_SIZE];
     snprintf(textWithoutHotkey, BUTTON_TEXT_SIZE - 1, textWithHotkey, "","");
 
-    setButtonText(button, textWithHotkey, textWithoutHotkey);
+    const char *name=textWithoutHotkey;
+    boolean flyout=strchr(name,'*')!=NULL;
+    while(*name==' ' || *name=='*')name++;
+    char label[BUTTON_TEXT_SIZE];
+    br_text_copy(label,sizeof label,name);
+    size_t length=strlen(label);
+    while(length && label[length-1]==' ')label[--length]=0;
+    if(br_is_zh()) {
+        const char *title=NULL;
+        switch(command) {
+            case NG_NEW_GAME:title="新的冒险";break;
+            case NG_FLYOUT_PLAY:title="游戏";break;
+            case NG_FLYOUT_VIEW:title="查看";break;
+            case NG_QUIT:title="退出";break;
+            case NG_NEW_GAME_WITH_SEED:title="指定种子";break;
+            case NG_OPEN_GAME:title="载入游戏";break;
+            case NG_GAME_VARIANT:title="游戏版本";break;
+            case NG_GAME_MODE:title="难度模式";break;
+            case NG_VIEW_RECORDING:title="观看录像";break;
+            case NG_HIGH_SCORES:title="高分榜";break;
+            case NG_GAME_STATS:title="游戏统计";break;
+            case NG_NOTHING:
+                switch(hotkey1) {
+                    case 'r':title="Rapid Brogue";break;
+                    case 'b':title="Brogue";break;
+                    case 'l':title="Bullet Brogue";break;
+                    case 'w':title="巫师";break;
+                    case 'e':title="简单";break;
+                    case 'n':title="普通";break;
+                }
+                break;
+            default:break;
+        }
+        if(title)br_text_copy(label,sizeof label,title);
+    }
+    char gold[5],plain[5];
+    encodeMessageColor(gold,0,&yellow);encodeMessageColor(plain,0,&white);
+    int width=br_text_width(label)+4+(flyout?2:0);
+    int left=max(0,(20-width)/2),right=max(0,20-width-left);
+    snprintf(button->text,sizeof button->text,"%*s%s%s (%s%c%s)%*s",
+             left,"",flyout?"* ":"",label,gold,(char)hotkey1,plain,right,"");
     button->hotkey[0] = hotkey1;
     button->hotkey[1] = hotkey2;
     button->flags |= B_WIDE_CLICK_AREA;
@@ -274,10 +316,10 @@ static void initializeMainMenuButton(brogueButton *button, char *textWithHotkey,
 /// @param buttons An array of buttons to initialize
 static void initializeMainMenuButtons(brogueButton *buttons) {
 
-    initializeMainMenuButton(&(buttons[0]), "     %sN%sew Game     ", 'n', 'N', NG_NEW_GAME);
-    initializeMainMenuButton(&(buttons[1]), " *     %sP%slay       ", 'p', 'P', NG_FLYOUT_PLAY);
-    initializeMainMenuButton(&(buttons[2]), " *     %sV%siew       ", 'v', 'V', NG_FLYOUT_VIEW);
-    initializeMainMenuButton(&(buttons[3]), "       %sQ%suit       ", 'q', 'Q', NG_QUIT);
+    initializeMainMenuButton(&(buttons[0]), br_tr("     %sN%sew Game     "), 'n', 'N', NG_NEW_GAME);
+    initializeMainMenuButton(&(buttons[1]), br_tr(" *     %sP%slay       "), 'p', 'P', NG_FLYOUT_PLAY);
+    initializeMainMenuButton(&(buttons[2]), br_tr(" *     %sV%siew       "), 'v', 'V', NG_FLYOUT_VIEW);
+    initializeMainMenuButton(&(buttons[3]), br_tr("       %sQ%suit       "), 'q', 'Q', NG_QUIT);
 
     // Add a left-facing triangle to all the buttons except quit
     for (int i=0; i<MAIN_MENU_BUTTON_COUNT-1; i++) {
@@ -366,17 +408,17 @@ static void initializeFlyoutMenu(buttonState *menu, screenDisplayBuffer *shadowB
     if (rogue.nextGame == NG_FLYOUT_PLAY) {
 
         buttonCount = 4;
-        initializeMainMenuButton(&(buttons[0]), "  New %sS%seeded Game  ", 's', 'S', NG_NEW_GAME_WITH_SEED);
-        initializeMainMenuButton(&(buttons[1]), "     %sL%soad Game     ", 'l', 'L', NG_OPEN_GAME);
-        initializeMainMenuButton(&(buttons[2]), "  Change V%sa%sriant   ", 'a', 'A', NG_GAME_VARIANT);
-        initializeMainMenuButton(&(buttons[3]), "   Change %sM%sode     ", 'm', 'M', NG_GAME_MODE);
+        initializeMainMenuButton(&(buttons[0]), br_tr("  New %sS%seeded Game  "), 's', 'S', NG_NEW_GAME_WITH_SEED);
+        initializeMainMenuButton(&(buttons[1]), br_tr("     %sL%soad Game     "), 'l', 'L', NG_OPEN_GAME);
+        initializeMainMenuButton(&(buttons[2]), br_tr("  Change V%sa%sriant   "), 'a', 'A', NG_GAME_VARIANT);
+        initializeMainMenuButton(&(buttons[3]), br_tr("   Change %sM%sode     "), 'm', 'M', NG_GAME_MODE);
 
     } else if (rogue.nextGame == NG_FLYOUT_VIEW) {
 
         buttonCount = 3;
-        initializeMainMenuButton(&(buttons[0]), "   View %sR%secording  ", 'r', 'R', NG_VIEW_RECORDING);
-        initializeMainMenuButton(&(buttons[1]), "    %sH%sigh Scores    ", 'h', 'H', NG_HIGH_SCORES);
-        initializeMainMenuButton(&(buttons[2]), "    %sG%same Stats     ", 'g', 'G', NG_GAME_STATS);
+        initializeMainMenuButton(&(buttons[0]), br_tr("   View %sR%secording  "), 'r', 'R', NG_VIEW_RECORDING);
+        initializeMainMenuButton(&(buttons[1]), br_tr("    %sH%sigh Scores    "), 'h', 'H', NG_HIGH_SCORES);
+        initializeMainMenuButton(&(buttons[2]), br_tr("    %sG%same Stats     "), 'g', 'G', NG_GAME_STATS);
 
     } else {
         return;
@@ -395,20 +437,20 @@ static void chooseGameVariant() {
     encodeMessageColor(whiteColorEscape, 0, &white);
 
     snprintf(textBuf, TEXT_MAX_LENGTH, "%sBrogue%s\n", goldColorEscape, whiteColorEscape);
-    append(textBuf, "Classic Brogue. The endlessly captivating masterpiece of dungeon adventuring.\n\n", TEXT_MAX_LENGTH);
+    append(textBuf, br_tr("Classic Brogue. The endlessly captivating masterpiece of dungeon adventuring.\n\n"), TEXT_MAX_LENGTH);
 
-    snprintf(tmpBuf, TEXT_MAX_LENGTH, "%sRapid Brogue%s\n", goldColorEscape, whiteColorEscape);
+    snprintf(tmpBuf, TEXT_MAX_LENGTH, br_tr("%sRapid Brogue%s\n"), goldColorEscape, whiteColorEscape);
     append(textBuf, tmpBuf, TEXT_MAX_LENGTH);
-    append(textBuf, "Die faster and more often in this quarter-length version of the classic game!\n\n", TEXT_MAX_LENGTH);
+    append(textBuf, br_tr("Die faster and more often in this quarter-length version of the classic game!\n\n"), TEXT_MAX_LENGTH);
 
-    snprintf(tmpBuf, TEXT_MAX_LENGTH, "%sBullet Brogue%s\n", goldColorEscape, whiteColorEscape);
+    snprintf(tmpBuf, TEXT_MAX_LENGTH, br_tr("%sBullet Brogue%s\n"), goldColorEscape, whiteColorEscape);
     append(textBuf, tmpBuf, TEXT_MAX_LENGTH);
-    append(textBuf, "No time? Death wish? Bullet Brogue is for you. Not best for new players!\n\n", TEXT_MAX_LENGTH);
+    append(textBuf, br_tr("No time? Death wish? Bullet Brogue is for you. Not best for new players!\n\n"), TEXT_MAX_LENGTH);
 
     brogueButton buttons[3];
-    initializeMainMenuButton(&(buttons[0]), "  %sR%sapid Brogue     ", 'r', 'R', NG_NOTHING);
+    initializeMainMenuButton(&(buttons[0]), br_tr("  %sR%sapid Brogue     "), 'r', 'R', NG_NOTHING);
     initializeMainMenuButton(&(buttons[1]), "     %sB%srogue        ", 'b', 'B', NG_NOTHING);
-    initializeMainMenuButton(&(buttons[2]), "   Bu%sl%slet Brogue   ", 'l', 'L', NG_NOTHING);
+    initializeMainMenuButton(&(buttons[2]), br_tr("   Bu%sl%slet Brogue   "), 'l', 'L', NG_NOTHING);
 
     const SavedDisplayBuffer rbuf = saveDisplayBuffer();
     gameVariantChoice = printTextBox(textBuf, 20, 7, 45, &white, &black, buttons, 3);
@@ -434,24 +476,24 @@ static void chooseGameMode() {
     encodeMessageColor(goldColorEscape, 0, &yellow);
     encodeMessageColor(whiteColorEscape, 0, &white);
 
-    snprintf(textBuf, TEXT_MAX_LENGTH, "%sNormal Mode%s\n", goldColorEscape, whiteColorEscape);
-    append(textBuf, "Punishingly difficult. Maliciously alluring. Perfectly normal.\n\n", TEXT_MAX_LENGTH);
+    snprintf(textBuf, TEXT_MAX_LENGTH, br_tr("%sNormal Mode%s\n"), goldColorEscape, whiteColorEscape);
+    append(textBuf, br_tr("Punishingly difficult. Maliciously alluring. Perfectly normal.\n\n"), TEXT_MAX_LENGTH);
 
-    snprintf(tmpBuf, TEXT_MAX_LENGTH, "%sEasy Mode%s\n", goldColorEscape, whiteColorEscape);
+    snprintf(tmpBuf, TEXT_MAX_LENGTH, br_tr("%sEasy Mode%s\n"), goldColorEscape, whiteColorEscape);
     append(textBuf, tmpBuf, TEXT_MAX_LENGTH);
     append(textBuf, "Succumb to temptation and transform into a powerful demon, taking 20% as much damage. "
                     "But great power comes at a great price -- you keep only 10% of your score.\n\n", TEXT_MAX_LENGTH);
 
-    snprintf(tmpBuf, TEXT_MAX_LENGTH, "%sWizard Mode%s\n", goldColorEscape, whiteColorEscape);
+    snprintf(tmpBuf, TEXT_MAX_LENGTH, br_tr("%sWizard Mode%s\n"), goldColorEscape, whiteColorEscape);
     append(textBuf, tmpBuf, TEXT_MAX_LENGTH);
     append(textBuf, "Play as an invincible wizard that starts with legendary items and is magically reborn after every "
                     "death. Summon monsters and make them friend or foe. Conjure any item out of thin air. "
                     "(Your score is not saved.)", TEXT_MAX_LENGTH);
 
     brogueButton buttons[3];
-    initializeMainMenuButton(&(buttons[0]), "      %sW%sizard       ", 'w', 'W', NG_NOTHING);
-    initializeMainMenuButton(&(buttons[1]), "       %sE%sasy        ", 'e', 'E', NG_NOTHING);
-    initializeMainMenuButton(&(buttons[2]), "      %sN%sormal       ", 'n', 'N', NG_NOTHING);
+    initializeMainMenuButton(&(buttons[0]), br_tr("      %sW%sizard       "), 'w', 'W', NG_NOTHING);
+    initializeMainMenuButton(&(buttons[1]), br_tr("       %sE%sasy        "), 'e', 'E', NG_NOTHING);
+    initializeMainMenuButton(&(buttons[2]), br_tr("      %sN%sormal       "), 'n', 'N', NG_NOTHING);
     const SavedDisplayBuffer rbuf = saveDisplayBuffer();
     gameMode = printTextBox(textBuf, 10, 5, 66, &white, &black, buttons, 3);
     restoreDisplayBuffer(&rbuf);
@@ -641,7 +683,7 @@ void dialogAlert(char *message) {
 
     brogueButton OKButton;
     initializeButton(&OKButton);
-    strcpy(OKButton.text, "     OK     ");
+    strcpy(OKButton.text, br_tr("     OK     "));
     OKButton.hotkey[0] = RETURN_KEY;
     OKButton.hotkey[1] = ACKNOWLEDGE_KEY;
     const SavedDisplayBuffer rbuf = saveDisplayBuffer();
@@ -856,7 +898,7 @@ boolean dialogChooseFile(char *path, const char *suffix, const char *prompt) {
     free(membuf);
 
     if (count == 0) {
-        dialogAlert("No applicable files found.");
+        dialogAlert(br_tr("No applicable files found."));
         return false;
     } else {
         return retval;
@@ -902,13 +944,13 @@ static void addRuntoGameStats(rogueRun *run, gameStats *stats) {
     stats->mostLumenstones = (run->lumenstones > stats->mostLumenstones) ? run->lumenstones : stats->mostLumenstones;
     stats->deepestLevel = (run->deepestLevel > stats->deepestLevel) ? run->deepestLevel : stats->deepestLevel;
 
-    if (strcmp(run->result, "Escaped") == 0 || strcmp(run->result, "Mastered") == 0) {
+    if (strcmp(run->result, br_tr("Escaped")) == 0 || strcmp(run->result, br_tr("Mastered")) == 0) {
         if (stats->fewestTurnsWin == 0 || run->turns < stats->fewestTurnsWin) {
             stats->fewestTurnsWin = run->turns;
         }
         stats->won++;
         stats->currentWinStreak++;
-        if (strcmp(run->result, "Mastered") == 0) {
+        if (strcmp(run->result, br_tr("Mastered")) == 0) {
             stats->currentMasteryStreak++;
             stats->mastered++;
         } else {
@@ -934,7 +976,7 @@ static void addRuntoGameStats(rogueRun *run, gameStats *stats) {
 }
 
 /// @brief Display the game stats screen
-/// Includes "All Time" stats and "Recent" stats. The player can reset their recent stats at any time.
+/// Includes br_tr("All Time") stats and br_tr("Recent") stats. The player can reset their recent stats at any time.
 static void viewGameStats(void) {
 
     gameStats allTimeStats = {0};
@@ -978,36 +1020,36 @@ static void viewGameStats(void) {
 
     color titleColor = black;
     applyColorAverage(&titleColor, &itemMessageColor, 100);
-    printString("-- GAME STATS --", (COLS - 17 + 1) / 2, 0, &titleColor, &black, &dbuf);
+    printString(br_tr("-- GAME STATS --"), (COLS - 17 + 1) / 2, 0, &titleColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%16s%16s","", "All Time", "Recent");
+    sprintf(buf,"%-30s%16s%16s","", br_tr("All Time"), br_tr("Recent"));
     printString(buf, offset, i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%16i%16i","Games Played", whiteColorEscape, allTimeStats.games, recentStats.games);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Games Played"), whiteColorEscape, allTimeStats.games, recentStats.games);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
     i++;
-    sprintf(buf,"%-30s%s%16i%16i","Won", whiteColorEscape, allTimeStats.won, recentStats.won);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Won"), whiteColorEscape, allTimeStats.won, recentStats.won);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%16.1f%16.1f","Win Rate (%)", whiteColorEscape, allTimeStats.winRate, recentStats.winRate);
+    sprintf(buf,"%-30s%s%16.1f%16.1f",br_tr("Win Rate (%)"), whiteColorEscape, allTimeStats.winRate, recentStats.winRate);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%16i%16i","Escaped", whiteColorEscape, allTimeStats.escaped, recentStats.escaped);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Escaped"), whiteColorEscape, allTimeStats.escaped, recentStats.escaped);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%16i%16i","Mastered", whiteColorEscape, allTimeStats.mastered, recentStats.mastered);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Mastered"), whiteColorEscape, allTimeStats.mastered, recentStats.mastered);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
     i++;
-    sprintf(buf,"%-30s%s%16i%16i","High Score", whiteColorEscape, allTimeStats.highestScore, recentStats.highestScore);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("High Score"), whiteColorEscape, allTimeStats.highestScore, recentStats.highestScore);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%16i%16i","Most Gold", whiteColorEscape, allTimeStats.mostGold, recentStats.mostGold);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Most Gold"), whiteColorEscape, allTimeStats.mostGold, recentStats.mostGold);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%16i%16i","Most Lumenstones", whiteColorEscape, allTimeStats.mostLumenstones, recentStats.mostLumenstones);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Most Lumenstones"), whiteColorEscape, allTimeStats.mostLumenstones, recentStats.mostLumenstones);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
     i++;
-    sprintf(buf,"%-30s%s%16i%16i","Deepest Level", whiteColorEscape, allTimeStats.deepestLevel, recentStats.deepestLevel);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Deepest Level"), whiteColorEscape, allTimeStats.deepestLevel, recentStats.deepestLevel);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
     float allTimeAverageDepth = 0;
@@ -1020,7 +1062,7 @@ static void viewGameStats(void) {
         recentAverageDepth = (float) recentStats.cumulativeLevels / recentStats.games;
     }
 
-    sprintf(buf,"%-30s%s%16.1f%16.1f","Average Depth", whiteColorEscape, allTimeAverageDepth, recentAverageDepth);
+    sprintf(buf,"%-30s%s%16.1f%16.1f",br_tr("Average Depth"), whiteColorEscape, allTimeAverageDepth, recentAverageDepth);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
     char allTimeFewestTurns[20] = "-";
@@ -1031,19 +1073,19 @@ static void viewGameStats(void) {
     if (recentStats.fewestTurnsWin > 0) {
         sprintf(recentFewestTurns, "%i", recentStats.fewestTurnsWin);
     }
-    sprintf(buf,"%-30s%s%16s%16s","Shortest Win (Turns)", whiteColorEscape, allTimeFewestTurns, recentFewestTurns);
+    sprintf(buf,"%-30s%s%16s%16s",br_tr("Shortest Win (Turns)"), whiteColorEscape, allTimeFewestTurns, recentFewestTurns);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
     i++;
-    sprintf(buf,"%-30s%s%16i%16i","Longest Win Streak", whiteColorEscape, allTimeStats.longestWinStreak, recentStats.longestWinStreak);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Longest Win Streak"), whiteColorEscape, allTimeStats.longestWinStreak, recentStats.longestWinStreak);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%16i%16i","Longest Mastery Streak", whiteColorEscape, allTimeStats.longestMasteryStreak, recentStats.longestMasteryStreak);
+    sprintf(buf,"%-30s%s%16i%16i",br_tr("Longest Mastery Streak"), whiteColorEscape, allTimeStats.longestMasteryStreak, recentStats.longestMasteryStreak);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
     i++;
-    sprintf(buf,"%-30s%s%32i","Current Win Streak", whiteColorEscape, recentStats.currentWinStreak);
+    sprintf(buf,"%-30s%s%32i",br_tr("Current Win Streak"), whiteColorEscape, recentStats.currentWinStreak);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
 
-    sprintf(buf,"%-30s%s%32i","Current Mastery Streak", whiteColorEscape, recentStats.currentMasteryStreak);
+    sprintf(buf,"%-30s%s%32i",br_tr("Current Mastery Streak"), whiteColorEscape, recentStats.currentMasteryStreak);
     printString(buf, offset, ++i, &itemMessageColor, &black, &dbuf);
     i++;
 
@@ -1059,8 +1101,8 @@ static void viewGameStats(void) {
     color continueColor = black;
     applyColorAverage(&continueColor, &goodMessageColor, 100);
 
-    printString(KEYBOARD_LABELS ? "Press space or click to continue." : "Touch anywhere to continue.",
-                (COLS - strLenWithoutEscapes(KEYBOARD_LABELS ? "Press space or click to continue." : "Touch anywhere to continue.")) / 2,
+    printString(KEYBOARD_LABELS ? br_tr("Press space or click to continue.") : "Touch anywhere to continue.",
+                (COLS - strLenWithoutEscapes(KEYBOARD_LABELS ? br_tr("Press space or click to continue.") : "Touch anywhere to continue.")) / 2,
                 ROWS - 1, &continueColor, &black, 0);
 
     commitDraws();
@@ -1070,16 +1112,16 @@ static void viewGameStats(void) {
         brogueButton buttons[1];
         initializeButton(&(buttons[0]));
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[0].text,  "  %sR%seset  ", yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[0].text,  br_tr("  %sR%seset  "), yellowColorEscape, whiteColorEscape);
         } else {
-            strcpy(buttons[0].text, "  Reset  ");
+            strcpy(buttons[0].text, br_tr("  Reset  "));
         }
         buttons[0].hotkey[0] = 'R';
         buttons[0].hotkey[1] = 'r';
         buttons[0].x = 74;
         buttons[0].y = i;
 
-        if (buttonInputLoop(buttons, 1, 74, 25, 10, 3, NULL) == 0 && confirm("Reset recent stats?",false)) {
+        if (buttonInputLoop(buttons, 1, 74, 25, 10, 3, NULL) == 0 && confirm(br_tr("Reset recent stats?"),false)) {
             saveResetRun();
         }
     } else {
@@ -1153,7 +1195,7 @@ void mainBrogueJunction() {
                         } else {
                             sprintf(seedDefault, "%llu", (unsigned long long)previousGameSeed);
                         }
-                        if (getInputTextString(buf, "Generate dungeon with seed number:",
+                        if (getInputTextString(buf, br_tr("Generate dungeon with seed number:"),
                                                20, // length of "18446744073709551615" (2^64 - 1)
                                                seedDefault,
                                                "",
@@ -1191,7 +1233,7 @@ void mainBrogueJunction() {
                     strcpy(rogue.currentGamePath, rogue.nextGamePath);
                     rogue.nextGamePath[0] = '\0';
                 } else {
-                    dialogChooseFile(path, GAME_SUFFIX, "Open saved game:");
+                    dialogChooseFile(path, GAME_SUFFIX, br_tr("Open saved game:"));
                     //chooseFile(path, "Open saved game: ", "Saved game", GAME_SUFFIX);
                 }
 
@@ -1219,7 +1261,7 @@ void mainBrogueJunction() {
                     strcpy(rogue.currentGamePath, rogue.nextGamePath);
                     rogue.nextGamePath[0] = '\0';
                 } else {
-                    dialogChooseFile(path, RECORDING_SUFFIX, "View recording:");
+                    dialogChooseFile(path, RECORDING_SUFFIX, br_tr("View recording:"));
                     //chooseFile(path, "View recording: ", "Recording", RECORDING_SUFFIX);
                 }
 

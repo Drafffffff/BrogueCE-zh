@@ -130,6 +130,9 @@ typedef long long fixpt;
 // Maximum string size supported by various functions like printTextBox, wrapText,
 // printStringWithWrapping, and breakUpLongWordsIn
 #define TEXT_MAX_LENGTH (COLS * ROWS * 2)
+#ifndef BR_MESSAGE_BYTES
+#define BR_MESSAGE_BYTES 1024
+#endif
 
 // Returns the sign of the input:
 // - if (x == 0)  ===> returns 0
@@ -2848,7 +2851,7 @@ enum autoTargetMode {
 };
 
 typedef struct archivedMessage {
-    char message[COLS*2];
+    char message[BR_MESSAGE_BYTES];
     unsigned char count;          // how many times this message appears
     unsigned long turn;           // player turn of the first occurrence
     unsigned long flags;
@@ -3069,6 +3072,8 @@ extern "C" {
     enum dungeonLayers layerWithFlag(short x, short y, unsigned long flag);
     const char *tileFlavor(short x, short y);
     const char *tileText(short x, short y);
+    const char *br_display_tile_text(short x,short y);
+    const char *br_display_tile_flavor(short x,short y);
     void describedItemBasedOnParameters(short theCategory, short theKind, short theQuantity, short theItemOriginDepth, char *buf);
     void describeLocation(char buf[DCOLS], short x, short y);
     void printLocationDescription(short x, short y);
@@ -3112,6 +3117,7 @@ extern "C" {
     void hideCursor(void);
     void showCursor(void);
     void mainInputLoop(void);
+short br_desktop_action_menu(void);
     boolean isDisturbed(short x, short y);
     void discover(short x, short y);
     short randValidDirectionFrom(creature *monst, short x, short y, boolean respectAvoidancePreferences);
@@ -3136,7 +3142,7 @@ extern "C" {
     void resetScentTurnNumber(void);
     void displayMonsterFlashes(boolean flashingEnabled);
     void clearMessageArchive(void);
-    void formatRecentMessages(char buf[][COLS*2], size_t height, short *linesFormatted, short *latestMessageLines);
+    void formatRecentMessages(char buf[][BR_MESSAGE_BYTES], size_t height, short *linesFormatted, short *latestMessageLines);
     void displayRecentMessages(void);
     void displayMessageArchive(void);
     void temporaryMessage(const char *msg1, unsigned long flags);
@@ -3241,6 +3247,8 @@ extern "C" {
     boolean canSeeMonster(creature *monst);
     boolean canDirectlySeeMonster(creature *monst);
     void monsterName(char *buf, creature *monst, boolean includeArticle);
+    void br_display_monster_name(char *buf, creature *monst, boolean includeArticle);
+    void br_resolve_display_pronouns(char *text, creature *monst);
     boolean monsterIsInClass(const creature *monst, const short monsterClass);
     boolean chooseTarget(pos *returnLoc, short maxDistance, enum autoTargetMode targetingMode, const item *theItem);
     fixpt strengthModifier(item *theItem);
@@ -3302,7 +3310,8 @@ extern "C" {
     void updateFloorItems(void);
     void itemKindName(item *theItem, char *kindName);
     void itemRunicName(item *theItem, char *runicName);
-    void itemName(item *theItem, char *root, boolean includeDetails, boolean includeArticle, const color *baseColor);
+    const color *br_item_display_color(const item *theItem);
+void itemName(item *theItem, char *root, boolean includeDetails, boolean includeArticle, const color *baseColor);
     int itemKindCount(enum itemCategory category, int magicPolarity);
     char displayInventory(unsigned short categoryMask,
                           unsigned long requiredFlags,

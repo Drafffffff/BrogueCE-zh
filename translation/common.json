@@ -1,0 +1,716 @@
+[
+  {
+    "id": "c_1afb35bcc87c8b20",
+    "file": "src/brogue/IO.c",
+    "source": "Examine what? (<hjklyubn>, mouse, or <tab>)",
+    "zh_CN": "检查何处？方向移动光标，X 切换目标；A 前往，B 返回。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_521abb11ff86a613",
+    "file": "src/brogue/IO.c",
+    "source": "It's too dark to explore!",
+    "zh_CN": "四周太暗，无法自动探索！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_fc0b78ecda4044c8",
+    "file": "src/brogue/IO.c",
+    "source": "I see no path for further exploration.",
+    "zh_CN": "没有可以继续探索的路径。",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "c_5a6df64193b8409d",
+    "file": "src/brogue/IO.c",
+    "source": "Event error!",
+    "zh_CN": "输入事件出错。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_29c852bc5f5183c9",
+    "file": "src/brogue/IO.c",
+    "source": "I see no way down.",
+    "zh_CN": "尚未发现通往下层的路径。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_9905eabc9baf3bb3",
+    "file": "src/brogue/IO.c",
+    "source": "I see no way up.",
+    "zh_CN": "尚未发现通往上层的路径。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_531ac3587725edc7",
+    "file": "src/brogue/IO.c",
+    "source": "Color effects disabled. Press '\\' again to enable.",
+    "zh_CN": "已关闭色彩效果。可从行动菜单重新开启。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_720d41c25cfc5348",
+    "file": "src/brogue/IO.c",
+    "source": "Color effects enabled. Press '\\' again to disable.",
+    "zh_CN": "已开启色彩效果。可从行动菜单关闭。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_5946fef31a73d31e",
+    "file": "src/brogue/IO.c",
+    "source": "Stealth range displayed. Press ']' again to hide.",
+    "zh_CN": "已显示潜行范围。可从行动菜单隐藏。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_d311845018e42834",
+    "file": "src/brogue/IO.c",
+    "source": "Stealth range hidden. Press ']' again to display.",
+    "zh_CN": "已隐藏潜行范围。可从行动菜单显示。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_b41f1d871015e7e5",
+    "file": "src/brogue/IO.c",
+    "source": "Turn on autopilot?",
+    "zh_CN": "开启自动游玩？可用 B 中断。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_06cec5965b96031b",
+    "file": "src/brogue/IO.c",
+    "source": "End this game and begin a new game?",
+    "zh_CN": "结束本局并开始新的冒险？",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_4c0e7663e36fcd83",
+    "file": "src/brogue/IO.c",
+    "source": "Quit and abandon this game? (The save will be deleted.)",
+    "zh_CN": "放弃本局？本局存档将被删除。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_a04cf37c475c820f",
+    "file": "src/brogue/IO.c",
+    "source": "Switched to text mode. Press 'G' again to enable tiles.",
+    "zh_CN": "已切换为字符图形。可从行动菜单切换图形模式。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_114a8af143858440",
+    "file": "src/brogue/IO.c",
+    "source": "Switched to text mode.",
+    "zh_CN": "已切换为字符图形。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_800ebb1d187c05ec",
+    "file": "src/brogue/IO.c",
+    "source": "Switched to graphical tiles. Press 'G' again to enable hybrid mode.",
+    "zh_CN": "已切换为图块。可从行动菜单切换图形模式。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_c191165c183bc1ef",
+    "file": "src/brogue/IO.c",
+    "source": "Switched to graphical tiles.",
+    "zh_CN": "已切换为图块。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_3b88a964f9053bc1",
+    "file": "src/brogue/IO.c",
+    "source": "Switched to hybrid mode. Press 'G' again to disable tiles.",
+    "zh_CN": "已切换为混合图形。可从行动菜单切换图形模式。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_f5afd1844ff2f3a9",
+    "file": "src/brogue/IO.c",
+    "source": "Switched to hybrid mode.",
+    "zh_CN": "已切换为混合图形。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_934c12c82e2d8617",
+    "file": "src/brogue/IO.c",
+    "source": " Screenshot saved in save directory ",
+    "zh_CN": " 截图已保存到存档目录 ",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_db6fbee49b599395",
+    "file": "src/brogue/IO.c",
+    "source": " -- Press space or click to continue -- ",
+    "zh_CN": " 按 A 继续 ",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "c_eba75d121cebc080",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Retrieve the ",
+    "zh_CN": "取回",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_a05ec8cfbf830798",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Amulet of Yendor",
+    "zh_CN": "延多护身符",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_4e37e7e88e92125c",
+    "file": "src/brogue/RogueMain.c",
+    "source": " from the %i%s floor and escape with it!",
+    "zh_CN": "（第 %i 层），带着它逃离地牢！%.0s",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_ab77e7b3999c01a2",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Press <?> for help at any time.",
+    "zh_CN": "随时按 L2 打开行动菜单查看帮助。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_b5a33841155af6b7",
+    "file": "src/brogue/RogueMain.c",
+    "source": "The doors to the dungeon slam shut behind you.",
+    "zh_CN": "地牢的大门在你身后轰然关闭。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_b1a0b6c493fff2c7",
+    "file": "src/brogue/RogueMain.c",
+    "source": "(The player quit at this point.)",
+    "zh_CN": "（玩家在此处放弃了本局。）",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_fa436685d7684bde",
+    "file": "src/brogue/RogueMain.c",
+    "source": "You die...",
+    "zh_CN": "你死了……",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_81fbbb1d400e3d84",
+    "file": "src/brogue/RogueMain.c",
+    "source": " (press 'i' to view your inventory)",
+    "zh_CN": " （可按 X 查看背包）",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_4b881427b82661eb",
+    "file": "src/brogue/RogueMain.c",
+    "source": " -- Press space or click to continue, or press 'i' to view inventory -- ",
+    "zh_CN": " 按 A 继续，按 X 查看背包 ",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_47c6fa1bdf35898c",
+    "file": "src/brogue/RogueMain.c",
+    "source": "...but then you get better.",
+    "zh_CN": "……但你又复活了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_d0e5546d6163964f",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Alas, all hope of salvation is lost. You shed scalding tears at your plight.",
+    "zh_CN": "获救的希望已然破灭，你为自己的处境流下热泪。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_c121dde7125514e3",
+    "file": "src/brogue/RogueMain.c",
+    "source": "A dark presence surrounds you, whispering promises of stolen power.",
+    "zh_CN": "黑暗笼罩了你，低声许诺着禁忌的力量。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_7e2dcc261fa1d7d2",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Succumb to demonic temptation (i.e. enable Easy Mode)?",
+    "zh_CN": "接受恶魔的诱惑，开启简单模式？此选择不可撤销。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_46a76752a3008774",
+    "file": "src/brogue/RogueMain.c",
+    "source": "An ancient and terrible evil burrows into your willing flesh!",
+    "zh_CN": "古老而可怕的邪恶钻入了你的躯体！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_d7b81a6a0226c1a6",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Wracked by spasms, your body contorts into an ALL-POWERFUL AMPERSAND!!!",
+    "zh_CN": "你的身体剧烈扭曲，化作强大无比的恶魔符号 &！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_1c37595a0d176ab3",
+    "file": "src/brogue/RogueMain.c",
+    "source": "You have a feeling that you will take 20% as much damage from now on.",
+    "zh_CN": "从现在起，你只会承受通常伤害的 20%。",
+    "expected_count": 1,
+    "status": "prototype",
+    "format": "plain-message"
+  },
+  {
+    "id": "c_92a62ad3a4bf4fe9",
+    "file": "src/brogue/RogueMain.c",
+    "source": "But great power comes at a great price -- specifically, a 90% income tax rate.",
+    "zh_CN": "力量也有代价：最终得分将扣除 90%。",
+    "expected_count": 1,
+    "status": "prototype",
+    "format": "plain-message"
+  },
+  {
+    "id": "c_37d2c535bfbab6de",
+    "file": "src/brogue/RogueMain.c",
+    "source": "The evil dissipates, hissing, from the air around you.",
+    "zh_CN": "邪恶嘶嘶作响，消散在你周围的空气中。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_d420a716e17e35f2",
+    "file": "src/brogue/Time.c",
+    "source": "a pressure plate clicks!",
+    "zh_CN": "压力板咔嗒一声响！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_5ab3b22538beb30f",
+    "file": "src/brogue/Time.c",
+    "source": "Your armor trembles and a pocket of clean air swirls around you.",
+    "zh_CN": "护甲微微颤动，清新的空气环绕着你。",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "c_6c22579730f4708e",
+    "file": "src/brogue/Time.c",
+    "source": "you feel much better.",
+    "zh_CN": "你感觉好多了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_7b9c8f5f2b00e8c5",
+    "file": "src/brogue/Time.c",
+    "source": "you are starving to death!",
+    "zh_CN": "你快要饿死了！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_89da040d99f8720e",
+    "file": "src/brogue/Time.c",
+    "source": "You plunge downward!",
+    "zh_CN": "你向下坠落！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_9eb551575f7152a3",
+    "file": "src/brogue/Time.c",
+    "source": "You fall into deep water, unharmed.",
+    "zh_CN": "你落入深水，没有受伤。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_75e864a6a76e08a7",
+    "file": "src/brogue/Time.c",
+    "source": "You are injured by the fall.",
+    "zh_CN": "你摔伤了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_ac6c6764cad8338e",
+    "file": "src/brogue/Time.c",
+    "source": "A strange force seizes you as you fall.",
+    "zh_CN": "坠落时，一股奇异的力量抓住了你。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_aa445a7e9e9e915d",
+    "file": "src/brogue/Time.c",
+    "source": "you are no longer on fire.",
+    "zh_CN": "你身上的火熄灭了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_586d0917caf7b099",
+    "file": "src/brogue/Time.c",
+    "source": "your preternatural mental sensitivity fades.",
+    "zh_CN": "你的心灵感应消退了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_fa917c332c6527d3",
+    "file": "src/brogue/Time.c",
+    "source": "the cloak of darkness lifts from your vision.",
+    "zh_CN": "遮蔽视野的黑暗消散了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_5e501698416d0726",
+    "file": "src/brogue/Time.c",
+    "source": "your hallucinations fade.",
+    "zh_CN": "你的幻觉消退了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_0e10e993d20a8cf4",
+    "file": "src/brogue/Time.c",
+    "source": "you are no longer levitating.",
+    "zh_CN": "你不再悬浮了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_a98a4e6e7132d938",
+    "file": "src/brogue/Time.c",
+    "source": "you no longer feel confused.",
+    "zh_CN": "你不再混乱了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_6d2a8490b7dcd9ff",
+    "file": "src/brogue/Time.c",
+    "source": "you feel less nauseous.",
+    "zh_CN": "你的恶心感减轻了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_d687fa991b7d09bd",
+    "file": "src/brogue/Time.c",
+    "source": "you can move again.",
+    "zh_CN": "你又能移动了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_3e6d29631b23dfbe",
+    "file": "src/brogue/Time.c",
+    "source": "your supernatural speed fades.",
+    "zh_CN": "你的超自然速度消退了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_13d63cd122abea04",
+    "file": "src/brogue/Time.c",
+    "source": "your normal speed resumes.",
+    "zh_CN": "你的速度恢复正常。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_c5f5e75bff3320c0",
+    "file": "src/brogue/Time.c",
+    "source": "strength returns to your muscles as the weakening toxin wears off.",
+    "zh_CN": "虚弱的毒素逐渐消退，力量回到了你的肌肉中。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_a9cf257fcbbffb25",
+    "file": "src/brogue/Time.c",
+    "source": "you no longer feel immune to fire.",
+    "zh_CN": "你不再免疫火焰了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_2d09b33e46e097ab",
+    "file": "src/brogue/Time.c",
+    "source": "you are no longer invisible.",
+    "zh_CN": "你不再隐形了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_6aaa674f5caa0060",
+    "file": "src/brogue/Time.c",
+    "source": "you finish your detailed search of the area.",
+    "zh_CN": "你完成了对周围区域的仔细搜索。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_f7bfdda67db4fd70",
+    "file": "src/brogue/Time.c",
+    "source": "better head back to solid ground!",
+    "zh_CN": "最好尽快返回坚实的地面！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_71bd5ed057b37c85",
+    "file": "src/brogue/Time.c",
+    "source": "you're past the point of no return!",
+    "zh_CN": "你已经来不及返回了！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_e8b9da13b1515ea0",
+    "file": "src/brogue/Movement.c",
+    "source": "that would be certain death!",
+    "zh_CN": "这样做必死无疑！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_26ee082c86543033",
+    "file": "src/brogue/Movement.c",
+    "source": "you struggle but cannot free yourself.",
+    "zh_CN": "你奋力挣扎，却无法脱身。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_ff77f7c05ef5979e",
+    "file": "src/brogue/Movement.c",
+    "source": "you break free!",
+    "zh_CN": "你挣脱了束缚！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_557937a79f93895e",
+    "file": "src/brogue/Movement.c",
+    "source": "You have not explored that location.",
+    "zh_CN": "你尚未探索那个位置。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_376c89c68346c77b",
+    "file": "src/brogue/Movement.c",
+    "source": "Travel this route? (y/n)",
+    "zh_CN": "沿这条路线前进？",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_6409898957f4259e",
+    "file": "src/brogue/Movement.c",
+    "source": "No path is available.",
+    "zh_CN": "没有可用的路径。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_e55621c8a4b928b7",
+    "file": "src/brogue/Movement.c",
+    "source": "Not while you're confused.",
+    "zh_CN": "混乱时无法这样做。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_f0386a120e4eb6be",
+    "file": "src/brogue/Movement.c",
+    "source": "Not while you're trapped.",
+    "zh_CN": "被困住时无法这样做。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_3d5c9e803f8b9ad6",
+    "file": "src/brogue/Movement.c",
+    "source": "you are already there.",
+    "zh_CN": "你已经在那里了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_3bff54c36d8b5809",
+    "file": "src/brogue/Movement.c",
+    "source": "You descend.",
+    "zh_CN": "你下楼了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_595d69133664122d",
+    "file": "src/brogue/Movement.c",
+    "source": "the crystal archway repels you with a mysterious force!",
+    "zh_CN": "水晶拱门以神秘的力量将你弹开！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_40c1db542776876c",
+    "file": "src/brogue/Movement.c",
+    "source": "(Only the bearer of the Amulet of Yendor may pass.)",
+    "zh_CN": "（只有持有延多护身符的人才能通过。）",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "c_6aa3a7211c735689",
+    "file": "src/brogue/Movement.c",
+    "source": "You ascend.",
+    "zh_CN": "你上楼了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_245b600d4905b566",
+    "file": "src/brogue/Movement.c",
+    "source": "The dungeon exit is magically sealed!",
+    "zh_CN": "地牢出口被魔法封住了！",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_236688b64d84aff8",
+    "file": "src/brogue/Wizard.c",
+    "source": "Create %s where? Choose a visible wall.",
+    "zh_CN": "将%s生成在哪里？请选择可见的墙壁。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_b8604cfa1a2d32a2",
+    "file": "src/brogue/Wizard.c",
+    "source": "Create %s where? Choose a visible unobstructed location.",
+    "zh_CN": "将%s生成在哪里？请选择可见且无障碍的位置。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_8736395e866089d4",
+    "file": "src/brogue/Wizard.c",
+    "source": "Make the %s your ally?",
+    "zh_CN": "要让%s成为你的盟友吗？",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_af1f53bf12025a55",
+    "file": "src/brogue/Wizard.c",
+    "source": "Allied %s created.",
+    "zh_CN": "已生成盟友：%s。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_67a239ec457b4194",
+    "file": "src/brogue/Wizard.c",
+    "source": "%s created.",
+    "zh_CN": "已生成：%s。",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "c_7b52fee69b6c0b25",
+    "file": "src/brogue/Wizard.c",
+    "source": "Invalid location. %s",
+    "zh_CN": "无效的位置。%s",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_c679fc5bc8b1306e",
+    "file": "src/brogue/Wizard.c",
+    "source": "-- Press space or click to continue --",
+    "zh_CN": "按 A/B 继续",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_8707c1d8659250c6",
+    "file": "src/brogue/Wizard.c",
+    "source": "-- Touch anywhere to continue --",
+    "zh_CN": "按 B 继续",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_cb83b8e3e3269a5e",
+    "file": "src/brogue/Wizard.c",
+    "source": "Your pack is already full.",
+    "zh_CN": "你的背包已经满了。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_b7b2bbe10ea9a4a6",
+    "file": "src/brogue/Wizard.c",
+    "source": "you now have %s (%c).",
+    "zh_CN": "你现在拥有%s（%c）。",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_ef1fecfc54d7f28c",
+    "file": "src/brogue/Wizard.c",
+    "source": "you found %i pieces of gold.%s",
+    "zh_CN": "你获得了 %i 枚金币。%s",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "c_d2d3615fbf2ff4e5",
+    "file": "src/brogue/Wizard.c",
+    "source": ".. and strike a tone of disappointment.",
+    "zh_CN": "……却不禁叹了口气。",
+    "expected_count": 1,
+    "status": "prototype"
+  }
+]

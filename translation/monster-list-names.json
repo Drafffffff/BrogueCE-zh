@@ -1,0 +1,530 @@
+[
+  {
+    "id": "s_bb0347a468d97e98",
+    "file": "src/brogue/Globals.c",
+    "source": "you",
+    "zh_CN": "你",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9950cec246ece55e",
+    "file": "src/brogue/Globals.c",
+    "source": "rat",
+    "zh_CN": "老鼠",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dd6288bff15542e9",
+    "file": "src/brogue/Globals.c",
+    "source": "kobold",
+    "zh_CN": "狗头人",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1b99395b2df86d02",
+    "file": "src/brogue/Globals.c",
+    "source": "jackal",
+    "zh_CN": "豺狼",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_70ac661021730b2b",
+    "file": "src/brogue/Globals.c",
+    "source": "eel",
+    "zh_CN": "鳗鱼",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_000c285457fc971f",
+    "file": "src/brogue/Globals.c",
+    "source": "monkey",
+    "zh_CN": "猴子",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_59d5891e1272d3c1",
+    "file": "src/brogue/Globals.c",
+    "source": "bloat",
+    "zh_CN": "浮囊怪",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_738bd5e319b86251",
+    "file": "src/brogue/Globals.c",
+    "source": "pit bloat",
+    "zh_CN": "深坑浮囊怪",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_22e375e0b2c4fa2e",
+    "file": "src/brogue/Globals.c",
+    "source": "goblin conjurer",
+    "zh_CN": "哥布林召唤师",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_50f4409168c49bd3",
+    "file": "src/brogue/Globals.c",
+    "source": "goblin mystic",
+    "zh_CN": "哥布林秘术师",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0490a78bdffd65e4",
+    "file": "src/brogue/Globals.c",
+    "source": "goblin totem",
+    "zh_CN": "哥布林图腾",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_318569bc13a82b0d",
+    "file": "src/brogue/Globals.c",
+    "source": "pink jelly",
+    "zh_CN": "粉红果冻",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1b34942add2c85bb",
+    "file": "src/brogue/Globals.c",
+    "source": "toad",
+    "zh_CN": "蟾蜍",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4b426cffcefa5cc9",
+    "file": "src/brogue/Globals.c",
+    "source": "vampire bat",
+    "zh_CN": "吸血蝙蝠",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_45a7596e0b9eef5b",
+    "file": "src/brogue/Globals.c",
+    "source": "arrow turret",
+    "zh_CN": "箭矢炮台",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c5076c4c50baaa4d",
+    "file": "src/brogue/Globals.c",
+    "source": "acid mound",
+    "zh_CN": "酸液丘怪",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_61988f2da9e1f232",
+    "file": "src/brogue/Globals.c",
+    "source": "centipede",
+    "zh_CN": "蜈蚣",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_00b1431b8999a56b",
+    "file": "src/brogue/Globals.c",
+    "source": "bog monster",
+    "zh_CN": "沼泽怪",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_eb3a018ca655ef60",
+    "file": "src/brogue/Globals.c",
+    "source": "ogre totem",
+    "zh_CN": "食人魔图腾",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9bfa0b50a90e6699",
+    "file": "src/brogue/Globals.c",
+    "source": "spider",
+    "zh_CN": "蜘蛛",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6a71cdc4bce05119",
+    "file": "src/brogue/Globals.c",
+    "source": "spark turret",
+    "zh_CN": "电火花炮台",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_687f2181e010409a",
+    "file": "src/brogue/Globals.c",
+    "source": "wisp",
+    "zh_CN": "鬼火",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_28ca48ae89e86fd2",
+    "file": "src/brogue/Globals.c",
+    "source": "wraith",
+    "zh_CN": "怨灵",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_49460b7bbbd3aad3",
+    "file": "src/brogue/Globals.c",
+    "source": "zombie",
+    "zh_CN": "僵尸",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cf1e6f64cd6f35bb",
+    "file": "src/brogue/Globals.c",
+    "source": "ogre shaman",
+    "zh_CN": "食人魔萨满",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_55235d10c95c19c7",
+    "file": "src/brogue/Globals.c",
+    "source": "naga",
+    "zh_CN": "娜迦",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_aff7dfbe4614e06f",
+    "file": "src/brogue/Globals.c",
+    "source": "salamander",
+    "zh_CN": "火蜥蜴",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3cb589d8b72bc2eb",
+    "file": "src/brogue/Globals.c",
+    "source": "explosive bloat",
+    "zh_CN": "爆炸浮囊怪",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_237f054c2842f887",
+    "file": "src/brogue/Globals.c",
+    "source": "dar blademaster",
+    "zh_CN": "达尔剑圣",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a38a07bf13786ebc",
+    "file": "src/brogue/Globals.c",
+    "source": "dar priestess",
+    "zh_CN": "达尔女祭司",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4f4e0b71ce3421da",
+    "file": "src/brogue/Globals.c",
+    "source": "dar battlemage",
+    "zh_CN": "达尔战斗法师",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4b5899a5ba0e0222",
+    "file": "src/brogue/Globals.c",
+    "source": "acidic jelly",
+    "zh_CN": "酸性果冻",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d7b45c44f4e11b8e",
+    "file": "src/brogue/Globals.c",
+    "source": "centaur",
+    "zh_CN": "半人马",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cb49d862449d59bb",
+    "file": "src/brogue/Globals.c",
+    "source": "underworm",
+    "zh_CN": "地底巨虫",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2b7847b7b705781d",
+    "file": "src/brogue/Globals.c",
+    "source": "sentinel",
+    "zh_CN": "哨兵",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_20bb0a20f8b17689",
+    "file": "src/brogue/Globals.c",
+    "source": "dart turret",
+    "zh_CN": "飞镖炮台",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_686d22d695e2c211",
+    "file": "src/brogue/Globals.c",
+    "source": "kraken",
+    "zh_CN": "克拉肯",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6ddf28f040f22b18",
+    "file": "src/brogue/Globals.c",
+    "source": "lich",
+    "zh_CN": "巫妖",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f4165bb9c853987b",
+    "file": "src/brogue/Globals.c",
+    "source": "phylactery",
+    "zh_CN": "命匣",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9f73cd7c814a8bd4",
+    "file": "src/brogue/Globals.c",
+    "source": "pixie",
+    "zh_CN": "小精灵",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3bb68de60f561566",
+    "file": "src/brogue/Globals.c",
+    "source": "phantom",
+    "zh_CN": "幻影",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_db788973682ffefa",
+    "file": "src/brogue/Globals.c",
+    "source": "flame turret",
+    "zh_CN": "火焰炮台",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9bd65b64aa13ed0a",
+    "file": "src/brogue/Globals.c",
+    "source": "imp",
+    "zh_CN": "小恶魔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f44a052a0ececd80",
+    "file": "src/brogue/Globals.c",
+    "source": "fury",
+    "zh_CN": "复仇女妖",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_baf1f24970f312d4",
+    "file": "src/brogue/Globals.c",
+    "source": "revenant",
+    "zh_CN": "还魂者",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c76d4ca4c160d467",
+    "file": "src/brogue/Globals.c",
+    "source": "tentacle horror",
+    "zh_CN": "触手恐魔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4c5cddb7859b93ee",
+    "file": "src/brogue/Globals.c",
+    "source": "golem",
+    "zh_CN": "魔像",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d0d801a0a8ec6051",
+    "file": "src/brogue/Globals.c",
+    "source": "goblin warlord",
+    "zh_CN": "哥布林军阀",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_94c41436f0383135",
+    "file": "src/brogue/Globals.c",
+    "source": "vampire",
+    "zh_CN": "吸血鬼",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_19cdb159bc578b84",
+    "file": "src/brogue/Globals.c",
+    "source": "flamedancer",
+    "zh_CN": "火焰舞者",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_081a4287d1e1ff28",
+    "file": "src/brogue/Globals.c",
+    "source": "spectral blade",
+    "zh_CN": "幽灵刀刃",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9508b708979ff7d2",
+    "file": "src/brogue/Globals.c",
+    "source": "spectral sword",
+    "zh_CN": "幽灵长剑",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8b041f93fa08554e",
+    "file": "src/brogue/Globals.c",
+    "source": "stone guardian",
+    "zh_CN": "石守卫",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_da13f5a9d83aa65a",
+    "file": "src/brogue/Globals.c",
+    "source": "winged guardian",
+    "zh_CN": "翼守卫",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d578f5e559417b11",
+    "file": "src/brogue/Globals.c",
+    "source": "guardian spirit",
+    "zh_CN": "守护灵",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1245195ec9433579",
+    "file": "src/brogue/Globals.c",
+    "source": "Warden of Yendor",
+    "zh_CN": "延多守望者",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_db929069c57e02cb",
+    "file": "src/brogue/Globals.c",
+    "source": "eldritch totem",
+    "zh_CN": "诡秘图腾",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bf85f7bf3efef005",
+    "file": "src/brogue/Globals.c",
+    "source": "mirrored totem",
+    "zh_CN": "镜像图腾",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c6cb50e7eea0df1f",
+    "file": "src/brogue/Globals.c",
+    "source": "unicorn",
+    "zh_CN": "独角兽",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c3f89091842182ca",
+    "file": "src/brogue/Globals.c",
+    "source": "ifrit",
+    "zh_CN": "伊弗利特",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_03a8f0dd8edb3378",
+    "file": "src/brogue/Globals.c",
+    "source": "phoenix",
+    "zh_CN": "凤凰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_10c065914a4c3004",
+    "file": "src/brogue/Globals.c",
+    "source": "phoenix egg",
+    "zh_CN": "凤凰蛋",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f22232e4d2a45400",
+    "file": "src/brogue/Globals.c",
+    "source": "mangrove dryad",
+    "zh_CN": "红树林树精",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e3ee915a8e8c7aa0",
+    "file": "src/brogue/Items.c",
+    "source": " and ",
+    "zh_CN": "和",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e1a3e78cb5c88586",
+    "file": "src/brogue/Items.c",
+    "source": " or ",
+    "zh_CN": "或",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0a07f659461970d8",
+    "file": "src/brogue/Items.c",
+    "source": ", ",
+    "zh_CN": "、",
+    "mode": "lookup",
+    "status": "prototype"
+  }
+]

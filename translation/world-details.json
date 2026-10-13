@@ -1,0 +1,465 @@
+[
+  {
+    "id": "desktop_dd676f78f7bbb185",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     A wand of domination will have no effect on objects like %s.",
+    "zh_CN": "\n     支配魔杖对%s这类物体无效。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_40896fcaea1ba9a9",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     A wand of domination will not affect %s.",
+    "zh_CN": "\n     支配魔杖对%s无效。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_6f6136fe5cba6b39",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     A wand of domination will fail at %s current health level.",
+    "zh_CN": "\n     以%s当前的生命值，支配魔杖必定失败。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_b0d30235cadd9904",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     A wand of domination will always succeed at %s current health level.",
+    "zh_CN": "\n     以%s当前的生命值，支配魔杖必定成功。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_7590e4e221d2f815",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     A wand of domination will have a %i%% chance of success at %s current health level.",
+    "zh_CN": "\n     支配魔杖有%i%%的成功率，取决于%s当前的生命值。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_9d423a5d917ea798",
+    "file": "src/brogue/Monsters.c",
+    "source": "has a rare mutation",
+    "zh_CN": "具有罕见变异",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_4b2f40b1cef29f24",
+    "file": "src/brogue/Monsters.c",
+    "source": "&attacks quickly",
+    "zh_CN": "&攻击迅速",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_3c488d66b8148115",
+    "file": "src/brogue/Monsters.c",
+    "source": "&attacks slowly",
+    "zh_CN": "&攻击缓慢",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_81d42b4eee01ac36",
+    "file": "src/brogue/Monsters.c",
+    "source": "&moves quickly",
+    "zh_CN": "&移动迅速",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_4e920bddf22c36c7",
+    "file": "src/brogue/Monsters.c",
+    "source": "&moves slowly",
+    "zh_CN": "&移动缓慢",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_467bfeae1c453368",
+    "file": "src/brogue/Monsters.c",
+    "source": "&does not regenerate",
+    "zh_CN": "&不会恢复生命",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_9b5f641050fb7145",
+    "file": "src/brogue/Monsters.c",
+    "source": "&regenerates quickly",
+    "zh_CN": "&生命恢复迅速",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_05f7b31bfb3a16b7",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Your %s (%c) will not harm %s.",
+    "zh_CN": "\n     你的%s（%c）无法伤害%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_a352a0afdca7f44f",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Your %s (%c) will %s %s in one hit.",
+    "zh_CN": "\n     你的%s（%c）一击就能%s%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_6f61ec5c7a0ab645",
+    "file": "src/brogue/Monsters.c",
+    "source": "destroy",
+    "zh_CN": "摧毁",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_2bda9b4dfbabfdb1",
+    "file": "src/brogue/Monsters.c",
+    "source": "kill",
+    "zh_CN": "杀死",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_dc738f83beffa264",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Your %s (%c) will hit %s for between %i%% and %i%% of $HISHER current health.",
+    "zh_CN": "\n     你的%s（%c）对%s造成的伤害为$HISHER当前生命值的%i%%至%i%%。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_0a0c565202cb14e0",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Your %s (%c) will not affect %s.",
+    "zh_CN": "\n     你的%s（%c）对%s无效。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_4aeaeea5ade5cc29",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Your %s (%c) will poison %s for %i%% of $HISHER current health.",
+    "zh_CN": "\n     你的%s（%c）能使%s中毒，毒伤相当于$HISHER当前生命值的%i%%。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_f38cd67f14accfca",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s is trapped %s %s.\n     ",
+    "zh_CN": "%s被困住了（%s%s）。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_88a4d0571a16f6c8",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s is your ally.\n     ",
+    "zh_CN": "%s是你的盟友。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_9ab43bdc31328324",
+    "file": "src/brogue/Monsters.c",
+    "source": "$HESHE seems ready to learn something new.\n     ",
+    "zh_CN": "$HESHE似乎已准备好学习新的本领。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_aeadf8d0e6899719",
+    "file": "src/brogue/Monsters.c",
+    "source": "$HESHE seems ready to learn %i new talents.\n     ",
+    "zh_CN": "$HESHE似乎已准备好学习%i项新本领。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_d4f2d6666ae42a79",
+    "file": "src/brogue/Monsters.c",
+    "source": "     %s writhes helplessly on dry land.\n     ",
+    "zh_CN": "     %s在干燥的地面上无助地挣扎。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_3f00cb0cba03980c",
+    "file": "src/brogue/Monsters.c",
+    "source": "Your %s renders you immune to %s.\n     ",
+    "zh_CN": "你的%s能使你免受%s的攻击。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_63b0d8d3615ed330",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s deals no direct damage.\n     ",
+    "zh_CN": "%s不会造成直接伤害。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_bc1f78aec74f75e6",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s has a %i%% chance to poison you and typically poisons for %i turns.\n     ",
+    "zh_CN": "%s有%i%%的概率使你中毒，通常持续%i回合。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_e34527ea6510fed6",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s has a %i%% chance to poison you, typically poisons for %i turns, and at worst, could fatally poison you in %i hit%s.\n     ",
+    "zh_CN": "%s有%i%%的概率使你中毒，通常持续%i回合；最坏情况下，命中%i次%s即可使你身中致命剧毒。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_9d6605b263815284",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s has a %i%% chance to hit you, typically hits for %i%% of your current health, and at worst, could defeat you in %i hit%s.\n     ",
+    "zh_CN": "%s有%i%%的概率命中你，通常造成你当前生命值%i%%的伤害；最坏情况下，命中%i次%s即可击败你。\n     ",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_c8a5d54c4ca3fe20",
+    "file": "src/brogue/Monsters.c",
+    "source": "You deal no direct damage.",
+    "zh_CN": "你不会造成直接伤害。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_aba12069a4153f34",
+    "file": "src/brogue/Monsters.c",
+    "source": "Your %s will slay %s in one stroke.",
+    "zh_CN": "你的%s一击就能杀死%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_c90d0f19b7ce457c",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s is immune to your attacks.",
+    "zh_CN": "%s不受你的攻击伤害。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_043b3fe3f55a3944",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s is being held captive.",
+    "zh_CN": "%s被囚禁了。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_3f845c11b7e39bbf",
+    "file": "src/brogue/Monsters.c",
+    "source": "You have a %i%% chance to hit %s, typically hit for %i%% of $HISHER current health, and at best, could defeat $HIMHER in %i hit%s.",
+    "zh_CN": "你有%i%%的概率命中%s，通常造成$HISHER当前生命值%i%%的伤害；最好情况下，命中%i次%s即可击败$HIMHER。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_37ef1c09d8dea0be",
+    "file": "src/brogue/Monsters.c",
+    "source": "negation charm",
+    "zh_CN": "消魔护符",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_42b4dd43e28d9607",
+    "file": "src/brogue/Monsters.c",
+    "source": "&scroll of negation",
+    "zh_CN": "&消魔卷轴",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_87d026e5e45af41a",
+    "file": "src/brogue/Monsters.c",
+    "source": "&wand of negation",
+    "zh_CN": "&消魔魔杖",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_70caa6e0af151002",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Your %s will %s %s.",
+    "zh_CN": "\n     你的%s能%s%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_d7ba48c0e1360daa",
+    "file": "src/brogue/Monsters.c",
+    "source": "shattering charm",
+    "zh_CN": "碎裂护符",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_3c6681fbb6e644d7",
+    "file": "src/brogue/Monsters.c",
+    "source": "&scroll of shattering",
+    "zh_CN": "&碎裂卷轴",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_40bb0160c2b696bb",
+    "file": "src/brogue/Monsters.c",
+    "source": "&staff of tunneling",
+    "zh_CN": "&掘地法杖",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_4d5b445c605b0ac5",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Your %s will destroy %s.",
+    "zh_CN": "\n     你的%s能摧毁%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_e722966b0fec4c1b",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     Bolts from your %s%s%s%s%s that hit %s will be reflected directly back at you.",
+    "zh_CN": "\n     你的%s%s%s%s%s发射的魔法若击中%s，会直接反射回来。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_c527ec9576e88b82",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s has %s.",
+    "zh_CN": "%s携带着%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_b9a9a6e657c40d1f",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s is stripped of $HISHER special traits.",
+    "zh_CN": "%s已失去$HISHER特殊能力。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_85ea965af3f03cdc",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     %s %s.",
+    "zh_CN": "\n     %s：%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_2a6a2a36eb0ac0a4",
+    "file": "src/brogue/Monsters.c",
+    "source": "\n     %s%s has special traits that can be removed by a ",
+    "zh_CN": "\n     %s%s具有可被消除的特殊能力，使用",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_db3b1fffc4825c4c",
+    "file": "src/brogue/Monsters.c",
+    "source": " also",
+    "zh_CN": "还",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_6683f3d3b0a62630",
+    "file": "src/brogue/Monsters.c",
+    "source": ": it ",
+    "zh_CN": "即可消除：",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_c7a390a035298985",
+    "file": "src/brogue/Items.c",
+    "source": "New letter? (a-z)",
+    "zh_CN": "新字母？（a–z）",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_7b025ef50a01868c",
+    "file": "src/brogue/Items.c",
+    "source": "the flask shatters and %s liquid splashes harmlessly %s %s.",
+    "zh_CN": "药瓶碎裂，%s液体%s%s，没有产生任何效果。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_f7ea69b6604fa8c9",
+    "file": "src/brogue/Items.c",
+    "source": "the flask shatters and a deadly purple cloud billows out!",
+    "zh_CN": "药瓶碎裂，致命的紫色毒雾喷涌而出！",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_38fcc88855112993",
+    "file": "src/brogue/Items.c",
+    "source": "the flask shatters and a multi-hued cloud billows out!",
+    "zh_CN": "药瓶碎裂，五彩斑斓的雾气喷涌而出！",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_152659f67497a5a7",
+    "file": "src/brogue/Items.c",
+    "source": "the flask shatters and a cloud of pink gas billows out!",
+    "zh_CN": "药瓶碎裂，粉红色气体喷涌而出！",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_c2685826869f81e4",
+    "file": "src/brogue/Items.c",
+    "source": "the flask shatters and its contents burst violently into flame!",
+    "zh_CN": "药瓶碎裂，瓶中药液猛烈燃烧起来！",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_5feed16eae5f2cc3",
+    "file": "src/brogue/Items.c",
+    "source": "the flask shatters and the lights in the area start fading.",
+    "zh_CN": "药瓶碎裂，周围的光线开始黯淡。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_1e9bb32a11248df4",
+    "file": "src/brogue/Items.c",
+    "source": "as the flask shatters, the ground vanishes!",
+    "zh_CN": "药瓶碎裂，地面随之消失！",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_94475a2e293c4dc5",
+    "file": "src/brogue/Items.c",
+    "source": "the flask shatters and deadly spores spill out!",
+    "zh_CN": "药瓶碎裂，致命的孢子洒落出来！",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_1da02160c0c10b24",
+    "file": "src/brogue/Items.c",
+    "source": "%s hurls %s.",
+    "zh_CN": "%s掷出%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_098b6a46dd2ce4a6",
+    "file": "src/brogue/Items.c",
+    "source": "you can't apply %s.",
+    "zh_CN": "无法使用%s。",
+    "mode": "literal",
+    "expected_count": 1
+  },
+  {
+    "id": "desktop_d6d0d13b578bb1ac",
+    "file": "src/brogue/Items.c",
+    "source": "the %s %s %s.",
+    "zh_CN": "%s%s%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_20d595d3bdf8c82d",
+    "file": "src/brogue/Items.c",
+    "source": "the %s hit %s.",
+    "zh_CN": "%s命中了%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_6ebeb78aa5b5898d",
+    "file": "src/brogue/Items.c",
+    "source": "the %s missed %s.",
+    "zh_CN": "%s没有命中%s。",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_3d17cce326fe58f6",
+    "file": "src/brogue/Items.c",
+    "source": "(It must %s %s.)",
+    "zh_CN": "（原来是%.0s%s。）",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_0caf671c694d3ca9",
+    "file": "src/brogue/Items.c",
+    "source": "(Your %s must be %s.)",
+    "zh_CN": "（你的%s原来是%s。）",
+    "mode": "lookup"
+  },
+  {
+    "id": "desktop_killed_projectile",
+    "file": "src/brogue/Items.c",
+    "source": "killed",
+    "zh_CN": "杀死了",
+    "mode": "lookup"
+  }
+]

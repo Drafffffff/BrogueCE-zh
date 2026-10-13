@@ -1,0 +1,263 @@
+[
+  {
+    "id": "s_ab79bb86435179c5",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nThis ring provides magical sight with a radius of %i. (If the ring is enchanted, this will increase to %i.)",
+    "zh_CN": "\n\n这枚戒指提供半径为 %i 的魔法视野。（强化后，半径将增至 %i。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f706e3975f4239a2",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nThis ring magically blinds you to a radius of %i. (If the ring is enchanted, this will decrease to %i.)",
+    "zh_CN": "\n\n这枚戒指会以魔法遮蔽你周围半径 %i 内的视野。（强化后，半径将减至 %i。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_aee64f28d8abca5f",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWith this ring equipped, you will regenerate all of your health in %li turns (instead of %li). (If the ring is enchanted, this will decrease to %li turns.)",
+    "zh_CN": "\n\n佩戴这枚戒指时，你恢复全部生命需要 %li 回合，原本需要 %li 回合。（强化后，将缩短至 %li 回合。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_645c5a42c392ed07",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nDealing direct damage to a creature (whether in melee or otherwise) will %s you by %i%% of the damage dealt. (If the ring is enchanted, this will %s to %i%%.)",
+    "zh_CN": "\n\n对生物造成直接伤害（近战或其他方式）时，你会%s，数值为所造成伤害的 %i%%。（强化后，这一比例将%s至 %i%%。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_599f8341fe3e0fd2",
+    "file": "src/brogue/Items.c",
+    "source": "heal",
+    "zh_CN": "恢复生命",
+    "mode": "lookup",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_af3ce03f6874c531",
+    "file": "src/brogue/Items.c",
+    "source": "harm",
+    "zh_CN": "损失生命",
+    "mode": "lookup",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e20a548f23fa36bc",
+    "file": "src/brogue/Items.c",
+    "source": "increase",
+    "zh_CN": "增加",
+    "mode": "lookup",
+    "expected_count": 5,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b2dc971f4895ca1f",
+    "file": "src/brogue/Items.c",
+    "source": "decrease",
+    "zh_CN": "降低",
+    "mode": "lookup",
+    "expected_count": 5,
+    "status": "prototype"
+  },
+  {
+    "id": "s_305e5cb13f0a474d",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen worn, your staffs will recharge at %i%% of their normal rate. (If the ring is enchanted, the rate will increase to %i%% of the normal rate.)",
+    "zh_CN": "\n\n佩戴时，法杖的充能速度为正常速度的 %i%%。（强化后，将增至正常速度的 %i%%。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b50f7c65b9649780",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nEach blow that you land with a weapon will %s your staffs and charms by 0-%i turns per point of damage dealt. (If the ring is enchanted, this will %s to 0-%i turns per point of damage.)",
+    "zh_CN": "\n\n武器每次命中时，每造成一点伤害，就会%s法杖和护符的充能进度 0–%i 回合。（强化后，将%s至每点伤害 0–%i 回合。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_fe7280cbed88608f",
+    "file": "src/brogue/Items.c",
+    "source": "recharge",
+    "zh_CN": "推进",
+    "mode": "lookup",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_510345478efc1edf",
+    "file": "src/brogue/Items.c",
+    "source": "drain",
+    "zh_CN": "消耗",
+    "mode": "lookup",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e1a8968b8edc2523",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nIt will reveal its secrets if worn for %i%s turn%s",
+    "zh_CN": "\n\n还需佩戴 %i 回合才能揭示它的秘密%.0s%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_1d87f8645678f572",
+    "file": "src/brogue/Items.c",
+    "source": ", and until then it will function, at best, as a +%i ring.",
+    "zh_CN": "，在此之前，它至多发挥 +%i 戒指的效果。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_cdb4ee2aea69cc6a",
+    "file": "src/brogue/Items.c",
+    "source": ".",
+    "zh_CN": "。",
+    "mode": "lookup",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_5a272862bdc558a3",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nThe %s is on your finger%s. ",
+    "zh_CN": "\n\n你正戴着%s%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_3944476b8cd9d09a",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will heal %i%% of your health and recharge in %i turns. (If the charm is enchanted, it will heal %i%% of your health and recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符恢复你 %i%% 的生命，并在 %i 回合后充能完毕。（强化后，恢复 %i%% 的生命，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_8749634b458dfd73",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will shield you for up to 20 turns for up to %i%% of your total health and recharge in %i turns. (If the charm is enchanted, it will shield up to %i%% of your total health and recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符提供持续至多 20 回合的护盾，最多抵挡相当于生命上限 %i%% 的伤害，并在 %i 回合后充能完毕。（强化后，最多抵挡生命上限 %i%% 的伤害，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_a10a3e078f7a477d",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will haste you for %i turns and recharge in %i turns. (If the charm is enchanted, the haste will last %i turns and it will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符使你加速 %i 回合，并在 %i 回合后充能完毕。（强化后，加速持续 %i 回合，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e2c950bad3d37262",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will grant you immunity to fire for %i turns and recharge in %i turns. (If the charm is enchanted, the immunity will last %i turns and it will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符使你免疫火焰 %i 回合，并在 %i 回合后充能完毕。（强化后，火焰免疫持续 %i 回合，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e09c19e8dd155585",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will turn you invisible for %i turns and recharge in %i turns. While invisible, monsters more than two spaces away cannot track you. (If the charm is enchanted, the invisibility will last %i turns and it will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符使你隐身 %i 回合，并在 %i 回合后充能完毕。隐身时，两格以外的怪物无法追踪你。（强化后，隐身持续 %i 回合，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_0f6896379d1ad852",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will grant you telepathy for %i turns and recharge in %i turns. (If the charm is enchanted, the telepathy will last %i turns and it will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符使你获得心灵感应，持续 %i 回合，并在 %i 回合后充能完毕。（强化后，心灵感应持续 %i 回合，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b4b8f76531484b6a",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will lift you off the ground for %i turns and recharge in %i turns. (If the charm is enchanted, the levitation will last %i turns and it will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符使你浮空 %i 回合，并在 %i 回合后充能完毕。（强化后，浮空持续 %i 回合，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_276b4ae1f3f7969a",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will dissolve the nearby walls up to %i spaces away, and recharge in %i turns. (If the charm is enchanted, it will reach up to %i spaces and recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符溶解周围 %i 格内的墙壁，并在 %i 回合后充能完毕。（强化后，范围增至 %i 格，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_53380048a750c6c9",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, a guardian will materialize for %i turns, and the charm will recharge in %i turns. (If the charm is enchanted, the guardian will last for %i turns and the charm will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，一名守护者会现身 %i 回合，护符在 %i 回合后充能完毕。（强化后，守护者持续 %i 回合，护符在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_840fb40c07410838",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will teleport you elsewhere in the dungeon and recharge in %i turns. (If the charm is enchanted, it will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符将你传送到地牢中的其他位置，并在 %i 回合后充能完毕。（强化后，将在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_040edbcaad0ef83a",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will recharge your staffs (though not your wands or charms), after which it will recharge in %i turns. (If the charm is enchanted, it will recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符为你的法杖充能（魔杖和护符除外），之后在 %i 回合后充能完毕。（强化后，将在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_d715091a94ddb198",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nWhen used, the charm will emit a wave of anti-magic up to %i spaces away, negating all magical effects on you and on creatures and dropped items in your field of view. It will recharge in %i turns. (If the charm is enchanted, it will reach up to %i spaces and recharge in %i turns.)",
+    "zh_CN": "\n\n使用时，护符向周围 %i 格发出反魔法波，消除你自身以及视野内生物和地面物品的所有魔法效果。护符在 %i 回合后充能完毕。（强化后，范围增至 %i 格，并在 %i 回合后充能完毕。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_4384be02e344d797",
+    "file": "src/brogue/Items.c",
+    "source": "This metal band is adorned with a%s %s gem that glitters in the darkness. Who knows what effect it has when worn? ",
+    "zh_CN": "这枚金属戒指上镶着一颗%.0s%s宝石，在黑暗中闪闪发光。谁知道戴上它会有什么效果呢？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  }
+]

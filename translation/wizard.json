@@ -1,0 +1,386 @@
+[
+  {
+    "id": "w_652bcc3a47842889",
+    "source": "Item",
+    "zh_CN": "物品",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_3a241d59687b801e",
+    "source": "Monster",
+    "zh_CN": "怪物",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_02184950e3edeb04",
+    "source": "Create:",
+    "zh_CN": "巫师：选择生成对象",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_b51bf0f97f197dbb",
+    "source": "Create item:",
+    "zh_CN": "巫师：选择物品类别",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_e9d2a814f46456fa",
+    "source": "Create monster:",
+    "zh_CN": "巫师：选择怪物",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_20cdcebad2e13151",
+    "source": "Choose a runic:",
+    "zh_CN": "选择符文",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_841be8c47f19070c",
+    "source": "Choose a vorpal enemy:",
+    "zh_CN": "选择克制的怪物类别",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_7a1e4a8a8691c075",
+    "source": "Choose a mutation:",
+    "zh_CN": "选择变异",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_fd2c4a7a0080970f",
+    "source": "No Runic",
+    "zh_CN": "无符文",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_b719b8939fbcb6e3",
+    "source": "No mutation",
+    "zh_CN": "无变异",
+    "file": "src/brogue/Wizard.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_c1f026582fe6e8cb",
+    "source": "food",
+    "zh_CN": "口粮",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_c68fef1abac63a83",
+    "source": "weapon",
+    "zh_CN": "武器",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_d81ea1595a045378",
+    "source": "armor",
+    "zh_CN": "护甲",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_a6e65fce470ba8e0",
+    "source": "potion",
+    "zh_CN": "药水",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_e16a9d4d1cf9ead8",
+    "source": "scroll",
+    "zh_CN": "卷轴",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_1562206543da7641",
+    "source": "staff",
+    "zh_CN": "法杖",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_04224b1d2fb40231",
+    "source": "wand",
+    "zh_CN": "魔杖",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_16b974583155fdcb",
+    "source": "ring",
+    "zh_CN": "戒指",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_b3a927cf63131517",
+    "source": "charm",
+    "zh_CN": "护符",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_24d7f03d8dc3c366",
+    "source": "gold",
+    "zh_CN": "金币",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_68fa89afe3e5a0b2",
+    "source": "amulet",
+    "zh_CN": "护身符",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_63dbf2c0ec3ee40d",
+    "source": "lumenstone",
+    "zh_CN": "光辉石",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_2c70e12b7a0646f9",
+    "source": "key",
+    "zh_CN": "钥匙",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_936a19b45a126277",
+    "source": "How many enchants (%d to %d) [default %d]?",
+    "zh_CN": "强化次数（%d 到 %d，默认 %d）：",
+    "file": "src/brogue/Wizard.c",
+    "mode": "literal",
+    "status": "prototype"
+  },
+  {
+    "id": "w_c447aab4e73c0e77",
+    "source": "Identify the item?",
+    "zh_CN": "鉴定这件物品？",
+    "file": "src/brogue/Wizard.c",
+    "mode": "literal",
+    "status": "prototype"
+  },
+  {
+    "id": "w_d52764bf6dd231fd",
+    "source": "black jelly",
+    "zh_CN": "黑色果冻",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_33a5c8e80138e5f8",
+    "source": "explosive",
+    "zh_CN": "爆炸",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_0cd2533dbb95237c",
+    "source": "infested",
+    "zh_CN": "寄生",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_052ff38befb367b0",
+    "source": "agile",
+    "zh_CN": "敏捷",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_723e3534f8e27d6e",
+    "source": "juggernaut",
+    "zh_CN": "重装",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_f262bd8068c3889a",
+    "source": "grappling",
+    "zh_CN": "擒抱",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_73a2235585548c36",
+    "source": "vampiric",
+    "zh_CN": "吸血",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_04651cd5fa4e877d",
+    "source": "toxic",
+    "zh_CN": "剧毒",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_9a0d9562322f17bf",
+    "source": "reflective",
+    "zh_CN": "反射",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_e558cdc1ef02c8d9",
+    "source": "quietus",
+    "zh_CN": "寂灭",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_aa0a6fa59aad9034",
+    "source": "multiplicity",
+    "zh_CN": "分身",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_3ed002c2d6baa9f5",
+    "source": "slowing",
+    "zh_CN": "迟缓",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_32500d7500ce0755",
+    "source": "force",
+    "zh_CN": "冲击",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_ce4d760f00dcd6cf",
+    "source": "slaying",
+    "zh_CN": "屠戮",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_4d51fd998fd3a724",
+    "source": "mercy",
+    "zh_CN": "怜悯",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_43e63f4a1c6b7e73",
+    "source": "immunity",
+    "zh_CN": "免疫",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_6b8640c750ada698",
+    "source": "absorption",
+    "zh_CN": "吸收",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_f156abb3d5b61a6d",
+    "source": "reprisal",
+    "zh_CN": "反伤",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_e8f77ab588a87537",
+    "source": "respiration",
+    "zh_CN": "呼吸",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_b360546e7dcdc80f",
+    "source": "dampening",
+    "zh_CN": "减震",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_e0cf52185d52bfdb",
+    "source": "burden",
+    "zh_CN": "负担",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_32ceacc06e8970a0",
+    "source": "vulnerability",
+    "zh_CN": "脆弱",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "w_6ae1ae75b193a3eb",
+    "source": "immolation",
+    "zh_CN": "自燃",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  }
+]

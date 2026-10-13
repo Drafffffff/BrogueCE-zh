@@ -50,9 +50,9 @@ item *floorItems;
 item *packItems;
 item *monsterItemsHopper;
 
-char displayedMessage[MESSAGE_LINES][COLS*2];
+char displayedMessage[MESSAGE_LINES][BR_MESSAGE_BYTES];
 short messagesUnconfirmed;
-char combatText[COLS * 2];
+char combatText[BR_MESSAGE_BYTES * 2];
 short messageArchivePosition;
 archivedMessage messageArchive[MESSAGE_ARCHIVE_ENTRIES];
 

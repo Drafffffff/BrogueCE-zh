@@ -21,6 +21,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -231,7 +233,7 @@ static void dialogCreateItemChooseEnchantmentLevel(item *theItem) {
         }
     }
 
-    sprintf(prompt, "How many enchants (%d to %d) [default %d]?", minVal, maxVal, defaultVal);
+    sprintf(prompt, br_tr("How many enchants (%d to %d) [default %d]?"), minVal, maxVal, defaultVal);
     getInputTextString(inputBuf, prompt, maxInputLength, "", "", TEXT_INPUT_NORMAL, true);
 
     // Validate the input
@@ -370,9 +372,9 @@ static void dialogCreateMonster() {
     initializeMonster(theMonster, false);
     
     if (theMonster->info.displayChar == G_TURRET) {
-        sprintf(theMessage, "Create %s where? Choose a visible wall.", theMonster->info.monsterName);
+        sprintf(theMessage, br_tr("Create %s where? Choose a visible wall."), theMonster->info.monsterName);
     } else {
-        sprintf(theMessage, "Create %s where? Choose a visible unobstructed location.", theMonster->info.monsterName);
+        sprintf(theMessage, br_tr("Create %s where? Choose a visible unobstructed location."), theMonster->info.monsterName);
     }
     temporaryMessage(theMessage, REFRESH_SIDEBAR);
 
@@ -391,7 +393,7 @@ static void dialogCreateMonster() {
         }
 
         if (!locationIsValid) {
-            sprintf(theMessage, "Invalid location. %s", KEYBOARD_LABELS ? "-- Press space or click to continue --" : "-- Touch anywhere to continue --");
+            sprintf(theMessage, br_tr("Invalid location. %s"), KEYBOARD_LABELS ? br_tr("-- Press space or click to continue --") : br_tr("-- Touch anywhere to continue --"));
             temporaryMessage(theMessage, REQUIRE_ACKNOWLEDGMENT);
             killCreature(theMonster, true);
             removeDeadMonsters();
@@ -416,15 +418,15 @@ static void dialogCreateMonster() {
             || theMonster->info.monsterID == MK_PHOENIX_EGG
             || theMonster->info.monsterID == MK_PHYLACTERY
                 ) {
-            sprintf(theMessage, "Make the %s your ally?", theMonster->info.monsterName);
+            sprintf(theMessage, br_tr("Make the %s your ally?"), theMonster->info.monsterName);
             if (confirm(theMessage, false)) {
                 becomeAllyWith(theMonster);
-                sprintf(theMessage, "Allied %s created.", theMonster->info.monsterName);
+                sprintf(theMessage, br_tr("Allied %s created."), theMonster->info.monsterName);
             } else {
-                sprintf(theMessage, "%s created.", theMonster->info.monsterName);
+                sprintf(theMessage, br_tr("%s created."), theMonster->info.monsterName);
             }
         } else {
-            sprintf(theMessage, "%s created.", theMonster->info.monsterName);
+            sprintf(theMessage, br_tr("%s created."), theMonster->info.monsterName);
         }
         message(theMessage, 0);
     } else {  // no location chosen
@@ -445,7 +447,7 @@ static void dialogCreateItem() {
     char theItemName[100]="";
 
     if (numberOfItemsInPack() == MAX_PACK_ITEMS) {
-        messageWithColor("Your pack is already full.", &itemMessageColor, 0);
+        messageWithColor(br_tr("Your pack is already full."), &itemMessageColor, 0);
         return;
     }
 
@@ -477,7 +479,7 @@ static void dialogCreateItem() {
 
     if (Fl(selectedCategory) == GOLD) {
         rogue.gold += theItem->quantity;
-        sprintf(message, "you found %i pieces of gold.%s", theItem->quantity, rogue.featRecord[FEAT_TONE] ? ".. and strike a tone of disappointment." : "");
+        sprintf(message, br_tr("you found %i pieces of gold.%s"), theItem->quantity, rogue.featRecord[FEAT_TONE] ? br_tr(".. and strike a tone of disappointment.") : "");
         rogue.featRecord[FEAT_TONE] = false;
         messageWithColor(message, &itemMessageColor, 0);
         deleteItem(theItem);
@@ -493,7 +495,7 @@ static void dialogCreateItem() {
     }
 
     if (theItem->flags & ITEM_CAN_BE_IDENTIFIED && !(Fl(selectedCategory) & NEVER_IDENTIFIABLE)) {
-        if (confirm("Identify the item?", false)) {
+        if (confirm(br_tr("Identify the item?"), false)) {
             identify(theItem);
         }
     }
@@ -501,7 +503,7 @@ static void dialogCreateItem() {
     theItem = addItemToPack(theItem);
     itemName(theItem, theItemName, true, true, NULL);
 
-    sprintf(message,"you now have %s (%c).", theItemName, theItem->inventoryLetter);
+    sprintf(message,br_tr("you now have %s (%c)."), theItemName, theItem->inventoryLetter);
     messageWithColor(message, &itemMessageColor, 0);
 }
 

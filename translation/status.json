@@ -1,0 +1,170 @@
+[
+  {
+    "source": "Searching",
+    "zh_CN": "搜索中",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Donning Armor",
+    "zh_CN": "穿甲中",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Weakened: -",
+    "zh_CN": "力量削弱 -",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Telepathic",
+    "zh_CN": "心灵感应",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Hallucinating",
+    "zh_CN": "幻觉",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Levitating",
+    "zh_CN": "漂浮",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Slowed",
+    "zh_CN": "减速",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Hasted",
+    "zh_CN": "加速",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Confused",
+    "zh_CN": "混乱",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Burning",
+    "zh_CN": "燃烧",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Paralyzed",
+    "zh_CN": "麻痹",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Poisoned",
+    "zh_CN": "中毒",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Stuck",
+    "zh_CN": "受困",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Nauseous",
+    "zh_CN": "恶心",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Discordant",
+    "zh_CN": "纷争",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Immune to Fire",
+    "zh_CN": "火焰免疫",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Frightened",
+    "zh_CN": "恐惧",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Entranced",
+    "zh_CN": "被控制",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Darkened",
+    "zh_CN": "视野变暗",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Lifespan",
+    "zh_CN": "剩余寿命",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Shielded",
+    "zh_CN": "护盾",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Invisible",
+    "zh_CN": "隐形",
+    "file": "src/brogue/Globals.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Fatal Poison",
+    "zh_CN": "致命中毒",
+    "file": "src/brogue/IO.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Health",
+    "zh_CN": "生命",
+    "file": "src/brogue/IO.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Nutrition",
+    "zh_CN": "饱腹",
+    "file": "src/brogue/IO.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Nutrition (Hungry)",
+    "zh_CN": "饥饿",
+    "file": "src/brogue/IO.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Nutrition (Weak)",
+    "zh_CN": "饥饿虚弱",
+    "file": "src/brogue/IO.c",
+    "status": "prototype"
+  },
+  {
+    "source": "Nutrition (Faint)",
+    "zh_CN": "即将昏厥",
+    "file": "src/brogue/IO.c",
+    "status": "prototype"
+  }
+]

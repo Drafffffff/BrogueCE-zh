@@ -22,6 +22,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -206,8 +208,8 @@ static short alliedCloneCount(creature *monst) {
 // The contiguous group is supplemented with the given (x, y) coordinates, if any;
 // this is so that jellies et al. can spawn behind the player in a hallway.
 void splitMonster(creature *monst, creature *attacker) {
-    char buf[DCOLS * 3];
-    char monstName[DCOLS];
+    char buf[BR_MESSAGE_BYTES];
+    char monstName[BR_MESSAGE_BYTES];
     char monsterGrid[DCOLS][DROWS], eligibleGrid[DCOLS][DROWS];
     creature *clone;
     pos loc = INVALID_POS;
@@ -269,7 +271,7 @@ void splitMonster(creature *monst, creature *attacker) {
                 if (eligibleGrid[i][j] && !--randIndex) {
                     // Found the spot!
 
-                    monsterName(monstName, monst, true);
+                    br_display_monster_name(monstName, monst, true);
                     monst->currentHP = (monst->currentHP + 1) / 2;
                     clone = cloneMonster(monst, false, false);
 
@@ -300,7 +302,7 @@ void splitMonster(creature *monst, creature *attacker) {
                     refreshSideBar(-1, -1, false);
 
                     if (canDirectlySeeMonster(monst)) {
-                        sprintf(buf, "%s splits in two!", monstName);
+                        sprintf(buf, br_tr("%s splits in two!"), monstName);
                         message(buf, 0);
                     }
 
@@ -382,7 +384,7 @@ static boolean playerImmuneToMonster(creature *monst) {
 static void specialHit(creature *attacker, creature *defender, short damage) {
     short itemCandidates, randItemIndex, stolenQuantity;
     item *theItem = NULL, *itemFromTopOfStack;
-    char buf[COLS], buf2[COLS], buf3[COLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES], buf3[BR_MESSAGE_BYTES];
 
     if (!(attacker->info.abilityFlags & SPECIAL_HIT)) {
         return;
@@ -403,13 +405,13 @@ static void specialHit(creature *attacker, creature *defender, short damage) {
             rogue.armor->enchant1--;
             equipItem(rogue.armor, true, NULL);
             itemName(rogue.armor, buf2, false, false, NULL);
-            sprintf(buf, "your %s weakens!", buf2);
+            sprintf(buf, br_tr("your %s weakens!"), buf2);
             messageWithColor(buf, &itemMessageColor, 0);
             checkForDisenchantment(rogue.armor);
         }
         if (attacker->info.abilityFlags & MA_HIT_HALLUCINATE) {
             if (!player.status[STATUS_HALLUCINATING]) {
-                combatMessage("you begin to hallucinate", 0);
+                combatMessage(br_tr("you begin to hallucinate"), 0);
             }
             if (!player.status[STATUS_HALLUCINATING]) {
                 player.maxStatus[STATUS_HALLUCINATING] = 0;
@@ -469,9 +471,9 @@ static void specialHit(creature *attacker, creature *defender, short damage) {
                     attacker->carriedItem = theItem;
                     attacker->creatureMode = MODE_PERM_FLEEING;
                     attacker->creatureState = MONSTER_FLEEING;
-                    monsterName(buf2, attacker, true);
+                    br_display_monster_name(buf2, attacker, true);
                     itemName(theItem, buf3, false, true, NULL);
-                    sprintf(buf, "%s stole %s!", buf2, buf3);
+                    sprintf(buf, br_tr("%s stole %s!"), buf2, buf3);
                     messageWithColor(buf, &badMessageColor, 0);
                     rogue.autoPlayingLevel = false;
                 }
@@ -497,12 +499,12 @@ static void specialHit(creature *attacker, creature *defender, short damage) {
 
 static boolean forceWeaponHit(creature *defender, item *theItem) {
     short forceDamage;
-    char buf[DCOLS*3], buf2[COLS], monstName[DCOLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
     creature *otherMonster = NULL;
     boolean knowFirstMonsterDied = false, autoID = false;
     bolt theBolt;
 
-    monsterName(monstName, defender, true);
+    br_display_monster_name(monstName, defender, true);
 
     pos oldLoc = defender->loc;
     pos newLoc = (pos){
@@ -512,8 +514,8 @@ static boolean forceWeaponHit(creature *defender, item *theItem) {
     if (canDirectlySeeMonster(defender)
         && !cellHasTerrainFlag(newLoc, T_OBSTRUCTS_PASSABILITY | T_OBSTRUCTS_VISION)
         && !(pmapAt(newLoc)->flags & (HAS_MONSTER | HAS_PLAYER))) {
-        sprintf(buf, "you launch %s backward with the force of your blow", monstName);
-        buf[DCOLS] = '\0';
+        sprintf(buf, br_tr("you launch %s backward with the force of your blow"), monstName);
+        buf[BR_MESSAGE_BYTES-1] = '\0';
         combatMessage(buf, messageColorFromVictim(defender));
         autoID = true;
     }
@@ -526,7 +528,7 @@ static boolean forceWeaponHit(creature *defender, item *theItem) {
 
         if (pmap[defender->loc.x + newLoc.x - oldLoc.x][defender->loc.y + newLoc.y - oldLoc.y].flags & (HAS_MONSTER | HAS_PLAYER)) {
             otherMonster = monsterAtLoc((pos){ defender->loc.x + newLoc.x - oldLoc.x, defender->loc.y + newLoc.y - oldLoc.y });
-            monsterName(buf2, otherMonster, true);
+            br_display_monster_name(buf2, otherMonster, true);
         } else {
             otherMonster = NULL;
             strcpy(buf2, tileCatalog[pmap[defender->loc.x + newLoc.x - oldLoc.x][defender->loc.y + newLoc.y - oldLoc.y].layers[highestPriorityLayer(defender->loc.x + newLoc.x - oldLoc.x, defender->loc.y + newLoc.y - oldLoc.y, true)]].description);
@@ -539,21 +541,21 @@ static boolean forceWeaponHit(creature *defender, item *theItem) {
 
             if (canDirectlySeeMonster(defender)) {
                 knowFirstMonsterDied = true;
-                sprintf(buf, "%s %s on impact with %s",
+                sprintf(buf, br_tr("%s %s on impact with %s"),
                         monstName,
-                        (defender->info.flags & MONST_INANIMATE) ? "is destroyed" : "dies",
+                        (defender->info.flags & MONST_INANIMATE) ? br_tr("is destroyed") : br_tr("dies"),
                         buf2);
-                buf[DCOLS] = '\0';
+                buf[BR_MESSAGE_BYTES-1] = '\0';
                 combatMessage(buf, messageColorFromVictim(defender));
                 autoID = true;
             }
             killCreature(defender, false);
         } else {
             if (canDirectlySeeMonster(defender)) {
-                sprintf(buf, "%s slams against %s",
+                sprintf(buf, br_tr("%s slams against %s"),
                         monstName,
                         buf2);
-                buf[DCOLS] = '\0';
+                buf[BR_MESSAGE_BYTES-1] = '\0';
                 combatMessage(buf, messageColorFromVictim(defender));
                 autoID = true;
             }
@@ -566,13 +568,13 @@ static boolean forceWeaponHit(creature *defender, item *theItem) {
 
             if (inflictDamage(NULL, otherMonster, forceDamage, &white, false)) {
                 if (canDirectlySeeMonster(otherMonster)) {
-                    sprintf(buf, "%s %s%s when %s slams into $HIMHER",
+                    sprintf(buf, br_tr("%s %s%s when %s slams into $HIMHER"),
                             buf2,
-                            (knowFirstMonsterDied ? "also " : ""),
-                            (otherMonster->info.flags & MONST_INANIMATE) ? "is destroyed" : "dies",
+                            (knowFirstMonsterDied ? br_tr("also ") : ""),
+                            (otherMonster->info.flags & MONST_INANIMATE) ? br_tr("is destroyed") : br_tr("dies"),
                             monstName);
-                    resolvePronounEscapes(buf, otherMonster);
-                    buf[DCOLS] = '\0';
+                    br_resolve_display_pronouns(buf, otherMonster);
+                    buf[BR_MESSAGE_BYTES-1] = '\0';
                     combatMessage(buf, messageColorFromVictim(otherMonster));
                     autoID = true;
                 }
@@ -589,7 +591,7 @@ static boolean forceWeaponHit(creature *defender, item *theItem) {
 }
 
 void magicWeaponHit(creature *defender, item *theItem, boolean backstabbed) {
-    char buf[DCOLS*3], monstName[DCOLS], theItemName[DCOLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES], theItemName[BR_MESSAGE_BYTES];
 
     const color *effectColors[NUMBER_WEAPON_RUNIC_KINDS] = {&white, &black,
         &yellow, &pink, &green, &confusionGasColor, NULL, NULL, &darkRed, &rainbow};
@@ -639,14 +641,14 @@ void magicWeaponHit(creature *defender, item *theItem, boolean backstabbed) {
             autoID = true;
         }
         rogue.disturbed = true;
-        monsterName(monstName, defender, true);
+        br_display_monster_name(monstName, defender, true);
         itemName(theItem, theItemName, false, false, NULL);
 
         switch (enchantType) {
             case W_SPEED:
                 if (player.ticksUntilTurn != -1) {
-                    sprintf(buf, "your %s trembles and time freezes for a moment", theItemName);
-                    buf[DCOLS] = '\0';
+                    sprintf(buf, br_tr("your %s trembles and time freezes for a moment"), theItemName);
+                    buf[BR_MESSAGE_BYTES-1] = '\0';
                     combatMessage(buf, 0);
                     player.ticksUntilTurn = -1; // free turn!
                     autoID = true;
@@ -655,10 +657,10 @@ void magicWeaponHit(creature *defender, item *theItem, boolean backstabbed) {
             case W_SLAYING:
             case W_QUIETUS:
                 inflictLethalDamage(&player, defender);
-                sprintf(buf, "%s suddenly %s",
+                sprintf(buf, br_tr("%s suddenly %s"),
                         monstName,
-                        (defender->info.flags & MONST_INANIMATE) ? "shatters" : "dies");
-                buf[DCOLS] = '\0';
+                        (defender->info.flags & MONST_INANIMATE) ? br_tr("shatters") : br_tr("dies"));
+                buf[BR_MESSAGE_BYTES-1] = '\0';
                 combatMessage(buf, messageColorFromVictim(defender));
                 killCreature(defender, false);
                 autoID = true;
@@ -667,19 +669,19 @@ void magicWeaponHit(creature *defender, item *theItem, boolean backstabbed) {
                 defender->status[STATUS_PARALYZED] = max(defender->status[STATUS_PARALYZED], weaponParalysisDuration(enchant));
                 defender->maxStatus[STATUS_PARALYZED] = defender->status[STATUS_PARALYZED];
                 if (canDirectlySeeMonster(defender)) {
-                    sprintf(buf, "%s is frozen in place", monstName);
-                    buf[DCOLS] = '\0';
+                    sprintf(buf, br_tr("%s is frozen in place"), monstName);
+                    buf[BR_MESSAGE_BYTES-1] = '\0';
                     combatMessage(buf, messageColorFromVictim(defender));
                     autoID = true;
                 }
                 break;
             case W_MULTIPLICITY:
-                sprintf(buf, "Your %s emits a flash of light, and %sspectral duplicate%s appear%s!",
+                sprintf(buf, br_tr("Your %s emits a flash of light, and %sspectral duplicate%s appear%s!"),
                         theItemName,
                         (weaponImageCount(enchant) == 1 ? "a " : ""),
                         (weaponImageCount(enchant) == 1 ? "" : "s"),
                         (weaponImageCount(enchant) == 1 ? "s" : ""));
-                buf[DCOLS] = '\0';
+                buf[BR_MESSAGE_BYTES-1] = '\0';
 
                 for (i = 0; i < (weaponImageCount(enchant)); i++) {
                     newMonst = generateMonster(MK_SPECTRAL_IMAGE, true, false);
@@ -711,23 +713,23 @@ void magicWeaponHit(creature *defender, item *theItem, boolean backstabbed) {
                     newMonst->info.damage = player.info.damage;
                     newMonst->status[STATUS_LIFESPAN_REMAINING] = newMonst->maxStatus[STATUS_LIFESPAN_REMAINING] = weaponImageDuration(enchant);
                     if (strLenWithoutEscapes(theItemName) <= 8) {
-                        sprintf(newMonst->info.monsterName, "spectral %s", theItemName);
+                        sprintf(newMonst->info.monsterName, br_tr("spectral %s"), theItemName);
                     } else {
                         switch (rogue.weapon->kind) {
                             case BROADSWORD:
                                 strcpy(newMonst->info.monsterName, "spectral sword");
                                 break;
                             case HAMMER:
-                                strcpy(newMonst->info.monsterName, "spectral hammer");
+                                strcpy(newMonst->info.monsterName, br_tr("spectral hammer"));
                                 break;
                             case PIKE:
-                                strcpy(newMonst->info.monsterName, "spectral pike");
+                                strcpy(newMonst->info.monsterName, br_tr("spectral pike"));
                                 break;
                             case WAR_AXE:
-                                strcpy(newMonst->info.monsterName, "spectral axe");
+                                strcpy(newMonst->info.monsterName, br_tr("spectral axe"));
                                 break;
                             default:
-                                strcpy(newMonst->info.monsterName, "spectral weapon");
+                                strcpy(newMonst->info.monsterName, br_tr("spectral weapon"));
                                 break;
                         }
                     }
@@ -742,8 +744,8 @@ void magicWeaponHit(creature *defender, item *theItem, boolean backstabbed) {
             case W_SLOWING:
                 slow(defender, weaponSlowDuration(enchant));
                 if (canDirectlySeeMonster(defender)) {
-                    sprintf(buf, "%s slows down", monstName);
-                    buf[DCOLS] = '\0';
+                    sprintf(buf, br_tr("%s slows down"), monstName);
+                    buf[BR_MESSAGE_BYTES-1] = '\0';
                     combatMessage(buf, messageColorFromVictim(defender));
                     autoID = true;
                 }
@@ -752,8 +754,8 @@ void magicWeaponHit(creature *defender, item *theItem, boolean backstabbed) {
                 defender->status[STATUS_CONFUSED] = max(defender->status[STATUS_CONFUSED], weaponConfusionDuration(enchant));
                 defender->maxStatus[STATUS_CONFUSED] = defender->status[STATUS_CONFUSED];
                 if (canDirectlySeeMonster(defender)) {
-                    sprintf(buf, "%s looks very confused", monstName);
-                    buf[DCOLS] = '\0';
+                    sprintf(buf, br_tr("%s looks very confused"), monstName);
+                    buf[BR_MESSAGE_BYTES-1] = '\0';
                     combatMessage(buf, messageColorFromVictim(defender));
                     autoID = true;
                 }
@@ -789,24 +791,24 @@ static void attackVerb(char returnString[DCOLS], creature *attacker, short hitPe
     short verbCount, increment;
 
     if (attacker != &player && (player.status[STATUS_HALLUCINATING] || !canSeeMonster(attacker))) {
-        strcpy(returnString, "hits");
+        strcpy(returnString, br_tr("hits"));
         return;
     }
 
     if (attacker == &player && !rogue.weapon) {
-        strcpy(returnString, "punch");
+        strcpy(returnString, br_tr("punch"));
         return;
     }
 
     for (verbCount = 0; verbCount < 4 && monsterText[attacker->info.monsterID].attack[verbCount + 1][0] != '\0'; verbCount++);
     increment = (100 / (verbCount + 1));
     hitPercentile = max(0, min(hitPercentile, increment * (verbCount + 1) - 1));
-    strcpy(returnString, monsterText[attacker->info.monsterID].attack[hitPercentile / increment]);
-    resolvePronounEscapes(returnString, attacker);
+    strcpy(returnString, br_tr(monsterText[attacker->info.monsterID].attack[hitPercentile / increment]));
+    br_resolve_display_pronouns(returnString, attacker);
 }
 
 void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *damage, boolean melee) {
-    char armorName[DCOLS], attackerName[DCOLS], monstName[DCOLS], buf[DCOLS * 3];
+    char armorName[BR_MESSAGE_BYTES], attackerName[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES], buf[BR_MESSAGE_BYTES];
     boolean runicKnown;
     boolean runicDiscovered;
     short newDamage, dir, newX, newY, count, i;
@@ -826,7 +828,7 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
 
     itemName(rogue.armor, armorName, false, false, NULL);
 
-    monsterName(attackerName, attacker, true);
+    br_display_monster_name(attackerName, attacker, true);
 
     switch (rogue.armor->enchant2) {
         case A_MULTIPLICITY:
@@ -859,16 +861,16 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
                     monst->info.defense = 0;
 
                     if (strLenWithoutEscapes(attacker->info.monsterName) <= 6) {
-                        sprintf(monst->info.monsterName, "spectral %s", attacker->info.monsterName);
+                        sprintf(monst->info.monsterName, br_tr("spectral %s"), attacker->info.monsterName);
                     } else {
-                        strcpy(monst->info.monsterName, "spectral clone");
+                        strcpy(monst->info.monsterName, br_tr("spectral clone"));
                     }
                     fadeInMonster(monst);
                 }
                 updateVision(true);
 
                 runicDiscovered = true;
-                sprintf(returnString, "Your %s flashes, and spectral images of %s appear!", armorName, attackerName);
+                sprintf(returnString, br_tr("Your %s flashes, and spectral images of %s appear!"), armorName, attackerName);
             }
             break;
         case A_MUTUALITY:
@@ -895,10 +897,10 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
                 if (count) {
                     for (i=0; i<8; i++) {
                         if (hitList[i] && !(hitList[i]->bookkeepingFlags & MB_IS_DYING)) {
-                            monsterName(monstName, hitList[i], true);
+                            br_display_monster_name(monstName, hitList[i], true);
                             if (inflictDamage(&player, hitList[i], (*damage + count) / (count + 1), &blue, true)) {
                                 if (canSeeMonster(hitList[i])) {
-                                    sprintf(buf, "%s %s", monstName, ((hitList[i]->info.flags & MONST_INANIMATE) ? "is destroyed" : "dies"));
+                                    sprintf(buf, br_tr("%s %s"), monstName, ((hitList[i]->info.flags & MONST_INANIMATE) ? br_tr("is destroyed") : br_tr("dies")));
                                     combatMessage(buf, messageColorFromVictim(hitList[i]));
                                 }
                                 killCreature(hitList[i], false);
@@ -907,9 +909,9 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
                     }
                     runicDiscovered = true;
                     if (!runicKnown) {
-                        sprintf(returnString, "Your %s pulses, and the damage is shared with %s!",
+                        sprintf(returnString, br_tr("Your %s pulses, and the damage is shared with %s!"),
                                 armorName,
-                                (count == 1 ? monstName : "the other adjacent enemies"));
+                                (count == 1 ? monstName : br_tr("the other adjacent enemies")));
                     }
                     *damage = (*damage + count) / (count + 1);
                 }
@@ -921,7 +923,7 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
                 *damage = 0;
                 runicDiscovered = true;
                 if (!runicKnown) {
-                    sprintf(returnString, "your %s pulses and absorbs the blow!", armorName);
+                    sprintf(returnString, br_tr("your %s pulses and absorbs the blow!"), armorName);
                 }
             }
             break;
@@ -930,13 +932,13 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
                 newDamage = max(1, armorReprisalPercent(enchant) * (*damage) / 100); // 5% reprisal per armor level
                 if (inflictDamage(&player, attacker, newDamage, &blue, true)) {
                     if (canSeeMonster(attacker)) {
-                        sprintf(returnString, "your %s pulses and %s drops dead!", armorName, attackerName);
+                        sprintf(returnString, br_tr("your %s pulses and %s drops dead!"), armorName, attackerName);
                         runicDiscovered = true;
                     }
                     killCreature(attacker, false);
                 } else if (!runicKnown) {
                     if (canSeeMonster(attacker)) {
-                        sprintf(returnString, "your %s pulses and %s shudders in pain!", armorName, attackerName);
+                        sprintf(returnString, br_tr("your %s pulses and %s shudders in pain!"), armorName, attackerName);
                         runicDiscovered = true;
                     }
                 }
@@ -951,7 +953,7 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
         case A_BURDEN:
             if (rand_percent(10)) {
                 rogue.armor->strengthRequired++;
-                sprintf(returnString, "your %s suddenly feels heavier!", armorName);
+                sprintf(returnString, br_tr("your %s suddenly feels heavier!"), armorName);
                 equipItem(rogue.armor, true, NULL);
                 runicDiscovered = true;
             }
@@ -959,13 +961,13 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
         case A_VULNERABILITY:
             *damage *= 2;
             if (!runicKnown) {
-                sprintf(returnString, "your %s pulses and you are wracked with pain!", armorName);
+                sprintf(returnString, br_tr("your %s pulses and you are wracked with pain!"), armorName);
                 runicDiscovered = true;
             }
             break;
         case A_IMMOLATION:
             if (rand_percent(10)) {
-                sprintf(returnString, "flames suddenly explode out of your %s!", armorName);
+                sprintf(returnString, br_tr("flames suddenly explode out of your %s!"), armorName);
                 message(returnString, runicKnown ? 0 : REQUIRE_ACKNOWLEDGMENT);
                 returnString[0] = '\0';
                 spawnDungeonFeature(player.loc.x, player.loc.y, &(dungeonFeatureCatalog[DF_ARMOR_IMMOLATION]), true, false);
@@ -981,7 +983,7 @@ void applyArmorRunicEffect(char returnString[DCOLS], creature *attacker, short *
 }
 
 static void decrementWeaponAutoIDTimer() {
-    char buf[COLS*3], buf2[COLS*3];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
 
     if (rogue.weapon
         && !(rogue.weapon->flags & ITEM_IDENTIFIED)
@@ -989,9 +991,9 @@ static void decrementWeaponAutoIDTimer() {
 
         rogue.weapon->flags |= ITEM_IDENTIFIED;
         updateIdentifiableItems();
-        messageWithColor("you are now familiar enough with your weapon to identify it.", &itemMessageColor, 0);
+        messageWithColor(br_tr("you are now familiar enough with your weapon to identify it."), &itemMessageColor, 0);
         itemName(rogue.weapon, buf2, true, true, NULL);
-        sprintf(buf, "%s %s.", (rogue.weapon->quantity > 1 ? "they are" : "it is"), buf2);
+        sprintf(buf, br_tr("%s %s."), (rogue.weapon->quantity > 1 ? br_tr("they are") : br_tr("it is")), buf2);
         messageWithColor(buf, &itemMessageColor, 0);
     }
 }
@@ -1016,7 +1018,7 @@ void processStaggerHit(creature *attacker, creature *defender) {
 // returns whether the attack hit
 boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
     short damage, specialDamage, poisonDamage;
-    char buf[COLS*2], buf2[COLS*2], attackerName[COLS], defenderName[COLS], verb[DCOLS], explicationClause[DCOLS] = "", armorRunicString[DCOLS*3];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES], attackerName[BR_MESSAGE_BYTES], defenderName[BR_MESSAGE_BYTES], verb[BR_MESSAGE_BYTES], explicationClause[BR_MESSAGE_BYTES] = "", armorRunicString[BR_MESSAGE_BYTES];
     boolean sneakAttack, defenderWasAsleep, defenderWasParalyzed, degradesAttackerWeapon, sightUnseen;
 
     // Check paladin feat before creatureState is changed
@@ -1068,8 +1070,8 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
         defenderWasParalyzed = defender->status[STATUS_PARALYZED] > 0;
     }
 
-    monsterName(attackerName, attacker, true);
-    monsterName(defenderName, defender, true);
+    br_display_monster_name(attackerName, attacker, true);
+    br_display_monster_name(defenderName, defender, true);
 
     if ((attacker->info.abilityFlags & MA_SEIZES)
         && (!(attacker->bookkeepingFlags & MB_SEIZING) || !(defender->bookkeepingFlags & MB_SEIZED))
@@ -1083,11 +1085,11 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
         // it immediately surfaces so it can be targeted with staffs/wands
         if (defender == &player && (attacker->bookkeepingFlags & MB_SUBMERGED) && canSeeMonster(attacker)) {            
             attacker->bookkeepingFlags &= ~MB_SUBMERGED;
-            monsterName(attackerName, attacker, true);
+            br_display_monster_name(attackerName, attacker, true);
         }
 
         if (canSeeMonster(attacker) || canSeeMonster(defender)) {
-            sprintf(buf, "%s seizes %s!", attackerName, (defender == &player ? "your legs" : defenderName));
+            sprintf(buf, br_tr("%s seizes %s!"), attackerName, (defender == &player ? br_tr("your legs") : defenderName));
             messageWithColor(buf, &white, 0);
         }
         return false;
@@ -1138,24 +1140,24 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
         }
 
         if (damage == 0) {
-            sprintf(explicationClause, " but %s no damage", (attacker == &player ? "do" : "does"));
+            sprintf(explicationClause, br_tr(" but %s no damage"), (attacker == &player ? br_tr("do") : br_tr("does")));
             if (attacker == &player) {
                 rogue.disturbed = true;
             }
         } else if (lungeAttack) {
-            strcpy(explicationClause, " with a vicious lunge attack");
+            strcpy(explicationClause, br_tr(" with a vicious lunge attack"));
         } else if (defenderWasParalyzed) {
-            sprintf(explicationClause, " while $HESHE %s paralyzed", (defender == &player ? "are" : "is"));
+            sprintf(explicationClause, br_tr(" while $HESHE %s paralyzed"), (defender == &player ? br_tr("are") : br_tr("is")));
         } else if (defenderWasAsleep) {
-            strcpy(explicationClause, " in $HISHER sleep");
+            strcpy(explicationClause, br_tr(" in $HISHER sleep"));
         } else if (sneakAttack) {
-            strcpy(explicationClause, ", catching $HIMHER unaware");
+            strcpy(explicationClause, br_tr(", catching $HIMHER unaware"));
         } else if (defender->status[STATUS_STUCK] || defender->bookkeepingFlags & MB_CAPTIVE) {
-            sprintf(explicationClause, " while %s dangle%s helplessly",
-                    (canSeeMonster(defender) ? "$HESHE" : "it"),
+            sprintf(explicationClause, br_tr(" while %s dangle%s helplessly"),
+                    (canSeeMonster(defender) ? "$HESHE" : br_tr("it")),
                     (defender == &player ? "" : "s"));
         }
-        resolvePronounEscapes(explicationClause, defender);
+        br_resolve_display_pronouns(explicationClause, defender);
 
         if ((attacker->info.abilityFlags & MA_POISONS) && damage > 0) {
             poisonDamage = damage;
@@ -1164,22 +1166,22 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
 
         if (inflictDamage(attacker, defender, damage, &red, false)) { // if the attack killed the defender
             if (defenderWasAsleep || sneakAttack || defenderWasParalyzed || lungeAttack) {
-                sprintf(buf, "%s %s %s%s", attackerName,
-                        ((defender->info.flags & MONST_INANIMATE) ? "destroyed" : "dispatched"),
+                sprintf(buf, br_tr("%s %s %s%s"), attackerName,
+                        ((defender->info.flags & MONST_INANIMATE) ? br_tr("destroyed") : br_tr("dispatched")),
                         defenderName,
                         explicationClause);
             } else {
-                sprintf(buf, "%s %s %s%s",
+                sprintf(buf, br_tr("%s %s %s%s"),
                         attackerName,
-                        ((defender->info.flags & MONST_INANIMATE) ? "destroyed" : "defeated"),
+                        ((defender->info.flags & MONST_INANIMATE) ? br_tr("destroyed") : br_tr("defeated")),
                         defenderName,
                         explicationClause);
             }
             if (sightUnseen) {
                 if (defender->info.flags & MONST_INANIMATE) {
-                    combatMessage("you hear something get destroyed in combat", 0);
+                    combatMessage(br_tr("you hear something get destroyed in combat"), 0);
                 } else {
-                    combatMessage("you hear something die in combat", 0);
+                    combatMessage(br_tr("you hear something die in combat"), 0);
                 }
             } else {
                 combatMessage(buf, (damage > 0 ? messageColorFromVictim(defender) : &white));
@@ -1197,11 +1199,11 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
             if (!rogue.blockCombatText && (canSeeMonster(attacker) || canSeeMonster(defender))) {
                 attackVerb(verb, attacker, max(damage - (attacker->info.damage.lowerBound * monsterDamageAdjustmentAmount(attacker) / FP_FACTOR), 0) * 100
                            / max(1, (attacker->info.damage.upperBound - attacker->info.damage.lowerBound) * monsterDamageAdjustmentAmount(attacker) / FP_FACTOR));
-                sprintf(buf, "%s %s %s%s", attackerName, verb, defenderName, explicationClause);
+                sprintf(buf, br_tr("%s %s %s%s"), attackerName, verb, defenderName, explicationClause);
                 if (sightUnseen) {
                     if (!rogue.heardCombatThisTurn) {
                         rogue.heardCombatThisTurn = true;
-                        combatMessage("you hear combat in the distance", 0);
+                        combatMessage(br_tr("you hear combat in the distance"), 0);
                     }
                 } else {
                     combatMessage(buf, messageColorFromVictim(defender));
@@ -1250,7 +1252,7 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
             }
             equipItem(rogue.weapon, true, NULL);
             itemName(rogue.weapon, buf2, false, false, NULL);
-            sprintf(buf, "your %s weakens!", buf2);
+            sprintf(buf, br_tr("your %s weakens!"), buf2);
             messageWithColor(buf, &itemMessageColor, 0);
             checkForDisenchantment(rogue.weapon);
         }
@@ -1261,10 +1263,10 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
             if (sightUnseen) {
                 if (!rogue.heardCombatThisTurn) {
                     rogue.heardCombatThisTurn = true;
-                    combatMessage("you hear combat in the distance", 0);
+                    combatMessage(br_tr("you hear combat in the distance"), 0);
                 }
             } else {
-                sprintf(buf, "%s missed %s", attackerName, defenderName);
+                sprintf(buf, br_tr("%s missed %s"), attackerName, defenderName);
                 combatMessage(buf, 0);
             }
         }
@@ -1274,83 +1276,47 @@ boolean attack(creature *attacker, creature *defender, boolean lungeAttack) {
 
 // Gets the length of a string without the four-character color escape sequences, since those aren't displayed.
 short strLenWithoutEscapes(const char *str) {
-    short i, count;
-
-    count = 0;
-    for (i=0; str[i];) {
-        if (str[i] == COLOR_ESCAPE) {
-            i += 4;
-            continue;
-        }
-        count++;
-        i++;
-    }
-    return count;
+    int width = br_text_width(str);
+    return width > 32767 ? 32767 : width;
 }
 
 // Buffer messages generated by combat until flushed by displayCombatText().
 // Messages in the buffer are delimited by newlines.
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Preserve original ordering and clear-before-recursion behavior. */
 void combatMessage(char *theMsg, const color *theColor) {
-    short length;
-    char newMsg[COLS * 2 - 1]; // -1 for the newline when appending later
-
-    if (theColor == 0) {
-        theColor = &white;
-    }
-
-    newMsg[0] = '\0';
-    encodeMessageColor(newMsg, 0, theColor);
-    length = strlen(newMsg);
-    strncat(&newMsg[length], theMsg, (COLS * 2 - 1) - length - 1);
-
-    length = strlen(combatText);
-
-    // Buffer combat messages here just for timing; otherwise player combat
-    // messages appear after monsters, rather than before.  The -2 is for the
-    // newline and terminator.
-    if (length + strlen(newMsg) > COLS * 2 - 2) {
+    char newMsg[BR_MESSAGE_BYTES];
+    size_t length;
+    if (!theColor) theColor=&white;
+    newMsg[0]=0;
+    length=encodeMessageColor(newMsg,0,theColor);
+    br_text_copy(newMsg+length,sizeof newMsg-length,theMsg);
+    length=strlen(combatText);
+    if (length+strlen(newMsg)+(length?1:0)>=sizeof combatText) {
         displayCombatText();
+        length=strlen(combatText);
     }
-
-    if (combatText[0]) {
-        snprintf(&combatText[length], COLS * 2 - length, "\n%s", newMsg);
-    } else {
-        strcpy(combatText, newMsg);
-    }
+    if (length) snprintf(combatText+length,sizeof combatText-length,"\n%s",newMsg);
+    else strcpy(combatText,newMsg);
 }
 
-// Flush any buffered, newline-delimited combat messages, passing each to
-// message().  These messages are "foldable", meaning that if space permits
-// they may be joined together by semi-colons.  Notice that combat messages may
-// be flushed by a number of different callers.  One is message() itself
-// creating a recursion, which this function is responsible for terminating.
 void displayCombatText() {
-    char buf[COLS * 2];
-    char *start, *end;
-
-    // message itself will call displayCombatText.  For this guard to terminate
-    // the recursion, we need to copy combatText out and empty it before
-    // calling message.
-    if (combatText[0] == '\0') {
-        return;
-    }
-
-    strcpy(buf, combatText);
-    combatText[0] = '\0';
-
-    start = buf;
-    for (end = start; *end != '\0'; end++) {
-        if (*end == '\n') {
-            *end = '\0';
-            message(start, FOLDABLE | (rogue.cautiousMode ? REQUIRE_ACKNOWLEDGMENT : 0));
-            start = end + 1;
+    char buf[BR_MESSAGE_BYTES*2], *start, *end;
+    if (!combatText[0]) return;
+    strcpy(buf,combatText);
+    combatText[0]=0;
+    start=buf;
+    for (end=start;*end;end++) {
+        if (*end=='\n') {
+            *end=0;
+            message(start,FOLDABLE | (rogue.cautiousMode ? REQUIRE_ACKNOWLEDGMENT : 0));
+            start=end+1;
         }
     }
-
-    message(start, FOLDABLE | (rogue.cautiousMode ? REQUIRE_ACKNOWLEDGMENT : 0));
-
-    rogue.cautiousMode = false;
+    message(start,FOLDABLE | (rogue.cautiousMode ? REQUIRE_ACKNOWLEDGMENT : 0));
+    rogue.cautiousMode=false;
 }
+
 
 void flashMonster(creature *monst, const color *theColor, short strength) {
     if (!theColor) {
@@ -1582,7 +1548,7 @@ boolean inflictDamage(creature *attacker, creature *defender,
         attacker->currentHP += transferenceAmount;
 
         if (attacker == &player && player.currentHP <= 0) {
-            gameOver("Drained by a cursed ring", true);
+            gameOver(br_tr("Drained by a cursed ring"), true);
             return false;
         }
     }
@@ -1616,7 +1582,7 @@ void addPoison(creature *monst, short durationIncrement, short concentrationIncr
     extern const color poisonColor;
     if (durationIncrement > 0) {
         if (monst == &player && !player.status[STATUS_POISONED]) {
-            combatMessage("scalding poison fills your veins", &badMessageColor);
+            combatMessage(br_tr("scalding poison fills your veins"), &badMessageColor);
         }
         if (!monst->status[STATUS_POISONED]) {
             monst->maxStatus[STATUS_POISONED] = 0;
@@ -1641,7 +1607,7 @@ void addPoison(creature *monst, short durationIncrement, short concentrationIncr
 // AdministrativeDeath means the monster simply disappears, with no messages, dropped item, DFs or other effect.
 void killCreature(creature *decedent, boolean administrativeDeath) {
     short x, y;
-    char monstName[DCOLS], buf[DCOLS * 3];
+    char monstName[BR_MESSAGE_BYTES], buf[BR_MESSAGE_BYTES];
 
     if (decedent->bookkeepingFlags & (MB_IS_DYING | MB_HAS_DIED)) {
         // monster has already been killed; let's avoid overkill
@@ -1673,9 +1639,9 @@ void killCreature(creature *decedent, boolean administrativeDeath) {
         spawnDungeonFeature(decedent->loc.x, decedent->loc.y, &dungeonFeatureCatalog[decedent->info.DFType], true, false);
 
         if (monsterText[decedent->info.monsterID].DFMessage[0] && canSeeMonster(decedent)) {
-            monsterName(monstName, decedent, true);
-            snprintf(buf, DCOLS * 3, "%s %s", monstName, monsterText[decedent->info.monsterID].DFMessage);
-            resolvePronounEscapes(buf, decedent);
+            br_display_monster_name(monstName, decedent, true);
+            snprintf(buf, DCOLS * 3, br_tr("%s %s"), monstName, monsterText[decedent->info.monsterID].DFMessage);
+            br_resolve_display_pronouns(buf, decedent);
             message(buf, 0);
         }
     }
@@ -1691,7 +1657,7 @@ void killCreature(creature *decedent, boolean administrativeDeath) {
             && !(decedent->bookkeepingFlags & MB_BOUND_TO_LEADER)
             && !decedent->carriedMonster) {
 
-            messageWithColor("you feel a sense of loss.", &badMessageColor, 0);
+            messageWithColor(br_tr("you feel a sense of loss."), &badMessageColor, 0);
         }
         x = decedent->loc.x;
         y = decedent->loc.y;
@@ -1723,8 +1689,8 @@ void killCreature(creature *decedent, boolean administrativeDeath) {
                 fadeInMonster(carriedMonster);
 
                 if (canSeeMonster(carriedMonster)) {
-                    monsterName(monstName, carriedMonster, true);
-                    sprintf(buf, "%s appears", monstName);
+                    br_display_monster_name(monstName, carriedMonster, true);
+                    sprintf(buf, br_tr("%s appears"), monstName);
                     combatMessage(buf, NULL);
                 }
 

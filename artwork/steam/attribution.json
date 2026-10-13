@@ -1,0 +1,23 @@
+{
+  "identity": "Original Brogue ASCII wordmark by Brian Walker; CE v1.15.1",
+  "license": "AGPL-3.0-or-later",
+  "layouts": "Original SVG adaptations for Steam; deterministic terminal-cell flames",
+  "sizes": {
+    "poster": [
+      600,
+      900
+    ],
+    "grid": [
+      920,
+      430
+    ],
+    "hero": [
+      1920,
+      620
+    ],
+    "logo": [
+      1280,
+      540
+    ]
+  }
+}

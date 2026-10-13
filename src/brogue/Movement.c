@@ -22,6 +22,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -108,6 +110,9 @@ const char *tileText(short x, short y) {
     return tileCatalog[pmap[x][y].layers[highestPriorityLayer(x, y, false)]].description;
 }
 
+const char *br_display_tile_text(short x,short y) { return br_tr(tileText(x,y)); }
+const char *br_display_tile_flavor(short x,short y) { return br_tr(tileFlavor(x,y)); }
+
 void describedItemBasedOnParameters(short theCategory, short theKind, short theQuantity, short theOriginDepth, char *buf) {
     item *tempItem = initializeItem();
     tempItem->category = theCategory;
@@ -147,12 +152,12 @@ void describeLocation(char *buf, short x, short y) {
     boolean monsterDormant;
     boolean monsterIsPlayer = false;
 
-    char subject[COLS * 3];
-    char verb[COLS * 3];
-    char preposition[COLS * 3];
-    char object[COLS * 3];
-    char itemLocation[COLS * 3] = "";
-    char adjective[COLS * 3];
+    char subject[BR_MESSAGE_BYTES] = "";
+    char verb[BR_MESSAGE_BYTES] = "";
+    char preposition[BR_MESSAGE_BYTES] = "";
+    char object[BR_MESSAGE_BYTES] = "";
+    char itemLocation[BR_MESSAGE_BYTES] = "";
+    char adjective[BR_MESSAGE_BYTES] = "";
 
     assureCosmeticRNG;
 
@@ -160,9 +165,9 @@ void describeLocation(char *buf, short x, short y) {
     // describe the player's location when there is no item there
     if ((x == player.loc.x) && (y == player.loc.y) && !theItem) {
         if (player.status[STATUS_LEVITATING]) {
-            sprintf(buf, "you are hovering above %s.", tileText(x, y));
+            sprintf(buf, br_tr("you are hovering above %s."), br_display_tile_text(x, y));
         } else {
-            strcpy(buf, tileFlavor(x, y));
+            strcpy(buf, br_display_tile_flavor(x, y));
         }
         restoreRNG;
         return;
@@ -195,16 +200,16 @@ void describeLocation(char *buf, short x, short y) {
     if (magicItem && !(pmap[x][y].flags & DISCOVERED)) {
         switch (itemMagicPolarity(magicItem)) {
             case 1:
-                strcpy(object, magicItem->category == AMULET ? "the Amulet of Yendor" : "benevolent magic");
+                strcpy(object, magicItem->category == AMULET ? br_tr("the Amulet of Yendor") : br_tr("benevolent magic"));
                 break;
             case -1:
-                strcpy(object, "malevolent magic");
+                strcpy(object, br_tr("malevolent magic"));
                 break;
             default:
-                strcpy(object, "mysterious magic");
+                strcpy(object, br_tr("mysterious magic"));
                 break;
         }
-        sprintf(buf, "you can detect the aura of %s here.", object);
+        sprintf(buf, br_tr("you can detect the aura of %s here."), object);
         restoreRNG;
         return;
     }
@@ -216,24 +221,24 @@ void describeLocation(char *buf, short x, short y) {
         && monsterRevealed(monst)) {
 
         strcpy(adjective, (((!player.status[STATUS_HALLUCINATING] || rogue.playbackOmniscience) && !monst->info.isLarge)
-                           || (player.status[STATUS_HALLUCINATING] && !rogue.playbackOmniscience && rand_range(0, 1)) ? "small" : "large"));
+                           || (player.status[STATUS_HALLUCINATING] && !rogue.playbackOmniscience && rand_range(0, 1)) ? br_tr("small") : br_tr("large")));
         if (pmap[x][y].flags & DISCOVERED) {
-            strcpy(object, tileText(x, y));
+            strcpy(object, br_display_tile_text(x, y));
             if (monst->bookkeepingFlags & MB_SUBMERGED) {
-                strcpy(preposition, "under ");
+                strcpy(preposition, br_tr("under "));
             } else if (monsterDormant) {
-                strcpy(preposition, "coming from within ");
+                strcpy(preposition, br_tr("coming from within "));
             } else if (standsInTerrain) {
-                strcpy(preposition, "in ");
+                strcpy(preposition, br_tr("in "));
             } else {
-                strcpy(preposition, "over ");
+                strcpy(preposition, br_tr("over "));
             }
         } else {
-            strcpy(object, "here");
+            strcpy(object, br_tr("here"));
             strcpy(preposition, "");
         }
 
-        sprintf(buf, "you can sense a %s psychic emanation %s%s.", adjective, preposition, object);
+        sprintf(buf, br_tr("you can sense a %s psychic emanation %s%s."), adjective, br_is_zh()?object:preposition, br_is_zh()?preposition:object);
         restoreRNG;
         return;
     }
@@ -253,13 +258,13 @@ void describeLocation(char *buf, short x, short y) {
                                                    pmap[x][y].rememberedItemQuantity, pmap[x][y].rememberedItemOriginDepth, object);
                 }
             } else {
-                strcpy(object, tileCatalog[pmap[x][y].rememberedTerrain].description);
+                strcpy(object, br_tr(tileCatalog[pmap[x][y].rememberedTerrain].description));
             }
-            sprintf(buf, "you remember seeing %s here.", object);
+            sprintf(buf, br_tr("you remember seeing %s here."), object);
             restoreRNG;
             return;
         } else if (pmap[x][y].flags & MAGIC_MAPPED) { // magic mapped
-            sprintf(buf, "you expect %s to be here.", tileCatalog[pmap[x][y].rememberedTerrain].description);
+            sprintf(buf, br_tr("you expect %s to be here."), br_tr(tileCatalog[pmap[x][y].rememberedTerrain].description));
             restoreRNG;
             return;
         }
@@ -270,11 +275,11 @@ void describeLocation(char *buf, short x, short y) {
 
     if (monst) {
 
-        monsterName(subject, monst, true);
-        strcpy(verb, monsterIsPlayer ? "are" : "is");
+        br_display_monster_name(subject, monst, true);
+        strcpy(verb, monsterIsPlayer ? (br_is_zh()?"正在":br_tr("are")) : (br_is_zh()?"正在":br_tr("is")));
 
         if (pmap[x][y].layers[GAS] && monst->status[STATUS_INVISIBLE] && !monsterIsPlayer) { // phantoms in gas
-            sprintf(buf, "you can perceive the faint outline of %s in %s.", subject, tileCatalog[pmap[x][y].layers[GAS]].description);
+            sprintf(buf, br_tr("you can perceive the faint outline of %s in %s."), subject, br_tr(tileCatalog[pmap[x][y].layers[GAS]].description));
             restoreRNG;
             return;
         }
@@ -285,121 +290,121 @@ void describeLocation(char *buf, short x, short y) {
                          && !(monst->bookkeepingFlags & (MB_SEIZED | MB_CAPTIVE)));
         if ((monst->info.flags & MONST_ATTACKABLE_THRU_WALLS)
             && cellHasTerrainFlag((pos){ x, y }, T_OBSTRUCTS_PASSABILITY)) {
-            strcat(verb, " embedded");
+            strcat(verb, br_tr(" embedded"));
         } else if (cellHasTerrainFlag((pos){ x, y }, T_OBSTRUCTS_PASSABILITY)) {
-            strcat(verb, " trapped");
+            strcat(verb, br_tr(" trapped"));
             subjectMoving = false;
         } else if (monst->bookkeepingFlags & MB_CAPTIVE) {
-            strcat(verb, " shackled in place");
+            strcat(verb, br_tr(" shackled in place"));
             subjectMoving = false;
         } else if (monst->status[STATUS_PARALYZED]) {
-            strcat(verb, " frozen in place");
+            strcat(verb, br_tr(" frozen in place"));
             subjectMoving = false;
         } else if (monst->status[STATUS_STUCK]) {
-            strcat(verb, " entangled");
+            strcat(verb, br_tr(" entangled"));
             subjectMoving = false;
         } else if (monst->status[STATUS_LEVITATING]) {
-            strcat(verb, (monsterIsPlayer ? " hovering" : (subjectMoving ? " flying" : " hovering")));
-            strcat(preposition, "over");
+            strcat(verb, (monsterIsPlayer ? br_tr(" hovering") : (subjectMoving ? br_tr(" flying") : br_tr(" hovering"))));
+            strcat(preposition, br_tr("over"));
             prepositionLocked = true;
         } else if (monsterCanSubmergeNow(monst)) {
-            strcat(verb, (subjectMoving ? " gliding" : " drifting"));
+            strcat(verb, (subjectMoving ? br_tr(" gliding") : br_tr(" drifting")));
         } else if (cellHasTerrainFlag((pos){ x, y }, T_MOVES_ITEMS) && !(monst->info.flags & MONST_SUBMERGES)) {
-            strcat(verb, (subjectMoving ? " swimming" : " struggling"));
+            strcat(verb, (subjectMoving ? br_tr(" swimming") : br_tr(" struggling")));
         } else if (cellHasTerrainFlag((pos){ x, y }, T_AUTO_DESCENT)) {
-            strcat(verb, " suspended in mid-air");
-            strcat(preposition, "over");
+            strcat(verb, br_tr(" suspended in mid-air"));
+            strcat(preposition, br_tr("over"));
             prepositionLocked = true;
             subjectMoving = false;
         } else if (monst->status[STATUS_CONFUSED]) {
-            strcat(verb, " staggering");
+            strcat(verb, br_tr(" staggering"));
         } else if ((monst->info.flags & MONST_RESTRICTED_TO_LIQUID)
                    && !cellHasTMFlag(monst->loc, TM_ALLOWS_SUBMERGING)) {
-            strcat(verb, " lying");
+            strcat(verb, br_tr(" lying"));
             subjectMoving = false;
         } else if (monst->info.flags & MONST_IMMOBILE) {
-            strcat(verb, " resting");
+            strcat(verb, br_tr(" resting"));
         } else {
             switch (monst->creatureState) {
                 case MONSTER_SLEEPING:
-                    strcat(verb, " sleeping");
+                    strcat(verb, br_tr(" sleeping"));
                     subjectMoving = false;
                     break;
                 case MONSTER_WANDERING:
-                    strcat(verb, subjectMoving ? " wandering" : " standing");
+                    strcat(verb, subjectMoving ? br_tr(" wandering") : br_tr(" standing"));
                     break;
                 case MONSTER_FLEEING:
-                    strcat(verb, subjectMoving ? " fleeing" : " standing");
+                    strcat(verb, subjectMoving ? br_tr(" fleeing") : br_tr(" standing"));
                     break;
                 case MONSTER_TRACKING_SCENT:
-                    strcat(verb, subjectMoving ? " charging" : " standing");
+                    strcat(verb, subjectMoving ? br_tr(" charging") : br_tr(" standing"));
                     break;
                 case MONSTER_ALLY:
-                    strcat(verb, monsterIsPlayer ? " standing" : (subjectMoving ? " following you" : " standing"));
+                    strcat(verb, monsterIsPlayer ? br_tr(" standing") : (subjectMoving ? br_tr(" following you") : br_tr(" standing")));
                     break;
                 default:
-                    strcat(verb, " standing");
+                    strcat(verb, br_tr(" standing"));
                     break;
             }
         }
         if (monst->status[STATUS_BURNING] && !(monst->info.flags & MONST_FIERY)) {
-            strcat(verb, ", burning,");
+            strcat(verb, br_tr(", burning,"));
         }
 
         if (theItem) {
             if (verb[strlen(verb) - 1] != ' ') {
                 strcat(verb, " ");
             }
-            strcpy(preposition, "over");
+            strcpy(preposition, br_tr("over"));
             if (monsterIsPlayer) {
-                strcat(itemLocation, standsInTerrain ? " in " : " on ");
-                strcat(itemLocation, tileText(x, y));
+                strcat(itemLocation, standsInTerrain ? br_tr(" in ") : br_tr(" on "));
+                strcat(itemLocation, br_display_tile_text(x, y));
             }
-            sprintf(buf, "%s %s %s %s%s.", subject, verb, preposition, object, itemLocation);
+            sprintf(buf, br_tr("%s %s %s %s%s."), subject, verb, br_is_zh()?object:preposition, br_is_zh()?preposition:object, itemLocation);
             describedItemName(theItem, object, DCOLS - strlen(buf));
 
         } else {
             if (!prepositionLocked) {
-                strcpy(preposition, subjectMoving ? (standsInTerrain ? "through" : "across")
-                       : (standsInTerrain ? "in" : "on"));
+                strcpy(preposition, subjectMoving ? (standsInTerrain ? br_tr("through") : br_tr("across"))
+                       : (standsInTerrain ? br_tr("in") : br_tr("on")));
             }
 
-            strcpy(object, tileText(x, y));
+            strcpy(object, br_display_tile_text(x, y));
 
         }
     } else { // no monster
-        strcpy(object, tileText(x, y));
+        strcpy(object, br_display_tile_text(x, y));
         if (theItem) {
             subjectMoving = cellHasTerrainFlag((pos){ x, y }, T_MOVES_ITEMS);
             if (player.status[STATUS_HALLUCINATING] && !rogue.playbackOmniscience) {
-                strcpy(verb, "is");
+                strcpy(verb, (br_is_zh()?"正在":br_tr("is")));
             } else {
-                strcpy(verb, (theItem->quantity > 1 || (theItem->category & GOLD)) ? "are" : "is");
+                strcpy(verb, (theItem->quantity > 1 || (theItem->category & GOLD)) ? (br_is_zh()?"正在":br_tr("are")) : (br_is_zh()?"正在":br_tr("is")));
             }
             if (cellHasTerrainFlag((pos){ x, y }, T_OBSTRUCTS_PASSABILITY)) {
-                strcat(verb, " enclosed");
+                strcat(verb, br_tr(" enclosed"));
             } else {
-                strcat(verb, subjectMoving ? " drifting" : " lying");
+                strcat(verb, subjectMoving ? br_tr(" drifting") : br_tr(" lying"));
             }
-            strcpy(preposition, standsInTerrain ? (subjectMoving ? "through" : "in")
-                   : (subjectMoving ? "across" : "on"));
+            strcpy(preposition, standsInTerrain ? (subjectMoving ? br_tr("through") : br_tr("in"))
+                   : (subjectMoving ? br_tr("across") : br_tr("on")));
 
-            sprintf(buf, "%s %s %s %s%s.", subject, verb, preposition, object, itemLocation);
+            sprintf(buf, br_tr("%s %s %s %s%s."), subject, verb, br_is_zh()?object:preposition, br_is_zh()?preposition:object, itemLocation);
             describedItemName(theItem, subject, DCOLS - strlen(buf));
 
         } else { // no item
-            sprintf(buf, "you %s %s.", (playerCanDirectlySee(x, y) ? "see" : "sense"), object);
+            sprintf(buf, br_tr("you %s %s."), (playerCanDirectlySee(x, y) ? br_tr("see") : br_tr("sense")), object);
             restoreRNG;
             return;
         }
     }
 
-    sprintf(buf, "%s %s %s %s%s.", subject, verb, preposition, object, itemLocation);
+    sprintf(buf, br_tr("%s %s %s %s%s."), subject, verb, br_is_zh()?object:preposition, br_is_zh()?preposition:object, itemLocation);
     restoreRNG;
 }
 
 void printLocationDescription(short x, short y) {
-    char buf[DCOLS*3];
+    char buf[TEXT_MAX_LENGTH];
     describeLocation(buf, x, y);
     flavorMessage(buf);
 }
@@ -1052,7 +1057,7 @@ boolean playerMoves(short direction) {
             && player.status[STATUS_IMMUNE_TO_FIRE] <= 1
             && !cellHasTerrainFlag((pos){ newX, newY }, T_ENTANGLES)
             && !cellHasTMFlag((pos){ newX, newY }, TM_IS_SECRET)) {
-            message("that would be certain death!", 0);
+            message(br_tr("that would be certain death!"), 0);
             brogueAssert(!committed);
             cancelKeystroke();
             return false; // player won't willingly step into lava
@@ -1145,7 +1150,7 @@ boolean playerMoves(short direction) {
                 // Don't interrupt exploration with this message.
             if (--player.status[STATUS_STUCK]) {
                 if (!rogue.automationActive) {
-                    message("you struggle but cannot free yourself.", 0);
+                    message(br_tr("you struggle but cannot free yourself."), 0);
                 }
                 moveEntrancedMonsters(direction);
                 committed = true;
@@ -1153,7 +1158,7 @@ boolean playerMoves(short direction) {
                 return true;
             } else {
                 if (!rogue.automationActive) {
-                    message("you break free!", 0);
+                    message(br_tr("you break free!"), 0);
                 }
                 if (tileCatalog[pmap[x][y].layers[SURFACE]].flags & T_ENTANGLES) {
                     pmap[x][y].layers[SURFACE] = NOTHING;
@@ -1676,7 +1681,7 @@ void travel(pos target, boolean autoConfirm) {
     }
 
     if (!(pmapAt(target)->flags & (DISCOVERED | MAGIC_MAPPED))) {
-        message("You have not explored that location.", 0);
+        message(br_tr("You have not explored that location."), 0);
         return;
     }
 
@@ -1696,7 +1701,7 @@ void travel(pos target, boolean autoConfirm) {
                 staircaseConfirmKey = 0;
             }
             displayRoute(distanceMap, false);
-            message("Travel this route? (y/n)", 0);
+            message(br_tr("Travel this route? (y/n)"), 0);
 
             do {
                 nextBrogueEvent(&theEvent, true, false, false);
@@ -1725,7 +1730,7 @@ void travel(pos target, boolean autoConfirm) {
 //      }
     } else {
         rogue.cursorLoc = INVALID_POS;
-        message("No path is available.", 0);
+        message(br_tr("No path is available."), 0);
     }
     freeGrid(distanceMap);
 }
@@ -1948,11 +1953,11 @@ boolean explore(short frameDelay) {
     boolean headingToStairs = false;
 
     if (player.status[STATUS_CONFUSED]) {
-        message("Not while you're confused.", 0);
+        message(br_tr("Not while you're confused."), 0);
         return false;
     }
     if (cellHasTerrainFlag(player.loc, T_OBSTRUCTS_PASSABILITY)) {
-        message("Not while you're trapped.", 0);
+        message(br_tr("Not while you're trapped."), 0);
         return false;
     }
 
@@ -2164,7 +2169,7 @@ boolean search(short searchStrength) {
 boolean proposeOrConfirmLocation(pos target, char *failureMessage) {
     boolean retval = false;
     if (posEq(player.loc, target)) {
-        message("you are already there.", 0);
+        message(br_tr("you are already there."), 0);
     } else if (pmapAt(target)->flags & (DISCOVERED | MAGIC_MAPPED)) {
         if (posEq(rogue.cursorLoc, target)) {
             retval = true;
@@ -2185,7 +2190,7 @@ boolean useStairs(short stairDirection) {
         if (rogue.depthLevel < gameConst->deepestLevel) {
             rogue.cursorLoc = INVALID_POS;
             rogue.depthLevel++;
-            message("You descend.", 0);
+            message(br_tr("You descend."), 0);
             startLevel(rogue.depthLevel - 1, stairDirection);
             if (rogue.depthLevel > rogue.deepestLevel) {
                 rogue.deepestLevel = rogue.depthLevel;
@@ -2196,8 +2201,8 @@ boolean useStairs(short stairDirection) {
             victory(true);
         } else {
             confirmMessages();
-            messageWithColor("the crystal archway repels you with a mysterious force!", &lightBlue, 0);
-            messageWithColor("(Only the bearer of the Amulet of Yendor may pass.)", &backgroundMessageColor, 0);
+            messageWithColor(br_tr("the crystal archway repels you with a mysterious force!"), &lightBlue, 0);
+            messageWithColor(br_tr("(Only the bearer of the Amulet of Yendor may pass.)"), &backgroundMessageColor, 0);
         }
         succeeded = true;
     } else {
@@ -2207,15 +2212,15 @@ boolean useStairs(short stairDirection) {
             if (rogue.depthLevel == 0) {
                 victory(false);
             } else {
-                message("You ascend.", 0);
+                message(br_tr("You ascend."), 0);
                 startLevel(rogue.depthLevel + 1, stairDirection);
                 //irisFadeBetweenBuffers(fromBuf, toBuf, mapToWindowX(player.loc.x), mapToWindowY(player.loc.y), 20, true);
             }
             succeeded = true;
         } else {
             confirmMessages();
-            messageWithColor("The dungeon exit is magically sealed!", &lightBlue, 0);
-            messageWithColor("(Only the bearer of the Amulet of Yendor may pass.)", &backgroundMessageColor, 0);
+            messageWithColor(br_tr("The dungeon exit is magically sealed!"), &lightBlue, 0);
+            messageWithColor(br_tr("(Only the bearer of the Amulet of Yendor may pass.)"), &backgroundMessageColor, 0);
         }
     }
 
@@ -2236,7 +2241,7 @@ void storeMemories(const short x, const short y) {
 void updateFieldOfViewDisplay(boolean updateDancingTerrain, boolean refreshDisplay) {
     short i, j;
     item *theItem;
-    char buf[COLS*3], name[COLS*3];
+    char buf[TEXT_MAX_LENGTH], name[BR_MESSAGE_BYTES];
 
     assureCosmeticRNG;
 
@@ -2257,15 +2262,15 @@ void updateFieldOfViewDisplay(boolean updateDancingTerrain, boolean refreshDispl
                         theItem = itemAtLoc((pos){ i, j });
                         if (theItem && (theItem->category & KEY)) {
                             itemName(theItem, name, false, true, NULL);
-                            sprintf(buf, "you see %s.", name);
+                            sprintf(buf, br_tr("you see %s."), name);
                             messageWithColor(buf, &itemMessageColor, 0);
                         }
                     }
                     if (!(pmap[i][j].flags & MAGIC_MAPPED)
                         && cellHasTMFlag((pos){ i, j }, TM_INTERRUPT_EXPLORATION_WHEN_SEEN)) {
 
-                        strcpy(name, tileCatalog[pmap[i][j].layers[layerWithTMFlag(i, j, TM_INTERRUPT_EXPLORATION_WHEN_SEEN)]].description);
-                        sprintf(buf, "you see %s.", name);
+                        strcpy(name, br_tr(tileCatalog[pmap[i][j].layers[layerWithTMFlag(i, j, TM_INTERRUPT_EXPLORATION_WHEN_SEEN)]].description));
+                        sprintf(buf, br_tr("you see %s."), name);
                         messageWithColor(buf, &backgroundMessageColor, 0);
                     }
                 }

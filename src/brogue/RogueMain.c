@@ -22,6 +22,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 #include "GlobalsBrogue.h"
@@ -156,18 +158,18 @@ static const char *getOrdinalSuffix(int number) {
 
 static void welcome() {
     char buf[DCOLS*3], buf2[DCOLS*3];
-    message("Hello and welcome, adventurer, to the Dungeons of Doom!", 0);
-    strcpy(buf, "Retrieve the ");
+    message(br_tr("Hello and welcome, adventurer, to the Dungeons of Doom!"), 0);
+    strcpy(buf, br_tr("Retrieve the "));
     encodeMessageColor(buf, strlen(buf), &itemMessageColor);
-    strcat(buf, "Amulet of Yendor");
+    strcat(buf, br_tr("Amulet of Yendor"));
     encodeMessageColor(buf, strlen(buf), &white);
-    sprintf(buf2, " from the %i%s floor and escape with it!", gameConst->amuletLevel, getOrdinalSuffix(gameConst->amuletLevel));
+    sprintf(buf2, br_tr(" from the %i%s floor and escape with it!"), gameConst->amuletLevel, getOrdinalSuffix(gameConst->amuletLevel));
     strcat(buf, buf2);
     message(buf, 0);
     if (KEYBOARD_LABELS) {
-        messageWithColor("Press <?> for help at any time.", &backgroundMessageColor, 0);
+        messageWithColor(br_tr("Press <?> for help at any time."), &backgroundMessageColor, 0);
     }
-    flavorMessage("The doors to the dungeon slam shut behind you.");
+    flavorMessage(br_tr("The doors to the dungeon slam shut behind you."));
 }
 
 void initializeGameVariant() {
@@ -1070,7 +1072,7 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
     if (rogue.quit) {
         if (rogue.playbackMode) {
             rogue.playbackMode = false;
-            message("(The player quit at this point.)", REQUIRE_ACKNOWLEDGMENT);
+            message(br_tr("(The player quit at this point.)"), REQUIRE_ACKNOWLEDGMENT);
             rogue.playbackMode = true;
         }
     } else {
@@ -1078,10 +1080,10 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
         if (!D_IMMORTAL && !nonInteractivePlayback) {
             rogue.playbackMode = false;
         }
-        strcpy(buf, "You die...");
+        strcpy(buf, br_tr("You die..."));
         if (KEYBOARD_LABELS) {
             encodeMessageColor(buf, strlen(buf), &gray);
-            strcat(buf, " (press 'i' to view your inventory)");
+            strcat(buf, br_tr(" (press 'i' to view your inventory)"));
         }
         player.currentHP = 0; // So it shows up empty in the side bar.
         refreshSideBar(-1, -1, false);
@@ -1096,7 +1098,7 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
                 && theEvent.param1 != ESCAPE_KEY
                 && theEvent.param1 != INVENTORY_KEY) {
 
-                flashTemporaryAlert(" -- Press space or click to continue, or press 'i' to view inventory -- ", 1500);
+                flashTemporaryAlert(br_tr(" -- Press space or click to continue, or press 'i' to view inventory -- "), 1500);
             } else if (theEvent.eventType == KEYSTROKE && theEvent.param1 == INVENTORY_KEY) {
                 for (theItem = packItems->nextItem; theItem != NULL; theItem = theItem->nextItem) {
                     identify(theItem);
@@ -1115,7 +1117,7 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
     rogue.creaturesWillFlashThisTurn = false;
 
     if (D_IMMORTAL && !rogue.quit) {
-        message("...but then you get better.", 0);
+        message(br_tr("...but then you get better."), 0);
         player.currentHP = player.info.maxHP;
         if (player.status[STATUS_NUTRITION] < 10) {
             player.status[STATUS_NUTRITION] = STOMACH_SIZE;
@@ -1241,20 +1243,20 @@ void victory(boolean superVictory) {
         screenDisplayBuffer dbuf = displayBuffer;
         funkyFade(&dbuf, &superVictoryColor, 0, 240, mapToWindowX(player.loc.x), mapToWindowY(player.loc.y), false);
         displayMoreSign();
-        printString("Congratulations; you have transcended the Dungeons of Doom!                 ", mapToWindowX(0), mapToWindowY(-1), &black, &white, 0);
+        printString(br_tr("Congratulations; you have transcended the Dungeons of Doom!                 "), mapToWindowX(0), mapToWindowY(-1), &black, &white, 0);
         displayMoreSign();
         clearDisplayBuffer(&dbuf);
         deleteMessages();
-        strcpy(displayedMessage[0], "You retire in splendor, forever renowned for your remarkable triumph.     ");
+        strcpy(displayedMessage[0], br_tr("You retire in splendor, forever renowned for your remarkable triumph.     "));
     } else {
         message(    "You are bathed in sunlight as you throw open the heavy doors.", 0);
         screenDisplayBuffer dbuf = displayBuffer;
         funkyFade(&dbuf, &white, 0, 240, mapToWindowX(player.loc.x), mapToWindowY(player.loc.y), false);
         displayMoreSign();
-        printString("Congratulations; you have escaped from the Dungeons of Doom!     ", mapToWindowX(0), mapToWindowY(-1), &black, &white, 0);
+        printString(br_tr("Congratulations; you have escaped from the Dungeons of Doom!     "), mapToWindowX(0), mapToWindowY(-1), &black, &white, 0);
         displayMoreSign();
         deleteMessages();
-        strcpy(displayedMessage[0], "You sell your treasures and live out your days in fame and glory.");
+        strcpy(displayedMessage[0], br_tr("You sell your treasures and live out your days in fame and glory."));
     }
 
     screenDisplayBuffer dbuf;
@@ -1277,7 +1279,7 @@ void victory(boolean superVictory) {
         }
         if (theItem->category == AMULET && superVictory) {
             plotCharToBuffer(G_AMULET, (windowpos){ mapToWindowX(2), min(ROWS-1, i + 1) }, &yellow, &black, &dbuf);
-            printString("The Birthright of Yendor", mapToWindowX(4), min(ROWS-1, i + 1), &itemMessageColor, &black, &dbuf);
+            printString(br_tr("The Birthright of Yendor"), mapToWindowX(4), min(ROWS-1, i + 1), &itemMessageColor, &black, &dbuf);
             sprintf(buf, "%li", max(0, itemValue(theItem) * 2));
             printString(buf, mapToWindowX(60), min(ROWS-1, i + 1), &itemMessageColor, &black, &dbuf);
             totalValue += max(0, itemValue(theItem) * 2);
@@ -1383,22 +1385,22 @@ void victory(boolean superVictory) {
 
 void enableEasyMode() {
     if (rogue.mode == GAME_MODE_EASY) {
-        message("Alas, all hope of salvation is lost. You shed scalding tears at your plight.", 0);
+        message(br_tr("Alas, all hope of salvation is lost. You shed scalding tears at your plight."), 0);
         return;
     }
-    message("A dark presence surrounds you, whispering promises of stolen power.", REQUIRE_ACKNOWLEDGMENT);
-    if (confirm("Succumb to demonic temptation (i.e. enable Easy Mode)?", false)) {
+    message(br_tr("A dark presence surrounds you, whispering promises of stolen power."), REQUIRE_ACKNOWLEDGMENT);
+    if (confirm(br_tr("Succumb to demonic temptation (i.e. enable Easy Mode)?"), false)) {
         recordKeystroke(EASY_MODE_KEY, false, true);
-        message("An ancient and terrible evil burrows into your willing flesh!", REQUIRE_ACKNOWLEDGMENT);
+        message(br_tr("An ancient and terrible evil burrows into your willing flesh!"), REQUIRE_ACKNOWLEDGMENT);
         rogue.mode = GAME_MODE_EASY;
         setPlayerDisplayChar();
         refreshDungeonCell(player.loc);
         refreshSideBar(-1, -1, false);
-        message("Wracked by spasms, your body contorts into an ALL-POWERFUL AMPERSAND!!!", 0);
-        message("You have a feeling that you will take 20% as much damage from now on.", 0);
-        message("But great power comes at a great price -- specifically, a 90% income tax rate.", 0);
+        message(br_tr("Wracked by spasms, your body contorts into an ALL-POWERFUL AMPERSAND!!!"), 0);
+        message(br_tr("You have a feeling that you will take 20% as much damage from now on."), 0);
+        message(br_tr("But great power comes at a great price -- specifically, a 90% income tax rate."), 0);
     } else {
-        message("The evil dissipates, hissing, from the air around you.", 0);
+        message(br_tr("The evil dissipates, hissing, from the air around you."), 0);
     }
 }
 

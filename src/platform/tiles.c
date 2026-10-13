@@ -1,6 +1,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <SDL_image.h>
+#include "zh_glyph.h"
+#include "zh_text.h"
 #include "platform.h"
 #include "tiles.h"
 
@@ -34,7 +36,7 @@ static const char TileProcessing[TILE_ROWS][TILE_COLS+1] = {
 typedef struct ScreenTile {
     short foreRed, foreGreen, foreBlue; // foreground color (0..100)
     short backRed, backGreen, backBlue; // background color (0..100)
-    short charIndex;    // index of the glyph to draw
+    int charIndex;    // index of the glyph to draw
     short needsRefresh; // true if the tile has changed since the last screen refresh, else false
 } ScreenTile;
 
@@ -587,10 +589,14 @@ static void createTextures(SDL_Renderer *renderer, int outputWidth, int outputHe
 /// \param backGreen green component of the background color (0..100)
 /// \param backBlue blue component of the background color (0..100)
 ///
-void updateTile(int row, int column, short charIndex,
+void updateTile(int row, int column, int charIndex,
     short foreRed, short foreGreen, short foreBlue,
     short backRed, short backGreen, short backBlue)
 {
+    int previous=screenTiles[row][column].charIndex;
+    if(column+1<COLS && (previous & BR_UNICODE_FLAG)
+        && br_text_columns(previous & ~BR_UNICODE_FLAG)==2)
+        screenTiles[row][column+1].needsRefresh=1;
     screenTiles[row][column] = (ScreenTile){
         .foreRed   = foreRed,
         .foreGreen = foreGreen,
@@ -646,6 +652,15 @@ void updateScreen() {
         if (SDL_RenderClear(renderer) < 0) sdlfatal(__FILE__, __LINE__);
     }
 
+    if(softwareRendering)for(int y=0;y<ROWS;y++)for(int x=0;x<COLS-1;x++) {
+        ScreenTile *tile=&screenTiles[y][x];
+        if((tile->charIndex & BR_UNICODE_FLAG)
+            && br_text_columns(tile->charIndex & ~BR_UNICODE_FLAG)==2
+            && (tile->needsRefresh || screenTiles[y][x+1].needsRefresh)) {
+            tile->needsRefresh=screenTiles[y][x+1].needsRefresh=1;
+        }
+    }
+
     // To please the OpenGL renderer, we'll proceed in 5 steps:
     //  -1. background colors
     //  0.  Textures[0]
@@ -692,6 +707,7 @@ void updateScreen() {
                         continue; // this tile uses another texture and gets painted at another step
                     }
 
+                    if (tile->charIndex & 0x200000) continue;
                     int tileRow    = tile->charIndex / 16;
                     int tileColumn = tile->charIndex % 16;
 
@@ -723,6 +739,17 @@ void updateScreen() {
         }
     }
 
+    for (int y=0; y<ROWS; y++) for (int x=0; x<COLS; x++) {
+        ScreenTile *tile = &screenTiles[y][x];
+        if (!(tile->charIndex & 0x200000)) continue;
+        if(softwareRendering && !tile->needsRefresh)continue;
+        unsigned int cp = tile->charIndex & ~0x200000;
+        int wide = br_text_columns(cp);
+        SDL_Rect area = {x*outputWidth/COLS, y*outputHeight/ROWS,
+            (min(COLS,x+wide)*outputWidth/COLS)-(x*outputWidth/COLS),
+            ((y+1)*outputHeight/ROWS)-(y*outputHeight/ROWS)};
+        br_draw_glyph(renderer, cp, area, (SDL_Color){round(2.55*tile->foreRed),round(2.55*tile->foreGreen),round(2.55*tile->foreBlue),255});
+    }
     SDL_RenderPresent(renderer);
 
     // the screen is now up to date

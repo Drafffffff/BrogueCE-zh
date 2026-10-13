@@ -1,0 +1,585 @@
+[
+  {
+    "id": "s_fbc52de9579fb441",
+    "source": "Pure Mage",
+    "zh_CN": "纯粹法师",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a0f780fb52fad06d",
+    "source": "Pure Warrior",
+    "zh_CN": "纯粹战士",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1dadb3284b8b3582",
+    "source": "Companion",
+    "zh_CN": "同伴",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8302f971b58fc720",
+    "source": "Specialist",
+    "zh_CN": "专精者",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_251a5a436f60bc79",
+    "source": "Jellymancer",
+    "zh_CN": "果冻术士",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_22c3e6cb51de5373",
+    "source": "Dragonslayer",
+    "zh_CN": "屠龙者",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a7d973a732d0577f",
+    "source": "Paladin",
+    "zh_CN": "圣骑士",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_640d8241de5fdcdc",
+    "source": "Untempted",
+    "zh_CN": "不为财动",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_56a3dda222ab5d8c",
+    "source": "Ascend without using a weapon.",
+    "zh_CN": "逃出地牢，期间不使用武器。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a3324fe68975032f",
+    "source": "Ascend without using a staff, wand or charm.",
+    "zh_CN": "逃出地牢，期间不使用法杖、魔杖或护符。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e67fceb412542ac1",
+    "source": "Explore 13 new depths with an ally.",
+    "zh_CN": "与盟友一同探索 13 个新楼层。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_22bc416983637803",
+    "source": "Explore 3 new depths with an ally.",
+    "zh_CN": "与盟友一同探索 3 个新楼层。",
+    "file": "src/variants/GlobalsBulletBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2702c7e5b1360ad9",
+    "source": "Enchant an item to +16.",
+    "zh_CN": "将一件物品附魔至 +16。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6d61f04bb34ceed4",
+    "source": "Obtain 90 jelly allies simultaneously.",
+    "zh_CN": "同时拥有 90 个果冻盟友。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_82ffa8afaf7195db",
+    "source": "Slay a dragon with a melee attack.",
+    "zh_CN": "用近战攻击击杀一条龙。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ef0f864710cea92d",
+    "source": "Ascend without attacking an unaware or fleeing creature.",
+    "zh_CN": "逃出地牢，期间不攻击未警觉或逃跑的生物。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_26af4e19fcd058e8",
+    "source": "Ascend without picking up gold.",
+    "zh_CN": "逃出地牢，期间不拾取金币。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_01db71ab8048f74a",
+    "source": "lightning",
+    "zh_CN": "闪电",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_60fefd770b1ea964",
+    "source": "firebolt",
+    "zh_CN": "火焰箭",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5743abddddfa08c1",
+    "source": "poison",
+    "zh_CN": "毒素",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8e1b0bc84f08959b",
+    "source": "tunneling",
+    "zh_CN": "掘地",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e894adf124d00d55",
+    "source": "blinking",
+    "zh_CN": "闪现",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3dc29a4d3a19adb0",
+    "source": "entrancement",
+    "zh_CN": "惑心",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5db245816ec8e4c4",
+    "source": "obstruction",
+    "zh_CN": "屏障",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e1ba4807a15d8579",
+    "source": "discord",
+    "zh_CN": "纷争",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_70ffe8fb2b1932f1",
+    "source": "conjuration",
+    "zh_CN": "召唤",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e904883f02b0baeb",
+    "source": "healing",
+    "zh_CN": "治疗",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_49fa6d753c7ad75b",
+    "source": "haste",
+    "zh_CN": "加速",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_433c3507c372d907",
+    "source": "protection",
+    "zh_CN": "防护",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_57f4aca5cd93c096",
+    "source": "clairvoyance",
+    "zh_CN": "透视",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2d998cb471a020c0",
+    "source": "stealth",
+    "zh_CN": "潜行",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_396e9ba2beda7b46",
+    "source": "regeneration",
+    "zh_CN": "再生",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2a15bf39e19c336c",
+    "source": "transference",
+    "zh_CN": "生命转移",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_99a7026172d42714",
+    "source": "light",
+    "zh_CN": "光明",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5674991da3fa1a3e",
+    "source": "awareness",
+    "zh_CN": "感知",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7c68b70cea5555e5",
+    "source": "wisdom",
+    "zh_CN": "智慧",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_44335ce90b54cb47",
+    "source": "reaping",
+    "zh_CN": "收割",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_63bd7065ef1e165a",
+    "source": "life",
+    "zh_CN": "生命",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e6b88623f7209b6c",
+    "source": "strength",
+    "zh_CN": "力量",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2f4e79a308787b64",
+    "source": "telepathy",
+    "zh_CN": "心灵感应",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_125aa8103cc36767",
+    "source": "levitation",
+    "zh_CN": "浮空",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a491c61afbb63b58",
+    "source": "detect magic",
+    "zh_CN": "侦测魔法",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bbccb9c002d5ed59",
+    "source": "speed",
+    "zh_CN": "迅捷",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_211fbad285a7dd6a",
+    "source": "fire immunity",
+    "zh_CN": "免疫火焰",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f6579668e31fda08",
+    "source": "invisibility",
+    "zh_CN": "隐形",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8dad614bfef03fea",
+    "source": "caustic gas",
+    "zh_CN": "腐蚀毒气",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_638a53a83c43d5c3",
+    "source": "paralysis",
+    "zh_CN": "麻痹",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2c229d9fff93795f",
+    "source": "hallucination",
+    "zh_CN": "幻觉",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_32c870923fced538",
+    "source": "confusion",
+    "zh_CN": "混乱",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c5e1da0788e9173d",
+    "source": "incineration",
+    "zh_CN": "焚烧",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_14272bd361c99906",
+    "source": "darkness",
+    "zh_CN": "黑暗",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bec4ffaa14c6316d",
+    "source": "descent",
+    "zh_CN": "坠落",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b7942ba82fac5afe",
+    "source": "creeping death",
+    "zh_CN": "蔓延死亡",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9a4670f03f8a8f6c",
+    "source": "enchanting",
+    "zh_CN": "附魔",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0f780b5c735e7025",
+    "source": "identify",
+    "zh_CN": "鉴定",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1a3c219d9727b9dd",
+    "source": "teleportation",
+    "zh_CN": "传送",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1b7a911a694176c0",
+    "source": "remove curse",
+    "zh_CN": "解除诅咒",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_df3b652278febb63",
+    "source": "recharging",
+    "zh_CN": "充能",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_920613833bd6429e",
+    "source": "protect armor",
+    "zh_CN": "护甲防护",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bf1df3de97c2f0e4",
+    "source": "protect weapon",
+    "zh_CN": "武器防护",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c8a30c5e0666aad2",
+    "source": "sanctuary",
+    "zh_CN": "庇护",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_167c9019044f81b9",
+    "source": "magic mapping",
+    "zh_CN": "魔法地图",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f61f534bf24cb550",
+    "source": "negation",
+    "zh_CN": "消魔",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6bbbbf8698d84d8d",
+    "source": "shattering",
+    "zh_CN": "粉碎",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_db6244194b0176fa",
+    "source": "aggravate monsters",
+    "zh_CN": "激怒怪物",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1a8bb8f31a9e497e",
+    "source": "summon monsters",
+    "zh_CN": "召唤怪物",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cef8df7f6e06a8a3",
+    "source": "slowness",
+    "zh_CN": "迟缓",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ee1661754833584f",
+    "source": "polymorphism",
+    "zh_CN": "变形",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0ebfcdd92172f5ed",
+    "source": "domination",
+    "zh_CN": "支配",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c22e5c5d9731b20c",
+    "source": "beckoning",
+    "zh_CN": "牵引",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_82b5f7770097973f",
+    "source": "plenty",
+    "zh_CN": "复制",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ca9195d998f68dfb",
+    "source": "empowerment",
+    "zh_CN": "强化",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_75847b52329a46a2",
+    "source": "Reset recent stats?",
+    "zh_CN": "重置最近统计？累计统计和历史记录将保留。",
+    "file": "src/brogue/MainMenu.c",
+    "status": "prototype"
+  }
+]

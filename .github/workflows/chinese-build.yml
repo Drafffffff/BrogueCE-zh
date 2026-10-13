@@ -1,0 +1,11 @@
+name: Chinese source build
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev
+      - run: make -j2 RELEASE=YES
+      - run: bin/brogue --version
+      - run: cc -std=c99 -Wall -Wextra -Werror -Isrc/platform src/platform/zh_text.c tests/zh-text.c -o /tmp/zh-text-test && /tmp/zh-text-test

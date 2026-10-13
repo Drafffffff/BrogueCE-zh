@@ -1,0 +1,170 @@
+[
+  {
+    "id": "s_b877e51c9249f790",
+    "file": "src/brogue/Recordings.c",
+    "source": "recording paused. Press space to play.",
+    "zh_CN": "录像已暂停。按 Start 继续播放。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_5872754715c9f9e3",
+    "file": "src/brogue/Recordings.c",
+    "source": "recording paused.",
+    "zh_CN": "录像已暂停。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_838224b3d0da41d9",
+    "file": "src/brogue/Recordings.c",
+    "source": "recording unpaused.",
+    "zh_CN": "录像继续播放。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_07ee96456e5cc8da",
+    "file": "src/brogue/Recordings.c",
+    "source": " Out of sync ",
+    "zh_CN": " 录像回放失步 ",
+    "status": "prototype",
+    "expected_count": 3
+  },
+  {
+    "id": "s_ec33d29cbe1a84b1",
+    "file": "src/brogue/Recordings.c",
+    "source": " Faster ",
+    "zh_CN": " 加快播放 ",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_15469b138e011d5e",
+    "file": "src/brogue/Recordings.c",
+    "source": " Slower ",
+    "zh_CN": " 减慢播放 ",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_e5be0f2efd7ddbfa",
+    "file": "src/brogue/Recordings.c",
+    "source": "Go to turn number: ",
+    "zh_CN": "跳转到回合：",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_c6a1b09a988e70da",
+    "file": "src/brogue/Recordings.c",
+    "source": " Already at turn %li ",
+    "zh_CN": " 已在第 %li 回合 ",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_238dc4a1850d62cd",
+    "file": "src/brogue/Recordings.c",
+    "source": " Already reached deepest depth explored ",
+    "zh_CN": " 已到达录像探索的最深层 ",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_7ff7a9103ed78b8f",
+    "file": "src/brogue/Recordings.c",
+    "source": " Already at end of recording ",
+    "zh_CN": " 已到达录像的边界 ",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_2a5b13c4ab491621",
+    "file": "src/brogue/Recordings.c",
+    "source": "Omniscience enabled.",
+    "zh_CN": "已开启全知视角。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_2cb5f9155826c610",
+    "file": "src/brogue/Recordings.c",
+    "source": "Omniscience disabled.",
+    "zh_CN": "已关闭全知视角。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_202eb2cedf1b6616",
+    "file": "src/brogue/Recordings.c",
+    "source": "Rewind?",
+    "zh_CN": "向前回退录像？",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_5dcdb27eada6e70e",
+    "file": "src/brogue/Recordings.c",
+    "source": "View recording: ",
+    "zh_CN": "观看录像：",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_eee576d33e459070",
+    "file": "src/brogue/Recordings.c",
+    "source": "Open saved game: ",
+    "zh_CN": "打开存档：",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_3dd8a5c6802a06b8",
+    "file": "src/brogue/Recordings.c",
+    "source": "Close recording and begin a new game?",
+    "zh_CN": "关闭录像并开始新游戏？",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_b14395003e5efba7",
+    "file": "src/brogue/Recordings.c",
+    "source": "File not found.",
+    "zh_CN": "找不到文件。",
+    "status": "prototype",
+    "expected_count": 3
+  },
+  {
+    "id": "s_d597d36930686ced",
+    "file": "src/brogue/Recordings.c",
+    "source": "Color effects disabled.",
+    "zh_CN": "已关闭色彩效果。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_8d4371fc49825c25",
+    "file": "src/brogue/Recordings.c",
+    "source": "Color effects enabled.",
+    "zh_CN": "已开启色彩效果。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_97212c0e3684d423",
+    "file": "src/brogue/Recordings.c",
+    "source": "Stealth range displayed.",
+    "zh_CN": "已显示潜行范围。",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "s_4db0772f06090c82",
+    "file": "src/brogue/Recordings.c",
+    "source": "Stealth range hidden.",
+    "zh_CN": "已隐藏潜行范围。",
+    "status": "prototype",
+    "expected_count": 1
+  }
+]

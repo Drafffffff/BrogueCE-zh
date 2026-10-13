@@ -341,6 +341,7 @@ Returns the index of the sprite representing the given glyph. Sprites <256 are
 from the text font sheet, 256+ are from the tiles sheet.
 */
 static int fontIndex(enum displayGlyph glyph) {
+    if ((unsigned int)glyph & 0x200000) return glyph;
     // These are the only non-ASCII glyphs which always come from the font sheet
     if (glyph == G_UP_ARROW) return 0x90;
     if (glyph == G_DOWN_ARROW) return 0x91;

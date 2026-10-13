@@ -22,6 +22,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -51,7 +53,7 @@ void exposeCreatureToFire(creature *monst) {
 }
 
 void updateFlavorText() {
-    char buf[DCOLS * 3];
+    char buf[TEXT_MAX_LENGTH];
     if (rogue.disturbed && !rogue.gameHasEnded) {
         if (rogue.armor
             && (rogue.armor->flags & ITEM_RUNIC)
@@ -230,7 +232,7 @@ void applyInstantTileEffectsToCreature(creature *monst) {
             message(buf2, REQUIRE_ACKNOWLEDGMENT);
         } else if (playerCanSee(*x, *y)) {
             // usually means an invisible monster
-            message("a pressure plate clicks!", 0);
+            message(br_tr("a pressure plate clicks!"), 0);
         }
         for (layer = 0; layer < NUMBER_TERRAIN_LAYERS; layer++) {
             if (tileCatalog[pmap[*x][*y].layers[layer]].flags & T_IS_DF_TRAP) {
@@ -353,7 +355,7 @@ void applyInstantTileEffectsToCreature(creature *monst) {
         && (rogue.armor->flags & ITEM_RUNIC)
         && rogue.armor->enchant2 == A_RESPIRATION) {
         if (!(rogue.armor->flags & ITEM_RUNIC_IDENTIFIED)) {
-            message("Your armor trembles and a pocket of clean air swirls around you.", 0);
+            message(br_tr("Your armor trembles and a pocket of clean air swirls around you."), 0);
             autoIdentify(rogue.armor);
         }
     } else {
@@ -504,7 +506,7 @@ static void applyGradualTileEffectsToCreature(creature *monst, short ticks) {
         if (monst == &player) {
             if (rogue.armor && (rogue.armor->flags & ITEM_RUNIC) && rogue.armor->enchant2 == A_RESPIRATION) {
                 if (!(rogue.armor->flags & ITEM_RUNIC_IDENTIFIED)) {
-                    message("Your armor trembles and a pocket of clean air swirls around you.", 0);
+                    message(br_tr("Your armor trembles and a pocket of clean air swirls around you."), 0);
                     autoIdentify(rogue.armor);
                 }
             } else {
@@ -543,7 +545,7 @@ static void applyGradualTileEffectsToCreature(creature *monst, short ticks) {
         if (monst->currentHP < monst->info.maxHP) {
             monst->currentHP = min(monst->currentHP + damage, monst->info.maxHP);
             if (monst == &player) {
-                messageWithColor("you feel much better.", &goodMessageColor, 0);
+                messageWithColor(br_tr("you feel much better."), &goodMessageColor, 0);
             }
         }
     }
@@ -839,7 +841,7 @@ static void checkNutrition() {
 
     if (player.status[STATUS_NUTRITION] == 1) { // Didn't manage to eat any food above.
         player.status[STATUS_NUTRITION] = 0;    // So the status bar changes in time for the message:
-        message("you are starving to death!", REQUIRE_ACKNOWLEDGMENT);
+        message(br_tr("you are starving to death!"), REQUIRE_ACKNOWLEDGMENT);
     }
 }
 
@@ -991,7 +993,7 @@ static void playerFalls() {
     if (layer >= 0) {
         message(tileCatalog[pmapAt(player.loc)->layers[layer]].flavorText, REQUIRE_ACKNOWLEDGMENT);
     } else if (layer == -1) {
-        message("You plunge downward!", REQUIRE_ACKNOWLEDGMENT);
+        message(br_tr("You plunge downward!"), REQUIRE_ACKNOWLEDGMENT);
     }
 
     player.bookkeepingFlags &= ~(MB_IS_FALLING | MB_SEIZED | MB_SEIZING);
@@ -1003,12 +1005,12 @@ static void playerFalls() {
         damage = randClumpedRange(gameConst->fallDamageMin, gameConst->fallDamageMax, 2);
         boolean killed = false;
         if (terrainFlags(player.loc) & T_IS_DEEP_WATER) {
-            messageWithColor("You fall into deep water, unharmed.", &badMessageColor, 0);
+            messageWithColor(br_tr("You fall into deep water, unharmed."), &badMessageColor, 0);
         } else {
             if (cellHasTMFlag(player.loc, TM_ALLOWS_SUBMERGING)) {
                 damage /= 2; // falling into liquid (shallow water, bog, etc.) hurts less than hitting hard floor
             }
-            messageWithColor("You are injured by the fall.", &badMessageColor, 0);
+            messageWithColor(br_tr("You are injured by the fall."), &badMessageColor, 0);
             if (inflictDamage(NULL, &player, damage, &red, false)) {
                 killCreature(&player, false);
                 gameOver("Killed by a fall", true);
@@ -1019,7 +1021,7 @@ static void playerFalls() {
             rogue.deepestLevel = rogue.depthLevel;
         }
     } else {
-        message("A strange force seizes you as you fall.", 0);
+        message(br_tr("A strange force seizes you as you fall."), 0);
         teleport(&player, INVALID_POS, true);
     }
     createFlare(player.loc.x, player.loc.y, GENERIC_FLASH_LIGHT);
@@ -1863,7 +1865,7 @@ void extinguishFireOnCreature(creature *monst) {
         rogue.minersLight.lightColor = &minersLightColor;
         refreshDungeonCell(player.loc);
         updateVision(true);
-        message("you are no longer on fire.", 0);
+        message(br_tr("you are no longer on fire."), 0);
     }
 }
 
@@ -1980,55 +1982,55 @@ static void decrementPlayerStatus() {
 
     if (player.status[STATUS_TELEPATHIC] > 0 && !--player.status[STATUS_TELEPATHIC]) {
         updateVision(true);
-        message("your preternatural mental sensitivity fades.", 0);
+        message(br_tr("your preternatural mental sensitivity fades."), 0);
     }
 
     if (player.status[STATUS_DARKNESS] > 0) {
         player.status[STATUS_DARKNESS]--;
         updateMinersLightRadius();
         if (!player.status[STATUS_DARKNESS]) {
-            message("the cloak of darkness lifts from your vision.", 0);
+            message(br_tr("the cloak of darkness lifts from your vision."), 0);
         }
     }
 
     if (player.status[STATUS_HALLUCINATING] > 0 && !--player.status[STATUS_HALLUCINATING]) {
         displayLevel();
-        message("your hallucinations fade.", 0);
+        message(br_tr("your hallucinations fade."), 0);
     }
 
     if (player.status[STATUS_LEVITATING] > 0 && !--player.status[STATUS_LEVITATING]) {
-        message("you are no longer levitating.", 0);
+        message(br_tr("you are no longer levitating."), 0);
     }
 
     if (player.status[STATUS_CONFUSED] > 0 && !--player.status[STATUS_CONFUSED]) {
-        message("you no longer feel confused.", 0);
+        message(br_tr("you no longer feel confused."), 0);
     }
 
     if (player.status[STATUS_NAUSEOUS] > 0 && !--player.status[STATUS_NAUSEOUS]) {
-        message("you feel less nauseous.", 0);
+        message(br_tr("you feel less nauseous."), 0);
     }
 
     if (player.status[STATUS_PARALYZED] > 0 && !--player.status[STATUS_PARALYZED]) {
-        message("you can move again.", 0);
+        message(br_tr("you can move again."), 0);
     }
 
     if (player.status[STATUS_HASTED] > 0 && !--player.status[STATUS_HASTED]) {
         player.movementSpeed = player.info.movementSpeed;
         player.attackSpeed = player.info.attackSpeed;
         synchronizePlayerTimeState();
-        message("your supernatural speed fades.", 0);
+        message(br_tr("your supernatural speed fades."), 0);
     }
 
     if (player.status[STATUS_SLOWED] > 0 && !--player.status[STATUS_SLOWED]) {
         player.movementSpeed = player.info.movementSpeed;
         player.attackSpeed = player.info.attackSpeed;
         synchronizePlayerTimeState();
-        message("your normal speed resumes.", 0);
+        message(br_tr("your normal speed resumes."), 0);
     }
 
     if (player.status[STATUS_WEAKENED] > 0 && !--player.status[STATUS_WEAKENED]) {
         player.weaknessAmount = 0;
-        message("strength returns to your muscles as the weakening toxin wears off.", 0);
+        message(br_tr("strength returns to your muscles as the weakening toxin wears off."), 0);
         updateEncumbrance();
     }
 
@@ -2038,7 +2040,7 @@ static void decrementPlayerStatus() {
     }
 
     if (player.status[STATUS_IMMUNE_TO_FIRE] > 0 && !--player.status[STATUS_IMMUNE_TO_FIRE]) {
-        message("you no longer feel immune to fire.", 0);
+        message(br_tr("you no longer feel immune to fire."), 0);
     }
 
     if (player.status[STATUS_STUCK] && !cellHasTerrainFlag(player.loc, T_ENTANGLES)) {
@@ -2065,7 +2067,7 @@ static void decrementPlayerStatus() {
     }
 
     if (player.status[STATUS_INVISIBLE] > 0 && !--player.status[STATUS_INVISIBLE]) {
-        message("you are no longer invisible.", 0);
+        message(br_tr("you are no longer invisible."), 0);
     }
 
     if (rogue.monsterSpawnFuse <= 0) {
@@ -2171,7 +2173,7 @@ void manualSearch() {
     } else {
         // Do a final, larger-radius search on the fifth search in a row
         searchStrength = 160;
-        message("you finish your detailed search of the area.", 0);
+        message(br_tr("you finish your detailed search of the area."), 0);
         player.status[STATUS_SEARCHING] = 0;
     }
 
@@ -2488,9 +2490,9 @@ void playerTurnEnded() {
                         oldRNG = rogue.RNG;
                         rogue.RNG = RNG_COSMETIC;
                         //assureCosmeticRNG;
-                        monsterName(buf2, monst, false);
-                        sprintf(buf, "you %s a%s %s",
-                                playerCanDirectlySee(monst->loc.x, monst->loc.y) ? "see" : "sense",
+                        br_display_monster_name(buf2, monst, false);
+                        sprintf(buf, br_tr("you %s a%s %s"),
+                                playerCanDirectlySee(monst->loc.x, monst->loc.y) ? (br_is_zh()?"看见":"see") : (br_is_zh()?"感知到":"sense"),
                                 (isVowelish(buf2) ? "n" : ""),
                                 buf2);
                         if (rogue.cautiousMode) {
@@ -2598,11 +2600,11 @@ void playerTurnEnded() {
                 turnsToShore = player.status[STATUS_LEVITATING] * 100 / player.movementSpeed;
             }
             if (turnsRequiredToShore == turnsToShore || turnsRequiredToShore + 1 == turnsToShore) {
-                message("better head back to solid ground!", REQUIRE_ACKNOWLEDGMENT);
+                message(br_tr("better head back to solid ground!"), REQUIRE_ACKNOWLEDGMENT);
                 rogue.receivedLevitationWarning = true;
             } else if (turnsRequiredToShore > turnsToShore
                        && turnsRequiredToShore < 10000) {
-                message("you're past the point of no return!", REQUIRE_ACKNOWLEDGMENT);
+                message(br_tr("you're past the point of no return!"), REQUIRE_ACKNOWLEDGMENT);
                 rogue.receivedLevitationWarning = true;
             }
         }

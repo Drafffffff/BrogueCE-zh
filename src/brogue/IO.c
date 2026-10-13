@@ -25,6 +25,8 @@
 #include <time.h>
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -193,9 +195,9 @@ static short actionMenu(short x, boolean playingBack) {
         if (playingBack) {
 #ifdef ENABLE_PLAYBACK_SWITCH
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  "  %sP: %sPlay from here  ", yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  br_tr("  %sP: %sPlay from here  "), yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Play from here  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Play from here  "));
             }
             buttons[buttonCount].hotkey[0] = SWITCH_TO_PLAYING_KEY;
             buttonCount++;
@@ -205,18 +207,18 @@ static short actionMenu(short x, boolean playingBack) {
             buttonCount++;
 #endif
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  "  %sk: %sFaster playback  ", yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  br_tr("  %sk: %sFaster playback  "), yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Faster playback  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Faster playback  "));
             }
             buttons[buttonCount].hotkey[0] = UP_KEY;
             buttons[buttonCount].hotkey[1] = UP_ARROW;
             buttons[buttonCount].hotkey[2] = NUMPAD_8;
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  "  %sj: %sSlower playback  ", yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  br_tr("  %sj: %sSlower playback  "), yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Slower playback  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Slower playback  "));
             }
             buttons[buttonCount].hotkey[0] = DOWN_KEY;
             buttons[buttonCount].hotkey[1] = DOWN_ARROW;
@@ -227,23 +229,23 @@ static short actionMenu(short x, boolean playingBack) {
             buttonCount++;
 
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  "%s0-9: %sFast forward to turn  ", yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  br_tr("%s0-9: %sFast forward to turn  "), yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Fast forward to turn  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Fast forward to turn  "));
             }
             buttons[buttonCount].hotkey[0] = '0';
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  "  %s<:%s Previous Level  ", yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  br_tr("  %s<:%s Previous Level  "), yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Previous Level  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Previous Level  "));
             }
             buttons[buttonCount].hotkey[0] = ASCEND_KEY;
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  "  %s>:%s Next Level  ", yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  br_tr("  %s>:%s Next Level  "), yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Next Level  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Next Level  "));
             }
             buttons[buttonCount].hotkey[0] = DESCEND_KEY;
             buttonCount++;
@@ -252,34 +254,34 @@ static short actionMenu(short x, boolean playingBack) {
             buttonCount++;
         } else {
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, "  %sZ: %sRest until better  ",      yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, br_tr("  %sZ: %sRest until better  "),      yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Rest until better  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Rest until better  "));
             }
             buttons[buttonCount].hotkey[0] = AUTO_REST_KEY;
             buttonCount++;
 
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, "  %sA: %sAutopilot  ",              yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, br_tr("  %sA: %sAutopilot  "),              yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Autopilot  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Autopilot  "));
             }
             buttons[buttonCount].hotkey[0] = AUTOPLAY_KEY;
             buttonCount++;
 
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, "  %sT: %sRe-throw at last monster  ",              yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, br_tr("  %sT: %sRe-throw at last monster  "),              yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Re-throw at last monster  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Re-throw at last monster  "));
             }
             buttons[buttonCount].hotkey[0] = RETHROW_KEY;
             buttonCount++;
 
             if (rogue.mode != GAME_MODE_EASY) {
                 if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, "  %s&: %sEasy mode  ",              yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, br_tr("  %s&: %sEasy mode  "),              yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, "  Easy mode  ");
+                    strcpy(buttons[buttonCount].text, br_tr("  Easy mode  "));
                 }
                 buttons[buttonCount].hotkey[0] = EASY_MODE_KEY;
                 buttonCount++;
@@ -291,17 +293,17 @@ static short actionMenu(short x, boolean playingBack) {
         }
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, "  %s\\: %s[%s] Hide color effects  ",   yellowColorEscape, whiteColorEscape, rogue.trueColorMode ? "X" : " ");
+            sprintf(buttons[buttonCount].text, br_tr("  %s\\: %s[%s] Hide color effects  "),   yellowColorEscape, whiteColorEscape, rogue.trueColorMode ? "X" : " ");
         } else {
-            sprintf(buttons[buttonCount].text, "  [%s] Hide color effects  ",   rogue.trueColorMode ? " " : "X");
+            sprintf(buttons[buttonCount].text, br_tr("  [%s] Hide color effects  "),   rogue.trueColorMode ? " " : "X");
         }
         buttons[buttonCount].hotkey[0] = TRUE_COLORS_KEY;
         takeActionOurselves[buttonCount] = true;
         buttonCount++;
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, "  %s]: %s[%s] Display stealth range  ", yellowColorEscape, whiteColorEscape, rogue.displayStealthRangeMode ? "X" : " ");
+            sprintf(buttons[buttonCount].text, br_tr("  %s]: %s[%s] Display stealth range  "), yellowColorEscape, whiteColorEscape, rogue.displayStealthRangeMode ? "X" : " ");
         } else {
-            sprintf(buttons[buttonCount].text, "  [%s] Show stealth range  ",   rogue.displayStealthRangeMode ? "X" : " ");
+            sprintf(buttons[buttonCount].text, br_tr("  [%s] Show stealth range  "),   rogue.displayStealthRangeMode ? "X" : " ");
         }
         buttons[buttonCount].hotkey[0] = STEALTH_RANGE_KEY;
         takeActionOurselves[buttonCount] = true;
@@ -309,9 +311,9 @@ static short actionMenu(short x, boolean playingBack) {
 
         if (hasGraphics) {
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, "  %sG: %s[%c] Enable graphics  ", yellowColorEscape, whiteColorEscape, " X~"[graphicsMode]);
+                sprintf(buttons[buttonCount].text, br_tr("  %sG: %s[%c] Enable graphics  "), yellowColorEscape, whiteColorEscape, " X~"[graphicsMode]);
             } else {
-                sprintf(buttons[buttonCount].text, "  [%c] Enable graphics  ",   " X~"[graphicsMode]);
+                sprintf(buttons[buttonCount].text, br_tr("  [%c] Enable graphics  "),   " X~"[graphicsMode]);
             }
             buttons[buttonCount].hotkey[0] = GRAPHICS_KEY;
             takeActionOurselves[buttonCount] = true;
@@ -323,37 +325,37 @@ static short actionMenu(short x, boolean playingBack) {
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, "  %sF: %sFeats             ",   yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, br_tr("  %sF: %sFeats             "),   yellowColorEscape, whiteColorEscape);
         } else {
-            strcpy(buttons[buttonCount].text, "  Feats             ");
+            strcpy(buttons[buttonCount].text, br_tr("  Feats             "));
         }
         buttons[buttonCount].hotkey[0] = FEATS_KEY;
         buttonCount++;
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, "  %sD: %sDiscovered items  ",   yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, br_tr("  %sD: %sDiscovered items  "),   yellowColorEscape, whiteColorEscape);
         } else {
-            strcpy(buttons[buttonCount].text, "  Discovered items  ");
+            strcpy(buttons[buttonCount].text, br_tr("  Discovered items  "));
         }
         buttons[buttonCount].hotkey[0] = DISCOVERIES_KEY;
         DEBUG {
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, "  %sC: %sCreate item or monster  ", yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, br_tr("  %sC: %sCreate item or monster  "), yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, "  Create item or monster  ");
+                strcpy(buttons[buttonCount].text, br_tr("  Create item or monster  "));
             }
             buttons[buttonCount].hotkey[0] = CREATE_ITEM_MONSTER_KEY;
         }
         buttonCount++;
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, "  %s~: %sView dungeon seed  ",  yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, br_tr("  %s~: %sView dungeon seed  "),  yellowColorEscape, whiteColorEscape);
         } else {
-            strcpy(buttons[buttonCount].text, "  View dungeon seed  ");
+            strcpy(buttons[buttonCount].text, br_tr("  View dungeon seed  "));
         }
         buttons[buttonCount].hotkey[0] = SEED_KEY;
         buttonCount++;
         if (KEYBOARD_LABELS) { // No help button if we're not in keyboard mode.
-            sprintf(buttons[buttonCount].text, "  %s?: %sHelp  ", yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, br_tr("  %s?: %sHelp  "), yellowColorEscape, whiteColorEscape);
             buttons[buttonCount].hotkey[0] = BROGUE_HELP_KEY;
             buttonCount++;
         }
@@ -364,33 +366,33 @@ static short actionMenu(short x, boolean playingBack) {
         if (!serverMode) {
             if (playingBack) {
                  if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, "  %sO: %sOpen saved game  ",        yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, br_tr("  %sO: %sOpen saved game  "),        yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, "  Open saved game  ");
+                    strcpy(buttons[buttonCount].text, br_tr("  Open saved game  "));
                 }
                 buttons[buttonCount].hotkey[0] = LOAD_SAVED_GAME_KEY;
                 buttonCount++;
                 if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, "  %sV: %sView saved recording  ",       yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, br_tr("  %sV: %sView saved recording  "),       yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, "  View saved recording  ");
+                    strcpy(buttons[buttonCount].text, br_tr("  View saved recording  "));
                 }
                 buttons[buttonCount].hotkey[0] = VIEW_RECORDING_KEY;
                 buttonCount++;
             } else {
                 if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, "  %sS: %sSave and exit  ",  yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, br_tr("  %sS: %sSave and exit  "),  yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, "  Save and exit  ");
+                    strcpy(buttons[buttonCount].text, br_tr("  Save and exit  "));
                 }
                 buttons[buttonCount].hotkey[0] = SAVE_GAME_KEY;
                 buttonCount++;
             }
         }
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, "  %sQ: %sQuit %s  ",    yellowColorEscape, whiteColorEscape, (playingBack ? "to title screen" : "and abandon game"));
+            sprintf(buttons[buttonCount].text, br_tr("  %sQ: %sQuit %s  "),    yellowColorEscape, whiteColorEscape, (playingBack ? br_tr("to title screen") : br_tr("and abandon game")));
         } else {
-            sprintf(buttons[buttonCount].text, "  Quit %s  ",   (playingBack ? "to title screen" : "and abandon game"));
+            sprintf(buttons[buttonCount].text, br_tr("  Quit %s  "),   (playingBack ? br_tr("to title screen") : br_tr("and abandon game")));
         }
         buttons[buttonCount].hotkey[0] = QUIT_KEY;
         buttonCount++;
@@ -461,61 +463,74 @@ static void initializeMenuButtons(buttonState *state, brogueButton buttons[5]) {
 
     if (rogue.playbackMode) {
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  " Unpause (%sspace%s) ", goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  br_tr(" Unpause (%sspace%s) "), goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   "     Unpause     ");
+            strcpy(buttons[buttonCount].text,   br_tr("     Unpause     "));
         }
         buttons[buttonCount].hotkey[0] = ACKNOWLEDGE_KEY;
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  "Omniscience (%stab%s)", goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  br_tr("Omniscience (%stab%s)"), goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   "   Omniscience   ");
+            strcpy(buttons[buttonCount].text,   br_tr("   Omniscience   "));
         }
         buttons[buttonCount].hotkey[0] = TAB_KEY;
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  " Next Turn (%sl%s) ", goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  br_tr(" Next Turn (%sl%s) "), goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   "   Next Turn   ");
+            strcpy(buttons[buttonCount].text,   br_tr("   Next Turn   "));
         }
         buttons[buttonCount].hotkey[0] = RIGHT_KEY;
         buttons[buttonCount].hotkey[1] = RIGHT_ARROW;
         buttonCount++;
 
-        strcpy(buttons[buttonCount].text,       "  Menu  ");
+        strcpy(buttons[buttonCount].text,       br_tr("  Menu  "));
         buttonCount++;
     } else {
-        sprintf(buttons[buttonCount].text,  "   E%sx%splore   ", goldTextEscape, whiteTextEscape);
+        sprintf(buttons[buttonCount].text,  br_tr("   E%sx%splore   "), goldTextEscape, whiteTextEscape);
         buttons[buttonCount].hotkey[0] = EXPLORE_KEY;
         buttons[buttonCount].hotkey[1] = 'X';
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  "   Rest (%sz%s)   ", goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  br_tr("   Rest (%sz%s)   "), goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   "     Rest     ");
+            strcpy(buttons[buttonCount].text,   br_tr("     Rest     "));
         }
         buttons[buttonCount].hotkey[0] = REST_KEY;
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  "  Search (%ss%s)  ", goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  br_tr("  Search (%ss%s)  "), goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   "    Search    ");
+            strcpy(buttons[buttonCount].text,   br_tr("    Search    "));
         }
         buttons[buttonCount].hotkey[0] = SEARCH_KEY;
         buttonCount++;
 
-        strcpy(buttons[buttonCount].text,       "    Menu    ");
+        strcpy(buttons[buttonCount].text,       br_tr("    Menu    "));
         buttonCount++;
     }
 
-    sprintf(buttons[4].text,    "   %sI%snventory   ", goldTextEscape, whiteTextEscape);
+    sprintf(buttons[4].text,    br_tr("   %sI%snventory   "), goldTextEscape, whiteTextEscape);
     buttons[4].hotkey[0] = INVENTORY_KEY;
     buttons[4].hotkey[1] = 'I';
+
+    const char *names[5] = {"探索","等待","搜索","菜单","背包"};
+    const char *keys[5] = {"x","z","s","m","i"};
+    if(rogue.playbackMode) {
+        names[0]="播放/暂停";keys[0]="Space";
+        names[1]="全知";keys[1]="Tab";
+        names[2]="下一回合";keys[2]="l/→";
+    }
+    encodeMessageColor(goldTextEscape,0,&yellow);
+    for(i=0;i<5;i++)
+        snprintf(buttons[i].text,sizeof buttons[i].text," %s (%s%s%s) ",
+                 names[i],goldTextEscape,keys[i],whiteTextEscape);
+    buttons[3].hotkey[0]='m';
 
     x = mapToWindowX(0);
     for (i=0; i<5; i++) {
@@ -581,7 +596,7 @@ void mainInputLoop() {
         const pos originLoc = player.loc;
 
         if (playingBack && rogue.cursorMode) {
-            temporaryMessage("Examine what? (<hjklyubn>, mouse, or <tab>)", 0);
+            temporaryMessage(br_tr("Examine what? (<hjklyubn>, mouse, or <tab>)"), 0);
         }
 
         if (!playingBack
@@ -744,7 +759,7 @@ void mainInputLoop() {
 
             if (tabKey && !playingBack) { // The tab key cycles the cursor through monsters, items and terrain features.
                 pos newLoc;
-                if (nextTargetAfter(NULL, &newLoc, rogue.cursorLoc, AUTOTARGET_MODE_EXPLORE, theEvent.shiftKey)) {
+                if (nextTargetAfter(NULL, &newLoc, rogue.cursorLoc, AUTOTARGET_MODE_EXPLORE, theEvent.controlKey)) {
                     rogue.cursorLoc = newLoc;
                 }
             }
@@ -2219,7 +2234,7 @@ static void displayWaypoints() {
             }
         }
     }
-    temporaryMessage("Waypoints:", REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage(br_tr("Waypoints:"), REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 }
 
@@ -2254,7 +2269,7 @@ static void displayMachines() {
             }
         }
     }
-    temporaryMessage("Machines:", REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage(br_tr("Machines:"), REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 
     restoreRNG;
@@ -2282,7 +2297,7 @@ static void displayChokeMap() {
             }
         }
     }
-    temporaryMessage("Choke map:", REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage(br_tr("Choke map:"), REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 }
 
@@ -2306,7 +2321,7 @@ static void displayLoops() {
             }
         }
     }
-    temporaryMessage("Loops:", REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage(br_tr("Loops:"), REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 }
 
@@ -2354,10 +2369,10 @@ static void exploreKey(const boolean controlKey) {
     }
 
     if (tooDark) {
-        message("It's too dark to explore!", 0);
+        message(br_tr("It's too dark to explore!"), 0);
     } else if (x == player.loc.x && y == player.loc.y) {
-        message("I see no path for further exploration.", 0);
-    } else if (proposeOrConfirmLocation((pos){ finalX, finalY }, "I see no path for further exploration.")) {
+        message(br_tr("I see no path for further exploration."), 0);
+    } else if (proposeOrConfirmLocation((pos){ finalX, finalY }, br_tr("I see no path for further exploration."))) {
         explore(controlKey ? 1 : 20); // Do the exploring until interrupted.
         hideCursor();
         exploreKey(controlKey);
@@ -2424,7 +2439,7 @@ void nextBrogueEvent(rogueEvent *returnEvent, boolean textInput, boolean colorsD
 
     if (returnEvent->eventType == EVENT_ERROR) {
         rogue.playbackPaused = rogue.playbackMode; // pause if replaying
-        message("Event error!", REQUIRE_ACKNOWLEDGMENT);
+        message(br_tr("Event error!"), REQUIRE_ACKNOWLEDGMENT);
     }
 }
 
@@ -2496,7 +2511,7 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             if (D_WORMHOLING) {
                 recordKeystroke(DESCEND_KEY, false, false);
                 useStairs(1);
-            } else if (proposeOrConfirmLocation(rogue.downLoc, "I see no way down.")) {
+            } else if (proposeOrConfirmLocation(rogue.downLoc, br_tr("I see no way down."))) {
                 travel(rogue.downLoc, true);
             }
             break;
@@ -2505,7 +2520,7 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             if (D_WORMHOLING) {
                 recordKeystroke(ASCEND_KEY, false, false);
                 useStairs(-1);
-            } else if (proposeOrConfirmLocation(rogue.upLoc, "I see no way up.")) {
+            } else if (proposeOrConfirmLocation(rogue.upLoc, br_tr("I see no way up."))) {
                 travel(rogue.upLoc, true);
             }
             break;
@@ -2573,10 +2588,10 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             displayLevel();
             refreshSideBar(-1, -1, false);
             if (rogue.trueColorMode) {
-                messageWithColor(KEYBOARD_LABELS ? "Color effects disabled. Press '\\' again to enable." : "Color effects disabled.",
+                messageWithColor(KEYBOARD_LABELS ? br_tr("Color effects disabled. Press '\\' again to enable.") : "Color effects disabled.",
                                  &teal, 0);
             } else {
-                messageWithColor(KEYBOARD_LABELS ? "Color effects enabled. Press '\\' again to disable." : "Color effects enabled.",
+                messageWithColor(KEYBOARD_LABELS ? br_tr("Color effects enabled. Press '\\' again to disable.") : "Color effects enabled.",
                                  &teal, 0);
             }
             break;
@@ -2585,10 +2600,10 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             displayLevel();
             refreshSideBar(-1, -1, false);
             if (rogue.displayStealthRangeMode) {
-                messageWithColor(KEYBOARD_LABELS ? "Stealth range displayed. Press ']' again to hide." : "Stealth range displayed.",
+                messageWithColor(KEYBOARD_LABELS ? br_tr("Stealth range displayed. Press ']' again to hide.") : "Stealth range displayed.",
                                  &teal, 0);
             } else {
-                messageWithColor(KEYBOARD_LABELS ? "Stealth range hidden. Press ']' again to display." : "Stealth range hidden.",
+                messageWithColor(KEYBOARD_LABELS ? br_tr("Stealth range hidden. Press ']' again to display.") : "Stealth range hidden.",
                                  &teal, 0);
             }
             break;
@@ -2600,7 +2615,7 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             exploreKey(controlKey);
             break;
         case AUTOPLAY_KEY:
-            if (confirm("Turn on autopilot?", false)) {
+            if (confirm(br_tr("Turn on autopilot?"), false)) {
                 autoPlayLevel(controlKey);
             }
             break;
@@ -2625,21 +2640,21 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             if (rogue.playbackMode || serverMode) {
                 return;
             }
-            if (confirm("Save this game and exit?", false)) {
+            if (confirm(br_tr("Save this game and exit?"), false)) {
                 saveGame();
             }
             break;
         case NEW_GAME_KEY:
-            if (rogue.playerTurnNumber < 50 || confirm("End this game and begin a new game?", false)) {
+            if (rogue.playerTurnNumber < 50 || confirm(br_tr("End this game and begin a new game?"), false)) {
                 rogue.nextGame = NG_NEW_GAME;
                 rogue.gameHasEnded = true;
             }
             break;
         case QUIT_KEY:
-            if (confirm("Quit and abandon this game? (The save will be deleted.)", false)) {
+            if (confirm(br_tr("Quit and abandon this game? (The save will be deleted.)"), false)) {
                 recordKeystroke(QUIT_KEY, false, false);
                 rogue.quit = true;
-                gameOver("Quit", true);
+                gameOver(br_tr("Quit"), true);
             }
             break;
         case GRAPHICS_KEY:
@@ -2648,18 +2663,18 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
                 switch (graphicsMode) {
                     case TEXT_GRAPHICS:
                         messageWithColor(KEYBOARD_LABELS
-                            ? "Switched to text mode. Press 'G' again to enable tiles."
-                            : "Switched to text mode.", &teal, 0);
+                            ? br_tr("Switched to text mode. Press 'G' again to enable tiles.")
+                            : br_tr("Switched to text mode."), &teal, 0);
                         break;
                     case TILES_GRAPHICS:
                         messageWithColor(KEYBOARD_LABELS
-                            ? "Switched to graphical tiles. Press 'G' again to enable hybrid mode."
-                            : "Switched to graphical tiles.", &teal, 0);
+                            ? br_tr("Switched to graphical tiles. Press 'G' again to enable hybrid mode.")
+                            : br_tr("Switched to graphical tiles."), &teal, 0);
                         break;
                     case HYBRID_GRAPHICS:
                         messageWithColor(KEYBOARD_LABELS
-                            ? "Switched to hybrid mode. Press 'G' again to disable tiles."
-                            : "Switched to hybrid mode.", &teal, 0);
+                            ? br_tr("Switched to hybrid mode. Press 'G' again to disable tiles.")
+                            : br_tr("Switched to hybrid mode."), &teal, 0);
                         break;
                 }
             }
@@ -2690,7 +2705,7 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             break;
         case PRINTSCREEN_KEY:
             if (takeScreenshot()) {
-                flashTemporaryAlert(" Screenshot saved in save directory ", 2000);
+                flashTemporaryAlert(br_tr(" Screenshot saved in save directory "), 2000);
             }
             break;
         default:
@@ -2917,7 +2932,7 @@ void waitForAcknowledgment() {
     do {
         nextBrogueEvent(&theEvent, false, false, false);
         if (theEvent.eventType == KEYSTROKE && theEvent.param1 != ACKNOWLEDGE_KEY && theEvent.param1 != ESCAPE_KEY) {
-            flashTemporaryAlert(" -- Press space or click to continue -- ", 500);
+            flashTemporaryAlert(br_tr(" -- Press space or click to continue -- "), 500);
         }
     } while (!(theEvent.eventType == KEYSTROKE && (theEvent.param1 == ACKNOWLEDGE_KEY || theEvent.param1 == ESCAPE_KEY)
                || theEvent.eventType == MOUSE_UP));
@@ -2945,14 +2960,14 @@ boolean confirm(char *prompt, boolean alsoDuringPlayback) {
     encodeMessageColor(yellowColorEscape, 0, KEYBOARD_LABELS ? &yellow : &white);
 
     initializeButton(&(buttons[0]));
-    sprintf(buttons[0].text, "     %sY%ses     ", yellowColorEscape, whiteColorEscape);
+    sprintf(buttons[0].text, br_tr("     %sY%ses     "), yellowColorEscape, whiteColorEscape);
     buttons[0].hotkey[0] = 'y';
     buttons[0].hotkey[1] = 'Y';
     buttons[0].hotkey[2] = RETURN_KEY;
     buttons[0].flags |= (B_WIDE_CLICK_AREA | B_KEYPRESS_HIGHLIGHT);
 
     initializeButton(&(buttons[1]));
-    sprintf(buttons[1].text, "     %sN%so      ", yellowColorEscape, whiteColorEscape);
+    sprintf(buttons[1].text, br_tr("     %sN%so      "), yellowColorEscape, whiteColorEscape);
     buttons[1].hotkey[0] = 'n';
     buttons[1].hotkey[1] = 'N';
     buttons[1].hotkey[2] = ACKNOWLEDGE_KEY;
@@ -3028,7 +3043,7 @@ static int formatCountedMessage(char *buffer, size_t size, archivedMessage *m) {
     if (m->count <= 1) {
         length = snprintf(buffer, size, "%s", m->message);
     } else if (m->count >= MAX_MESSAGE_REPEATS) {
-        length = snprintf(buffer, size, "%s (many)", m->message);
+        length = snprintf(buffer, size, br_tr("%s (many)"), m->message);
     } else {
         length = snprintf(buffer, size, "%s (x%d)", m->message, m->count);
     }
@@ -3041,10 +3056,11 @@ static int formatCountedMessage(char *buffer, size_t size, archivedMessage *m) {
 // only one message is taken.
 // If turnOutput is not null, it is filled with the player turn number shared
 // by the chosen messages.
-static short foldMessages(char buffer[COLS*20], short offset, unsigned long *turnOutput) {
+static short foldMessages(char buffer[TEXT_MAX_LENGTH], short offset, unsigned long *turnOutput) {
     short i, folded, messageLength, lineLength, length;
+    size_t batchBytes;
     unsigned long turn;
-    char counted[COLS*2];
+    char counted[BR_MESSAGE_BYTES+32];
     archivedMessage *m;
 
     folded = 0;
@@ -3060,15 +3076,19 @@ static short foldMessages(char buffer[COLS*20], short offset, unsigned long *tur
     }
 
     if (!(m->flags & FOLDABLE)) {
-        formatCountedMessage(buffer, COLS*2, m);
+        formatCountedMessage(buffer, TEXT_MAX_LENGTH, m);
         return folded;
     }
 
+    batchBytes = strlen(m->message) + 32;
+
     // Search back for eligible foldable message.  Only fold messages from the same turn
-    m = getArchivedMessage(offset + folded + 1);
-    while (folded < MESSAGE_ARCHIVE_ENTRIES && m->message[0] && m->flags & FOLDABLE && turn == m->turn) {
+    if (offset + folded < MESSAGE_ARCHIVE_ENTRIES) m = getArchivedMessage(offset + folded + 1);
+    while (offset + folded < MESSAGE_ARCHIVE_ENTRIES && m->message[0] && m->flags & FOLDABLE && turn == m->turn) {
+        if (batchBytes + strlen(m->message) + 32 > TEXT_MAX_LENGTH / 2) break;
+        batchBytes += strlen(m->message) + 32;
         folded++;
-        m = getArchivedMessage(offset + folded + 1);
+        if (offset + folded < MESSAGE_ARCHIVE_ENTRIES) m = getArchivedMessage(offset + folded + 1);
     }
 
     lineLength = 0;
@@ -3076,22 +3096,22 @@ static short foldMessages(char buffer[COLS*20], short offset, unsigned long *tur
     buffer[length] = '\0';
     for (i = folded; i >= 1; i--) {
         m = getArchivedMessage(offset + i);
-        formatCountedMessage(counted, COLS*2, m);
+        formatCountedMessage(counted, sizeof counted, m);
         messageLength = strLenWithoutEscapes(counted);
 
         if (length == 0) {
-            length = snprintf(buffer, COLS*20, "%s", counted);
+            length = snprintf(buffer, TEXT_MAX_LENGTH, "%s", counted);
             lineLength = messageLength;
         } else if (lineLength + 3 + messageLength <= DCOLS) {  // + 3 for semi-colon, space and final period
-            length += snprintf(&buffer[length], COLS*20 - length, "; %s", counted);
+            length += snprintf(&buffer[length], TEXT_MAX_LENGTH - length, "; %s", counted);
             lineLength += 2 + messageLength;
         } else {
-            length += snprintf(&buffer[length], COLS*20 - length, ".\n%s", counted);
+            length += snprintf(&buffer[length], TEXT_MAX_LENGTH - length, ".\n%s", counted);
             lineLength = messageLength;
         }
     }
 
-    snprintf(&buffer[length], COLS*20 - length, ".");
+    snprintf(&buffer[length], TEXT_MAX_LENGTH - length, ".");
 
     return folded;
 }
@@ -3121,9 +3141,9 @@ static void capitalizeAndPunctuateSentences(char *text, short length) {
 }
 
 // Copy \n-delimited lines to the given buffer.  Carry colors across line breaks.
-static void splitLines(short lines, char wrapped[COLS*20], char buffer[][COLS*2], short bufferCursor) {
+static void splitLines(short lines, char wrapped[TEXT_MAX_LENGTH], char buffer[][BR_MESSAGE_BYTES], short bufferCursor) {
     short linesSeen;
-    char color[5], line[COLS*2];
+    char color[5], line[BR_MESSAGE_BYTES];
     char *start, *end;
 
     start = &(wrapped[0]);
@@ -3134,15 +3154,15 @@ static void splitLines(short lines, char wrapped[COLS*20], char buffer[][COLS*2]
         if (*end == COLOR_ESCAPE) {
             strncpy(color, end, 4);
             color[4] = '\0';
-            end += 4;
+            end += 3;
         } else if (*end == '\n') {
             *end = '\0';
 
             if (bufferCursor + 1 - lines + linesSeen >= 0) {
                 strncpy(line, color, 5);
-                strncat(line, start, COLS*2 - strlen(line) - 1);
-                line[COLS*2-1] = '\0';
-                strncpy(buffer[bufferCursor + 1 - lines + linesSeen], line, COLS*2);
+                br_text_copy(line+strlen(line),sizeof line-strlen(line),start);
+                line[BR_MESSAGE_BYTES-1] = '\0';
+                strncpy(buffer[bufferCursor + 1 - lines + linesSeen], line, BR_MESSAGE_BYTES);
                 line[0] = '\0';
             }
 
@@ -3152,9 +3172,9 @@ static void splitLines(short lines, char wrapped[COLS*20], char buffer[][COLS*2]
     }
 
     strncpy(line, color, 5);
-    strncat(line, start, COLS*2 - strlen(line) - 1);
-    line[COLS*2-1] = '\0';
-    strncpy(buffer[bufferCursor], line, COLS*2);
+    br_text_copy(line+strlen(line),sizeof line-strlen(line),start);
+    line[BR_MESSAGE_BYTES-1] = '\0';
+    strncpy(buffer[bufferCursor], line, BR_MESSAGE_BYTES);
 }
 
 // Fill the buffer of height lines with archived messages.  Fill from the
@@ -3163,10 +3183,10 @@ static void splitLines(short lines, char wrapped[COLS*20], char buffer[][COLS*2]
 // (rows of buffer filled)
 // latestMessageLines, if not null, is filled with the number of formatted
 // lines generated by events from the current player turn.
-void formatRecentMessages(char buffer[][COLS*2], size_t height, short *linesFormatted, short *latestMessageLines) {
+void formatRecentMessages(char buffer[][BR_MESSAGE_BYTES], size_t height, short *linesFormatted, short *latestMessageLines) {
     short lines, bufferCursor, messagesFolded, messagesFormatted;
     unsigned long turn;
-    char folded[COLS*20], wrapped[COLS*20];
+    char folded[TEXT_MAX_LENGTH], wrapped[TEXT_MAX_LENGTH];
 
     bufferCursor = height - 1;
     messagesFormatted = 0;
@@ -3181,7 +3201,7 @@ void formatRecentMessages(char buffer[][COLS*2], size_t height, short *linesForm
             break;
         }
 
-        capitalizeAndPunctuateSentences(folded, COLS*20);
+        capitalizeAndPunctuateSentences(folded, TEXT_MAX_LENGTH);
         lines = wrapText(wrapped, folded, DCOLS);
         splitLines(lines, wrapped, buffer, bufferCursor);
 
@@ -3205,7 +3225,7 @@ void formatRecentMessages(char buffer[][COLS*2], size_t height, short *linesForm
 // Display recent archived messages after recalculating message confirmations.
 void displayRecentMessages() {
     short i;
-    char messageBuffer[MESSAGE_LINES][COLS*2];
+    char messageBuffer[MESSAGE_LINES][BR_MESSAGE_BYTES];
 
     formatRecentMessages(messageBuffer, MESSAGE_LINES, 0, &messagesUnconfirmed);
 
@@ -3222,7 +3242,7 @@ void displayRecentMessages() {
 // offset: index of oldest (visually highest) message to draw
 // height: height in rows of the message archive display area
 // rbuf: background display buffer to draw against
-static void drawMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][COLS*2], short length, short offset, short height) {
+static void drawMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][BR_MESSAGE_BYTES], short length, short offset, short height) {
     int i, j, k, fadePercent;
     screenDisplayBuffer dbuf;
 
@@ -3253,7 +3273,7 @@ static void drawMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][COLS*2], sho
 // length: the number of rows in messages, filled from the "bottom", (unused rows have lower indexes)
 // offset: index of oldest (visually highest) message to draw in the fully expanded state
 // height: height in rows of the message archive display area in the fully expanded state
-static void animateMessageArchive(boolean opening, char messages[MESSAGE_ARCHIVE_LINES][COLS*2], short length, short offset, short height) {
+static void animateMessageArchive(boolean opening, char messages[MESSAGE_ARCHIVE_LINES][BR_MESSAGE_BYTES], short length, short offset, short height) {
     short i;
     boolean fastForward;
 
@@ -3284,7 +3304,7 @@ static void animateMessageArchive(boolean opening, char messages[MESSAGE_ARCHIVE
 // rbuf: background display buffer to draw against
 //
 // returns the new offset, which can change if the player scrolled around before closing
-static short scrollMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][COLS*2], short length, short offset, short height) {
+static short scrollMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][BR_MESSAGE_BYTES], short length, short offset, short height) {
     // Set `lastOffset` to a value different from `offset`, so that we always re-render the first time.
     short lastOffset = offset-1;
     boolean exit;
@@ -3338,7 +3358,7 @@ static short scrollMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][COLS*2], 
                     exit = true;
                     break;
                 default:
-                    flashTemporaryAlert(" -- Press space or click to continue -- ", 500);
+                    flashTemporaryAlert(br_tr(" -- Press space or click to continue -- "), 500);
             }
         }
 
@@ -3355,7 +3375,7 @@ static short scrollMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][COLS*2], 
 
 void displayMessageArchive() {
     short length, offset, height;
-    char messageBuffer[MESSAGE_ARCHIVE_LINES][COLS*2];
+    char messageBuffer[MESSAGE_ARCHIVE_LINES][BR_MESSAGE_BYTES];
 
     formatRecentMessages(messageBuffer, MESSAGE_ARCHIVE_LINES, &length, 0);
 
@@ -3380,6 +3400,7 @@ void displayMessageArchive() {
 // It will disappear when messages are refreshed and will not be archived.
 // This is primarily used to display prompts.
 void temporaryMessage(const char *msg, unsigned long flags) {
+    msg=br_tr(msg);
     char message[COLS];
     short i, j;
 
@@ -3408,7 +3429,8 @@ void temporaryMessage(const char *msg, unsigned long flags) {
 }
 
 void messageWithColor(const char *msg, const color *theColor, unsigned long flags) {
-    char buf[COLS*2] = "";
+    msg=br_tr(msg);
+    char buf[BR_MESSAGE_BYTES] = "";
     short i;
 
     i=0;
@@ -3418,6 +3440,7 @@ void messageWithColor(const char *msg, const color *theColor, unsigned long flag
 }
 
 void flavorMessage(const char *msg) {
+    msg=br_tr(msg);
     short i;
     char text[COLS*20];
 
@@ -3451,6 +3474,7 @@ void message(const char *msg, unsigned long flags) {
         return;
     }
 
+    msg=br_tr(msg);
     assureCosmeticRNG;
 
     rogue.disturbed = true;
@@ -3578,7 +3602,7 @@ short encodeMessageColor(char *msg, short i, const color *theColor) {
 short decodeMessageColor(const char *msg, short i, color *returnColor) {
 
     if (msg[i] != COLOR_ESCAPE) {
-        printf("\nAsked to decode a color escape that didn't exist!");
+        printf("%s",br_tr("\nAsked to decode a color escape that didn't exist!"));
         *returnColor = white;
     } else {
         i++;
@@ -3621,7 +3645,7 @@ void updateMessageDisplay() {
             applyColorAverage(&messageColor, &black, 75 * i / MESSAGE_LINES);
         }
 
-        for (j = m = 0; displayedMessage[i][m] && j < DCOLS; j++, m++) {
+        for (j = m = 0; displayedMessage[i][m] && j < DCOLS;) {
 
             while (displayedMessage[i][m] == COLOR_ESCAPE) {
                 m = decodeMessageColor(displayedMessage[i], m, &messageColor); // pulls the message color out and advances m
@@ -3631,9 +3655,13 @@ void updateMessageDisplay() {
                 }
             }
 
-            plotCharWithColor(displayedMessage[i][m], (windowpos){ mapToWindowX(j), MESSAGE_LINES - i - 1 },
-                              &messageColor,
-                              &black);
+            BrTextToken token = br_text_next(displayedMessage[i] + m);
+            if (!token.bytes || j + token.columns > DCOLS) break;
+            for (int k=1; k<token.columns; k++)
+                plotCharWithColor(' ', (windowpos){mapToWindowX(j+k), MESSAGE_LINES-i-1}, &messageColor, &black);
+            plotCharWithColor(token.codepoint > 127 ? token.codepoint | BR_UNICODE_FLAG : token.codepoint,
+                              (windowpos){mapToWindowX(j), MESSAGE_LINES-i-1}, &messageColor, &black);
+            m += token.bytes; j += token.columns;
         }
         for (; j < DCOLS; j++) {
             plotCharWithColor(' ', (windowpos){ mapToWindowX(j), MESSAGE_LINES - i - 1 }, &black, &black);
@@ -3747,15 +3775,15 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
 
     // Header information for playback mode.
     if (rogue.playbackMode) {
-        printString("   -- PLAYBACK --   ", 0, printY++, &white, &black, 0);
+        printString(br_tr("   -- PLAYBACK --   "), 0, printY++, &white, &black, 0);
         if (rogue.howManyTurns > 0) {
-            sprintf(buf, "Turn %li/%li", rogue.playerTurnNumber, rogue.howManyTurns);
+            sprintf(buf, br_tr("Turn %li/%li"), rogue.playerTurnNumber, rogue.howManyTurns);
             printProgressBar(0, printY++, buf, rogue.playerTurnNumber, rogue.howManyTurns, &darkPurple, false);
         }
         if (rogue.playbackOOS) {
-            printString("    [OUT OF SYNC]   ", 0, printY++, &badMessageColor, &black, 0);
+            printString(br_tr("    [OUT OF SYNC]   "), 0, printY++, &badMessageColor, &black, 0);
         } else if (rogue.playbackPaused) {
-            printString("      [PAUSED]      ", 0, printY++, &gray, &black, 0);
+            printString(br_tr("      [PAUSED]      "), 0, printY++, &gray, &black, 0);
         }
         printString("                    ", 0, printY++, &white, &black, 0);
     }
@@ -3901,7 +3929,7 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
         for (i=printY; i< ROWS - 1; i++) {
             printString("                    ", 0, i, &white, &black, 0);
         }
-        sprintf(buf, "  -- Depth: %i --%s   ", rogue.depthLevel, (rogue.depthLevel < 10 ? " " : ""));
+        sprintf(buf, br_tr("  -- Depth: %i --%s   "), rogue.depthLevel, (rogue.depthLevel < 10 ? " " : ""));
         printString(buf, 0, ROWS - 1, &white, &black, 0);
     } else if (!focusedEntityMustGoFirst) {
         // Failed to get the focusMonst printed on the screen. Try again, this time with the focus first.
@@ -3912,19 +3940,16 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
 }
 
 void printString(const char *theString, short x, short y, const color *foreColor, const color *backColor, screenDisplayBuffer *dbuf) {
-    short i;
-
+    theString=br_tr(theString);
     color fColor = *foreColor;
-
-    for (i=0; theString[i] != '\0' && x < COLS; i++, x++) {
-        while (theString[i] == COLOR_ESCAPE) {
-            i = decodeMessageColor(theString, i, &fColor);
-            if (!theString[i]) {
-                return;
-            }
-        }
-
-        plotCharToBuffer(theString[i], (windowpos){ x, y }, &fColor, backColor, dbuf);
+    for (BrTextToken token; x < COLS && (token = br_text_next(theString)).bytes; theString += token.bytes) {
+        if (token.is_color) { decodeMessageColor(theString, 0, &fColor); continue; }
+        if (x + token.columns > COLS) break;
+        for (int k = 1; k < token.columns; k++)
+            plotCharToBuffer(' ', (windowpos){x+k, y}, &fColor, backColor, dbuf);
+        enum displayGlyph glyph = token.codepoint > 127 ? token.codepoint | BR_UNICODE_FLAG : token.codepoint;
+        plotCharToBuffer(glyph, (windowpos){x, y}, &fColor, backColor, dbuf);
+        x += token.columns;
     }
 }
 
@@ -3971,6 +3996,11 @@ static void breakUpLongWordsIn(char *sourceText, short width, boolean useHyphens
 // Returns the number of lines, including the newlines already in the text.
 // Puts the output in "to" only if we receive a "to" -- can make it null and just get a line count.
 short wrapText(char *to, const char *sourceText, short width) {
+    if (br_text_has_unicode(sourceText)) {
+        int lines = br_text_wrap(to, TEXT_MAX_LENGTH, sourceText, width);
+        if (lines < 0) { fprintf(stderr, "Chinese text exceeds wrap capacity\n"); return 1; }
+        return lines;
+    }
     short i, w, textLength, lineCount;
     char printString[TEXT_MAX_LENGTH];
     short spaceLeftOnLine, wordWidth;
@@ -4045,10 +4075,17 @@ short printStringWithWrapping(const char *theString, short x, short y, short wid
         }
 
         if (locIsInWindow((windowpos){ px, py })) {
-            plotCharToBuffer(printString[i], (windowpos){ px, py }, &fColor, backColor, dbuf);
+            BrTextToken token = br_text_next(printString + i);
+            if (px + token.columns <= x + width) {
+                for (int k = 1; k < token.columns; k++)
+                    plotCharToBuffer(' ', (windowpos){px+k,py}, &fColor, backColor, dbuf);
+                plotCharToBuffer(token.codepoint > 127 ? token.codepoint | BR_UNICODE_FLAG : token.codepoint,
+                                 (windowpos){px,py}, &fColor, backColor, dbuf);
+            }
         }
-
-        px++;
+        BrTextToken token = br_text_next(printString + i);
+        i += token.bytes - 1;
+        px += token.columns;
     }
     return py;
 }
@@ -4068,37 +4105,37 @@ void printHelpScreen() {
     char helpText[BROGUE_HELP_LINE_COUNT][DCOLS*3] = {
         "",
         "",
-        "          -- Commands --",
+        "          -- 操作说明 --",
         "",
-        "          mouse  ****move cursor (including to examine monsters and terrain)",
-        "          click  ****travel",
-        "  control-click  ****advance one space",
-        "       <return>  ****enable keyboard cursor control",
-        "    <space/esc>  ****disable keyboard cursor control",
-        "hjklyubn, arrow keys, or numpad  ****move or attack (control or shift to run)",
+        "          鼠标  ****移动光标（可查看怪物与地形）",
+        "          单击  ****前往目标位置",
+        "  Ctrl+单击  ****前进一格",
+        "       <return>  ****启用键盘光标控制",
+        "    <space/esc>  ****关闭键盘光标控制",
+        "hjklyubn、方向键或小键盘  ****移动或攻击（按 Ctrl 或 Shift 奔跑）",
         "",
-        "a/e/r/t/d/c/R/w  ****apply/equip/remove/throw/drop/call/relabel/swap an item",
-        "              T  ****re-throw last item at last monster",
-        " i, right-click  ****view inventory",
-        "              D  ****list discovered items",
+        "a/e/r/t/d/c/R/w  ****使用/装备/卸下/投掷/丢下/命名/重新标记/交换物品",
+        "              T  ****向上次目标再次投掷上次使用的物品",
+        " i、鼠标右键  ****查看背包",
+        "              D  ****列出已发现物品",
         "",
-        "              z  ****rest once",
-        "              Z  ****rest for 100 turns or until something happens",
-        "              s  ****search for secrets (control-s: long search)",
-        "           <, >  ****travel to stairs",
-        "              x  ****auto-explore (control-x: fast forward)",
-        "              A  ****autopilot (control-A: fast forward)",
-        "              M  ****display old messages",
-        "              G  ****toggle graphical tiles (when available)",
+        "              z  ****休息一回合",
+        "              Z  ****休息 100 回合，或直到发生事件",
+        "              s  ****搜索隐藏物（Ctrl-S：长时间搜索）",
+        "           <, >  ****前往楼梯",
+        "              x  ****自动探索（Ctrl-X：快进）",
+        "              A  ****自动游玩（Ctrl-A：快进）",
+        "              M  ****查看旧消息",
+        "              G  ****切换图形贴图 (（若可用）)",
         "",
-        "              S  ****save and exit",
-        "              Q  ****quit and abandon game",
+        "              S  ****保存并退出",
+        "              Q  ****退出并放弃本局",
         "",
-        "              \\  ****disable/enable color effects",
-        "              ]  ****display/hide stealth range",
-        "    <space/esc>  ****clear message or cancel command",
+        "              \\  ****关闭/启用颜色效果",
+        "              ]  ****显示/隐藏潜行范围",
+        "    <space/esc>  ****清除消息或取消操作",
         "",
-        "        -- press space or click to continue --"
+        "        -- 按空格键或单击继续 --"
     };
 
     // Replace the "****"s with color escapes.
@@ -4168,7 +4205,7 @@ static void printDiscoveries(short category, short count, unsigned short itemCha
                 plotCharToBuffer(G_BAD_MAGIC, (windowpos){ x, y + i }, &badColor, &black, dbuf);
             }
         }
-        strcpy(buf, theTable[i].name);
+        strcpy(buf, br_tr(theTable[i].name));
 
         if (!theTable[i].identified
             && theTable[i].frequency > 0
@@ -4195,7 +4232,7 @@ void displayFeatsScreen() {
     clearDisplayBuffer(&dbuf);
 
     // Title
-    char buf[COLS*2] = "-- FEATS --";
+    char buf[COLS*2] = ""; strcpy(buf,br_tr("-- FEATS --"));
     short y = 1;
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), y, &flavorTextColor, &black, &dbuf);
 
@@ -4217,12 +4254,12 @@ void displayFeatsScreen() {
     }
 
     // Legend
-    strcpy(buf,"-- LEGEND --");
+    strcpy(buf,br_tr("-- LEGEND --"));
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), ROWS-5, &gray, &black, &dbuf);
-    sprintf(buf, "%sFailed(-)  %sAchieved(+)  ", failedColorEscape, achievedColorEscape);
+    sprintf(buf, br_tr("%sFailed(-)  %sAchieved(+)  "), failedColorEscape, achievedColorEscape);
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), ROWS-4, &white, &black, &dbuf);
 
-    strcpy(buf,KEYBOARD_LABELS ? "-- press any key to continue --" : "-- touch anywhere to continue --");
+    strcpy(buf,KEYBOARD_LABELS ? br_tr("-- press any key to continue --") : br_tr("-- touch anywhere to continue --"));
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), ROWS-2, &itemMessageColor, &black, &dbuf);
 
     // Set the opacity
@@ -4245,22 +4282,22 @@ void printDiscoveriesScreen() {
 
     clearDisplayBuffer(&dbuf);
 
-    printString("-- SCROLLS --", mapToWindowX(2), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    printString(br_tr("-- SCROLLS --"), mapToWindowX(2), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
     printDiscoveries(SCROLL, gameConst->numberScrollKinds, G_SCROLL, mapToWindowX(3), ++y, &dbuf);
 
-    printString("-- RINGS --", mapToWindowX(2), y += gameConst->numberScrollKinds + 1, &flavorTextColor, &black, &dbuf);
+    printString(br_tr("-- RINGS --"), mapToWindowX(2), y += gameConst->numberScrollKinds + 1, &flavorTextColor, &black, &dbuf);
     printDiscoveries(RING, NUMBER_RING_KINDS, G_RING, mapToWindowX(3), ++y, &dbuf);
 
-    printString("-- POTIONS --", mapToWindowX(29), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    printString(br_tr("-- POTIONS --"), mapToWindowX(29), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
     printDiscoveries(POTION, gameConst->numberPotionKinds, G_POTION, mapToWindowX(30), ++y, &dbuf);
 
-    printString("-- STAFFS --", mapToWindowX(53), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    printString(br_tr("-- STAFFS --"), mapToWindowX(53), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
     printDiscoveries(STAFF, NUMBER_STAFF_KINDS, G_STAFF, mapToWindowX(54), ++y, &dbuf);
 
-    printString("-- WANDS --", mapToWindowX(53), y += NUMBER_STAFF_KINDS + 1, &flavorTextColor, &black, &dbuf);
+    printString(br_tr("-- WANDS --"), mapToWindowX(53), y += NUMBER_STAFF_KINDS + 1, &flavorTextColor, &black, &dbuf);
     printDiscoveries(WAND, gameConst->numberWandKinds, G_WAND, mapToWindowX(54), ++y, &dbuf);
 
-    printString(KEYBOARD_LABELS ? "-- press any key to continue --" : "-- touch anywhere to continue --",
+    printString(KEYBOARD_LABELS ? br_tr("-- press any key to continue --") : br_tr("-- touch anywhere to continue --"),
                 mapToWindowX(20), mapToWindowY(DROWS-2), &itemMessageColor, &black, &dbuf);
 
     for (i=0; i<COLS; i++) {
@@ -4299,7 +4336,7 @@ void printHighScores(boolean hiliteMostRecent) {
 
     scoreColor = black;
     applyColorAverage(&scoreColor, &itemMessageColor, 100);
-    printString("-- HIGH SCORES --", (COLS - 17 + 1) / 2, 0, &scoreColor, &black, 0);
+    printString(br_tr("-- HIGH SCORES --"), (COLS - 17 + 1) / 2, 0, &scoreColor, &black, 0);
 
     for (i = 0; i < HIGH_SCORES_COUNT && list[i].score > 0; i++) {
         scoreColor = black;
@@ -4328,8 +4365,8 @@ void printHighScores(boolean hiliteMostRecent) {
     scoreColor = black;
     applyColorAverage(&scoreColor, &goodMessageColor, 100);
 
-    printString(KEYBOARD_LABELS ? "Press space to continue." : "Touch anywhere to continue.",
-                (COLS - strLenWithoutEscapes(KEYBOARD_LABELS ? "Press space to continue." : "Touch anywhere to continue.")) / 2,
+    printString(KEYBOARD_LABELS ? br_tr("Press space to continue.") : br_tr("Touch anywhere to continue."),
+                (COLS - strLenWithoutEscapes(KEYBOARD_LABELS ? br_tr("Press space to continue.") : br_tr("Touch anywhere to continue."))) / 2,
                 ROWS - 1, &scoreColor, &black, 0);
 
     commitDraws();
@@ -4393,21 +4430,21 @@ void printSeed() {
     char mode[14] = "";
 
     if (rogue.mode == GAME_MODE_EASY) {
-        strcpy(mode,"easy mode; ");
+        strcpy(mode,br_tr("easy mode; "));
     } else if (WIZARD_MODE) {
-        strcpy(mode,"wizard mode; ");
+        strcpy(mode,br_tr("wizard mode; "));
     }
     if (rogue.hideSeed) {
-        snprintf(buf, COLS, "Dungeon seed HIDDEN; turn #%lu; %sversion %s", rogue.playerTurnNumber, mode, gameConst->versionString);
+        snprintf(buf, COLS, br_tr("Dungeon seed HIDDEN; turn #%lu; %sversion %s"), rogue.playerTurnNumber, mode, gameConst->versionString);
     }
     else {
-        snprintf(buf, COLS, "Dungeon seed #%llu; turn #%lu; %sversion %s", (unsigned long long)rogue.seed, rogue.playerTurnNumber, mode, gameConst->versionString);
+        snprintf(buf, COLS, br_tr("Dungeon seed #%llu; turn #%lu; %sversion %s"), (unsigned long long)rogue.seed, rogue.playerTurnNumber, mode, gameConst->versionString);
     }
     message(buf, 0);
 }
 
 void printProgressBar(short x, short y, const char barLabel[COLS], long amtFilled, long amtMax, const color *fillColor, boolean dim) {
-    char barText[] = "                    "; // string length is 20
+    unsigned int barText[20]; // string length is 20
     short i, labelOffset;
     color currentFillColor, textColor, progressBarColor, darkenedBarColor;
 
@@ -4434,9 +4471,15 @@ void printProgressBar(short x, short y, const char barLabel[COLS], long amtFille
     darkenedBarColor = progressBarColor;
     applyColorAverage(&darkenedBarColor, &black, 75);
 
-    labelOffset = (20 - strlen(barLabel)) / 2;
-    for (i = 0; i < (short) strlen(barLabel); i++) {
-        barText[i + labelOffset] = barLabel[i];
+    barLabel=br_tr(barLabel);
+    for(int col=0;col<20;col++)barText[col]=' ';
+    labelOffset=max(0,(20-br_text_width(barLabel))/2);
+    for(const char *p=barLabel;*p;) {
+        BrTextToken t=br_text_next(p);p+=t.bytes;
+        if(t.is_color)continue;
+        if(labelOffset+t.columns>20)break;
+        barText[labelOffset]=t.codepoint>127?t.codepoint|BR_UNICODE_FLAG:t.codepoint;
+        labelOffset+=t.columns;
     }
 
     amtFilled = clamp(amtFilled, 0, amtMax);
@@ -4547,20 +4590,20 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
         if(monst->carriedItem) {
             plotCharWithColor(monst->carriedItem->displayChar, (windowpos) { 1, y }, &itemColor, &black);
         }
-        monsterName(monstName, monst, false);
+        br_display_monster_name(monstName, monst, false);
         upperCase(monstName);
 
         if (monst == &player) {
             strcat(monstName, " xxxx");
             encodeMessageColor(monstName, strlen(monstName) - 4, &monstForeColor);
             if (player.status[STATUS_INVISIBLE]) {
-                strcat(monstName, "(invisible)");
+                strcat(monstName, "（隐形）");
             } else if (playerInDarkness()) {
                 //encodeMessageColor(monstName, strlen(monstName) - 4, &playerInDarknessColor);
-                strcat(monstName, "(dark)");
+                strcat(monstName, "（阴影）");
             } else if (!(pmapAt(player.loc)->flags & IS_IN_SHADOW)) {
                 //encodeMessageColor(monstName, strlen(monstName) - 4, &playerInLightColor);
-                strcat(monstName, "(lit)");
+                strcat(monstName, "（明处）");
             }
         }
 
@@ -4606,7 +4649,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
             sprintf(buf2, "(%s%i%%)", percent > 0 ? "+" : "", percent);
             strcpy(&(buf[20 - strlen(buf2)]), buf2);
         } else {
-            strcpy(buf, "Health");
+            strcpy(buf, br_tr("Health"));
         }
         printProgressBar(0, y++, buf, monst->currentHP, monst->info.maxHP, &healthBarColor, dim);
     }
@@ -4675,13 +4718,13 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
 
             if (!rogue.armor || rogue.armor->flags & ITEM_IDENTIFIED || rogue.playbackOmniscience) {
 
-                sprintf(buf, "Str: %s%i%s  Armor: %i",
+                sprintf(buf, br_tr("Str: %s%i%s  Armor: %i"),
                         tempColorEscape,
                         rogue.strength - player.weaknessAmount,
                         grayColorEscape,
                         displayedArmorValue());
             } else {
-                sprintf(buf, "Str: %s%i%s  Armor: %i?",
+                sprintf(buf, br_tr("Str: %s%i%s  Armor: %i?"),
                         tempColorEscape,
                         rogue.strength - player.weaknessAmount,
                         grayColorEscape,
@@ -4692,7 +4735,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
             printString(buf, (20 - strLenWithoutEscapes(buf)) / 2, y++, (dim ? &darkGray : &gray), &black, 0);
         }
         if (y < ROWS - 1 && rogue.gold) {
-            sprintf(buf, "Gold: %li", rogue.gold);
+            sprintf(buf, br_tr("Gold: %li"), rogue.gold);
             buf[20] = '\0';
             printString("                    ", 0, y, &white, &black, 0);
             printString(buf, (20 - strLenWithoutEscapes(buf)) / 2, y++, (dim ? &darkGray : &gray), &black, 0);
@@ -4709,7 +4752,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
             }
             encodeMessageColor(tempColorEscape, 0, &tempColor);
             encodeMessageColor(grayColorEscape, 0, (dim ? &darkGray : &gray));
-            sprintf(buf, "%sStealth range: %i%s",
+            sprintf(buf, br_tr("%sStealth range: %i%s"),
                     tempColorEscape,
                     rogue.stealthRange,
                     grayColorEscape);
@@ -4831,6 +4874,7 @@ short printItemInfo(item *theItem, short y, boolean dim, boolean highlight) {
         } else {
             describeHallucinatedItem(name);
         }
+        br_text_copy(name,sizeof name,br_tr(name));
         upperCase(name);
         lineCount = wrapText(NULL, name, 20-3);
         for (i=initialY + 1; i <= initialY + lineCount + 1 && i < ROWS - 1; i++) {
@@ -4890,6 +4934,7 @@ short printTerrainInfo(short x, short y, short py, const char *description, bool
         plotCharWithColor(displayChar, (windowpos){ 0, py }, &foreColor, &backColor);
         printString(":                  ", 1, py, (dim ? &gray : &white), &black, 0);
         strcpy(name, description);
+        br_text_copy(name,sizeof name,br_tr(name));
         upperCase(name);
         lineCount = wrapText(NULL, name, 20-3);
         for (i=initialY + 1; i <= initialY + lineCount + 1 && i < ROWS - 1; i++) {
@@ -5061,39 +5106,52 @@ unsigned long printCarriedItemDetails(item *theItem,
         encodeMessageColor(whiteColorEscape, 0, &white);
 
         if (theItem->category & (FOOD | SCROLL | POTION | WAND | STAFF | CHARM)) {
-            sprintf(buttons[b].text, "   %sa%spply   ", goldColorEscape, whiteColorEscape);
+            sprintf(buttons[b].text, br_tr("   %sa%spply   "), goldColorEscape, whiteColorEscape);
             buttons[b].hotkey[0] = APPLY_KEY;
             b++;
         }
         if (theItem->category & (ARMOR | WEAPON | RING)) {
             if (theItem->flags & ITEM_EQUIPPED) {
-                sprintf(buttons[b].text, "  %sr%semove   ", goldColorEscape, whiteColorEscape);
+                sprintf(buttons[b].text, br_tr("  %sr%semove   "), goldColorEscape, whiteColorEscape);
                 buttons[b].hotkey[0] = UNEQUIP_KEY;
                 b++;
             } else {
-                sprintf(buttons[b].text, "   %se%squip   ", goldColorEscape, whiteColorEscape);
+                sprintf(buttons[b].text, br_tr("   %se%squip   "), goldColorEscape, whiteColorEscape);
                 buttons[b].hotkey[0] = EQUIP_KEY;
                 b++;
             }
         }
-        sprintf(buttons[b].text, "   %sd%srop    ", goldColorEscape, whiteColorEscape);
+        sprintf(buttons[b].text, br_tr("   %sd%srop    "), goldColorEscape, whiteColorEscape);
         buttons[b].hotkey[0] = DROP_KEY;
         b++;
 
-        sprintf(buttons[b].text, "   %st%shrow   ", goldColorEscape, whiteColorEscape);
+        sprintf(buttons[b].text, br_tr("   %st%shrow   "), goldColorEscape, whiteColorEscape);
         buttons[b].hotkey[0] = THROW_KEY;
         b++;
 
         if (itemCanBeCalled(theItem)) {
-            sprintf(buttons[b].text, "   %sc%sall    ", goldColorEscape, whiteColorEscape);
+            sprintf(buttons[b].text, br_tr("   %sc%sall    "), goldColorEscape, whiteColorEscape);
             buttons[b].hotkey[0] = CALL_KEY;
             b++;
         }
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[b].text, "  %sR%selabel  ", goldColorEscape, whiteColorEscape);
+            sprintf(buttons[b].text, br_tr("  %sR%selabel  "), goldColorEscape, whiteColorEscape);
             buttons[b].hotkey[0] = RELABEL_KEY;
             b++;
+        }
+    }
+    if(br_is_zh()) {
+        for(int i=0;i<b;i++) {
+            int key=buttons[i].hotkey[0];
+            const char *label=key==APPLY_KEY ?
+                (theItem->category==POTION ? "喝下" : theItem->category==FOOD ? "食用" :
+                 theItem->category==SCROLL ? "阅读" : "使用") :
+                key==EQUIP_KEY ? "装备" : key==UNEQUIP_KEY ? "卸下" :
+                key==DROP_KEY ? "丢弃" : key==THROW_KEY ? "投掷" :
+                key==CALL_KEY ? "命名" : "改字母";
+            snprintf(buttons[i].text,sizeof buttons[i].text," %s%s (%s%c%s) ",
+                whiteColorEscape,label,goldColorEscape,key,whiteColorEscape);
         }
     }
     // Add invisible previous and next buttons, so up and down arrows can page through items.
@@ -5126,3 +5184,5 @@ void printFloorItemDetails(item *theItem) {
 
     printTextBox(textBuf, theItem->loc.x, 0, 0, &white, &black, NULL, 0);
 }
+
+short br_desktop_action_menu(void) { return actionMenu(mapToWindowX(0),true); }

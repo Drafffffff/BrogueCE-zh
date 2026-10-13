@@ -1,0 +1,812 @@
+[
+  {
+    "id": "s_ab04eff35abb8c7f",
+    "file": "src/brogue/Movement.c",
+    "source": "you are hovering above %s.",
+    "zh_CN": "你正悬浮在%s上方。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_fe8f71a016ae67ca",
+    "file": "src/brogue/Movement.c",
+    "source": "the Amulet of Yendor",
+    "zh_CN": "延多护身符",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_d41fe57a1d00766b",
+    "file": "src/brogue/Movement.c",
+    "source": "benevolent magic",
+    "zh_CN": "善良魔法",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_96f397164c4f4f28",
+    "file": "src/brogue/Movement.c",
+    "source": "malevolent magic",
+    "zh_CN": "邪恶魔法",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_f14e8f3c71300f0f",
+    "file": "src/brogue/Movement.c",
+    "source": "mysterious magic",
+    "zh_CN": "神秘魔法",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_11e33f159cdcf1bc",
+    "file": "src/brogue/Movement.c",
+    "source": "you can detect the aura of %s here.",
+    "zh_CN": "你能在这里探测到%s的气息。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_81db8ebbbbc69c6c",
+    "file": "src/brogue/Movement.c",
+    "source": "small",
+    "zh_CN": "微弱的",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_d35c416a85b807e9",
+    "file": "src/brogue/Movement.c",
+    "source": "large",
+    "zh_CN": "强烈的",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_88c08666c4856de4",
+    "file": "src/brogue/Movement.c",
+    "source": "under ",
+    "zh_CN": "下方",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_b794252dcd9c1bba",
+    "file": "src/brogue/Movement.c",
+    "source": "coming from within ",
+    "zh_CN": "内部",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_74241f65e5ac9f84",
+    "file": "src/brogue/Movement.c",
+    "source": "in ",
+    "zh_CN": "中",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_550481c2e8b3c457",
+    "file": "src/brogue/Movement.c",
+    "source": "over ",
+    "zh_CN": "上方",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_fcec91509759ad99",
+    "file": "src/brogue/Movement.c",
+    "source": "here",
+    "zh_CN": "这里",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_e04b1bef58e43419",
+    "file": "src/brogue/Movement.c",
+    "source": "you can sense a %s psychic emanation %s%s.",
+    "zh_CN": "你能感知到%s心灵波动，来自%s%s。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_34d5939248b98627",
+    "file": "src/brogue/Movement.c",
+    "source": "you remember seeing %s here.",
+    "zh_CN": "你记得曾在这里看到%s。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_c2e3a85246092c01",
+    "file": "src/brogue/Movement.c",
+    "source": "you expect %s to be here.",
+    "zh_CN": "你觉得%s应该在这里。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_7f4989fc92a7cfe0",
+    "file": "src/brogue/Movement.c",
+    "source": "you can perceive the faint outline of %s in %s.",
+    "zh_CN": "%s的模糊轮廓显现在%s中。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_8a3990100931f340",
+    "file": "src/brogue/Movement.c",
+    "source": " embedded",
+    "zh_CN": "嵌在墙中",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_412d5f2c1eaf503a",
+    "file": "src/brogue/Movement.c",
+    "source": " trapped",
+    "zh_CN": "被困住",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_a7d20a035986047b",
+    "file": "src/brogue/Movement.c",
+    "source": " shackled in place",
+    "zh_CN": "被束缚在原地",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_282a1af9154c09c1",
+    "file": "src/brogue/Movement.c",
+    "source": " frozen in place",
+    "zh_CN": "麻痹在原地",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_8627d020e712fd6a",
+    "file": "src/brogue/Movement.c",
+    "source": " entangled",
+    "zh_CN": "被缠住",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_387d16473aab4e49",
+    "file": "src/brogue/Movement.c",
+    "source": " hovering",
+    "zh_CN": "悬浮",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_4ec00f21375b5c8b",
+    "file": "src/brogue/Movement.c",
+    "source": " flying",
+    "zh_CN": "飞行",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_5fb6a47e368e12e5",
+    "file": "src/brogue/Movement.c",
+    "source": "over",
+    "zh_CN": "上方",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_d55b10c374012836",
+    "file": "src/brogue/Movement.c",
+    "source": " gliding",
+    "zh_CN": "滑行",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_4894c04459c26f2e",
+    "file": "src/brogue/Movement.c",
+    "source": " drifting",
+    "zh_CN": "漂流",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_f0bed2119b21ae67",
+    "file": "src/brogue/Movement.c",
+    "source": " swimming",
+    "zh_CN": "游泳",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_1e07680e87d9deb0",
+    "file": "src/brogue/Movement.c",
+    "source": " struggling",
+    "zh_CN": "挣扎",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_86980bccc62dc5e3",
+    "file": "src/brogue/Movement.c",
+    "source": " suspended in mid-air",
+    "zh_CN": "悬在半空",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_55e897b1ff8116d8",
+    "file": "src/brogue/Movement.c",
+    "source": " staggering",
+    "zh_CN": "踉跄",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_b4f698999614408f",
+    "file": "src/brogue/Movement.c",
+    "source": " lying",
+    "zh_CN": "躺着",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_4bf2f5ecfca6ef62",
+    "file": "src/brogue/Movement.c",
+    "source": " resting",
+    "zh_CN": "休息",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_f027fdfeca9b6f7c",
+    "file": "src/brogue/Movement.c",
+    "source": " sleeping",
+    "zh_CN": "睡觉",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_704724ebc5030dda",
+    "file": "src/brogue/Movement.c",
+    "source": " wandering",
+    "zh_CN": "游荡",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_87985282bb5e3b3b",
+    "file": "src/brogue/Movement.c",
+    "source": " standing",
+    "zh_CN": "站立",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_5a68cad490ae33db",
+    "file": "src/brogue/Movement.c",
+    "source": " fleeing",
+    "zh_CN": "逃跑",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_7e8d4e9929a8398a",
+    "file": "src/brogue/Movement.c",
+    "source": " charging",
+    "zh_CN": "冲锋",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_a5604f9a76849fdc",
+    "file": "src/brogue/Movement.c",
+    "source": " following you",
+    "zh_CN": "跟随你",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_94ac664d3a26d367",
+    "file": "src/brogue/Movement.c",
+    "source": ", burning,",
+    "zh_CN": "，身上燃烧着",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_2eb9d0d30d4ceaac",
+    "file": "src/brogue/Movement.c",
+    "source": " in ",
+    "zh_CN": "，位于",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_0f580db40fe25533",
+    "file": "src/brogue/Movement.c",
+    "source": " on ",
+    "zh_CN": "，位于",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_71aa13c312ada05e",
+    "file": "src/brogue/Movement.c",
+    "source": "%s %s %s %s%s.",
+    "zh_CN": "%s%s，%s%s%s。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_9c6725dc269a48ce",
+    "file": "src/brogue/Movement.c",
+    "source": "through",
+    "zh_CN": "中",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_deb538b50cb6318b",
+    "file": "src/brogue/Movement.c",
+    "source": "across",
+    "zh_CN": "上",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_582967534d0f909d",
+    "file": "src/brogue/Movement.c",
+    "source": "in",
+    "zh_CN": "中",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_b8d31e852725afb1",
+    "file": "src/brogue/Movement.c",
+    "source": "on",
+    "zh_CN": "上",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_a73fc5974786d173",
+    "file": "src/brogue/Movement.c",
+    "source": " enclosed",
+    "zh_CN": " 被围住",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_b1f127661078f0b6",
+    "file": "src/brogue/Movement.c",
+    "source": "you %s %s.",
+    "zh_CN": "你%s%s。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_aa9e9b5c907d50fe",
+    "file": "src/brogue/Movement.c",
+    "source": "see",
+    "zh_CN": "看见",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_5146f25dc5079599",
+    "file": "src/brogue/Movement.c",
+    "source": "sense",
+    "zh_CN": "感知到",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_b75da83e5109fef6",
+    "file": "src/brogue/IO.c",
+    "source": "     (Dancing)      ",
+    "zh_CN": "     (跳舞)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_d454aaeb48e7820f",
+    "file": "src/brogue/IO.c",
+    "source": "     (Singing)      ",
+    "zh_CN": "     (歌唱)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_216dee7a65573d60",
+    "file": "src/brogue/IO.c",
+    "source": "  (Pontificating)   ",
+    "zh_CN": "  (高谈阔论)   ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_0fa4ae96b775d017",
+    "file": "src/brogue/IO.c",
+    "source": "     (Skipping)     ",
+    "zh_CN": "     (蹦跳)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_84d9cfaddfd380b4",
+    "file": "src/brogue/IO.c",
+    "source": "     (Spinning)     ",
+    "zh_CN": "     (旋转)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_b08715c4f2c91a31",
+    "file": "src/brogue/IO.c",
+    "source": "      (Crying)      ",
+    "zh_CN": "      (哭泣)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_97e28348c35de24a",
+    "file": "src/brogue/IO.c",
+    "source": "     (Laughing)     ",
+    "zh_CN": "     (大笑)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_c47c163d8d4cf8c8",
+    "file": "src/brogue/IO.c",
+    "source": "     (Humming)      ",
+    "zh_CN": "     (哼唱)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_58ef6ca871751e2d",
+    "file": "src/brogue/IO.c",
+    "source": "    (Whistling)     ",
+    "zh_CN": "    (吹口哨)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_c336450ad519a259",
+    "file": "src/brogue/IO.c",
+    "source": "    (Quivering)     ",
+    "zh_CN": "    (颤抖)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_8c6781c2bd65c00f",
+    "file": "src/brogue/IO.c",
+    "source": "    (Muttering)     ",
+    "zh_CN": "    (喃喃自语)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_5b3302690663e758",
+    "file": "src/brogue/IO.c",
+    "source": "    (Gibbering)     ",
+    "zh_CN": "    (胡言乱语)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_ad6b3c31f6fb2957",
+    "file": "src/brogue/IO.c",
+    "source": "     (Giggling)     ",
+    "zh_CN": "     (咯咯笑)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_be37fdc117022f20",
+    "file": "src/brogue/IO.c",
+    "source": "     (Moaning)      ",
+    "zh_CN": "     (呻吟)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_9a9525005fd3fc41",
+    "file": "src/brogue/IO.c",
+    "source": "    (Shrieking)     ",
+    "zh_CN": "    (尖叫)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_34963739c006a43f",
+    "file": "src/brogue/IO.c",
+    "source": "   (Caterwauling)   ",
+    "zh_CN": "   (怪叫)   ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_579be91cf17a65e8",
+    "file": "src/brogue/IO.c",
+    "source": "(invisible)",
+    "zh_CN": "(隐形)",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_03144537ac35c0bd",
+    "file": "src/brogue/IO.c",
+    "source": "(dark)",
+    "zh_CN": "(黑暗)",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_a8c0db5ba12a0681",
+    "file": "src/brogue/IO.c",
+    "source": "(lit)",
+    "zh_CN": "(明亮)",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_ec9b10a4a79c4e8a",
+    "file": "src/brogue/IO.c",
+    "source": "Dead",
+    "zh_CN": "死亡",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_f8ceb1d96ac49acb",
+    "file": "src/brogue/IO.c",
+    "source": "       Health       ",
+    "zh_CN": "       生命值       ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_37ad1f771df8fe43",
+    "file": "src/brogue/IO.c",
+    "source": "      STARVING      ",
+    "zh_CN": "      饥饿      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_75a4c2fe3b9e4d3c",
+    "file": "src/brogue/IO.c",
+    "source": "Flying",
+    "zh_CN": "飞行",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_49bd9655dd10488f",
+    "file": "src/brogue/IO.c",
+    "source": "Str: %s%i%s  Armor: %i",
+    "zh_CN": "力量： %s%i%s  护甲： %i",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_e83fad18b586a907",
+    "file": "src/brogue/IO.c",
+    "source": "Str: %s%i%s  Armor: %i?",
+    "zh_CN": "力量： %s%i%s  护甲： %i?",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_dc56268c91215c92",
+    "file": "src/brogue/IO.c",
+    "source": "Gold: %li",
+    "zh_CN": "金币： %li",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_e12b452df1fbb5b2",
+    "file": "src/brogue/IO.c",
+    "source": "%sStealth range: %i%s",
+    "zh_CN": "%s潜行范围： %i%s",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_3aaa8992c1736306",
+    "file": "src/brogue/IO.c",
+    "source": "      Negated       ",
+    "zh_CN": "      失效       ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_9e975ff6946c8708",
+    "file": "src/brogue/IO.c",
+    "source": "     (Captive)      ",
+    "zh_CN": "     (被俘)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_2de6db7a2f187dc9",
+    "file": "src/brogue/IO.c",
+    "source": "     (Helpless)     ",
+    "zh_CN": "     (无助)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_a2048263721c5a9c",
+    "file": "src/brogue/IO.c",
+    "source": "     (Sleeping)     ",
+    "zh_CN": "     (睡眠)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_7aa58ddcd108f25f",
+    "file": "src/brogue/IO.c",
+    "source": "       (Ally)       ",
+    "zh_CN": "       (盟友)       ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_549171223b29e51d",
+    "file": "src/brogue/IO.c",
+    "source": "     (Fleeing)      ",
+    "zh_CN": "     (逃跑)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_799c88319bcb5a1b",
+    "file": "src/brogue/IO.c",
+    "source": "    (Worshiping)    ",
+    "zh_CN": "    (崇拜)    ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_bd5c513270a187e9",
+    "file": "src/brogue/IO.c",
+    "source": "     (Guarding)     ",
+    "zh_CN": "     (守卫)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_444e918179d51d9e",
+    "file": "src/brogue/IO.c",
+    "source": "    (Wandering)     ",
+    "zh_CN": "    (游荡)     ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_98cbad22d031f34e",
+    "file": "src/brogue/IO.c",
+    "source": "   (Off balance)    ",
+    "zh_CN": "   (失衡)    ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_8143723b04f5c85b",
+    "file": "src/brogue/IO.c",
+    "source": "     (Hunting)      ",
+    "zh_CN": "     (追猎)      ",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  },
+  {
+    "id": "s_30f1cc29892c445c",
+    "file": "src/brogue/Time.c",
+    "source": "Killed by a fall",
+    "zh_CN": "坠落身亡",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "location_prose_or_native_sidebar_capture"
+  }
+]

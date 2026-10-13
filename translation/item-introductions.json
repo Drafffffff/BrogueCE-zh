@@ -1,0 +1,83 @@
+[
+  {
+    "id": "s_25c82248c9d93e91",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nIt will increase your maximum health by %s%i%%%s.",
+    "zh_CN": "\n\n它会使你的生命上限提高 %s%i%%%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_38cd329f9ac0acf4",
+    "file": "src/brogue/Items.c",
+    "source": "%s flask%s contain%s a swirling %s liquid. Who knows what %s will do when drunk or thrown?",
+    "zh_CN": "%.0s瓶中%.0s装着%.0s旋动的%s液体。喝下或投掷会发生什么呢？%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_57b1dd2fc152b3f1",
+    "file": "src/brogue/Items.c",
+    "source": "%s parchment%s %s covered with indecipherable writing, and bear%s a title of \"%s.\" Who knows what %s will do when read aloud?",
+    "zh_CN": "%.0s羊皮纸%.0s%.0s上写满了无法辨认的文字，%.0s题为“%s”。大声朗读会发生什么呢？%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_db555e3c83136793",
+    "file": "src/brogue/Items.c",
+    "source": "What a perplexing charm!",
+    "zh_CN": "真是个令人困惑的护符！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f0e92e0fe936d90e",
+    "file": "src/brogue/Items.c",
+    "source": "Legends are told about this mysterious golden amulet, and legions of adventurers have perished in its pursuit. Unfathomable riches await anyone with the skill and ambition to carry it into the light of day.",
+    "zh_CN": "这枚神秘的金色护身符流传着许多传说，无数冒险者为追寻它而丧命。若有足够的本领和雄心，将它带回阳光下，便能获得难以想象的财富。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_3ca7517df7e19dae",
+    "file": "src/brogue/Items.c",
+    "source": "Faint golden lights swirl and fluoresce beneath the stone%s surface. Lumenstones are said to contain mysterious properties of untold power, but for you, they mean one thing: riches.",
+    "zh_CN": "微弱的金光在辉光石%.0s表面下盘旋闪耀。据说辉光石蕴含着深不可测的神秘力量，但对你而言，它们只意味着财富。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e0db2029500e398c",
+    "file": "src/brogue/Items.c",
+    "source": "A pile of %i shining gold coins.",
+    "zh_CN": "一堆闪亮的金币，共 %i 枚。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_d9b879cd39976d15",
+    "file": "src/brogue/Items.c",
+    "source": " (You found %s%s on depth %i.) ",
+    "zh_CN": " （发现地点：%.0s%s第 %i 层。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_067952b1e6e31e14",
+    "file": "src/brogue/Items.c",
+    "source": " in a vault",
+    "zh_CN": "宝库，",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  }
+]

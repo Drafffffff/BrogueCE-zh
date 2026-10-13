@@ -1,0 +1,594 @@
+[
+  {
+    "id": "d_014925ebd16602b8",
+    "source": "This ceremonial shielding magic will permanently proof your weapon against degradation by acid.",
+    "zh_CN": "这种仪式性的护佑魔法会永久保护你的武器，使它不再被酸液腐蚀。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_0434b3fed336cf24",
+    "source": "When you touch this tiny granite statue, a rhythmic booming echoes in your mind.",
+    "zh_CN": "触摸这尊小巧的花岗岩雕像时，富有节奏的轰鸣声会在你的脑海中回荡。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_059796c5645bd2d4",
+    "source": "This ring of preternatural vision will allow you to see farther in the dimming light of the deeper dungeon levels. It will not make you more noticeable to enemies.",
+    "zh_CN": "这枚具有超自然视力的戒指能让你在地牢深处日益昏暗的光线中看得更远。它不会让敌人更容易注意到你。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_0a17b1bb4b013182",
+    "source": "The surface of this nickel sphere has been etched with a perfect grid pattern. Somehow, the squares of the grid are all exactly the same size.",
+    "zh_CN": "这颗镍制球体的表面刻着完美的网格。不知为何，每一个格子的大小都分毫不差。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_0ae1b8ad38220a86",
+    "source": "A handful of dried bloodwort and mandrake root has been bound together with leather cord and imbued with a powerful healing magic.",
+    "zh_CN": "一小束晒干的血草和曼德拉草根用皮绳扎在一起，其中注入了强大的治疗魔法。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_0bb257bbd58336fb",
+    "source": "A strip of bronze has been wound around a rough wooden sphere. Each time you touch it, you feel a tiny electric shock.",
+    "zh_CN": "一条青铜带缠绕着粗糙的木球。每次触摸它，你都会感到轻微的电击。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_0cd8c60593618c40",
+    "source": "The rust accreted on this iron key has been stained with flecks of blood; it must have been used recently. What cage might it open?",
+    "zh_CN": "这把铁钥匙上积聚的锈迹沾着斑斑血点，想必最近还用过。它能打开哪一个笼子呢？",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_13d113ced8c3454c",
+    "source": "This staff conjures forth deadly arcs of electricity to damage to any number of creatures in a straight line.",
+    "zh_CN": "这根法杖能释放致命的电弧，伤害同一直线上的所有生物。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_15dfd0ff9ede0a00",
+    "source": "This staff will bathe a creature in a protective light that will absorb all damage until it is depleted. Unfortunately, you cannot use this or any staff on yourself except by reflecting the bolt.",
+    "zh_CN": "这根法杖会用防护光芒笼罩一个生物，在光芒耗尽之前吸收一切伤害。遗憾的是，除非让法术束反射回来，否则你无法用这根或任何法杖对自己施法。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_1ed616f003f36037",
+    "source": "This wand can forever bind an enemy to the caster's will, turning it into a steadfast ally. However, the magic only works effectively against enemies that are near death.",
+    "zh_CN": "这根魔杖能让敌人永远服从施法者的意志，成为忠诚的盟友。不过，这种魔法只有对濒死的敌人才能有效发挥作用。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_207add0c1cdcc070",
+    "source": "Uncorking or shattering this pressurized glass will cause its contents to explode into a deadly cloud of caustic purple gas. You might choose to fling this potion at distant enemies instead of uncorking it by hand.",
+    "zh_CN": "拔开瓶塞或打碎这只加压玻璃瓶，里面的物质就会喷涌而出，化作致命的紫色腐蚀气云。与其亲手打开，你也可以把药瓶投向远处的敌人。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_216f34f3683d61d0",
+    "source": "This wand will teleport a creature to a random place on the level. Aquatic or mud-bound creatures will be rendered helpless on dry land.",
+    "zh_CN": "这根魔杖会把一个生物传送到本层的随机位置。水生或栖泥生物一旦落在干燥的地面上，就会动弹不得。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_2318089a05db22e0",
+    "source": "This ring of blood magic will heal you in proportion to the damage you inflict on others. Cursed rings will cause you to lose health when inflicting damage.",
+    "zh_CN": "这枚蕴含血魔法的戒指会按你对他人造成的伤害比例治疗你。被诅咒的戒指则会在你造成伤害时扣除生命。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_257a97eb37cbd63c",
+    "source": "This ceremonial shielding magic will permanently proof your armor against degradation by acid.",
+    "zh_CN": "这种仪式性的护佑魔法会永久保护你的护甲，使它不再被酸液腐蚀。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_276830b384135c9f",
+    "source": "This powerful medicine will course through your muscles, permanently increasing your strength by one point.",
+    "zh_CN": "这种强效药物会流遍你的肌肉，使力量永久增加一点。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_3087f37e6ba32a09",
+    "source": "When the cork is popped or the flask is thrown, tiny spores will spill across the ground and begin to grow a deadly lichen. Anything that touches the lichen will be poisoned by its clinging tendrils, and the lichen will slowly grow to fill the area. Fire will purge the infestation.",
+    "zh_CN": "拔开瓶塞或投掷药瓶时，微小的孢子会散落在地面上，开始长出致命的地衣。接触地衣的生物会被缠附的丝状体毒伤，而地衣会慢慢蔓延，覆盖整个区域。火焰能清除这种侵染。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_30b58580f55c236a",
+    "source": "This unstable chemical will quickly vaporize into a glittering cloud upon contact with open air, causing any creature that inhales it to lose control of the direction of its movements until the effect wears off (although its ability to aim projectile attacks will not be affected). Its vertiginous intoxication can cause creatures and adventurers to careen into one another or into chasms or lava pits, so extreme care should be taken when under its effect. Its contents can be weaponized by throwing the flask at distant enemies.",
+    "zh_CN": "这种不稳定的化学物质一接触空气，就会迅速汽化成闪烁的气云。吸入它的生物会在效果结束前无法控制自己的移动方向，但远程攻击的瞄准能力不受影响。眩晕中的生物和冒险者可能撞向彼此，或跌入深渊与熔岩，因此必须格外小心。你也可以把药瓶投向远处的敌人，将里面的物质用作武器。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_384305abe27ec953",
+    "source": "This sacred magic will permanently improve the mind and body of any monster it hits. A wise adventurer will use it on allies, making them stronger in combat and able to learn a new talent from a fallen foe. If the bolt is reflected back at you, it will have no effect.",
+    "zh_CN": "这种神圣魔法会永久增强命中怪物的身心。明智的冒险者会将它用于盟友，使盟友更善于战斗，并能从倒下的敌人身上学习一项新能力。如果法术束反射回你身上，则不会产生效果。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_38d3a228b13f6482",
+    "source": "The creature at the other end of this mischievous bit of cloning magic, friend or foe, will be beside itself -- literally!",
+    "zh_CN": "这种调皮的复制魔法会让目标生物多出一个自己，不论目标是敌是友！",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_394e4fca7997b318",
+    "source": "Eldritch flames flicker within this polished crystal bauble.",
+    "zh_CN": "诡异的火焰在这颗磨光的水晶珠中摇曳。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_3ae64c632f04ff81",
+    "source": "This ring of sacred life will allow you to recover lost health at an accelerated rate. Cursed rings will decrease or even halt your natural regeneration.",
+    "zh_CN": "这枚蕴含神圣生命之力的戒指会加快你的生命恢复。被诅咒的戒指则会减慢，甚至彻底阻止你的自然恢复。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_3bc4845006ea5f9c",
+    "source": "Upon exposure to open air, the liquid in this flask will vaporize into a numbing pink haze. Anyone who inhales the cloud will be paralyzed instantly, unable to move for some time after the cloud dissipates. This item can be thrown at distant enemies to catch them within the effect of the gas.",
+    "zh_CN": "这瓶液体一接触空气，就会汽化成使人麻木的粉红色气雾。任何吸入气雾的生物都会立刻麻痹，即使气雾已经散去，仍会有一段时间无法移动。你可以把药瓶投向远处的敌人，让它们落入毒气的作用范围。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_43a2007c26325418",
+    "source": "This scroll will unleash a powerful blast of mind magic. Any creatures within line of sight will turn against their companions and attack indiscriminately for 30 turns.",
+    "zh_CN": "这张卷轴会释放强大的心灵魔法冲击。视线内的所有生物都会反过来攻击自己的同伴，并在 30 回合内不分敌我地攻击。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_461777ac91a3cbdd",
+    "source": "This powerful anti-magic will strip a creature of a host of magical traits, including flight, invisibility, acidic corrosiveness, telepathy, magical speed or slowness, hypnosis, magical fear, immunity to physical attack, fire resistance and the ability to blink. Spellcasters will lose their magical abilities and magical totems will be rendered inert. Creatures animated purely by magic will die.",
+    "zh_CN": "这种强大的反魔法会剥除生物的多种魔法特性，包括飞行、隐形、酸液腐蚀、心灵感应、魔法加速或减速、催眠、魔法恐惧、物理攻击免疫、抗火和闪现能力。施法者会失去魔法能力，魔法图腾会陷入沉寂。完全由魔法赋予生命的生物会死亡。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_4686b8d63ec53ddd",
+    "source": "This staff will heal any creature, friend or foe. Unfortunately, you cannot use this or any staff on yourself except by reflecting the bolt.",
+    "zh_CN": "这根法杖能治疗任何生物，不论敌友。遗憾的是，除非让法术束反射回来，否则你无法用这根或任何法杖对自己施法。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_46c43e3407170a07",
+    "source": "This potion will render you impervious to heat and permit you to wander through fire and lava and ignore otherwise deadly bolts of flame. It will not guard against the concussive impact of an explosion, however.",
+    "zh_CN": "这种药水能让你免受高温伤害，穿行于火焰和熔岩之中，并无视原本致命的火焰法术束。不过，它无法抵御爆炸的冲击伤害。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_4713b20f473850f2",
+    "source": "When this flask is uncorked by hand or shattered by being thrown, the fog that seeps out will temporarily cause the ground in the vicinity to vanish.",
+    "zh_CN": "亲手拔开瓶塞，或投掷打碎药瓶时，溢出的雾气会使附近的地面暂时消失。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_4bb97ea0cdbbedf9",
+    "source": "This staff unleashes bursts of magical fire. It will ignite flammable terrain and burn any creature that it hits. Creatures with an immunity to fire will be unaffected by the bolt.",
+    "zh_CN": "这根法杖能释放阵阵魔法火焰，点燃可燃地形，灼烧命中的生物。免疫火焰的生物不会受到这种法术束的影响。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_4c9149906f4c59fa",
+    "source": "This ring of eldritch scrying will permit you to see through nearby walls and doors, within a radius determined by the level of the ring. A cursed ring of clairvoyance will blind you to your immediate surroundings.",
+    "zh_CN": "这枚诡秘的窥视戒指能让你看穿附近的墙壁和门，范围由戒指的等级决定。被诅咒的透视戒指则会让你看不见近处的环境。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_58d0e9f55dc34ccf",
+    "source": "The power bound up in this parchment will instantly recharge all of your staffs and charms.",
+    "zh_CN": "封存在这张羊皮纸中的力量会立即为你所有的法杖和护符充能。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_5e6f92384b0f3739",
+    "source": "This scrying magic will permanently reveal all of the secrets of a single item.",
+    "zh_CN": "这种窥探魔法会永久揭示一件物品的全部秘密。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_600080b2adee30ca",
+    "source": "This staff will send creatures into a temporary trance, causing them to mindlessly mirror your movements. You can use the effect to cause one creature to attack another or to step into hazardous terrain, but the spell will be broken if you attack the creature under the effect.",
+    "zh_CN": "这根法杖会使生物暂时陷入恍惚，机械地模仿你的移动。你可以利用这种效果迫使它攻击其他生物，或踏入危险地形；但如果你攻击受影响的生物，法术就会解除。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_672e29f23e99c0bc",
+    "source": "This staff will allow you to teleport in the chosen direction. Creatures and inanimate obstructions will block the teleportation.",
+    "zh_CN": "这根法杖能让你朝选定方向传送。生物和无生命的障碍物都会阻挡传送。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_6ddeb3bece79d275",
+    "source": "This escape spell will instantly relocate you to a random location on the dungeon level. It can be used to escape a dangerous situation with luck. The unlucky reader might find himself in an even more dangerous place.",
+    "zh_CN": "这种逃脱法术会立即把你传送到本层的一个随机位置。运气好时，它能让你脱离险境；运气不好的读者则可能落入更加危险的地方。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_78f35530a26ae335",
+    "source": "A swirling elixir that will instantly heal you, cure you of ailments, and permanently increase your maximum health.",
+    "zh_CN": "一种翻涌的灵药，能够立即治疗你、解除异常状态，并永久提高生命上限。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_8049d662873a7113",
+    "source": "A faceted orb, seemingly cut from a single crystal, sparkling and perpetually warm to the touch. What manner of device might such an object activate?",
+    "zh_CN": "一颗多面球体，仿佛由整块水晶雕琢而成，闪闪发光，触摸时始终带着暖意。这样的物件能启动什么装置呢？",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_8576035c125f1d1e",
+    "source": "This strange incantation will alter the physical structure of nearby stone, causing it to evaporate into the air over the ensuing minutes.",
+    "zh_CN": "这种奇异的咒语会改变附近石头的物理结构，使它们在接下来的几分钟内逐渐消散在空气中。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_89208d05d4ab9acb",
+    "source": "A jade figurine depicts a strange humanoid creature. It has a face on both sides of its head, but all four eyes are closed.",
+    "zh_CN": "一尊翡翠雕像刻着奇怪的人形生物。它的头部两侧各有一张脸，但四只眼睛全都紧闭着。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_8b22a2c31ce4083b",
+    "source": "Various animals have been etched into the surface of this brass bangle. It emits a barely audible hum.",
+    "zh_CN": "这只黄铜手镯表面刻着各种动物，并发出几乎听不见的低鸣。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_8c8548870e742a7b",
+    "source": "This curious liquid will cause you to hover in the air, able to drift effortlessly over lava, water, chasms and traps. Flames, gases and spiderwebs fill the air, and cannot be bypassed while airborne. Creatures that dwell in water or mud will be unable to attack you while you levitate.",
+    "zh_CN": "这种奇特的液体会让你悬浮在空中，轻松越过熔岩、水面、深渊和陷阱。火焰、气体和蛛网充满空中，无法靠悬浮避开。栖息于水中或泥里的生物无法攻击悬浮中的你。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_8eeddbb355d61c4c",
+    "source": "This flask contains an unstable compound which will burst violently into flame upon exposure to open air. You might throw the flask at distant enemies -- or into a deep lake, to cleanse the cavern with scalding steam.",
+    "zh_CN": "这瓶不稳定的化合物一接触空气，就会猛烈燃烧。你可以把它投向远处的敌人，或投入深湖，用滚烫的蒸汽扫荡洞穴。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_8f88933309e51e29",
+    "source": "The notches on this ancient iron key are well worn; its leather lanyard is battered by age. What door might it open?",
+    "zh_CN": "这把古老铁钥匙上的齿痕已经磨损，皮革挂绳也饱经岁月摧残。它能打开哪一扇门呢？",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_95940886e193b90d",
+    "source": "Four copper rings have been joined into a tetrahedron. The construct is oddly warm to the touch.",
+    "zh_CN": "四个铜环连接成一个四面体。这件构造物摸起来带着奇异的暖意。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_9e9128928962d103",
+    "source": "This redemption spell will instantly strip from the reader's weapon, armor, rings and carried items any evil enchantments that might prevent the wearer from removing them.",
+    "zh_CN": "这种救赎法术会立即解除读者的武器、护甲、戒指及随身物品上，那些阻止穿戴者取下装备的邪恶附魔。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_a192fb78e3fb9493",
+    "source": "This ancient enchanting sorcery will imbue a single item with a powerful and permanent magical charge. A staff will increase in power and in number of charges; a weapon will inflict more damage and find its mark more easily; a suit of armor will deflect attacks more often; the magic of a ring will intensify; and a wand will gain expendable charges in the least amount that such a wand can be found with. Weapons and armor will also require less strength to use, and any curses on the item will be lifted.",
+    "zh_CN": "这种古老的附魔术会为一件物品注入强大而永久的魔力。法杖的威力和充能上限会提高；武器会造成更多伤害，更容易命中；护甲会更频繁地挡下攻击；戒指的魔法会增强；魔杖则会补充充能，数量等于这种魔杖生成时可能具有的最低充能数。武器和护甲的力量需求也会降低，物品上的诅咒将被解除。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_a2b76e3f650a133c",
+    "source": "This staff will temporarily double the speed of any creature, friend or foe. Unfortunately, you cannot use this or any staff on yourself except by reflecting the bolt.",
+    "zh_CN": "这根法杖会暂时使任何生物的速度翻倍，不论敌友。遗憾的是，除非让法术束反射回来，否则你无法用这根或任何法杖对自己施法。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_a4274cf8adadf0d8",
+    "source": "The force of this wand will draw the targeted creature into direct proximity.",
+    "zh_CN": "这根魔杖的力量会把目标生物拉到你身边。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_b01bb2b78211dbf2",
+    "source": "This wand will cause a creature to move at half its ordinary speed for 30 turns.",
+    "zh_CN": "这根魔杖会使一个生物的移动速度降为通常的一半，持续 30 回合。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_b502b45cecf54818",
+    "source": "This mischievous magic will transform a creature into another creature at random. Beware: the tamest of creatures might turn into the most fearsome. The horror of the transformation will turn an allied victim against you.",
+    "zh_CN": "这种调皮的魔法会把一个生物随机变成另一种生物。小心：最温顺的生物也可能变成最可怕的怪物。变形带来的恐惧会使原本的盟友反过来敌视你。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_b6e4e2f74055afa6",
+    "source": "This ring of arcane power will cause your staffs to recharge at an accelerated rate. Cursed rings of wisdom will cause your staffs to recharge more slowly.",
+    "zh_CN": "这枚蕴含奥术力量的戒指会加快法杖充能。被诅咒的智慧戒指则会减慢法杖充能。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_b951457b787effbe",
+    "source": "This ring of effortless vigilance will enable you to notice traps, secret doors and hidden levers more often and from a greater distance. Cursed rings of awareness will dull your senses, making it harder to notice secrets without actively searching for them.",
+    "zh_CN": "这枚能让你时刻保持警觉的戒指，会使你更经常地、从更远处发现陷阱、暗门和隐藏机关。被诅咒的感知戒指则会使感官迟钝，不主动搜索就更难发现秘密。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_ba25dbce3deffbae",
+    "source": "This mysterious liquid will attune your mind to the psychic signature of distant creatures. Its effects will not reveal inanimate objects, such as totems, turrets and traps.",
+    "zh_CN": "这种神秘液体会让你的心灵与远处生物的精神波动相连。它无法揭示图腾、炮塔和陷阱等无生命物体。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_bc4bd54aecbb1051",
+    "source": "This summoning incantation will call out to creatures in other planes of existence, drawing them through the fabric of reality to confront the reader.",
+    "zh_CN": "这种召唤咒语会向其他位面的生物发出呼唤，将它们拉过现实的帷幕，带到读者面前。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_c56ed589620995d4",
+    "source": "Sparkling dust and fragments of feather waft and swirl endlessly inside this small glass sphere.",
+    "zh_CN": "闪亮的粉尘和羽毛碎片在这个小玻璃球里无休止地飘荡、旋转。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_caf1476d47a9d307",
+    "source": "Quaffing the contents of this flask will enable you to move at blinding speed for several minutes.",
+    "zh_CN": "喝下这瓶药水，你就能在几分钟内以令人眼花缭乱的速度移动。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_cd09ca0b5ec75e9c",
+    "source": "This staff will conjure a mass of impenetrable green crystal, preventing anything from moving through the affected area and temporarily entombing anything that is already there. The crystal will dissolve into the air as time passes. Higher level staffs will create larger obstructions.",
+    "zh_CN": "这根法杖会召出一大片无法穿透的绿色水晶，阻止任何东西穿过受影响区域，并暂时封住原本位于其中的生物和物体。水晶会随时间逐渐消散在空气中。等级越高的法杖，制造的障碍范围越大。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_cdd59f6fbfc22a66",
+    "source": "This powerful scouting magic will etch a purple-hued image of crystal clarity into your memory, alerting you to the precise layout of the level and revealing all traps, secret doors and hidden levers.",
+    "zh_CN": "这种强大的侦察魔法会把一幅清晰无比的紫色地图刻入你的记忆，揭示本层的精确布局，以及所有陷阱、暗门和隐藏机关。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_cecf11df6310efb5",
+    "source": "Drinking this potion will plunge you into darkness. At first, you will be completely blind to anything not illuminated by an independent light source, but over time your vision will regain its former strength. Throwing the potion will create a cloud of supernatural darkness, and enemies will have difficulty seeing or following you if you take refuge under its cover.",
+    "zh_CN": "喝下这种药水会让你陷入黑暗。起初，除了由独立光源照亮的事物，你将什么也看不见；随着时间推移，视力会逐渐恢复。投掷药瓶会制造一团超自然的黑暗；躲入其中，敌人就更难看见或追踪你。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_d1306a983fe8a3a2",
+    "source": "This scroll will unleash a piercing shriek that will awaken all monsters and alert them to the reader's location.",
+    "zh_CN": "这张卷轴会释放刺耳的尖啸，唤醒所有怪物，让它们得知读者的位置。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_d17fa17ae42cdc82",
+    "source": "Drinking this potion will render you temporarily invisible. Enemies more than two spaces away will be unable to track you.",
+    "zh_CN": "喝下这种药水会使你暂时隐形。距离超过两格的敌人将无法追踪你。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_d3cb3ab6a5b0d4c9",
+    "source": "Bursts of magic from this staff will pass harmlessly through creatures but will reduce most obstructions to rubble.",
+    "zh_CN": "这根法杖发出的魔法能量会无害地穿过生物，却能把大多数障碍物化为碎石。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_d41c99f2b96cbb63",
+    "source": "This turquoise crystal, fixed to a leather lanyard, hums with an arcane energy that sets your teeth on edge.",
+    "zh_CN": "这颗绿松石色水晶固定在皮革挂绳上，低鸣着释放奥术能量，让你的牙齿隐隐发酸。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_d78bf63167ab189c",
+    "source": "This staff will alter the perception of a creature and cause it to lash out indiscriminately. Strangers and allies alike will turn on the victim.",
+    "zh_CN": "这根法杖会改变一个生物的感知，使它不分敌我地攻击。无论陌生生物还是盟友，都会成为受影响者的攻击目标。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_d9294a1f75901e93",
+    "source": "This mysterious brew will sensitize your mind to the radiance of magic. Items imbued with helpful enchantments will be marked with a full sigil; items corrupted by curses or designed to bring misfortune upon the bearer will be marked with a hollow sigil. The Amulet of Yendor will be revealed by its unique aura.",
+    "zh_CN": "这种神秘药剂会让你的心灵感知到魔法的光辉。带有有益附魔的物品会标上实心符号；受诅咒或专门给主人带来厄运的物品，会标上空心符号。延多护身符则会显露出独特的灵光。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_de643f82e757f0a4",
+    "source": "This ring of blood magic will recharge your staffs and charms every time you hit an enemy. Cursed rings of reaping will drain your staffs and charms with every hit.",
+    "zh_CN": "这枚蕴含血魔法的戒指会在你每次命中敌人时，为法杖和护符充能。被诅咒的收割戒指则会在每次命中时消耗它们的充能。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_df5248abe4dae318",
+    "source": "This wand will render a creature temporarily invisible to the naked eye. Only with telepathy or in the silhouette of a thick gas will an observer discern the creature's hazy outline.",
+    "zh_CN": "这根魔杖会使一个生物暂时从肉眼视野中消失。只有借助心灵感应，或看见浓密气体勾勒出的轮廓，观察者才能辨认出它模糊的身影。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_e5eb6ba4c943774c",
+    "source": "When this powerful anti-magic is released, all creatures (including yourself) and all items lying on the ground within your field of view will be exposed to its blast and stripped of magic. Creatures animated purely by magic will die. Potions, scrolls, items being held by other creatures and items in your inventory will not be affected.",
+    "zh_CN": "释放这种强大的反魔法时，视野内的所有生物（包括你自己）以及地上的所有物品，都会受到冲击并被剥除魔法。完全由魔法赋予生命的生物会死亡。药水、卷轴、其他生物持有的物品，以及你背包里的物品不受影响。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_e5f3ac2c5f50e9bb",
+    "source": "A featureless gray disc hangs from a lanyard. When you touch it, your hand and arm go numb.",
+    "zh_CN": "一块毫无纹饰的灰色圆片挂在绳上。触摸它时，你的手和手臂会变得麻木。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_ed7701f566580510",
+    "source": "This ring of silent passage will reduce your stealth range, making enemies less likely to notice you and more likely to lose your trail. Staying motionless and lurking in the shadows will make you even harder to spot. Cursed rings of stealth will increase your stealth range, making you easier to spot and to track.",
+    "zh_CN": "这枚让脚步悄无声息的戒指会缩小你的潜行范围，使敌人更难注意到你，也更容易丢失你的踪迹。静止不动、潜伏在阴影中会让你更难被发现。被诅咒的潜行戒指则会扩大潜行范围，使你更容易被发现和追踪。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_efda4d9b039aabba",
+    "source": "This flask contains a vicious and long-lasting hallucinogen. Under its dazzling effect, you will wander through a rainbow wonderland, unable to discern the form of any creatures or items you see.",
+    "zh_CN": "这瓶药水含有强烈而持久的致幻剂。在炫目的药效中，你会游走于彩虹般的幻境，无法辨别所见生物和物品的真实形态。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_f2e9bffca14c2369",
+    "source": "A flick of this staff will summon a number of phantom blades to fight on your behalf.",
+    "zh_CN": "轻挥这根法杖，就能召出数把幻影之刃为你作战。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_f44b43fcfaf1fced",
+    "source": "Seven tiny glass eyes roll freely within this glass sphere. Somehow, they always come to rest facing outward.",
+    "zh_CN": "七只微小的玻璃眼珠在这个玻璃球里自由滚动。不知为何，每次停下时，它们总是朝向外面。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_fbd4b99bdf37513f",
+    "source": "The vile blast of this twisted staff will imbue its target with a deadly venom. Each turn, a creature that is poisoned will suffer one point of damage per dose of poison it has received, and poisoned creatures will not regenerate lost health until the poison clears.",
+    "zh_CN": "这根扭曲法杖释放的邪恶能量会让目标中剧毒。中毒生物每回合受到的伤害，等于它所承受的毒素剂量；在毒素清除之前，它无法恢复生命。",
+    "file": "src/brogue/Globals.c",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "d_fc59e02e7fd1e5f3",
+    "source": "This protection rite will imbue the area with powerful warding glyphs, when released over plain ground. Monsters will not willingly set foot on the affected area.",
+    "zh_CN": "在普通地面上释放这种防护仪式，会为周围区域赋予强大的守护符文。怪物不会主动踏入受影响区域。",
+    "file": "src/variants/GlobalsBrogue.c",
+    "mode": "lookup",
+    "status": "prototype"
+  }
+]

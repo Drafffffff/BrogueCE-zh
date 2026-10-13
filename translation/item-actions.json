@@ -1,0 +1,362 @@
+[
+  {
+    "id": "s_3e583ecedc5dc091",
+    "file": "src/brogue/Items.c",
+    "source": "Error: Expected item; item not found.",
+    "zh_CN": "错误：没有找到预期的物品。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_ccc047327cbab255",
+    "file": "src/brogue/Items.c",
+    "source": "you found %i pieces of gold.",
+    "zh_CN": "你发现了 %i 枚金币。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_8c08e6058b9703b4",
+    "file": "src/brogue/Items.c",
+    "source": "you already have the Amulet of Yendor.",
+    "zh_CN": "你已经拥有延多护身符了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_92005744b88a500b",
+    "file": "src/brogue/Items.c",
+    "source": "Your pack is too full to pick up %s.",
+    "zh_CN": "背包太满，无法拾取%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b5c443f0cd787929",
+    "file": "src/brogue/Items.c",
+    "source": "Call what? (a-z, shift for more info; or <esc> to cancel)",
+    "zh_CN": "给什么命名？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b6ccf6469d4c268a",
+    "file": "src/brogue/Items.c",
+    "source": "Call what?",
+    "zh_CN": "给什么命名？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_8837396c5713a728",
+    "file": "src/brogue/Items.c",
+    "source": "you already know what that is.",
+    "zh_CN": "你已经知道那是什么了。",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_689c82518f2ddde1",
+    "file": "src/brogue/Items.c",
+    "source": "Inscribe this particular item instead of all similar items?",
+    "zh_CN": "只为这件物品题记，而不是给所有同类物品命名？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_c58359881b1f4dd8",
+    "file": "src/brogue/Items.c",
+    "source": "call them: \"",
+    "zh_CN": "同类物品命名：\"",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_deb3197a3c8ecc85",
+    "file": "src/brogue/Items.c",
+    "source": "You can barely lift the %s; %i more strength would be ideal.",
+    "zh_CN": "你只能勉强举起%s；再增加 %i 点力量会更合适。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_7d9a7a515673cd9f",
+    "file": "src/brogue/Items.c",
+    "source": "You stagger under the weight of the %s; %i more strength would be ideal.",
+    "zh_CN": "%s的重量让你步履蹒跚；再增加 %i 点力量会更合适。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_9f24ba29db529aae",
+    "file": "src/brogue/Items.c",
+    "source": "Equip what? (a-z, shift for more info; or <esc> to cancel)",
+    "zh_CN": "装备什么？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_9ab7c2df6aac24bc",
+    "file": "src/brogue/Items.c",
+    "source": "Equip what?",
+    "zh_CN": "装备什么？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f14e4a7926cb0751",
+    "file": "src/brogue/Items.c",
+    "source": "you are already wearing that ring.",
+    "zh_CN": "你已经戴着那枚戒指了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_071c5e9e85d59578",
+    "file": "src/brogue/Items.c",
+    "source": "You are already wearing two rings; remove which first?",
+    "zh_CN": "你已经戴着两枚戒指，要先取下哪一枚？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_bbc0b84038d752ec",
+    "file": "src/brogue/Items.c",
+    "source": "Invalid entry.",
+    "zh_CN": "无效的选择。",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_805cfbe5d12fa027",
+    "file": "src/brogue/Items.c",
+    "source": "already equipped.",
+    "zh_CN": "已经装备了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_cff0b9d59a55167a",
+    "file": "src/brogue/Items.c",
+    "source": "You can't equip that.",
+    "zh_CN": "你无法装备那件物品。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_f07d50a5ed6b3d51",
+    "file": "src/brogue/Items.c",
+    "source": "Throw what? (a-z, shift for more info; or <esc> to cancel)",
+    "zh_CN": "投掷什么？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_5777d1fc4110426d",
+    "file": "src/brogue/Items.c",
+    "source": "Throw what?",
+    "zh_CN": "投掷什么？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_cb8b6ef7cff99144",
+    "file": "src/brogue/Items.c",
+    "source": "Are you sure you want to throw your %s?",
+    "zh_CN": "确定要投掷%s吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_12b5a26fcd2f7e3f",
+    "file": "src/brogue/Items.c",
+    "source": "You cannot unequip your %s; it appears to be cursed.",
+    "zh_CN": "无法卸下%s；它似乎受到了诅咒。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_ece6b93c117c02e4",
+    "file": "src/brogue/Items.c",
+    "source": "Throw %s %s where? (<hjklyubn>, mouse, or <tab>)",
+    "zh_CN": "要把%.0s%s扔到哪里？方向瞄准，A 确认，B 返回。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e239ffdabb359007",
+    "file": "src/brogue/Items.c",
+    "source": "Remove (unequip) what? (a-z or <esc> to cancel)",
+    "zh_CN": "卸下什么？上下选择，A 确认；B 返回。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_d799fffe473bc296",
+    "file": "src/brogue/Items.c",
+    "source": "Remove (unequip) what?",
+    "zh_CN": "卸下什么？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_274acf6d5d8366ef",
+    "file": "src/brogue/Items.c",
+    "source": "your %s %s not equipped.",
+    "zh_CN": "你并未装备%s。%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_2b206aa22f6a4447",
+    "file": "src/brogue/Items.c",
+    "source": "you are no longer %s %s.",
+    "zh_CN": "你已卸下%.0s%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_7b56e79db4c80484",
+    "file": "src/brogue/Items.c",
+    "source": "Drop what? (a-z, shift for more info; or <esc> to cancel)",
+    "zh_CN": "丢弃什么？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_61604829aedcc117",
+    "file": "src/brogue/Items.c",
+    "source": "Drop what?",
+    "zh_CN": "丢弃什么？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_68df885bbbdd3ca5",
+    "file": "src/brogue/Items.c",
+    "source": "you can't; your %s appears to be cursed.",
+    "zh_CN": "无法丢弃%s；它似乎受到了诅咒。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_825bbb334f42b1de",
+    "file": "src/brogue/Items.c",
+    "source": "You dropped %s.",
+    "zh_CN": "你丢下了%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_4c11089783ab1c5f",
+    "file": "src/brogue/Items.c",
+    "source": "There is already something there.",
+    "zh_CN": "那里已经有东西了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_239b76569453e051",
+    "file": "src/brogue/Items.c",
+    "source": "Now %s %s instead of your %s.",
+    "zh_CN": "你已装备%.0s%s，替换了%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_6d3aad16b16ef271",
+    "file": "src/brogue/Items.c",
+    "source": "Now %s %s.",
+    "zh_CN": "你已装备%.0s%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_fd5ee1d59571eb67",
+    "file": "src/brogue/Items.c",
+    "source": "you wince as your grip involuntarily tightens around your %s.",
+    "zh_CN": "你的手不由自主地攥紧%s，让你痛得皱眉。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_4321e3abb76ca57b",
+    "file": "src/brogue/Items.c",
+    "source": "your %s constricts around you painfully.",
+    "zh_CN": "%s紧紧束缚着你，令你疼痛难忍。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_d2907de94b6778e0",
+    "file": "src/brogue/Items.c",
+    "source": "your %s tightens around your finger painfully.",
+    "zh_CN": "%s勒紧了你的手指，令你疼痛难忍。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_67432e978a70e66b",
+    "file": "src/brogue/Items.c",
+    "source": "your %s seizes you with a malevolent force.",
+    "zh_CN": "%s以恶意的力量牢牢控制着你。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b8bad9f0802b31ba",
+    "file": "src/brogue/Items.c",
+    "source": "you can't; your %s appear%s to be cursed.",
+    "zh_CN": "无法卸下%s；它似乎受到了诅咒。%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_b7b2bbe10ea9a4a6",
+    "file": "src/brogue/Items.c",
+    "source": "you now have %s (%c).",
+    "zh_CN": "你现在拥有%s（%c）。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  }
+]

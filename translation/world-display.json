@@ -1,0 +1,5362 @@
+[
+  {
+    "id": "s_62f51d296d3429d8",
+    "file": "src/brogue/Combat.c",
+    "source": "hits",
+    "zh_CN": "击中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_336efecb8c536355",
+    "file": "src/brogue/Globals.c",
+    "source": "a chilly void",
+    "zh_CN": "一片寒冷虚空",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b34fd7c09ee328b2",
+    "file": "src/brogue/Globals.c",
+    "source": "a rough granite wall",
+    "zh_CN": "粗糙的花岗岩墙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_52262ab9ed9310c6",
+    "file": "src/brogue/Globals.c",
+    "source": "The granite is split open with splinters of rock jutting out at odd angles.",
+    "zh_CN": "花岗岩墙裂开，尖锐的碎石以不规则的角度凸出。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a25fa82f969d7207",
+    "file": "src/brogue/Globals.c",
+    "source": "the ground",
+    "zh_CN": "地面",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b360ef5ce48870d7",
+    "file": "src/brogue/Globals.c",
+    "source": "the carpet",
+    "zh_CN": "地毯",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3bf35ebd729032e3",
+    "file": "src/brogue/Globals.c",
+    "source": "Ornate carpeting fills this room, a relic of ages past.",
+    "zh_CN": "这个房间铺满了华丽的地毯，是过去岁月的遗迹。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_70e5be2f255edb64",
+    "file": "src/brogue/Globals.c",
+    "source": "the marble ground",
+    "zh_CN": "大理石地面",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d14a143df684e488",
+    "file": "src/brogue/Globals.c",
+    "source": "Light from the nearby crystals catches the grain of the lavish marble floor.",
+    "zh_CN": "附近水晶的光照亮了华丽大理石地面的纹理。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6cfd27f68e96ad8f",
+    "file": "src/brogue/Globals.c",
+    "source": "a stone wall",
+    "zh_CN": "一堵石墙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_df90ed54c28b8070",
+    "file": "src/brogue/Globals.c",
+    "source": "The rough stone wall is firm and unyielding.",
+    "zh_CN": "粗糙的石墙坚固而难以撼动。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_61f4caa262cad1bf",
+    "file": "src/brogue/Globals.c",
+    "source": "a wooden door",
+    "zh_CN": "一扇木门",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_35b1b0ce520f08fa",
+    "file": "src/brogue/Globals.c",
+    "source": "you pass through the doorway.",
+    "zh_CN": "你穿过门口。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9400a396f038f07f",
+    "file": "src/brogue/Globals.c",
+    "source": "an open door",
+    "zh_CN": "一扇敞开的门",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2e257ed5a3778557",
+    "file": "src/brogue/Globals.c",
+    "source": "a locked iron door",
+    "zh_CN": "一扇锁着的铁门",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f28bedd00a2490a2",
+    "file": "src/brogue/Globals.c",
+    "source": "you search your pack but do not have a matching key.",
+    "zh_CN": "你翻找背包，却没有匹配的钥匙。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7241b19b14d6bf7b",
+    "file": "src/brogue/Globals.c",
+    "source": "an open iron door",
+    "zh_CN": "一扇开着的铁门",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7088e0581927b11f",
+    "file": "src/brogue/Globals.c",
+    "source": "a downward staircase",
+    "zh_CN": "向下的楼梯",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0a3be25b5df3cd62",
+    "file": "src/brogue/Globals.c",
+    "source": "stairs spiral downward into the depths.",
+    "zh_CN": "楼梯盘旋向下，进入深处。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cc5a7ca3efe1c0c1",
+    "file": "src/brogue/Globals.c",
+    "source": "an upward staircase",
+    "zh_CN": "向上的楼梯",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dbd4f04dc7b05afd",
+    "file": "src/brogue/Globals.c",
+    "source": "stairs spiral upward.",
+    "zh_CN": "楼梯螺旋上升。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_73425d68d0139e08",
+    "file": "src/brogue/Globals.c",
+    "source": "the dungeon exit",
+    "zh_CN": "地牢出口",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_118262fc650b9eed",
+    "file": "src/brogue/Globals.c",
+    "source": "the gilded doors leading out of the dungeon are sealed by an invisible force.",
+    "zh_CN": "通往地牢外的鎏金大门被一股无形的力量封住了。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_87b4d9b38882b294",
+    "file": "src/brogue/Globals.c",
+    "source": "a crystal portal",
+    "zh_CN": "水晶传送门",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_99bf1885d9c45cce",
+    "file": "src/brogue/Globals.c",
+    "source": "dancing lights play across the plane of this sparkling crystal portal.",
+    "zh_CN": "晶莹的水晶传送门上流光舞动。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3ea4cbdd02fd0796",
+    "file": "src/brogue/Globals.c",
+    "source": "a wall-mounted torch",
+    "zh_CN": "一支壁上火把",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f342bc4b3ff9bdc6",
+    "file": "src/brogue/Globals.c",
+    "source": "The torch is anchored firmly to the wall and sputters quietly in the gloom.",
+    "zh_CN": "火把牢牢地固定在墙上，在黑暗中静静地发出噼啪声。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d66c14a38f6e3719",
+    "file": "src/brogue/Globals.c",
+    "source": "a crystal formation",
+    "zh_CN": "一簇水晶",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a11c22928cad500",
+    "file": "src/brogue/Globals.c",
+    "source": "You feel the crystal's glossy surface and admire the dancing lights beneath.",
+    "zh_CN": "你抚摸着水晶光滑的表面，欣赏其下跃动的光芒。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0e67c714663bde90",
+    "file": "src/brogue/Globals.c",
+    "source": "a heavy portcullis",
+    "zh_CN": "一道沉重的铁吊闸",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2713108472fa75b2",
+    "file": "src/brogue/Globals.c",
+    "source": "The iron bars rattle but will not budge; they are firmly locked in place.",
+    "zh_CN": "铁栅栏哐当作响，却纹丝不动，显然被牢牢锁住了。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_98886bf8b36086b1",
+    "file": "src/brogue/Globals.c",
+    "source": "a dry wooden barricade",
+    "zh_CN": "干燥的木路障",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_31946babef86a419",
+    "file": "src/brogue/Globals.c",
+    "source": "The wooden barricade is firmly set but has dried over the years. Might it burn?",
+    "zh_CN": "木路障虽然牢固，多年来却已干燥。它会烧起来吗？",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e814fcc0fd0c4421",
+    "file": "src/brogue/Globals.c",
+    "source": "The torch is anchored firmly to the wall, and sputters quietly in the gloom.",
+    "zh_CN": "火把牢牢地固定在墙上，在黑暗中静静地发出噼啪声。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cca44ec33b880176",
+    "file": "src/brogue/Globals.c",
+    "source": "a fallen torch",
+    "zh_CN": "掉落的火炬",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_299be3ad612868af",
+    "file": "src/brogue/Globals.c",
+    "source": "The torch lies at the foot of the wall, spouting gouts of flame haphazardly.",
+    "zh_CN": "火把倒在墙根，胡乱喷吐着一团团火焰。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c5c4f58571fd6f18",
+    "file": "src/brogue/Globals.c",
+    "source": "a sputtering torch",
+    "zh_CN": "一支噼啪作响的火把",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e5c57f00fbd88a66",
+    "file": "src/brogue/Globals.c",
+    "source": "A dim purple flame sputters and spits atop this wall-mounted torch.",
+    "zh_CN": "这支壁挂火把上的暗紫色火焰噼啪作响。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f7203884bca9e74c",
+    "file": "src/brogue/Globals.c",
+    "source": "a lever",
+    "zh_CN": "一根拉杆",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9bf73cc47b36bba5",
+    "file": "src/brogue/Globals.c",
+    "source": "The lever moves.",
+    "zh_CN": "拉杆动了。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cf335b2d4e01912e",
+    "file": "src/brogue/Globals.c",
+    "source": "an inactive lever",
+    "zh_CN": "一根未触发的拉杆",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b703d5cc165ad07e",
+    "file": "src/brogue/Globals.c",
+    "source": "The lever won't budge.",
+    "zh_CN": "拉杆纹丝不动。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f0212ffa01527503",
+    "file": "src/brogue/Globals.c",
+    "source": "a marble statue",
+    "zh_CN": "大理石雕像",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d50fb2e1f576282f",
+    "file": "src/brogue/Globals.c",
+    "source": "The cold marble statue has weathered the years with grace.",
+    "zh_CN": "冰冷的大理石雕像优雅地经受了岁月的考验。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3601f20e423d746d",
+    "file": "src/brogue/Globals.c",
+    "source": "a cracking statue",
+    "zh_CN": "一尊开裂的雕像",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3f230b45471310de",
+    "file": "src/brogue/Globals.c",
+    "source": "Deep cracks ramble down the side of the statue even as you watch.",
+    "zh_CN": "你眼看着雕像侧面的深深裂纹蜿蜒而下。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bb0731b9821e5151",
+    "file": "src/brogue/Globals.c",
+    "source": "a stone archway",
+    "zh_CN": "一座石拱门",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8e9d33ab0710a3ba",
+    "file": "src/brogue/Globals.c",
+    "source": "This ancient moss-covered stone archway radiates a strange, alien energy.",
+    "zh_CN": "这座长满青苔的古老石拱门散发着奇异的异界能量。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ce0abbab122d273c",
+    "file": "src/brogue/Globals.c",
+    "source": "a candle-lit altar",
+    "zh_CN": "烛光祭坛",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9da0a4fbad2f1563",
+    "file": "src/brogue/Globals.c",
+    "source": "a gilded altar is adorned with candles that flicker in the breeze.",
+    "zh_CN": "镀金的祭坛上装饰着在微风中闪烁的蜡烛。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_589a398a1d83ace6",
+    "file": "src/brogue/Globals.c",
+    "source": "ornate gilding spirals around a spherical depression in the top of the altar.",
+    "zh_CN": "祭坛顶部的球形凹槽周围，盘绕着精美的镀金花纹。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a4ab326bb8e88960",
+    "file": "src/brogue/Globals.c",
+    "source": "a cage, open on the bottom, hangs over this altar on a retractable chain.",
+    "zh_CN": "一个底部敞开的笼子用一条可伸缩的链条悬挂在祭坛上方。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_60346c5d91b2865c",
+    "file": "src/brogue/Globals.c",
+    "source": "an iron cage",
+    "zh_CN": "一个铁笼子",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7179301786ae6240",
+    "file": "src/brogue/Globals.c",
+    "source": "the missing item must be replaced before you can access the remaining items.",
+    "zh_CN": "必须先补回取走的物品，才能取用其余物品。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c5232972cfccb15b",
+    "file": "src/brogue/Globals.c",
+    "source": "a weathered stone altar is adorned with candles that flicker in the breeze.",
+    "zh_CN": "风化的石头祭坛上装饰着在微风中闪烁的蜡烛。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ab0f68e7031d48a0",
+    "file": "src/brogue/Globals.c",
+    "source": "the cage won't budge. Perhaps there is a way to raise it nearby...",
+    "zh_CN": "笼子纹丝不动。附近也许有办法把它升起来……",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ac97e70bdd37fa56",
+    "file": "src/brogue/Globals.c",
+    "source": "a stone pedestal",
+    "zh_CN": "一座石台",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3b64b865e4c763a6",
+    "file": "src/brogue/Globals.c",
+    "source": "elaborate carvings wind around this ancient pedestal.",
+    "zh_CN": "这座古老基座上雕刻着繁复的纹样。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4ea757ea517d35f2",
+    "file": "src/brogue/Globals.c",
+    "source": "an open cage",
+    "zh_CN": "一只敞开的笼子",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ec62113583955852",
+    "file": "src/brogue/Globals.c",
+    "source": "the interior of the cage is filthy and reeks of decay.",
+    "zh_CN": "笼子内部肮脏不堪，散发着腐烂的臭味。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1ea4a4ebf0f1f813",
+    "file": "src/brogue/Globals.c",
+    "source": "a locked iron cage",
+    "zh_CN": "一个上锁的铁笼子",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5ccb64d935551b32",
+    "file": "src/brogue/Globals.c",
+    "source": "the bars of the cage are firmly set and will not budge.",
+    "zh_CN": "笼子的栅栏固定得牢固，不会移动。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e0685e85d16e5819",
+    "file": "src/brogue/Globals.c",
+    "source": "a sealed coffin",
+    "zh_CN": "密封的棺材",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_291cbda7e2f98194",
+    "file": "src/brogue/Globals.c",
+    "source": "a coffin made from thick wooden planks rests in a bed of moss.",
+    "zh_CN": "一口厚木板制成的棺材放在苔藓床上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0ac9fe139965dcac",
+    "file": "src/brogue/Globals.c",
+    "source": "an empty coffin",
+    "zh_CN": "空棺材",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5870baa3b36864d7",
+    "file": "src/brogue/Globals.c",
+    "source": "an open wooden coffin rests in a bed of moss.",
+    "zh_CN": "一口敞开的木棺放在苔藓床上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ecba87d7d80a7a02",
+    "file": "src/brogue/Globals.c",
+    "source": "a caustic gas trap",
+    "zh_CN": "一个腐蚀气体陷阱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b525209fee8e9f65",
+    "file": "src/brogue/Globals.c",
+    "source": "there is a hidden pressure plate in the floor above a reserve of caustic gas.",
+    "zh_CN": "腐蚀性气体储槽上方的地板里，藏着一块压力板。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5def037aaf113315",
+    "file": "src/brogue/Globals.c",
+    "source": "you plunge through a hidden trap door!",
+    "zh_CN": "你从隐藏的活板门中直坠而下！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4216a2ed2deead50",
+    "file": "src/brogue/Globals.c",
+    "source": "a hole",
+    "zh_CN": "一个洞",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4ccb737701675b14",
+    "file": "src/brogue/Globals.c",
+    "source": "you plunge through a hole in the ground!",
+    "zh_CN": "你从地上的一个洞里跳了进去！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a7114432addedcdc",
+    "file": "src/brogue/Globals.c",
+    "source": "a paralysis trigger",
+    "zh_CN": "麻痹触发器",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_06524e21e1c77ead",
+    "file": "src/brogue/Globals.c",
+    "source": "there is a hidden pressure plate in the floor.",
+    "zh_CN": "地板上有一个隐藏的压力板。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_40049443779286d6",
+    "file": "src/brogue/Globals.c",
+    "source": "an inactive gas vent",
+    "zh_CN": "未启动的排气孔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2f2b28617c8a284a",
+    "file": "src/brogue/Globals.c",
+    "source": "A dormant gas vent is connected to a reserve of paralytic gas.",
+    "zh_CN": "一个休眠的排气口连接着麻痹气体储罐。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8129c2927d4f3a28",
+    "file": "src/brogue/Globals.c",
+    "source": "a confusion trap",
+    "zh_CN": "一个混乱的陷阱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5bdd89429c4073c8",
+    "file": "src/brogue/Globals.c",
+    "source": "A hidden pressure plate accompanies a reserve of psychotropic gas.",
+    "zh_CN": "隐藏的压力板下连着一罐致幻气体。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9dd2464f9ca5c316",
+    "file": "src/brogue/Globals.c",
+    "source": "a fire trap",
+    "zh_CN": "火陷阱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_57cb6638d1d2c45c",
+    "file": "src/brogue/Globals.c",
+    "source": "A hidden pressure plate is connected to a crude flamethrower mechanism.",
+    "zh_CN": "一个隐藏的压力板连接到一个粗糙的火焰喷射器机构。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_825b2f3ec2e57ad6",
+    "file": "src/brogue/Globals.c",
+    "source": "a flood trap",
+    "zh_CN": "洪水陷阱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0bbf3e14ad052115",
+    "file": "src/brogue/Globals.c",
+    "source": "A hidden pressure plate is connected to floodgates in the walls and ceiling.",
+    "zh_CN": "隐藏的压力板连接到墙壁和天花板上的水闸。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a1b094694382d8bc",
+    "file": "src/brogue/Globals.c",
+    "source": "a net trap",
+    "zh_CN": "一个网陷阱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2c24ed75b1458f29",
+    "file": "src/brogue/Globals.c",
+    "source": "you see netting subtly concealed in the ceiling over a hidden pressure plate.",
+    "zh_CN": "你看见隐藏的压力板上方，天花板里巧妙地藏着一张网。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5df186bc4ef4c585",
+    "file": "src/brogue/Globals.c",
+    "source": "an alarm trap",
+    "zh_CN": "警报陷阱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3e9df4e7b4224eeb",
+    "file": "src/brogue/Globals.c",
+    "source": "a hidden pressure plate is connected to a loud alarm mechanism.",
+    "zh_CN": "隐藏的压力板连接到响亮的警报装置。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cadcc677c5e2287d",
+    "file": "src/brogue/Globals.c",
+    "source": "An inactive gas vent is hidden in a crevice in the ground.",
+    "zh_CN": "地面裂缝里藏着一个未启动的排气孔。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cd58855765aeca0b",
+    "file": "src/brogue/Globals.c",
+    "source": "a gas vent",
+    "zh_CN": "一个排气口",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_67712b8b52edc715",
+    "file": "src/brogue/Globals.c",
+    "source": "Clouds of caustic gas are wafting out of a hidden vent in the floor.",
+    "zh_CN": "腐蚀性气体云从地板上隐藏的通风口中飘出。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_62240cc36bc44e19",
+    "file": "src/brogue/Globals.c",
+    "source": "Clouds of explosive gas are wafting out of a hidden vent in the floor.",
+    "zh_CN": "爆炸性气体云从地板上隐藏的通风口中飘出。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bbbbbb7fc05788b6",
+    "file": "src/brogue/Globals.c",
+    "source": "a steam vent",
+    "zh_CN": "一个蒸汽喷口",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7e654771e7e49ce7",
+    "file": "src/brogue/Globals.c",
+    "source": "A natural crevice in the floor periodically vents scalding gouts of steam.",
+    "zh_CN": "地面上的天然裂隙会定期喷出滚烫的蒸汽。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2c700a96c1817331",
+    "file": "src/brogue/Globals.c",
+    "source": "a pressure plate",
+    "zh_CN": "一块压力板",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cfa9c6cd5d95535d",
+    "file": "src/brogue/Globals.c",
+    "source": "There is an exposed pressure plate here. A thrown item might trigger it.",
+    "zh_CN": "这里有一块裸露的压力板。扔出的物品可能会触发它。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4d4cdbdd74015545",
+    "file": "src/brogue/Globals.c",
+    "source": "an inactive pressure plate",
+    "zh_CN": "已压下的压力板",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2e5335e5bf7f43df",
+    "file": "src/brogue/Globals.c",
+    "source": "This pressure plate has already been depressed.",
+    "zh_CN": "这块压力板已经被压下。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f1ae97aff7aebcf4",
+    "file": "src/brogue/Globals.c",
+    "source": "a magical glyph",
+    "zh_CN": "一枚魔法符文",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_af8bac51c9aac2ce",
+    "file": "src/brogue/Globals.c",
+    "source": "A strange glyph, engraved into the floor, flickers with magical light.",
+    "zh_CN": "地板上刻着一枚奇异符文，闪烁着魔法光芒。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f6f7002a8b9c3171",
+    "file": "src/brogue/Globals.c",
+    "source": "a glowing glyph",
+    "zh_CN": "一枚发光符文",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1daefba52f678323",
+    "file": "src/brogue/Globals.c",
+    "source": "A strange glyph, engraved into the floor, radiates magical light.",
+    "zh_CN": "地板上刻着一枚奇异符文，散发着魔法光芒。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_09d451dec8b6b2d3",
+    "file": "src/brogue/Globals.c",
+    "source": "a glass dewar of caustic gas",
+    "zh_CN": "一只装有腐蚀气体的玻璃瓶",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_021a1199173263cd",
+    "file": "src/brogue/Globals.c",
+    "source": "a glass dewar of confusion gas",
+    "zh_CN": "一只装有混乱气体的玻璃瓶",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2c43ba35e136381a",
+    "file": "src/brogue/Globals.c",
+    "source": "a glass dewar of paralytic gas",
+    "zh_CN": "一只装有麻痹气体的玻璃瓶",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_790e6b266f8b6dd9",
+    "file": "src/brogue/Globals.c",
+    "source": "a glass dewar of methane gas",
+    "zh_CN": "一只装有甲烷的玻璃瓶",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4647180563141094",
+    "file": "src/brogue/Globals.c",
+    "source": "the murky waters",
+    "zh_CN": "浑浊的水",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8cdd99db9dfe2f5c",
+    "file": "src/brogue/Globals.c",
+    "source": "the current tugs you in all directions.",
+    "zh_CN": "水流将你朝各个方向拉扯。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8f1c1b1a5af3d485",
+    "file": "src/brogue/Globals.c",
+    "source": "shallow water",
+    "zh_CN": "浅水",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c76ddb44804be90d",
+    "file": "src/brogue/Globals.c",
+    "source": "the water is cold and reaches your knees.",
+    "zh_CN": "水很冷，没至你的膝盖。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_77453856558b290c",
+    "file": "src/brogue/Globals.c",
+    "source": "a bog",
+    "zh_CN": "一片浅水",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d6db02e8cb20af3e",
+    "file": "src/brogue/Globals.c",
+    "source": "you are knee-deep in thick, foul-smelling mud.",
+    "zh_CN": "你正陷在齐膝深、散发着恶臭的泥浆里。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0083f7d664e093e9",
+    "file": "src/brogue/Globals.c",
+    "source": "a chasm",
+    "zh_CN": "一道深渊",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_96f90ffa9b600bc7",
+    "file": "src/brogue/Globals.c",
+    "source": "you plunge downward into the chasm!",
+    "zh_CN": "你直坠深渊！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4b151772d436221f",
+    "file": "src/brogue/Globals.c",
+    "source": "the brink of a chasm",
+    "zh_CN": "深渊边缘",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f7c4ed2246733252",
+    "file": "src/brogue/Globals.c",
+    "source": "chilly winds blow upward from the stygian depths.",
+    "zh_CN": "幽冥深处吹来阵阵寒风。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_05c7184e6eb7d48b",
+    "file": "src/brogue/Globals.c",
+    "source": "the crumbling ground",
+    "zh_CN": "即将崩塌的地面",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fec590f5c96d88c7",
+    "file": "src/brogue/Globals.c",
+    "source": "cracks are appearing in the ground beneath your feet!",
+    "zh_CN": "你脚下的地面开始出现裂缝！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5ed45566f29d2f05",
+    "file": "src/brogue/Globals.c",
+    "source": "lava",
+    "zh_CN": "岩浆",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f46c7246e4a8accf",
+    "file": "src/brogue/Globals.c",
+    "source": "searing heat rises from the lava.",
+    "zh_CN": "熔岩中升腾起灼热气浪。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_32743181e9415f2f",
+    "file": "src/brogue/Globals.c",
+    "source": "cooling lava",
+    "zh_CN": "冷却熔岩",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_35621d47038af7c5",
+    "file": "src/brogue/Globals.c",
+    "source": "a patch of sunlight",
+    "zh_CN": "一片阳光",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9ec515c9750eb83a",
+    "file": "src/brogue/Globals.c",
+    "source": "sunlight streams through cracks in the ceiling.",
+    "zh_CN": "阳光从天花板的裂缝间倾泻而下。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_323d21e0cc994c35",
+    "file": "src/brogue/Globals.c",
+    "source": "a patch of shadows",
+    "zh_CN": "一片阴影",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6328d5c3a58c473b",
+    "file": "src/brogue/Globals.c",
+    "source": "this area happens to be cloaked in shadows -- perhaps a safe place to hide.",
+    "zh_CN": "这里恰好笼罩在阴影中——或许是藏身的安全之处。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0115be7db34fba78",
+    "file": "src/brogue/Globals.c",
+    "source": "hissing brimstone",
+    "zh_CN": "嘶嘶作响的硫磺",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c7b534c0bc11f763",
+    "file": "src/brogue/Globals.c",
+    "source": "the jagged brimstone hisses and spits ominously as it crunches under your feet.",
+    "zh_CN": "锯齿状的硫磺在你脚下嘎吱作响，不祥地嘶鸣并迸出火星。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d6bf6605800f2965",
+    "file": "src/brogue/Globals.c",
+    "source": "the obsidian ground",
+    "zh_CN": "黑曜石地面",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_18006aa1451f79cb",
+    "file": "src/brogue/Globals.c",
+    "source": "the ground has fused into obsidian.",
+    "zh_CN": "地面已熔融成黑曜石。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8cade98998f25c4b",
+    "file": "src/brogue/Globals.c",
+    "source": "a rickety rope bridge",
+    "zh_CN": "摇摇晃晃的绳桥",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6c071d9c6a946b3c",
+    "file": "src/brogue/Globals.c",
+    "source": "the rickety rope bridge creaks underfoot.",
+    "zh_CN": "摇摇晃晃的索桥在脚下吱吱作响。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dc34a2aa31a39e50",
+    "file": "src/brogue/Globals.c",
+    "source": "a plummeting bridge",
+    "zh_CN": "一座正坠向深渊的桥",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_71ac6980d1b7544e",
+    "file": "src/brogue/Globals.c",
+    "source": "the bridge is plunging into the chasm before your eyes!",
+    "zh_CN": "这座桥正在你眼前陷入深渊！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0df71665b73efa26",
+    "file": "src/brogue/Globals.c",
+    "source": "the rickety rope bridge is staked to the edge of the chasm.",
+    "zh_CN": "摇摇欲坠的绳桥被木桩固定在深渊边缘。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_712901076acb4711",
+    "file": "src/brogue/Globals.c",
+    "source": "a stone bridge",
+    "zh_CN": "一座石桥",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3d8140212d3226a9",
+    "file": "src/brogue/Globals.c",
+    "source": "the narrow stone bridge winds precariously across the chasm.",
+    "zh_CN": "狭窄的石桥摇摇欲坠地横跨深渊。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4cb0b250c6250d52",
+    "file": "src/brogue/Globals.c",
+    "source": "ice",
+    "zh_CN": "冰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d640cddf442ba14d",
+    "file": "src/brogue/Globals.c",
+    "source": "a sheet of ice extends into the water, ripples frozen into its glossy surface.",
+    "zh_CN": "一片冰层伸入水中，涟漪凝结在光滑的冰面上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e33ed988f8bd4424",
+    "file": "src/brogue/Globals.c",
+    "source": "melting ice",
+    "zh_CN": "融化的冰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_23228b0f94f89548",
+    "file": "src/brogue/Globals.c",
+    "source": "cracks extend across the surface of the ice as it melts before your eyes.",
+    "zh_CN": "冰在你眼前融化，裂纹蔓延至整个冰面。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d1ffdacc63ac34cb",
+    "file": "src/brogue/Globals.c",
+    "source": "you plunge downward into the hole!",
+    "zh_CN": "你直坠入洞中！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b2d9059f9f3bf19b",
+    "file": "src/brogue/Globals.c",
+    "source": "translucent ground",
+    "zh_CN": "半透明地面",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0449122421feeccd",
+    "file": "src/brogue/Globals.c",
+    "source": "chilly gusts of air blow upward through the translucent floor.",
+    "zh_CN": "冷风阵阵穿过半透明的地板向上吹来。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8c2ab8f0c1bacacb",
+    "file": "src/brogue/Globals.c",
+    "source": "sloshing water",
+    "zh_CN": "晃动的水",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b2e4bd3b3f357793",
+    "file": "src/brogue/Globals.c",
+    "source": "roiling water floods the room.",
+    "zh_CN": "汹涌的水淹没了房间。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_daf1ac80fcf27f37",
+    "file": "src/brogue/Globals.c",
+    "source": "knee-deep water drains slowly into holes in the floor.",
+    "zh_CN": "齐膝深的水正缓缓流入地板上的洞里。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dd601aced9b94cba",
+    "file": "src/brogue/Globals.c",
+    "source": "grass-like fungus",
+    "zh_CN": "草状真菌",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f02e44540931c487",
+    "file": "src/brogue/Globals.c",
+    "source": "grass-like fungus crunches underfoot.",
+    "zh_CN": "草状的真菌在脚下嘎吱作响。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a66a9ce94446ecf7",
+    "file": "src/brogue/Globals.c",
+    "source": "withered fungus",
+    "zh_CN": "枯萎的真菌",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0397bb3e93d1a674",
+    "file": "src/brogue/Globals.c",
+    "source": "dead fungus covers the ground.",
+    "zh_CN": "枯死的真菌覆盖着地面。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_aa5cc946025f6edd",
+    "file": "src/brogue/Globals.c",
+    "source": "groping tendrils of pale fungus rise from the muck.",
+    "zh_CN": "苍白真菌的触须从泥沼中探出，向上伸展。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_09299454403eec1c",
+    "file": "src/brogue/Globals.c",
+    "source": "luminescent fungus",
+    "zh_CN": "发光真菌",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9bf601637f2da061",
+    "file": "src/brogue/Globals.c",
+    "source": "luminescent fungus casts a pale, eerie glow.",
+    "zh_CN": "发光真菌发出苍白、怪异的光芒。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_db866490c8244d22",
+    "file": "src/brogue/Globals.c",
+    "source": "deadly lichen",
+    "zh_CN": "致命的地衣",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3b7fb56d4c8f6c23",
+    "file": "src/brogue/Globals.c",
+    "source": "venomous barbs cover the quivering tendrils of this fast-growing lichen.",
+    "zh_CN": "这种迅速蔓延的地衣卷须上布满毒刺，正微微颤动。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4423164cbe8b06bb",
+    "file": "src/brogue/Globals.c",
+    "source": "filthy hay",
+    "zh_CN": "肮脏的干草",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_93d0ed2d7a15d744",
+    "file": "src/brogue/Globals.c",
+    "source": "a pile of hay, matted with filth, has been arranged here as a makeshift bed.",
+    "zh_CN": "这里铺着一堆沾满污秽的干草，权作临时床铺。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4cf9c55a43fe4a11",
+    "file": "src/brogue/Globals.c",
+    "source": "a pool of blood",
+    "zh_CN": "一滩血",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8eee150d0f77ac63",
+    "file": "src/brogue/Globals.c",
+    "source": "the floor is splattered with blood.",
+    "zh_CN": "地板上溅满了血。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_68c74b66db122217",
+    "file": "src/brogue/Globals.c",
+    "source": "a pool of green blood",
+    "zh_CN": "一滩绿色的血",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a00b50a50f6a67ec",
+    "file": "src/brogue/Globals.c",
+    "source": "the floor is splattered with green blood.",
+    "zh_CN": "地板上溅满了绿色的血。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f0df5a9ae0b1b001",
+    "file": "src/brogue/Globals.c",
+    "source": "a pool of purple blood",
+    "zh_CN": "一滩紫色的血",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6e773e5c8f450abd",
+    "file": "src/brogue/Globals.c",
+    "source": "the floor is splattered with purple blood.",
+    "zh_CN": "地板上溅满了紫色的血。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b3be5d357404c9a9",
+    "file": "src/brogue/Globals.c",
+    "source": "a puddle of acid",
+    "zh_CN": "一滩酸液",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_78177b9c99b9c8a5",
+    "file": "src/brogue/Globals.c",
+    "source": "the floor is splattered with acid.",
+    "zh_CN": "地板上溅满了酸液。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_eb8c389826d909a2",
+    "file": "src/brogue/Globals.c",
+    "source": "a puddle of vomit",
+    "zh_CN": "一滩呕吐物",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b1919a88ceca09dc",
+    "file": "src/brogue/Globals.c",
+    "source": "the floor is caked with vomit.",
+    "zh_CN": "地板上全是呕吐物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d47dac3ac4cf8c71",
+    "file": "src/brogue/Globals.c",
+    "source": "a puddle of urine",
+    "zh_CN": "一滩尿",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cb050583f49fdd6d",
+    "file": "src/brogue/Globals.c",
+    "source": "a puddle of urine covers the ground.",
+    "zh_CN": "地面上有一滩尿液。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d4b37db70d066c34",
+    "file": "src/brogue/Globals.c",
+    "source": "unicorn poop",
+    "zh_CN": "独角兽粪便",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_24d1de58f385ca36",
+    "file": "src/brogue/Globals.c",
+    "source": "a pile of lavender-scented unicorn poop sparkles with rainbow light.",
+    "zh_CN": "一堆带着薰衣草香气的独角兽粪便闪烁着彩虹般的光芒。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fbdff825c366c244",
+    "file": "src/brogue/Globals.c",
+    "source": "a pool of worm entrails",
+    "zh_CN": "一滩蠕虫内脏",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_41f42e8e4617e76a",
+    "file": "src/brogue/Globals.c",
+    "source": "worm viscera cover the ground.",
+    "zh_CN": "蠕虫的内脏散落在地上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6f027175dda3dbd6",
+    "file": "src/brogue/Globals.c",
+    "source": "a pile of ashes",
+    "zh_CN": "一堆灰烬",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_40ba56e464df7bfd",
+    "file": "src/brogue/Globals.c",
+    "source": "charcoal and ash crunch underfoot.",
+    "zh_CN": "木炭和灰烬在脚下嘎吱作响。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_aaeeafca07faabad",
+    "file": "src/brogue/Globals.c",
+    "source": "burned carpet",
+    "zh_CN": "烧焦的地毯",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1d8ac7e7b2055578",
+    "file": "src/brogue/Globals.c",
+    "source": "the carpet has been scorched by an ancient fire.",
+    "zh_CN": "地毯已被远古之火烧焦。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5b64ae39ccbee66b",
+    "file": "src/brogue/Globals.c",
+    "source": "a puddle of water",
+    "zh_CN": "一滩水",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5a44ec03c22e4af4",
+    "file": "src/brogue/Globals.c",
+    "source": "a puddle of water covers the ground.",
+    "zh_CN": "一滩水覆盖了地面。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2bd5b7cd22ef5e37",
+    "file": "src/brogue/Globals.c",
+    "source": "a pile of bones",
+    "zh_CN": "一堆骨头",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7050d3b9ed9c4907",
+    "file": "src/brogue/Globals.c",
+    "source": "unidentifiable bones, yellowed with age, litter the ground.",
+    "zh_CN": "地上散落着一堆无法辨认、因年代久远而泛黄的骨头。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c3524e53ed389c9d",
+    "file": "src/brogue/Globals.c",
+    "source": "a pile of rubble",
+    "zh_CN": "一堆瓦砾",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e591db41f5ebe25b",
+    "file": "src/brogue/Globals.c",
+    "source": "rocky rubble covers the ground.",
+    "zh_CN": "地面上覆盖着岩石碎石。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6ecd5f2185e958dd",
+    "file": "src/brogue/Globals.c",
+    "source": "a pile of filthy effects",
+    "zh_CN": "一堆污秽的随身物品",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c6a7bdc40c5180b4",
+    "file": "src/brogue/Globals.c",
+    "source": "primitive tools, carvings and trinkets are strewn about the area.",
+    "zh_CN": "原始工具、雕刻品和小饰物散落在四周。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c2396487de37fe5b",
+    "file": "src/brogue/Globals.c",
+    "source": "shattered glass",
+    "zh_CN": "破碎的玻璃",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_250838e7df6e5466",
+    "file": "src/brogue/Globals.c",
+    "source": "jagged chunks of glass from the broken dewar litter the ground.",
+    "zh_CN": "破碎玻璃瓶的锯齿状碎片散落在地上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_25ccda8166b4e192",
+    "file": "src/brogue/Globals.c",
+    "source": "ectoplasmic residue",
+    "zh_CN": "灵质残留",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_60078802d5ecb776",
+    "file": "src/brogue/Globals.c",
+    "source": "a thick, glowing substance has congealed on the ground.",
+    "zh_CN": "地面上凝结了一层厚厚的发光物质。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8aa026b4f0494df1",
+    "file": "src/brogue/Globals.c",
+    "source": "sputtering embers",
+    "zh_CN": "噼啪作响的余烬",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a038eba1f9a2efbb",
+    "file": "src/brogue/Globals.c",
+    "source": "sputtering embers cover the ground.",
+    "zh_CN": "地面上散落着噼啪作响的余烬。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cf30dae0dc4cb3e0",
+    "file": "src/brogue/Globals.c",
+    "source": "a spiderweb",
+    "zh_CN": "蜘蛛网",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d62e1e08be7453fb",
+    "file": "src/brogue/Globals.c",
+    "source": "thick, sticky spiderwebs fill the area.",
+    "zh_CN": "厚厚的、粘稠的蜘蛛网布满了整个区域。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_18e2346af0fdc075",
+    "file": "src/brogue/Globals.c",
+    "source": "a net",
+    "zh_CN": "一张网",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_83086e4e0974a8f8",
+    "file": "src/brogue/Globals.c",
+    "source": "a dense tangle of netting fills the area.",
+    "zh_CN": "整个区域布满了密密麻麻的网。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_10cf0c1bcca25a68",
+    "file": "src/brogue/Globals.c",
+    "source": "dense foliage",
+    "zh_CN": "茂密植被",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1e7829c3369f9a67",
+    "file": "src/brogue/Globals.c",
+    "source": "dense foliage fills the area, thriving on what sunlight trickles in.",
+    "zh_CN": "茂密植被铺满这片区域，靠着透入的些许阳光生长。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4b5e5a1292caa3d2",
+    "file": "src/brogue/Globals.c",
+    "source": "dead foliage",
+    "zh_CN": "枯败植被",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a4e6e58fefd5b537",
+    "file": "src/brogue/Globals.c",
+    "source": "the decaying husk of a fungal growth fills the area.",
+    "zh_CN": "腐朽的真菌残骸覆盖了这片区域。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a7a0dc0c83a3c66c",
+    "file": "src/brogue/Globals.c",
+    "source": "trampled foliage",
+    "zh_CN": "被踩踏的植被",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_269e9076e07b58e1",
+    "file": "src/brogue/Globals.c",
+    "source": "a luminescent fungal forest",
+    "zh_CN": "发光的真菌森林",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cd8dd2f6e024ce74",
+    "file": "src/brogue/Globals.c",
+    "source": "luminescent fungal growth fills the area, groping upward from the rich soil.",
+    "zh_CN": "发光真菌从肥沃的土壤中向上蔓生，铺满了这片区域。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_22bcd4899ffd0b77",
+    "file": "src/brogue/Globals.c",
+    "source": "trampled fungal foliage",
+    "zh_CN": "被踩踏的真菌植被",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_81c881afdadbe720",
+    "file": "src/brogue/Globals.c",
+    "source": "a green crystal",
+    "zh_CN": "绿色水晶",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1f5aa4cc858d51f8",
+    "file": "src/brogue/Globals.c",
+    "source": "The translucent green crystal is melting away in front of your eyes.",
+    "zh_CN": "半透明的绿色水晶在你眼前融化。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fa6862a3596ca8d3",
+    "file": "src/brogue/Globals.c",
+    "source": "a dissolving crystal",
+    "zh_CN": "溶解的晶体",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ae3774f5a76abaee",
+    "file": "src/brogue/Globals.c",
+    "source": "a sacred glyph",
+    "zh_CN": "一枚神圣符文",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_26b20536a6f864d6",
+    "file": "src/brogue/Globals.c",
+    "source": "a sacred glyph adorns the floor, glowing with a powerful warding enchantment.",
+    "zh_CN": "地板上刻着一枚神圣符文，闪耀着强大的守护魔法。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_33d57c9f46e3a154",
+    "file": "src/brogue/Globals.c",
+    "source": "an iron manacle",
+    "zh_CN": "一副铁镣",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_df12827c8b69f7ce",
+    "file": "src/brogue/Globals.c",
+    "source": "a thick iron manacle is anchored to the ceiling.",
+    "zh_CN": "一副粗重的铁镣固定在天花板上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_21bad60efe5800b4",
+    "file": "src/brogue/Globals.c",
+    "source": "a thick iron manacle is anchored to the floor.",
+    "zh_CN": "一副粗重的铁镣固定在地板上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0955c54e63286d76",
+    "file": "src/brogue/Globals.c",
+    "source": "a thick iron manacle is anchored to the wall.",
+    "zh_CN": "一副粗重的铁镣固定在墙上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_99167e2d1b1db3dd",
+    "file": "src/brogue/Globals.c",
+    "source": "blinding light",
+    "zh_CN": "眩目的光",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b6a674127ade2179",
+    "file": "src/brogue/Globals.c",
+    "source": "blinding light streams out of the archway.",
+    "zh_CN": "令人眼花缭乱的光芒从拱门中射出。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8751b6171740cb26",
+    "file": "src/brogue/Globals.c",
+    "source": "a red glow",
+    "zh_CN": "红光",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1539acce1a802a91",
+    "file": "src/brogue/Globals.c",
+    "source": "a red glow fills the area.",
+    "zh_CN": "红色的光芒充满了整个区域。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4bfd2c396510bc3f",
+    "file": "src/brogue/Globals.c",
+    "source": "billowing flames",
+    "zh_CN": "滚滚火焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_40bf124000f9a60c",
+    "file": "src/brogue/Globals.c",
+    "source": "flames billow upward.",
+    "zh_CN": "火焰滚滚向上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0857c67ff3c6d699",
+    "file": "src/brogue/Globals.c",
+    "source": "sulfurous flames",
+    "zh_CN": "硫磺火焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_154dd46ca86f07e1",
+    "file": "src/brogue/Globals.c",
+    "source": "sulfurous flames leap from the unstable bed of brimstone.",
+    "zh_CN": "硫磺火焰从不稳定的硫磺层中腾起。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7ace0fe8835f7dd0",
+    "file": "src/brogue/Globals.c",
+    "source": "clouds of infernal flame",
+    "zh_CN": "地狱火云",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_129ec16434b47d24",
+    "file": "src/brogue/Globals.c",
+    "source": "billowing infernal flames eat at the floor.",
+    "zh_CN": "滚滚地狱火吞噬着地板。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dbdd2bea408986ce",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of burning gas",
+    "zh_CN": "燃烧的气体云",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_93a9698b59b50050",
+    "file": "src/brogue/Globals.c",
+    "source": "burning gas fills the air with flame.",
+    "zh_CN": "燃烧的气体令空气中火焰翻腾。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c94e71e87abe9af1",
+    "file": "src/brogue/Globals.c",
+    "source": "a violent explosion",
+    "zh_CN": "剧烈爆炸",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_397563729d21eea2",
+    "file": "src/brogue/Globals.c",
+    "source": "the force of the explosion slams into you.",
+    "zh_CN": "爆炸的力量冲击着你。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_100e4902898f1a5b",
+    "file": "src/brogue/Globals.c",
+    "source": "a flash of fire",
+    "zh_CN": "火光一闪",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1bdb51f62e607c34",
+    "file": "src/brogue/Globals.c",
+    "source": "flames burst out of the incendiary dart.",
+    "zh_CN": "火焰从燃烧飞镖中喷出。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d2102115559245d1",
+    "file": "src/brogue/Globals.c",
+    "source": "crackling flames",
+    "zh_CN": "噼啪作响的火焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_65a52058522ba485",
+    "file": "src/brogue/Globals.c",
+    "source": "crackling flames rise from the blackened item.",
+    "zh_CN": "噼啪作响的火焰从烧黑的物品上升起。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5cf8af96d1f0c052",
+    "file": "src/brogue/Globals.c",
+    "source": "greasy flames",
+    "zh_CN": "油焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1f1d11caf98c99e0",
+    "file": "src/brogue/Globals.c",
+    "source": "greasy flames rise from the corpse.",
+    "zh_CN": "尸体上燃起油焰。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_899fff851036d9df",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of caustic gas",
+    "zh_CN": "腐蚀性气体云",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a471d592a5136370",
+    "file": "src/brogue/Globals.c",
+    "source": "you can feel the purple gas eating at your flesh.",
+    "zh_CN": "你可以感觉到紫色气体正在侵蚀你的肉体。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8d941af0c8be6bb1",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of confusion gas",
+    "zh_CN": "混乱气体云",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_28f3af9eea43b07d",
+    "file": "src/brogue/Globals.c",
+    "source": "the rainbow-colored gas tickles your brain.",
+    "zh_CN": "彩虹色气体刺激着你的脑神经。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c1961b827ed614f5",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of putrescence",
+    "zh_CN": "一团腐臭气体",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d4186255d19464fd",
+    "file": "src/brogue/Globals.c",
+    "source": "the stench of rotting flesh is overpowering.",
+    "zh_CN": "腐肉的恶臭令人难以忍受。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_414594a4c6d5cd59",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of putrid smoke",
+    "zh_CN": "一团腐臭的烟雾",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e2fe94c38391eeeb",
+    "file": "src/brogue/Globals.c",
+    "source": "you retch violently at the smell of the greasy smoke.",
+    "zh_CN": "你一闻到油腻的烟味就剧烈地干呕。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6ee7df1f52a8867d",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of paralytic gas",
+    "zh_CN": "一团麻痹气体",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a280e0b67df47f3",
+    "file": "src/brogue/Globals.c",
+    "source": "the pale gas causes your muscles to stiffen.",
+    "zh_CN": "苍白的气体会使你的肌肉僵硬。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f6104e283d7f3007",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of explosive gas",
+    "zh_CN": "爆炸性气体云",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9dac6aa3e1e370a3",
+    "file": "src/brogue/Globals.c",
+    "source": "the smell of explosive swamp gas fills the air.",
+    "zh_CN": "空气中弥漫着爆炸性沼泽气体的气味。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e1dc483d9910bb03",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of scalding steam",
+    "zh_CN": "一团滚烫的蒸汽",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_238d72afda2ca38a",
+    "file": "src/brogue/Globals.c",
+    "source": "scalding steam fills the air!",
+    "zh_CN": "空气中弥漫着滚烫的蒸汽！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8622ce92ff550e26",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of supernatural darkness",
+    "zh_CN": "一团超自然黑暗",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_35b5d7c4b4200d78",
+    "file": "src/brogue/Globals.c",
+    "source": "everything is obscured by an aura of supernatural darkness.",
+    "zh_CN": "超自然的黑暗笼罩一切。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0436e7a46893fe38",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of healing spores",
+    "zh_CN": "一团治愈孢子",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7d63eceb7d240d16",
+    "file": "src/brogue/Globals.c",
+    "source": "bloodwort spores, renowned for their healing properties, fill the air.",
+    "zh_CN": "以疗愈功效闻名的血草孢子弥漫在空气中。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_564f43d89292b10d",
+    "file": "src/brogue/Globals.c",
+    "source": "a bloodwort stalk",
+    "zh_CN": "一根血草茎",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1c14198e63db8ccf",
+    "file": "src/brogue/Globals.c",
+    "source": "this spindly plant grows seed pods famous for their healing properties.",
+    "zh_CN": "这种细长植物会结出以疗伤功效闻名的种荚。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3801de02150cc7fb",
+    "file": "src/brogue/Globals.c",
+    "source": "a bloodwort pod",
+    "zh_CN": "血草荚",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c43fcb6f681a3d29",
+    "file": "src/brogue/Globals.c",
+    "source": "the bloodwort seed pod bursts, releasing a cloud of healing spores.",
+    "zh_CN": "血草种荚裂开，释放出一团疗伤孢子。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_128589108bbd72df",
+    "file": "src/brogue/Globals.c",
+    "source": "an abandoned bedroll",
+    "zh_CN": "废弃的铺盖卷",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_af00dee05a40adc7",
+    "file": "src/brogue/Globals.c",
+    "source": "a bedroll lies in the corner, disintegrating with age.",
+    "zh_CN": "角落里有一卷铺盖，已随着岁月侵蚀而逐渐散架。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9546c21267211e5f",
+    "file": "src/brogue/Globals.c",
+    "source": "luminescent waters",
+    "zh_CN": "发光水域",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c1ce12e3c1682eda",
+    "file": "src/brogue/Globals.c",
+    "source": "blooming algae fills the waters with a swirling luminescence.",
+    "zh_CN": "繁盛的藻类让水中泛起旋转的荧光。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_31ffaa9216458987",
+    "file": "src/brogue/Globals.c",
+    "source": "thorned vines",
+    "zh_CN": "带刺的藤蔓",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2da90326039dd138",
+    "file": "src/brogue/Globals.c",
+    "source": "thorned vines make a rustling noise as they quiver restlessly.",
+    "zh_CN": "带刺的藤蔓不安地颤抖，发出沙沙的声音。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3b442731554ba354",
+    "file": "src/brogue/Globals.c",
+    "source": "a tuft of grass",
+    "zh_CN": "一丛草",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7d058c2d92bc78ca",
+    "file": "src/brogue/Globals.c",
+    "source": "tufts of lush grass have improbably pushed upward through the stone ground.",
+    "zh_CN": "一丛丛茂盛的草竟从石地上冒了出来。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_08d035101435e73e",
+    "file": "src/brogue/Globals.c",
+    "source": "a commutation altar",
+    "zh_CN": "附魔互换祭坛",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_81d466348ad6cc29",
+    "file": "src/brogue/Globals.c",
+    "source": "crude diagrams on this altar and its twin invite you to place items upon them.",
+    "zh_CN": "这座祭坛和它的双生祭坛上刻着简陋图案，示意你把物品放上去。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7c7154ee4b0a4b34",
+    "file": "src/brogue/Globals.c",
+    "source": "a scorched altar",
+    "zh_CN": "烧焦的祭坛",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_263126a6221671dd",
+    "file": "src/brogue/Globals.c",
+    "source": "scorch marks cover the surface of the altar, but it is cold to the touch.",
+    "zh_CN": "祭坛表面布满了焦痕，但摸上去却是冰凉的。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_201a27bc47880c00",
+    "file": "src/brogue/Globals.c",
+    "source": "glowing glass pipes",
+    "zh_CN": "发光的玻璃管",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_71580975b312279f",
+    "file": "src/brogue/Globals.c",
+    "source": "glass pipes are set into the floor and emit a soft glow of shifting color.",
+    "zh_CN": "玻璃管镶嵌在地板上，发出柔和的变色光芒。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_42da7332a77d79d8",
+    "file": "src/brogue/Globals.c",
+    "source": "charred glass pipes",
+    "zh_CN": "烧焦的玻璃管",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dd305e931015abda",
+    "file": "src/brogue/Globals.c",
+    "source": "the inside of the glass pipes are charred.",
+    "zh_CN": "玻璃管内部烧焦。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2a0720eb31dfd3af",
+    "file": "src/brogue/Globals.c",
+    "source": "a resurrection altar",
+    "zh_CN": "复活祭坛",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_caf96eaea806ab54",
+    "file": "src/brogue/Globals.c",
+    "source": "the souls of the dead surround you. A deceased ally might be called back.",
+    "zh_CN": "死者的灵魂环绕着你。或许可以召回一位逝去的盟友。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_00ae842b45337307",
+    "file": "src/brogue/Globals.c",
+    "source": "a sacrificial altar",
+    "zh_CN": "献祭祭坛",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_44849bc235ce81d7",
+    "file": "src/brogue/Globals.c",
+    "source": "demonological symbols decorate this altar.",
+    "zh_CN": "恶魔学符号装饰着这座祭坛。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3d3307307042384c",
+    "file": "src/brogue/Globals.c",
+    "source": "a sacrifice altar",
+    "zh_CN": "献祭祭坛",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ffc79dce52a93400",
+    "file": "src/brogue/Globals.c",
+    "source": "a sacrificial pit",
+    "zh_CN": "献祭坑",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2b89cabb1075bf06",
+    "file": "src/brogue/Globals.c",
+    "source": "the smell of burnt flesh lingers over this pit of lava.",
+    "zh_CN": "这个熔岩坑上空弥漫着肉被烧焦的味道。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_124475e5fe4343a2",
+    "file": "src/brogue/Globals.c",
+    "source": "a demonic statue",
+    "zh_CN": "恶魔雕像",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_68cfc2772ac98318",
+    "file": "src/brogue/Globals.c",
+    "source": "An obsidian statue of a leering demon looms over the room.",
+    "zh_CN": "一尊狞笑着的恶魔黑曜石雕像高高耸立，俯视着整个房间。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_43362a4abb2b1551",
+    "file": "src/brogue/Globals.c",
+    "source": "a broken statue",
+    "zh_CN": "破碎的雕像",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_18eb275d712ab941",
+    "file": "src/brogue/Globals.c",
+    "source": "Once magnificent, the statue has crumbled beyond recognition.",
+    "zh_CN": "这尊雕像曾经宏伟壮丽，如今已碎裂得面目全非。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ea2689a67c665b18",
+    "file": "src/brogue/Globals.c",
+    "source": "the narrow stone bridge is extending across the chasm.",
+    "zh_CN": "狭窄的石桥正向深渊对岸延伸。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7e6330212552c35c",
+    "file": "src/brogue/Globals.c",
+    "source": "a cracking wall",
+    "zh_CN": "开裂的墙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_62b50a929db2fe29",
+    "file": "src/brogue/Globals.c",
+    "source": "Cracks are running ominously across the base of this rough stone wall.",
+    "zh_CN": "这堵粗糙的石墙的底部出现了不祥的裂缝。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2dfa3276f8927052",
+    "file": "src/brogue/Globals.c",
+    "source": "a darkened crystal globe",
+    "zh_CN": "一颗黯淡的水晶球",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_920dc446fc4a1d7a",
+    "file": "src/brogue/Globals.c",
+    "source": "A slight electric shock startles you when you touch the inert crystal globe.",
+    "zh_CN": "你触碰这颗失去活性的水晶球时，被轻微电了一下。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7a2229f048392048",
+    "file": "src/brogue/Globals.c",
+    "source": "a shining crystal globe",
+    "zh_CN": "一个闪亮的水晶球",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ac5f44ba2500785d",
+    "file": "src/brogue/Globals.c",
+    "source": "Crackling light streams out of the crystal globe.",
+    "zh_CN": "水晶球中迸出噼啪作响的电光。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_840781cbf19e5f9b",
+    "file": "src/brogue/Globals.c",
+    "source": "a ceremonial brazier",
+    "zh_CN": "一座仪式火盆",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cdf69dfa8ecc8cfa",
+    "file": "src/brogue/Globals.c",
+    "source": "The ancient brazier smolders with a deep crimson flame.",
+    "zh_CN": "古老的火盆冒着深红色的火焰。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c666ef7d428efdca",
+    "file": "src/brogue/Globals.c",
+    "source": "the mud floor",
+    "zh_CN": "泥地",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_edc95c2500c44e16",
+    "file": "src/brogue/Globals.c",
+    "source": "Rotting animal matter has been ground into the mud floor; the stench is awful.",
+    "zh_CN": "腐烂的动物残骸被碾进泥地，恶臭难当。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d92b8433d4c5888e",
+    "file": "src/brogue/Globals.c",
+    "source": "a mud-covered wall",
+    "zh_CN": "一面覆满泥浆的墙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_85d9d1ea27bea7e7",
+    "file": "src/brogue/Globals.c",
+    "source": "A malodorous layer of clay and fecal matter coats the wall.",
+    "zh_CN": "墙面覆着一层恶臭的黏土和粪污。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a18e828c4afea368",
+    "file": "src/brogue/Globals.c",
+    "source": "hanging animal skins",
+    "zh_CN": "悬挂兽皮",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_05cc5134cf3eb2a7",
+    "file": "src/brogue/Globals.c",
+    "source": "you push through the animal skins that hang across the threshold.",
+    "zh_CN": "你拨开横挂在门口的兽皮。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c934ab024916f777",
+    "file": "src/brogue/Globals.c",
+    "source": "The corpse detonates with terrifying force!",
+    "zh_CN": "尸体轰然爆炸！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_345985b7775261c9",
+    "file": "src/brogue/Globals.c",
+    "source": "Poisonous spores burst from the corpse!",
+    "zh_CN": "有毒孢子从尸体中迸发！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_021a9cec5861e740",
+    "file": "src/brogue/Globals.c",
+    "source": "the dewar shatters and pressurized caustic gas explodes outward!",
+    "zh_CN": "玻璃瓶碎裂，加压的腐蚀气体向外爆开！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5e384f2be78e4289",
+    "file": "src/brogue/Globals.c",
+    "source": "the dewar shatters and pressurized confusion gas explodes outward!",
+    "zh_CN": "玻璃瓶碎裂，加压的混乱气体向外爆开！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d62eea9c3bf14a14",
+    "file": "src/brogue/Globals.c",
+    "source": "the dewar shatters and pressurized paralytic gas explodes outward!",
+    "zh_CN": "玻璃瓶碎裂，加压的麻痹气体向外爆开！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b73cb8da07f52428",
+    "file": "src/brogue/Globals.c",
+    "source": "the dewar shatters and pressurized methane gas explodes outward!",
+    "zh_CN": "玻璃瓶碎裂，加压的甲烷气体向外爆开！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b67676463cd89fea",
+    "file": "src/brogue/Globals.c",
+    "source": "the cages lift off of the altars as you approach.",
+    "zh_CN": "你靠近时，笼子从祭坛上升起。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bd0e78f314fe6ece",
+    "file": "src/brogue/Globals.c",
+    "source": "the cages lower to cover the altars.",
+    "zh_CN": "笼子降下，罩住了祭坛。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fa867684c2c3a347",
+    "file": "src/brogue/Globals.c",
+    "source": "the altar retracts into the ground with a grinding sound.",
+    "zh_CN": "祭坛嘎吱作响，缩回地面。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a42a50602cbdb150",
+    "file": "src/brogue/Globals.c",
+    "source": "the archway flashes, and you catch a glimpse of another world!",
+    "zh_CN": "拱门闪烁，你看到了另一个世界！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_89983f7fd670a56f",
+    "file": "src/brogue/Globals.c",
+    "source": "the glyph beneath you glows, and the guardians take a step!",
+    "zh_CN": "你脚下的符文亮起，守卫者们迈出一步！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_417549134ec0c822",
+    "file": "src/brogue/Globals.c",
+    "source": "the mirrored totem flashes, reflecting the red glow of the glyph beneath you.",
+    "zh_CN": "镜像图腾闪烁，映出你脚下符文的红光。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f2a29504bae19f46",
+    "file": "src/brogue/Globals.c",
+    "source": "you notice a lever hidden behind a loose stone in the wall.",
+    "zh_CN": "你注意到墙上一块松动的石头后藏着一根拉杆。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0f96a79874ad1c10",
+    "file": "src/brogue/Globals.c",
+    "source": "the rope bridge snaps from the heat and plunges into the chasm!",
+    "zh_CN": "绳桥因高温而折断，坠入深渊！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_86e208240154da5a",
+    "file": "src/brogue/Globals.c",
+    "source": "the area is flooded as water rises through imperceptible holes in the ground.",
+    "zh_CN": "水从地面上不起眼的孔洞中涌出，淹没了这片区域。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dd4563d9c01ca0a0",
+    "file": "src/brogue/Globals.c",
+    "source": "a cloud of caustic gas sprays upward from the floor!",
+    "zh_CN": "一团腐蚀性气体从地板向上喷射！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_75e60f27e75945e6",
+    "file": "src/brogue/Globals.c",
+    "source": "a sparkling cloud of confusion gas sprays upward from the floor!",
+    "zh_CN": "一团闪闪发光的混乱气体从地板上向上喷射！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e1d0cc3e93f018b9",
+    "file": "src/brogue/Globals.c",
+    "source": "a net falls from the ceiling!",
+    "zh_CN": "一张网从天花板掉下来！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_849dea1198ade590",
+    "file": "src/brogue/Globals.c",
+    "source": "a piercing shriek echoes through the nearby rooms!",
+    "zh_CN": "刺耳的尖叫声在附近的房间里回荡！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ac4c9b6cb03d6d72",
+    "file": "src/brogue/Globals.c",
+    "source": "the items on the two altars flash with a brilliant light!",
+    "zh_CN": "两座祭坛上的物品同时闪耀出炫目的光芒！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a738993bde471633",
+    "file": "src/brogue/Globals.c",
+    "source": "An old friend emerges from a bloom of sacred light!",
+    "zh_CN": "一位老朋友从神圣之光的绽放中出现！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d2d3c9fc8e78e583",
+    "file": "src/brogue/Globals.c",
+    "source": "a demonic presence whispers its demand: \"Bring to me the marked sacrifice!\"",
+    "zh_CN": "一个恶魔般的存在低声提出要求：“把被标记的祭品带给我！”",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fcaa9d647da3bdeb",
+    "file": "src/brogue/Globals.c",
+    "source": "demonic cackling echoes through the room as the altar plunges downward!",
+    "zh_CN": "祭坛向下沉去，恶魔般的狂笑声在房间中回荡！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_10035d6d6ddfa059",
+    "file": "src/brogue/Globals.c",
+    "source": "the coffin opens and a dark figure rises!",
+    "zh_CN": "棺材打开，一道黑影升起！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_77e48352071e7d82",
+    "file": "src/brogue/Globals.c",
+    "source": "as flames begin to lick the coffin, its tenant bursts forth!",
+    "zh_CN": "火焰开始舔舐棺材时，里面的东西猛然冲了出来！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ee312da24c839fc9",
+    "file": "src/brogue/Globals.c",
+    "source": "the cage lifts off of the altar.",
+    "zh_CN": "笼子从祭坛上升起。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b6b2830989374825",
+    "file": "src/brogue/Globals.c",
+    "source": "a scratching sound emanates from the nearby walls!",
+    "zh_CN": "附近的墙后传来抓挠声！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d64bd59873bcfc7c",
+    "file": "src/brogue/Globals.c",
+    "source": "flames quickly consume the wooden barricade.",
+    "zh_CN": "火焰很快就烧毁了木制路障。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7b87ec13e685c59d",
+    "file": "src/brogue/Globals.c",
+    "source": "you hear a heavy click, and the nearby water begins flooding the area!",
+    "zh_CN": "你听见沉重的咔嗒声，附近的水开始涌入这片区域！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1c6f15f65da443ed",
+    "file": "src/brogue/Globals.c",
+    "source": "you hear a deep rumbling noise as the floor begins to collapse!",
+    "zh_CN": "地板开始塌陷，你听见一阵低沉的隆隆声！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c5fa759f672899f1",
+    "file": "src/brogue/Globals.c",
+    "source": "a stone bridge extends from the floor with a grinding sound.",
+    "zh_CN": "石桥嘎吱作响，从地面升起。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8f71bc60579e312e",
+    "file": "src/brogue/Globals.c",
+    "source": "hissing fills the air as the lava begins to cool.",
+    "zh_CN": "熔岩开始冷却，嘶嘶声响彻四周。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1e9e586c129df871",
+    "file": "src/brogue/Globals.c",
+    "source": "you notice an inactive gas vent hidden in a crevice of the floor.",
+    "zh_CN": "你注意到地板裂隙中藏着一个未启动的排气口。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d100a77ff8efb2b3",
+    "file": "src/brogue/Globals.c",
+    "source": "deadly purple gas starts wafting out of hidden vents in the floor!",
+    "zh_CN": "致命的紫色气体开始从地板上隐藏的通风口中飘出！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2ee478c3da3f54bd",
+    "file": "src/brogue/Globals.c",
+    "source": "with a heavy mechanical sound, an iron portcullis falls from the ceiling!",
+    "zh_CN": "伴随着沉重的机械声，铁吊闸从天花板落下！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_be4e6cca543570a0",
+    "file": "src/brogue/Globals.c",
+    "source": "the portcullis slowly rises from the ground into a slot in the ceiling.",
+    "zh_CN": "吊闸缓缓升起，从地面收入天花板的槽中。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_28ce614e76148252",
+    "file": "src/brogue/Globals.c",
+    "source": "explosive methane gas starts wafting out of hidden vents in the floor!",
+    "zh_CN": "爆炸性甲烷气体开始从地板上隐藏的通风口中飘出！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_99b66b6d352243cf",
+    "file": "src/brogue/Globals.c",
+    "source": "a torch falls from its mount and lies sputtering on the floor.",
+    "zh_CN": "火把从支架上坠落，噼啪作响地躺在地上。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2074c5554e9a323e",
+    "file": "src/brogue/Globals.c",
+    "source": "paralytic gas sprays upward from hidden vents in the floor!",
+    "zh_CN": "麻痹气体从地板上隐藏的通风口向上喷射！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5ab3c03e4f67fd0b",
+    "file": "src/brogue/Globals.c",
+    "source": "cracks begin snaking across the marble surface of the statue!",
+    "zh_CN": "雕像的大理石表面开始出现裂缝！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_add9f56dda6b0b0a",
+    "file": "src/brogue/Globals.c",
+    "source": "the statue shatters!",
+    "zh_CN": "雕像破碎！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2a5388e865ba23c0",
+    "file": "src/brogue/Globals.c",
+    "source": "you hear a click, and the stones in the wall shift to reveal turrets!",
+    "zh_CN": "你听见咔嗒一声，墙中石块移开，露出几座炮塔！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_26b11f87b7bf8135",
+    "file": "src/brogue/Globals.c",
+    "source": "the nearby wall cracks and collapses in a cloud of dust!",
+    "zh_CN": "附近的墙壁裂开并倒塌，化为一团灰尘！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_716a3559bba10116",
+    "file": "src/brogue/Globals.c",
+    "source": "the light in the room flickers and you feel a chill in the air.",
+    "zh_CN": "房间里的灯光闪烁，空气中透出一丝寒意。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_50b64d8baa549291",
+    "file": "src/brogue/Globals.c",
+    "source": "across the bog, bubbles rise ominously from the mud.",
+    "zh_CN": "沼泽对岸的泥浆中，不祥地冒起气泡。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4d5ebdc33e44a1ec",
+    "file": "src/brogue/Globals.c",
+    "source": "the crystal absorbs the electricity and begins to glow.",
+    "zh_CN": "水晶吸收了电流，开始发光。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_71b1cb4a5114821c",
+    "file": "src/brogue/Globals.c",
+    "source": "the wall above the lever shifts to reveal a spark turret!",
+    "zh_CN": "拉杆上方的墙壁移开，露出一座电火花炮台！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ae76a29d8d2191aa",
+    "file": "src/brogue/Globals.c",
+    "source": "the nearby wall explodes in a shower of stone fragments!",
+    "zh_CN": "附近的墙壁轰然炸裂，碎石四处飞溅！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_860f69babcb1935d",
+    "file": "src/brogue/Globals.c",
+    "source": "A naked adventurer in an unforgiving place, bereft of equipment and confused about the circumstances.",
+    "zh_CN": "在险恶之地，一个赤身裸体、身无装备的冒险者，对眼下的处境茫然不解。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_435c149cbc6a5e5c",
+    "file": "src/brogue/Globals.c",
+    "source": "studying",
+    "zh_CN": "观察",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cb80208204c5ae5a",
+    "file": "src/brogue/Globals.c",
+    "source": "Studying",
+    "zh_CN": "观察中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_63d04dee7c50f6fb",
+    "file": "src/brogue/Globals.c",
+    "source": "hit",
+    "zh_CN": "击中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_249cf07bd9ae0d17",
+    "file": "src/brogue/Globals.c",
+    "source": "The rat is a scavenger of the shallows, perpetually in search of decaying animal matter.",
+    "zh_CN": "老鼠是浅滩中的食腐动物，终日搜寻腐烂的动物残骸。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b7dc8c3d1ff25f19",
+    "file": "src/brogue/Globals.c",
+    "source": "gnawing at",
+    "zh_CN": "啃咬",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_85f544b01762819f",
+    "file": "src/brogue/Globals.c",
+    "source": "Eating",
+    "zh_CN": "进食中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_392664fb3f23c38f",
+    "file": "src/brogue/Globals.c",
+    "source": "scratches",
+    "zh_CN": "抓挠",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e3740b74427fb30b",
+    "file": "src/brogue/Globals.c",
+    "source": "bites",
+    "zh_CN": "撕咬",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_078a0a2dd3c56ccd",
+    "file": "src/brogue/Globals.c",
+    "source": "The kobold is a lizardlike humanoid of the upper dungeon.",
+    "zh_CN": "狗头人是地牢上层一种蜥蜴般的人形生物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e91d757660a687c5",
+    "file": "src/brogue/Globals.c",
+    "source": "poking at",
+    "zh_CN": "戳刺",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_77ce1042d0a212dd",
+    "file": "src/brogue/Globals.c",
+    "source": "Examining",
+    "zh_CN": "检视中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4856d3c19e55406f",
+    "file": "src/brogue/Globals.c",
+    "source": "clubs",
+    "zh_CN": "棍击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d9d518428093537a",
+    "file": "src/brogue/Globals.c",
+    "source": "bashes",
+    "zh_CN": "猛击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e41e76d30e00129d",
+    "file": "src/brogue/Globals.c",
+    "source": "The jackal prowls the caverns for intruders to rend with $HISHER powerful jaws.",
+    "zh_CN": "豺狼在洞穴中巡游，寻找入侵者，再用$HISHER强健的下颚将其撕碎。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5d34e826baa0f317",
+    "file": "src/brogue/Globals.c",
+    "source": "tearing at",
+    "zh_CN": "撕咬",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_083f7d4ed19eb1de",
+    "file": "src/brogue/Globals.c",
+    "source": "claws",
+    "zh_CN": "爪击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d81040979bddbc65",
+    "file": "src/brogue/Globals.c",
+    "source": "mauls",
+    "zh_CN": "撕扯",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a6e3095b8864f683",
+    "file": "src/brogue/Globals.c",
+    "source": "The eel slips silently through the subterranean lake, waiting for unsuspecting prey to set foot in $HISHER dark waters.",
+    "zh_CN": "鳗鱼静静地穿过地下湖，等待毫无戒心的猎物踏入$HISHER黑暗的水域。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cca0151aa5e3da95",
+    "file": "src/brogue/Globals.c",
+    "source": "eating",
+    "zh_CN": "吞食中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a8b14af4d9b541e",
+    "file": "src/brogue/Globals.c",
+    "source": "shocks",
+    "zh_CN": "电击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d38bdf9d35ec7895",
+    "file": "src/brogue/Globals.c",
+    "source": "Mischievous trickster that $HESHE is, the monkey lives to steal shiny trinkets from passing adventurers.",
+    "zh_CN": "这只猴子生性顽皮狡黠——$HESHE最爱从路过的冒险者身上偷走闪亮的小玩意。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0d0c27dcec67e434",
+    "file": "src/brogue/Globals.c",
+    "source": "examining",
+    "zh_CN": "搜寻",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e26f5d0a158f6bf0",
+    "file": "src/brogue/Globals.c",
+    "source": "tweaks",
+    "zh_CN": "扭拧",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_671d8f37d5139127",
+    "file": "src/brogue/Globals.c",
+    "source": "punches",
+    "zh_CN": "挥拳",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5e9b0da32a89af95",
+    "file": "src/brogue/Globals.c",
+    "source": "A bladder of deadly gas buoys the bloat through the air, $HISHER thin veinous membrane ready to rupture at the slightest stress.",
+    "zh_CN": "致命气囊托起浮囊怪，使其漂浮在空中；$HISHER薄而布满血管的外膜稍受压力便会破裂。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_969898e6520aba80",
+    "file": "src/brogue/Globals.c",
+    "source": "gazing at",
+    "zh_CN": "凝视",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d5b7e9dc23cfe99d",
+    "file": "src/brogue/Globals.c",
+    "source": "Gazing",
+    "zh_CN": "凝视中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7b4061bf70e0db7a",
+    "file": "src/brogue/Globals.c",
+    "source": "bumps",
+    "zh_CN": "撞击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b45ac762792dee87",
+    "file": "src/brogue/Globals.c",
+    "source": "bursts, leaving behind an expanding cloud of caustic gas!",
+    "zh_CN": "爆裂，留下",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6c8a3cc1e343206c",
+    "file": "src/brogue/Globals.c",
+    "source": "This rare subspecies of bloat is filled with a peculiar vapor that, if released, will cause the floor to vanish out from underneath $HIMHER.",
+    "zh_CN": "这是浮囊怪的一种罕见亚种，体内充满奇异蒸气；蒸气一旦释放，地面便会从$HIMHER脚下消失。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_516c103c2b4af7f8",
+    "file": "src/brogue/Globals.c",
+    "source": "bursts, causing the floor underneath $HIMHER to disappear!",
+    "zh_CN": "爆裂，使$HIMHER脚下的地面消失！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f6599fbcdface91b",
+    "file": "src/brogue/Globals.c",
+    "source": "A filthy little primate, the tribalistic goblin often travels in packs and carries a makeshift stone spear.",
+    "zh_CN": "这种肮脏矮小的哥布林常成群出没，带着临时削成的石矛。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_25e87b980b7aff2d",
+    "file": "src/brogue/Globals.c",
+    "source": "chanting over",
+    "zh_CN": "对其吟唱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ed95b6c75d58c8a3",
+    "file": "src/brogue/Globals.c",
+    "source": "Chanting",
+    "zh_CN": "吟唱中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_577aeee7d0d03b5a",
+    "file": "src/brogue/Globals.c",
+    "source": "cuts",
+    "zh_CN": "划伤",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c63618fc539901f2",
+    "file": "src/brogue/Globals.c",
+    "source": "stabs",
+    "zh_CN": "刺击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a3fa26e8596762d6",
+    "file": "src/brogue/Globals.c",
+    "source": "skewers",
+    "zh_CN": "刺穿",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2b34ddf51db61c17",
+    "file": "src/brogue/Globals.c",
+    "source": "This goblin is covered with glowing sigils that pulse with power. $HESHE can call into existence phantom blades to attack $HISHER foes.",
+    "zh_CN": "这个哥布林身上布满闪烁着能量的符文。$HESHE能召唤幻影之刃攻击$HISHER敌人。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f9087e0a6402fe8e",
+    "file": "src/brogue/Globals.c",
+    "source": "performing a ritual on",
+    "zh_CN": "对其施行仪式",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0c47a64bc47e2d38",
+    "file": "src/brogue/Globals.c",
+    "source": "Performing ritual",
+    "zh_CN": "施行仪式中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2500436757bfcd3c",
+    "file": "src/brogue/Globals.c",
+    "source": "thumps",
+    "zh_CN": "捶击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2d6acf651e481fb3",
+    "file": "src/brogue/Globals.c",
+    "source": "whacks",
+    "zh_CN": "抡击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a93eee5cd38786b6",
+    "file": "src/brogue/Globals.c",
+    "source": "wallops",
+    "zh_CN": "重击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dec56e4afb269cb1",
+    "file": "src/brogue/Globals.c",
+    "source": "gestures ominously!",
+    "zh_CN": "不祥地挥动手臂！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5e65de923fbff6b8",
+    "file": "src/brogue/Globals.c",
+    "source": "This goblin carries no weapon, and $HISHER eyes sparkle with golden light. $HESHE can invoke a powerful shielding magic to protect $HISHER escorts from harm.",
+    "zh_CN": "这只哥布林没有武器，$HISHER眼中却闪烁着金色光芒。$HESHE能施展强大的护盾魔法，保护$HISHER同伴免受伤害。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b2e500e55b13d3e2",
+    "file": "src/brogue/Globals.c",
+    "source": "slaps",
+    "zh_CN": "掌掴",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e68c51bdaef2f24a",
+    "file": "src/brogue/Globals.c",
+    "source": "kicks",
+    "zh_CN": "踢击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2d54e46bac646339",
+    "file": "src/brogue/Globals.c",
+    "source": "Goblins have created this makeshift totem and imbued $HIMHER with a shamanistic power.",
+    "zh_CN": "哥布林制作了这个临时图腾，并以萨满之力赋予$HIMHER力量。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_293bbda35ed370db",
+    "file": "src/brogue/Globals.c",
+    "source": "This mass of caustic pink goo slips across the ground in search of a warm meal.",
+    "zh_CN": "这团腐蚀性的粉红果冻怪在地面上滑行，寻找温热的食物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a13b211ceaf5d1c",
+    "file": "src/brogue/Globals.c",
+    "source": "absorbing",
+    "zh_CN": "吸取中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b5033670ae6a7a37",
+    "file": "src/brogue/Globals.c",
+    "source": "Feeding",
+    "zh_CN": "进食中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0967ea09b60e7aeb",
+    "file": "src/brogue/Globals.c",
+    "source": "smears",
+    "zh_CN": "抹开",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_209e9a4b678bb724",
+    "file": "src/brogue/Globals.c",
+    "source": "slimes",
+    "zh_CN": "喷出黏液",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_efc7f9f5ca1af7be",
+    "file": "src/brogue/Globals.c",
+    "source": "drenches",
+    "zh_CN": "浇淋",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_309c311305266615",
+    "file": "src/brogue/Globals.c",
+    "source": "The enormous, warty toad secretes a powerful hallucinogenic slime to befuddle the senses of any creatures that come in contact with $HIMHER.",
+    "zh_CN": "这只巨大、满身疣瘤的蟾蜍会分泌强力致幻黏液，迷乱任何接触到$HIMHER的生物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c9a6057101d187e0",
+    "file": "src/brogue/Globals.c",
+    "source": "slams",
+    "zh_CN": "猛撞",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1af1e176dd476f52",
+    "file": "src/brogue/Globals.c",
+    "source": "Often hunting in packs, leathery wings and keen senses guide the vampire bat unerringly to $HISHER prey.",
+    "zh_CN": "吸血蝙蝠常成群狩猎，凭借革质双翼和敏锐感官，准确追踪$HISHER猎物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_65c10ef38a2f2a14",
+    "file": "src/brogue/Globals.c",
+    "source": "draining",
+    "zh_CN": "吸血中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bbcb6a52f02166e6",
+    "file": "src/brogue/Globals.c",
+    "source": "nips",
+    "zh_CN": "轻咬",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_413105373967deff",
+    "file": "src/brogue/Globals.c",
+    "source": "A mechanical contraption embedded in the wall, the spring-loaded arrow turret will fire volley after volley of arrows at intruders.",
+    "zh_CN": "嵌在墙中的弹簧式箭矢炮台会向入侵者一轮又一轮地发射箭矢。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b8200c6d5ed30e19",
+    "file": "src/brogue/Globals.c",
+    "source": "shoots",
+    "zh_CN": "射击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2296f24e978b1f9a",
+    "file": "src/brogue/Globals.c",
+    "source": "The acid mound squelches softly across the ground, leaving a trail of hissing goo in $HISHER path.",
+    "zh_CN": "酸液丘怪在地面上黏滑地蠕动，在$HISHER身后留下一道嘶嘶作响的黏液痕迹。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8a42a5ad6890ad7f",
+    "file": "src/brogue/Globals.c",
+    "source": "liquefying",
+    "zh_CN": "溶解中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9c712c8cd4aacc62",
+    "file": "src/brogue/Globals.c",
+    "source": "douses",
+    "zh_CN": "泼洒",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ec4484995f469bd4",
+    "file": "src/brogue/Globals.c",
+    "source": "This monstrous centipede's incisors are imbued with a horrible venom that will slowly kill $HISHER prey.",
+    "zh_CN": "这只巨型蜈蚣的毒牙带有可怕的毒液，会慢慢杀死$HISHER猎物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ccff74c2d57f45d2",
+    "file": "src/brogue/Globals.c",
+    "source": "pricks",
+    "zh_CN": "刺伤",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_152bfded775818db",
+    "file": "src/brogue/Globals.c",
+    "source": "stings",
+    "zh_CN": "蛰刺",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a2b6caca7732b65",
+    "file": "src/brogue/Globals.c",
+    "source": "This lumbering creature carries an enormous club that $HESHE can swing with incredible force.",
+    "zh_CN": "这个步履沉重的生物扛着一根巨棒，$HESHE能以惊人的力量挥舞它。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0a284d8f4e45d0f4",
+    "file": "src/brogue/Globals.c",
+    "source": "cudgels",
+    "zh_CN": "棍击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c0278d5aca52f11d",
+    "file": "src/brogue/Globals.c",
+    "source": "batters",
+    "zh_CN": "连续猛击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0827f134a730c170",
+    "file": "src/brogue/Globals.c",
+    "source": "The horrifying bog monster dwells beneath the surface of mud-filled swamps. When $HISHER prey ventures into the mud, the bog monster will ensnare the unsuspecting victim in $HISHER pale tentacles and squeeze its life away.",
+    "zh_CN": "可怕的沼泽怪潜伏在泥沼表面之下。若$HISHER的猎物踏入泥中，它便会用$HISHER苍白的触手缠住对方，将其活活勒死。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_375fb6314dd9fa22",
+    "file": "src/brogue/Globals.c",
+    "source": "squeezes",
+    "zh_CN": "挤压",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_03673accb43c1903",
+    "file": "src/brogue/Globals.c",
+    "source": "strangles",
+    "zh_CN": "扼住",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_483e4342cc2ba122",
+    "file": "src/brogue/Globals.c",
+    "source": "crushes",
+    "zh_CN": "碾压",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3daec253f0a30971",
+    "file": "src/brogue/Globals.c",
+    "source": "Ancient ogres versed in the eldritch arts have assembled this totem and imbued $HIMHER with occult power.",
+    "zh_CN": "精通诡异艺术的古代食人魔组装了这个图腾，并为 $HIMHER 注入了神秘力量。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_81169022f9d7696b",
+    "file": "src/brogue/Globals.c",
+    "source": "The spider's red eyes pierce the darkness in search of enemies to ensnare with $HISHER projectile webs and dissolve with deadly poison.",
+    "zh_CN": "蜘蛛以红眼刺穿黑暗，搜寻敌人，再用$HISHER射出的蛛网将其缠住，并以致命毒液溶解敌人。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6ba523917948cf30",
+    "file": "src/brogue/Globals.c",
+    "source": "This contraption hums with electrical charge that $HISHER embedded crystals and magical sigils can direct at intruders in deadly arcs.",
+    "zh_CN": "这台装置嗡嗡作响，$HISHER内嵌水晶和魔法符文能引导电流，以致命的弧线射向入侵者。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e914fb9a843c73cd",
+    "file": "src/brogue/Globals.c",
+    "source": "An ethereal blue flame dances through the air, flickering and pulsing in time to an otherworldly rhythm.",
+    "zh_CN": "空灵的蓝色火焰在空气中舞动，随着超凡脱俗的节奏闪烁和跳动。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3a30bfd6a079a677",
+    "file": "src/brogue/Globals.c",
+    "source": "consuming",
+    "zh_CN": "吞噬中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e9f3552d65b1121a",
+    "file": "src/brogue/Globals.c",
+    "source": "scorches",
+    "zh_CN": "灼烧",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4957900f389e6b2e",
+    "file": "src/brogue/Globals.c",
+    "source": "burns",
+    "zh_CN": "烧灼",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5fdd98f68b3f13a6",
+    "file": "src/brogue/Globals.c",
+    "source": "The wraith's hollow eye sockets stare hungrily at the world from $HISHER emaciated frame, and $HISHER long, bloodstained nails grope ceaselessly at the air for a fresh victim.",
+    "zh_CN": "怨灵消瘦的身躯上，$HISHER空洞眼窝贪婪地凝视着外界；$HISHER染血的长指甲不停在空中摸索，寻找新的猎物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c8ccee03fbf0656c",
+    "file": "src/brogue/Globals.c",
+    "source": "devouring",
+    "zh_CN": "吞食中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0cc2d6edf0c88d03",
+    "file": "src/brogue/Globals.c",
+    "source": "clutches",
+    "zh_CN": "抓住",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e8a28fac464fd083",
+    "file": "src/brogue/Globals.c",
+    "source": "The zombie is the accursed product of a long-forgotten ritual. Perpetually decaying flesh hangs from $HISHER bones in shreds and releases a flammable stench that will induce violent nausea with one whiff.",
+    "zh_CN": "僵尸是被遗忘已久的仪式诅咒而生的产物。腐肉碎条挂在$HISHER骨头上，散发着易燃的恶臭，只消闻上一口便令人剧烈作呕。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3df407e26a55cc2a",
+    "file": "src/brogue/Globals.c",
+    "source": "rending",
+    "zh_CN": "撕裂中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6bb3f34a2930b170",
+    "file": "src/brogue/Globals.c",
+    "source": "An enormous, disfigured creature covered in phlegm and warts, the troll regenerates very quickly and attacks with astonishing strength. Many adventures have ended at $HISHER misshapen hands.",
+    "zh_CN": "巨魔身形庞大、面目狰狞，浑身覆盖着黏液和疣瘤；它再生极快，攻击力惊人。许多冒险者都死在$HISHER畸形的双手下。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8a03c91b89eafe37",
+    "file": "src/brogue/Globals.c",
+    "source": "bludgeons",
+    "zh_CN": "钝击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_60fb72de86c727e1",
+    "file": "src/brogue/Globals.c",
+    "source": "pummels",
+    "zh_CN": "猛砸",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_73d122995cfab628",
+    "file": "src/brogue/Globals.c",
+    "source": "This ogre is bent with age, but what $HESHE has lost in physical strength, $HESHE has more than gained in occult power.",
+    "zh_CN": "这名食人魔年迈佝偻；$HESHE失去的体力，早已被$HESHE更胜一筹的秘术力量弥补。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bbd24a67bedf7170",
+    "file": "src/brogue/Globals.c",
+    "source": "chants in a harsh, guttural tongue!",
+    "zh_CN": "用刺耳的喉音吟唱！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f8fd06ea049515d7",
+    "file": "src/brogue/Globals.c",
+    "source": "The serpentine naga live beneath the subterranean waters and emerge to attack unsuspecting adventurers.",
+    "zh_CN": "蛇形的娜迦生活在地下水域，会突然现身袭击毫无防备的冒险者。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_66aa43c9bc0b39e1",
+    "file": "src/brogue/Globals.c",
+    "source": "tail-whips",
+    "zh_CN": "尾鞭抽击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_21312bcba30e4dea",
+    "file": "src/brogue/Globals.c",
+    "source": "A serpent wreathed in flames and carrying a burning lash, salamanders dwell in lakes of fire and emerge when they sense a nearby victim, leaving behind a trail of glowing embers.",
+    "zh_CN": "火蜥蜴是缠绕烈焰、挥舞燃烧长鞭的蛇形生物。它们栖居于火湖，一察觉附近有猎物便会现身，身后留下发光余烬。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0241169c88f74dad",
+    "file": "src/brogue/Globals.c",
+    "source": "whips",
+    "zh_CN": "鞭打",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0585f411fe04fa12",
+    "file": "src/brogue/Globals.c",
+    "source": "lashes",
+    "zh_CN": "抽打",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b395ecdca4bbb7c8",
+    "file": "src/brogue/Globals.c",
+    "source": "This rare subspecies of bloat is little more than a thin membrane surrounding a bladder of highly explosive gases. The slightest stress will cause $HIMHER to rupture in spectacular and deadly fashion.",
+    "zh_CN": "这种罕见的爆炸浮囊怪亚种，几乎只有一层薄膜包裹着充满高爆气体的囊体。稍受压力，$HIMHER便会以惊人而致命的方式爆裂。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_65bade3082a62714",
+    "file": "src/brogue/Globals.c",
+    "source": "detonates with terrifying force!",
+    "zh_CN": "轰然爆炸！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_56c58d0aedb8fa8c",
+    "file": "src/brogue/Globals.c",
+    "source": "An elf of the deep, the dar blademaster leaps toward $HISHER enemies with frightening speed to engage in deadly swordplay.",
+    "zh_CN": "达尔剑圣是深层地牢中的精灵，会以骇人的速度扑向$HISHER敌人，展开致命剑斗。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2a4f6cef93f681d6",
+    "file": "src/brogue/Globals.c",
+    "source": "grazes",
+    "zh_CN": "划伤",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ed08b2e0e0ba23aa",
+    "file": "src/brogue/Globals.c",
+    "source": "slices",
+    "zh_CN": "切割",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cc3049057106ed0d",
+    "file": "src/brogue/Globals.c",
+    "source": "slashes",
+    "zh_CN": "挥砍",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_097b2d34b37efb14",
+    "file": "src/brogue/Globals.c",
+    "source": "The dar priestess carries a host of religious relics that jangle as $HESHE walks.",
+    "zh_CN": "达尔女祭司带着一身宗教圣物，$HESHE走动时叮当作响。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_17fb82edeadb6f0a",
+    "file": "src/brogue/Globals.c",
+    "source": "praying over",
+    "zh_CN": "为其祈祷",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d431953ce550af1e",
+    "file": "src/brogue/Globals.c",
+    "source": "Praying",
+    "zh_CN": "祈祷中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_28cc307684f632db",
+    "file": "src/brogue/Globals.c",
+    "source": "The dar battlemage's eyes glow like embers and $HISHER hands radiate an occult heat.",
+    "zh_CN": "达尔战斗法师的眼睛像余烬一样发光，$HISHER 的手散发着神秘的热量。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9c8f9365362b82bf",
+    "file": "src/brogue/Globals.c",
+    "source": "transmuting",
+    "zh_CN": "转化中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6d2e9d3580cc4374",
+    "file": "src/brogue/Globals.c",
+    "source": "Transmuting",
+    "zh_CN": "转化中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d788ad350aadd5b8",
+    "file": "src/brogue/Globals.c",
+    "source": "A jelly subsisting on a diet of acid mounds will eventually express the characteristics of $HISHER prey, corroding any unprotected weapons or armor that come in contact with $HIMHER.",
+    "zh_CN": "以酸液丘怪为食的果冻最终会显露$HISHER猎物的特征；任何未受保护、与$HIMHER接触的武器或护甲都会被腐蚀。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1853366025236a82",
+    "file": "src/brogue/Globals.c",
+    "source": "Half man and half horse, the centaur is an expert with the bow and arrow -- hunter and steed fused into a single creature.",
+    "zh_CN": "半人半马的半人马是弓箭专家——猎人和战马融为一体。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bbadad6375b58d1f",
+    "file": "src/brogue/Globals.c",
+    "source": "A strange and horrifying creature of the earth's deepest places, larger than an ogre but capable of squeezing through tiny openings. When hungry, the underworm will burrow behind the walls of a cavern and lurk dormant and motionless -- often for months -- until $HESHE can feel the telltale vibrations of nearby prey.",
+    "zh_CN": "地底巨虫是深藏于地底的奇异可怖生物，体型大于食人魔，却能挤过狭小的缝隙。饥饿时，它会钻到洞穴墙壁后方，一动不动地潜伏数月，直到$HESHE感知到附近猎物特有的震动。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_38f5c8646a9ff03d",
+    "file": "src/brogue/Globals.c",
+    "source": "Consuming",
+    "zh_CN": "吞噬中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f62fef169d4ca0e0",
+    "file": "src/brogue/Globals.c",
+    "source": "An ancient statue of an unrecognizable humanoid figure, the sentinel holds aloft a crystal that gleams with ancient warding magic. Sentinels are always found in groups, and each will attempt to repair any damage done to the others.",
+    "zh_CN": "哨兵是一尊无法辨认其人形特征的古老雕像，高举着一块闪耀古老守护魔法的水晶。哨兵总是成群出现，每尊都会尝试修复其他哨兵受到的损伤。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d256b35792155a55",
+    "file": "src/brogue/Globals.c",
+    "source": "focusing on",
+    "zh_CN": "专注于",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4ba95b42b81c1db5",
+    "file": "src/brogue/Globals.c",
+    "source": "Focusing",
+    "zh_CN": "专注中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_eb005ff15474fa2a",
+    "file": "src/brogue/Globals.c",
+    "source": "This spring-loaded contraption fires darts that are imbued with a strength-sapping poison.",
+    "zh_CN": "这台弹簧装置会发射带有削弱力量毒素的飞镖。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9532260d52bf314b",
+    "file": "src/brogue/Globals.c",
+    "source": "This tentacled nightmare will emerge from the subterranean waters to ensnare and devour any creature foolish enough to set foot into $HISHER lake.",
+    "zh_CN": "这个触手噩梦会从地下水域现身，缠住并吞噬任何愚蠢到踏入$HISHER湖中的生物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_714396bef1aed879",
+    "file": "src/brogue/Globals.c",
+    "source": "smites",
+    "zh_CN": "重击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5a7a8e4c87c574b1",
+    "file": "src/brogue/Globals.c",
+    "source": "The desiccated form of an ancient sorcerer, animated by dark arts and lust for power, commands the obedience of the infernal planes. $HISHER essence is anchored to reality by a phylactery that is always in $HISHER possession, and the lich cannot die unless $HISHER phylactery is destroyed.",
+    "zh_CN": "这位古代巫师干枯的躯体由黑暗秘术和权力欲望驱动，能号令地狱位面的存在。$HISHER灵魂由命匣锚定于现实，命匣始终由$HISHER持有；除非$HISHER命匣被摧毁，否则巫妖不会死去。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_97411f261f0a9ddc",
+    "file": "src/brogue/Globals.c",
+    "source": "Enchanting",
+    "zh_CN": "施加附魔中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f74947164f055bb2",
+    "file": "src/brogue/Globals.c",
+    "source": "touches",
+    "zh_CN": "触碰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6e459b8c675b0993",
+    "file": "src/brogue/Globals.c",
+    "source": "rasps a terrifying incantation!",
+    "zh_CN": "嘶声念诵恐怖咒语！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_54fe946610a8fbc8",
+    "file": "src/brogue/Globals.c",
+    "source": "This gem was the fulcrum of a dark rite, performed centuries ago, that bound the soul of an ancient and terrible sorcerer. Hurry and destroy the gem, before the lich can gather its power and regenerate its corporeal form!",
+    "zh_CN": "这颗宝石是数百年前那场黑暗仪式的核心，仪式将一位古老可怖巫师的灵魂封在其中。快摧毁宝石，别让巫妖积蓄力量、重塑肉身！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f19f38e65a364398",
+    "file": "src/brogue/Globals.c",
+    "source": "swirls with dark sorcery as the lich regenerates its form!",
+    "zh_CN": "巫妖重塑躯体时，黑暗魔力在周围盘旋！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_70c1f05884284f09",
+    "file": "src/brogue/Globals.c",
+    "source": "A tiny humanoid sparkles in the gloom, the hum of $HISHER beating wings punctuated by intermittent peals of high-pitched laughter. What $HESHE lacks in physical endurance, $HESHE makes up for with $HISHER wealth of mischievous magical abilities.",
+    "zh_CN": "一个微小的人形生物在昏暗中闪闪发光，$HISHER振翅声间夹杂着阵阵尖锐笑声。$HESHE体力不济，却以$HISHER丰富的调皮魔法本领弥补$HESHE的不足。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_43204e14a1d0d1f9",
+    "file": "src/brogue/Globals.c",
+    "source": "sprinkling dust on",
+    "zh_CN": "向其撒下粉末",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a320d2b28f34bbc6",
+    "file": "src/brogue/Globals.c",
+    "source": "Dusting",
+    "zh_CN": "撒粉中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_112428b5e7b68781",
+    "file": "src/brogue/Globals.c",
+    "source": "pokes",
+    "zh_CN": "戳刺",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_325ec78704ae5c16",
+    "file": "src/brogue/Globals.c",
+    "source": "A silhouette of mournful rage against an empty backdrop, the phantom slips through the dungeon invisibly in clear air, leaving behind glowing droplets of ectoplasm and the cries of $HISHER unsuspecting victims.",
+    "zh_CN": "空白背景上浮现一道悲愤的幻影轮廓；它在无遮无碍的空气中隐形穿过地牢，留下发光的灵质水滴和$HISHER毫无防备猎物的惨叫。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0ca965e1d82f1976",
+    "file": "src/brogue/Globals.c",
+    "source": "permeating",
+    "zh_CN": "渗入",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6f1505fed23ad3f7",
+    "file": "src/brogue/Globals.c",
+    "source": "Permeating",
+    "zh_CN": "渗入中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c114d222bbedbe11",
+    "file": "src/brogue/Globals.c",
+    "source": "This infernal contraption spits blasts of flame at intruders.",
+    "zh_CN": "这个地狱般的装置向入侵者喷射火焰。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ff59cd98593f5385",
+    "file": "src/brogue/Globals.c",
+    "source": "incinerating",
+    "zh_CN": "焚烧中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d6cb72dc7b6f1b6f",
+    "file": "src/brogue/Globals.c",
+    "source": "Incinerating",
+    "zh_CN": "焚烧中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e9da9840910f5364",
+    "file": "src/brogue/Globals.c",
+    "source": "This trickster demon moves with astonishing speed and delights in stealing from $HISHER enemies and blinking away.",
+    "zh_CN": "这个狡诈的小恶魔行动快如闪电，喜欢偷走$HISHER敌人的东西，然后瞬间消失。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b7ce07fe6f5424e8",
+    "file": "src/brogue/Globals.c",
+    "source": "dissecting",
+    "zh_CN": "解剖中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9abf4f1d6a4e1701",
+    "file": "src/brogue/Globals.c",
+    "source": "Dissecting",
+    "zh_CN": "解剖中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0354aedd0913d972",
+    "file": "src/brogue/Globals.c",
+    "source": "A creature of inchoate rage made flesh, the fury's moist wings beat loudly in the darkness.",
+    "zh_CN": "复仇女妖是由原始怒火凝成的实体，湿润的翅膀在黑暗中大声拍打。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ed6b32083f225bb8",
+    "file": "src/brogue/Globals.c",
+    "source": "flagellating",
+    "zh_CN": "鞭笞中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b68cbf5cfc2bdee6",
+    "file": "src/brogue/Globals.c",
+    "source": "Flagellating",
+    "zh_CN": "鞭笞中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fbcc61381fd809aa",
+    "file": "src/brogue/Globals.c",
+    "source": "drubs",
+    "zh_CN": "痛殴",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_56101b10955da6e8",
+    "file": "src/brogue/Globals.c",
+    "source": "fustigates",
+    "zh_CN": "痛打",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f2c4b41c156bc9e9",
+    "file": "src/brogue/Globals.c",
+    "source": "castigates",
+    "zh_CN": "猛击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_df835b0c67984244",
+    "file": "src/brogue/Globals.c",
+    "source": "This unholy specter stalks the deep places of the earth without fear, impervious to conventional attacks.",
+    "zh_CN": "这个邪恶幽灵无惧地徘徊于地底深处，常规攻击对它毫无作用。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8a0786b52098528e",
+    "file": "src/brogue/Globals.c",
+    "source": "desecrating",
+    "zh_CN": "亵渎中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_522411fa05c64f54",
+    "file": "src/brogue/Globals.c",
+    "source": "Desecrating",
+    "zh_CN": "亵渎中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b9430da48cdf5488",
+    "file": "src/brogue/Globals.c",
+    "source": "This seething, towering nightmare of fleshy tentacles slinks through the bowels of the world. The tentacle horror's incredible strength and regeneration make $HIMHER one of the most fearsome creatures of the dungeon.",
+    "zh_CN": "这团由肉质触手构成的高耸噩梦在世界深处潜行。触手恐魔力量惊人且再生迅速，使$HIMHER成为地牢中最可怕的生物之一。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f9766e36dd453a62",
+    "file": "src/brogue/Globals.c",
+    "source": "sucking on",
+    "zh_CN": "吮吸",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b2bc1b92f3ba63b0",
+    "file": "src/brogue/Globals.c",
+    "source": "A statue animated by an ancient and tireless magic, the golem does not regenerate and attacks with only moderate strength, but $HISHER stone form can withstand incredible damage before collapsing into rubble.",
+    "zh_CN": "魔像由古老而不知疲倦的魔法驱动，不会自我再生，攻击力也只是中等；但$HISHER石躯能承受惊人伤害，最终才会碎成瓦砾。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_638fa2b0f4b32574",
+    "file": "src/brogue/Globals.c",
+    "source": "cradling",
+    "zh_CN": "搂抱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_017fb2c3ad247ccd",
+    "file": "src/brogue/Globals.c",
+    "source": "Cradling",
+    "zh_CN": "搂抱中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b5c305e6605545ab",
+    "file": "src/brogue/Globals.c",
+    "source": "backhands",
+    "zh_CN": "反手抽击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3a12c989cf30604c",
+    "file": "src/brogue/Globals.c",
+    "source": "An ancient serpent of the world's deepest places, the dragon's immense form belies its lightning-quick speed and testifies to $HISHER breathtaking strength. An undying furnace of white-hot flames burns within $HISHER scaly hide, and few could withstand a single moment under $HISHER infernal lash.",
+    "zh_CN": "巨龙是深藏于世界最深处的古老巨蛇，庞大身躯掩盖了它闪电般的速度，更彰显$HISHER惊人力量。$HISHER鳞甲内燃烧着不灭的白炽烈焰，几乎无人能承受$HISHER地狱长鞭的一击。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d0d25bf65bbc4600",
+    "file": "src/brogue/Globals.c",
+    "source": "Taller, stronger and smarter than other goblins, the warlord commands the loyalty of $HISHER kind and can summon them into battle.",
+    "zh_CN": "哥布林军阀比其他哥布林更高大、更强壮、更聪明；它能号令$HISHER同族，并召集他们投入战斗。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_445a94f7f48734ac",
+    "file": "src/brogue/Globals.c",
+    "source": "lets loose a deafening war cry!",
+    "zh_CN": "发出震耳欲聋的战吼！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2b4bf3fc846f193f",
+    "file": "src/brogue/Globals.c",
+    "source": "This blob of jet-black goo is as rare as $HESHE is deadly. Few creatures of the dungeon can withstand $HISHER caustic assault. Beware.",
+    "zh_CN": "这团漆黑黏液罕见而致命，$HESHE有着强大的腐蚀性攻击，地牢中几乎没有生物能抵挡$HISHER攻击。小心。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_54419b37d1e5e0b9",
+    "file": "src/brogue/Globals.c",
+    "source": "This vampire lives a solitary life deep underground, consuming any warm-blooded creature unfortunate enough to venture near $HISHER lair.",
+    "zh_CN": "这个吸血鬼在地下深处过着孤独的生活，吞噬任何不幸冒险靠近 $HISHER 巢穴的温血生物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6ec32dd9e28e2d4b",
+    "file": "src/brogue/Globals.c",
+    "source": "Drinking",
+    "zh_CN": "饮血中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_893d68ebf60c2a4e",
+    "file": "src/brogue/Globals.c",
+    "source": "buries $HISHER fangs in",
+    "zh_CN": "把$HISHER尖牙刺入",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_592e0ff5aa8fe190",
+    "file": "src/brogue/Globals.c",
+    "source": "spreads his cloak and bursts into a cloud of bats!",
+    "zh_CN": "展开斗篷，化作一群蝙蝠！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0b5adad9030a8129",
+    "file": "src/brogue/Globals.c",
+    "source": "An elemental creature from another plane of existence, the infernal flamedancer burns with such intensity that $HESHE is painful to behold.",
+    "zh_CN": "这是一种来自异界的元素生物，火焰舞者周身烈焰炽盛，$HESHE令人无法直视。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_86c7c8d741c8b715",
+    "file": "src/brogue/Globals.c",
+    "source": "immolating",
+    "zh_CN": "自焚中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4521724f6280c905",
+    "file": "src/brogue/Globals.c",
+    "source": "singes",
+    "zh_CN": "灼伤",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_216a83ec3e385dcd",
+    "file": "src/brogue/Globals.c",
+    "source": "immolates",
+    "zh_CN": "焚烧",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a02f02634fef5d9",
+    "file": "src/brogue/Globals.c",
+    "source": "Eldritch forces have coalesced to form this flickering, ethereal weapon.",
+    "zh_CN": "诡秘力量凝聚成这把闪烁不定的幽灵武器。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0aece6f52f904b85",
+    "file": "src/brogue/Globals.c",
+    "source": "nicks",
+    "zh_CN": "划伤",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f616633754e2c312",
+    "file": "src/brogue/Globals.c",
+    "source": "Eldritch energies bound up in your equipment have leapt forth to project this spectral image.",
+    "zh_CN": "你装备中的诡秘能量迸发而出，投射出这道幽灵影像。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a0edb1dd2316b515",
+    "file": "src/brogue/Globals.c",
+    "source": "Guarding the room is a weathered stone statue of a knight carrying a battleaxe, connected to the glowing glyphs on the floor by invisible strands of enchantment.",
+    "zh_CN": "一尊手持战斧的风化石骑士像守卫着房间；地面发光符文以无形的附魔丝线与它相连。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_69a5a5c217c582a0",
+    "file": "src/brogue/Globals.c",
+    "source": "strikes",
+    "zh_CN": "劈砍",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cc6f876ece1ad659",
+    "file": "src/brogue/Globals.c",
+    "source": "A statue of a sword-wielding angel surveys the room, connected to the glowing glyphs on the floor by invisible strands of enchantment.",
+    "zh_CN": "一尊挥剑天使雕像巡视着房间，地板上的发光符文以无形的附魔丝线与它相连。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b19b241cf864192b",
+    "file": "src/brogue/Globals.c",
+    "source": "A spectral outline of a knight carrying a battleaxe casts an ethereal light on $HISHER surroundings.",
+    "zh_CN": "手持战斧骑士的幽灵轮廓向$HISHER周围投下缥缈的光芒。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6b8bbf546f441597",
+    "file": "src/brogue/Globals.c",
+    "source": "An immortal presence stalks through the dungeon, implacably hunting that which was taken... and the one who took it.",
+    "zh_CN": "一个不朽的存在在地牢中徘徊，执着地追猎被夺走之物，以及夺走它的人。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4e3f55022047347f",
+    "file": "src/brogue/Globals.c",
+    "source": "This totem sits at the center of a summoning circle that radiates a strange energy.",
+    "zh_CN": "这座诡秘图腾位于召唤阵中央，散发着奇异能量。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0b9a9729d2022359",
+    "file": "src/brogue/Globals.c",
+    "source": "crackles with energy as you touch the glyph!",
+    "zh_CN": "你触碰符文时，它迸发出噼啪作响的电光！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_96e75ed8b7943609",
+    "file": "src/brogue/Globals.c",
+    "source": "A prism of shoulder-high mirrored surfaces gleams in the darkness.",
+    "zh_CN": "齐肩高的镜面棱柱在黑暗中熠熠生辉。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_99f07bb6b3ac5bff",
+    "file": "src/brogue/Globals.c",
+    "source": "The unicorn's flowing mane and tail shine with rainbow light, $HISHER horn glows with healing and protective magic, and $HISHER eyes implore you to always chase your dreams. Unicorns are rumored to be attracted to virgins -- is there a hint of accusation in $HISHER gaze?",
+    "zh_CN": "独角兽飘逸的鬃尾闪耀着彩虹般的光芒，$HISHER角散发着疗愈与守护魔法，$HISHER眼神恳切地望着你，仿佛劝你永远追逐梦想。传说独角兽会被处女吸引——$HISHER眼神里是否带着一丝指责？",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b47b078f595c9e47",
+    "file": "src/brogue/Globals.c",
+    "source": "consecrating",
+    "zh_CN": "圣化中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_19a1fb1805441889",
+    "file": "src/brogue/Globals.c",
+    "source": "Consecrating",
+    "zh_CN": "圣化中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9319b173d4916f1c",
+    "file": "src/brogue/Globals.c",
+    "source": "gores",
+    "zh_CN": "以角刺击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_546ca3380bdce5a4",
+    "file": "src/brogue/Globals.c",
+    "source": "A whirling desert storm given human shape, the ifrit's twin scimitars flicker in the darkness and $HISHER eyes burn with otherworldly zeal.",
+    "zh_CN": "伊弗利特是化作人形的沙漠风暴，双弯刀在黑暗中闪烁，$HISHER双眼燃烧着异界的狂热。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4e1a23401d9b105f",
+    "file": "src/brogue/Globals.c",
+    "source": "Absorbing",
+    "zh_CN": "吸收中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_597f04382d28c5ac",
+    "file": "src/brogue/Globals.c",
+    "source": "lacerates",
+    "zh_CN": "割伤",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_85ce5192cdbe7518",
+    "file": "src/brogue/Globals.c",
+    "source": "This legendary bird shines with a brilliant light, and $HISHER wings crackle and pop like embers as they beat the air. When $HESHE dies, legend has it that an egg will form and a newborn phoenix will rise from its ashes.",
+    "zh_CN": "这只传奇之鸟光芒万丈，拍打双翼时，$HISHER翅膀如余烬般噼啪作响。传说$HESHE死后会结出一枚蛋，新生凤凰将从灰烬中升起。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_169345c76f0a6feb",
+    "file": "src/brogue/Globals.c",
+    "source": "cremating",
+    "zh_CN": "焚化中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d0355747417f1b68",
+    "file": "src/brogue/Globals.c",
+    "source": "Cremating",
+    "zh_CN": "焚化中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8adb02ff7820c602",
+    "file": "src/brogue/Globals.c",
+    "source": "pecks",
+    "zh_CN": "啄击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9385c38a465752a6",
+    "file": "src/brogue/Globals.c",
+    "source": "Cradled in a nest of cooling ashes, the translucent membrane of the phoenix egg reveals a yolk that glows brighter by the second.",
+    "zh_CN": "凤凰蛋安卧在渐冷的灰烬巢中，透过半透明的蛋壳薄膜，可以看见蛋黄每一秒都变得更加明亮。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7149b47b90951c2f",
+    "file": "src/brogue/Globals.c",
+    "source": "bursts as a newborn phoenix rises from the ashes!",
+    "zh_CN": "蛋壳轰然迸裂，新生凤凰从灰烬中升起！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_befb449a4f98d807",
+    "file": "src/brogue/Globals.c",
+    "source": "This mangrove dryad is as old as the earth, and $HISHER gnarled figure houses an ancient power. When angered, $HESHE can call upon the forces of nature to bind $HISHER foes and tear them to shreds.",
+    "zh_CN": "这株红树林树精与大地同寿，$HISHER盘虬身躯蕴藏着古老力量。被激怒时，$HESHE能召唤自然之力束缚$HISHER敌人，再将其撕碎。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d682eee380b71134",
+    "file": "src/brogue/Globals.c",
+    "source": "thrashes",
+    "zh_CN": "猛力抽打",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cc1fc67c1c329a43",
+    "file": "src/brogue/Globals.c",
+    "source": "A rare mutation will cause $HIMHER to explode violently when $HESHE dies.",
+    "zh_CN": "一种罕见的突变会使$HIMHER在$HESHE死亡时发生剧烈爆炸。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8b4e29d7bbf2f438",
+    "file": "src/brogue/Globals.c",
+    "source": "$HESHE has been infested by deadly lichen spores; poisonous fungus will spread from $HISHER corpse when $HESHE dies.",
+    "zh_CN": "致命地衣孢子已感染$HESHE；$HISHER尸体会在$HESHE死亡后散播有毒真菌。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a2e944ecfe174af0",
+    "file": "src/brogue/Globals.c",
+    "source": "A rare mutation greatly enhances $HISHER mobility.",
+    "zh_CN": "一种罕见的突变大幅提升了$HISHER行动能力。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_843fb1e7f6d23385",
+    "file": "src/brogue/Globals.c",
+    "source": "A rare mutation has hardened $HISHER flesh, increasing $HISHER health and power but compromising $HISHER speed.",
+    "zh_CN": "一种罕见突变使$HISHER肉体硬化，提升$HISHER生命值与力量，却降低$HISHER速度。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9cdfd563571bb734",
+    "file": "src/brogue/Globals.c",
+    "source": "A rare mutation has caused suckered tentacles to sprout from $HISHER frame, increasing $HISHER health and allowing $HIMHER to grapple with $HISHER prey.",
+    "zh_CN": "一种罕见突变使$HISHER躯体长出带吸盘的触手，提高$HISHER生命值，并让$HIMHER能擒住$HISHER猎物。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3016ca5ec555aa2a",
+    "file": "src/brogue/Globals.c",
+    "source": "A rare mutation allows $HIMHER to heal $HIMSELFHERSELF with every attack.",
+    "zh_CN": "一种罕见的突变使得 $HIMHER 每次攻击都能治愈 $HIMSELFHERSELF。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c6a402cdaf989181",
+    "file": "src/brogue/Globals.c",
+    "source": "A rare mutation causes $HIMHER to poison $HISHER victims and sap their strength with every attack.",
+    "zh_CN": "一种罕见的突变让$HIMHER每次攻击都能使$HISHER受害者中毒并削弱其力量。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5164139afe9ad52b",
+    "file": "src/brogue/Globals.c",
+    "source": "A rare mutation has coated $HISHER flesh with reflective scales.",
+    "zh_CN": "一种罕见突变使$HISHER的皮肤覆上反光鳞片。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_481cb0fe2b2ca5b2",
+    "file": "src/brogue/Globals.c",
+    "source": "is invisible",
+    "zh_CN": "隐形",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_eee4d34d3b14d854",
+    "file": "src/brogue/Globals.c",
+    "source": "is an inanimate object",
+    "zh_CN": "是无生命的物体",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7cc791daa01ebdd9",
+    "file": "src/brogue/Globals.c",
+    "source": "cannot move",
+    "zh_CN": "不能动",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_edb524207786f645",
+    "file": "src/brogue/Globals.c",
+    "source": "flees at low health",
+    "zh_CN": "生命值低时会逃跑",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9c206d9cacdb4956",
+    "file": "src/brogue/Globals.c",
+    "source": "corrodes weapons when hit",
+    "zh_CN": "被击中时会腐蚀武器",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a8228fcf187b3220",
+    "file": "src/brogue/Globals.c",
+    "source": "is immune to weapon damage",
+    "zh_CN": "免疫武器伤害",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d892c6a549978a64",
+    "file": "src/brogue/Globals.c",
+    "source": "flies",
+    "zh_CN": "会飞",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5641527c446eb21d",
+    "file": "src/brogue/Globals.c",
+    "source": "moves erratically",
+    "zh_CN": "移动不规则",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b0f1abea274dffad",
+    "file": "src/brogue/Globals.c",
+    "source": "is immune to fire",
+    "zh_CN": "不受火的影响",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_454efc827ce776da",
+    "file": "src/brogue/Globals.c",
+    "source": "cannot be entangled",
+    "zh_CN": "不会被缠住",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b5bb7d734aa550f4",
+    "file": "src/brogue/Globals.c",
+    "source": "can reflect magic spells",
+    "zh_CN": "可以反弹法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_13a708d2bdf7707b",
+    "file": "src/brogue/Globals.c",
+    "source": "never sleeps",
+    "zh_CN": "从不睡觉",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_42c4ce0af202181a",
+    "file": "src/brogue/Globals.c",
+    "source": "burns unceasingly",
+    "zh_CN": "不断燃烧",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_687b681c0d827646",
+    "file": "src/brogue/Globals.c",
+    "source": "is invulnerable",
+    "zh_CN": "无懈可击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_079ff9f14fd5b99c",
+    "file": "src/brogue/Globals.c",
+    "source": "is at home in water",
+    "zh_CN": "适应水中环境",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5dc6412772e3ff1b",
+    "file": "src/brogue/Globals.c",
+    "source": "cannot venture onto dry land",
+    "zh_CN": "无法登上干燥的陆地",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_aad1cb5087779dac",
+    "file": "src/brogue/Globals.c",
+    "source": "submerges",
+    "zh_CN": "潜入水中",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0b2669031ab76115",
+    "file": "src/brogue/Globals.c",
+    "source": "keeps $HISHER distance",
+    "zh_CN": "与$HISHER保持距离",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0fcd274b8fc79fe5",
+    "file": "src/brogue/Globals.c",
+    "source": "is animated purely by magic",
+    "zh_CN": "纯粹由魔法驱动",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7f89a935425b0c05",
+    "file": "src/brogue/Globals.c",
+    "source": "moves only when activated",
+    "zh_CN": "仅在激活时移动",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a3e37f4218505cd6",
+    "file": "src/brogue/Globals.c",
+    "source": "can induce hallucinations",
+    "zh_CN": "可以使生物陷入幻觉",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_734c2d05c7410bbb",
+    "file": "src/brogue/Globals.c",
+    "source": "can steal items",
+    "zh_CN": "可以偷窃物品",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_38fb2702bf64b782",
+    "file": "src/brogue/Globals.c",
+    "source": "lights enemies on fire when $HESHE hits",
+    "zh_CN": "当 $HESHE 击中时，敌人会着火",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bac9aeef1bbbf5e8",
+    "file": "src/brogue/Globals.c",
+    "source": "can possess $HISHER summoned allies",
+    "zh_CN": "可以附身于$HISHER召唤出的盟友",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a333b3e3e07cfdc1",
+    "file": "src/brogue/Globals.c",
+    "source": "corrodes armor when $HESHE hits",
+    "zh_CN": "当 $HESHE 击中时会腐蚀装甲",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_76eeecd98b6c137b",
+    "file": "src/brogue/Globals.c",
+    "source": "can summon allies",
+    "zh_CN": "可以召唤盟友",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_56dfcc7b0ec384e7",
+    "file": "src/brogue/Globals.c",
+    "source": "immobilizes $HISHER prey",
+    "zh_CN": "使$HISHER猎物无法动弹",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_17884177e6221447",
+    "file": "src/brogue/Globals.c",
+    "source": "injects poison when $HESHE hits",
+    "zh_CN": "当 $HESHE 击中时注入毒药",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2c750e3c2c058d13",
+    "file": "src/brogue/Globals.c",
+    "source": "divides in two when struck",
+    "zh_CN": "被击中时分成两半",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4eac725a0a8b18ff",
+    "file": "src/brogue/Globals.c",
+    "source": "dies when $HESHE attacks",
+    "zh_CN": "$HESHE一旦攻击便会死亡",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_72897f4697acf0c2",
+    "file": "src/brogue/Globals.c",
+    "source": "recovers health when $HESHE inflicts damage",
+    "zh_CN": "$HESHE造成伤害时会恢复生命值",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5c458f52d6ed8ea4",
+    "file": "src/brogue/Globals.c",
+    "source": "saps strength when $HESHE inflicts damage",
+    "zh_CN": "$HESHE造成伤害时会削弱目标的力量",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ffb13ba93f3e8137",
+    "file": "src/brogue/Globals.c",
+    "source": "attacks up to two opponents in a line",
+    "zh_CN": "攻击一条线上最多两个对手",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3888320ff36c84dc",
+    "file": "src/brogue/Globals.c",
+    "source": "attacks all adjacent opponents at once",
+    "zh_CN": "同时攻击所有相邻的对手",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_23852d2f193c935d",
+    "file": "src/brogue/Globals.c",
+    "source": "attacks with a whip",
+    "zh_CN": "用鞭子攻击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_83494fad674bee8d",
+    "file": "src/brogue/Globals.c",
+    "source": "pushes opponents backward when $HESHE hits",
+    "zh_CN": "$HESHE命中时会将对手击退",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ab95f604aa711ebb",
+    "file": "src/brogue/Globals.c",
+    "source": "avoids attacking in corridors in a group",
+    "zh_CN": "避免在走廊里集体攻击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9cb8f968f935ffb0",
+    "file": "src/brogue/Globals.c",
+    "source": "reflects magic spells back at the caster",
+    "zh_CN": "会把法术反弹给施法者",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a198a6e9d9de3021",
+    "file": "src/brogue/Globals.c",
+    "source": "is telepathically bonded with you",
+    "zh_CN": "与你建立了心灵感应联系",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d69ad40b127f21cc",
+    "file": "src/brogue/Globals.c",
+    "source": "has been immobilized",
+    "zh_CN": "已被定身",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e6a7387cf38196a5",
+    "file": "src/brogue/Globals.c",
+    "source": "is currently holding $HISHER prey immobile",
+    "zh_CN": "正按住$HISHER猎物，使其无法动弹",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a9dc4fa00b6bf70",
+    "file": "src/brogue/Globals.c",
+    "source": "is submerged",
+    "zh_CN": "潜在水下",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4a7b66f0a74f7a03",
+    "file": "src/brogue/Globals.c",
+    "source": "is anchored to reality by $HISHER summoner",
+    "zh_CN": "由 $HISHER 召唤师锚定到现实",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f79da14d77d570fa",
+    "file": "src/brogue/Globals.c",
+    "source": "is marked for demonic sacrifice",
+    "zh_CN": "被标记为恶魔祭品",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e4e0bba670359f61",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "teleportation spell",
+    "zh_CN": "传送法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_948ca6efe4c15ab6",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a teleport spell",
+    "zh_CN": "施展传送法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dd2264ce39827d8e",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can teleport other creatures",
+    "zh_CN": "可以传送其他生物",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_05f9d1d5195455c2",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "slowing spell",
+    "zh_CN": "减速法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_989e6f46c9726e50",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a slowing spell",
+    "zh_CN": "施展减速法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7cf2ce4c93c2dc96",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can slow $HISHER enemies",
+    "zh_CN": "可以使$HISHER敌人减速",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_348387c07f413fa1",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "polymorph spell",
+    "zh_CN": "变形术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e819c4e7f6c88d61",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a polymorphism spell",
+    "zh_CN": "施展变形法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a78039e921bcfaf8",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can polymorph other creatures",
+    "zh_CN": "可以变形其他生物",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_78490d9ab2918bc4",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "negation magic",
+    "zh_CN": "消魔魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5b11d3accbbfa85a",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a negation spell",
+    "zh_CN": "施展消魔法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_334346ee6cf56951",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast negation",
+    "zh_CN": "可以施展消魔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_52a8b9c631312c10",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "domination spell",
+    "zh_CN": "统治咒语",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_688b8645387743c2",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a domination spell",
+    "zh_CN": "施展统治咒语",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_595c002fbc362d77",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can dominate other creatures",
+    "zh_CN": "可以支配其他生物",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f3b4366d18714fdc",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "beckoning spell",
+    "zh_CN": "牵引法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e347ae376ff4da2c",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a beckoning spell",
+    "zh_CN": "施展牵引法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2313bc1e0819c99c",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast beckoning",
+    "zh_CN": "可以施展牵引",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f9f0ad97f711fafc",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "spell of plenty",
+    "zh_CN": "复制法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_568339a365f98ca6",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a spell of plenty",
+    "zh_CN": "施展复制法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c2d179eb2215dedd",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can duplicate other creatures",
+    "zh_CN": "可以复制其他生物",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_55aabb6eca961817",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "invisibility magic",
+    "zh_CN": "隐形魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5a5afc1e8c618e6c",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts invisibility magic",
+    "zh_CN": "施展隐形魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_233bf1688e366854",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can turn creatures invisible",
+    "zh_CN": "可以使生物隐形",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c14115b91bea3da9",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "empowerment sorcery",
+    "zh_CN": "强化巫术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_34b512c92cf1bae5",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts empowerment",
+    "zh_CN": "施展强化",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9462bd9231d84882",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast empowerment",
+    "zh_CN": "可以施展强化",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_eff7af498830509e",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts lightning",
+    "zh_CN": "施放闪电",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fd9738a1179b9cfb",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can hurl lightning bolts",
+    "zh_CN": "可以发射闪电箭",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bd9dc5f78dac9fad",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "flame",
+    "zh_CN": "火焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e186ebcf86a97d20",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a gout of flame",
+    "zh_CN": "喷出一股火焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d583d2f91d06a012",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can hurl gouts of flame",
+    "zh_CN": "可以喷射火焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_db77d5b57b1a77ca",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "poison ray",
+    "zh_CN": "毒射线",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_62763313b71e9da3",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a poison ray",
+    "zh_CN": "投射毒射线",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9aebbf895ff4b604",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast poisonous bolts",
+    "zh_CN": "可以发射毒箭",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_af0448b9323b0c05",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "tunneling magic",
+    "zh_CN": "掘地魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_193f8194cf6686e8",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts tunneling",
+    "zh_CN": "施展掘地术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_125f675db853d6d6",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can tunnel",
+    "zh_CN": "可以掘地",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_810accd4600cda01",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "blink trajectory",
+    "zh_CN": "闪现轨迹",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c50834668e88016e",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "blinks",
+    "zh_CN": "闪现",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_dc7014ea666279d5",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can blink",
+    "zh_CN": "可以闪现",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_99e7eb227bf15c0a",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "entrancement ray",
+    "zh_CN": "惑心射线",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2e019e5fad7e0642",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts entrancement",
+    "zh_CN": "施展惑心术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_28e524763d7df83d",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast entrancement",
+    "zh_CN": "可以施展惑心术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b507263e104145b4",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "obstruction magic",
+    "zh_CN": "屏障魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ad764638b60534e8",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts obstruction",
+    "zh_CN": "施展屏障术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f9c46ff1ffc6bc6a",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast obstruction",
+    "zh_CN": "可以施展屏障术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5374d7b335712ceb",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "spell of discord",
+    "zh_CN": "纷争法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fd4fccb83d63d397",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a spell of discord",
+    "zh_CN": "施展纷争法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8ade7a556ffb79aa",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast discord",
+    "zh_CN": "可以施展纷争",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fdc8725ad2a2203b",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "conjuration magic",
+    "zh_CN": "召唤魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_71137db90c759cbc",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a conjuration bolt",
+    "zh_CN": "施展召唤弹",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_646d48dcf9fed40a",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast conjuration",
+    "zh_CN": "可以施展召唤术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6cd81ed08f74f2da",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "healing magic",
+    "zh_CN": "治疗魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5d6b1dae3c0f556c",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts healing",
+    "zh_CN": "施展治疗",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_75cd03bf6925b499",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can heal $HISHER allies",
+    "zh_CN": "可以治疗 $HISHER 盟友",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6d39c99d6bceb3e6",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "haste spell",
+    "zh_CN": "急速法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9bbdf67c529af4bb",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts a haste spell",
+    "zh_CN": "施展加速法术",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7aaa30188da1828a",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can haste $HISHER allies",
+    "zh_CN": "可以加速 $HISHER 盟友",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_39eac69af5301a2d",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "protection magic",
+    "zh_CN": "防护魔法",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b44158a128c3ea3a",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "casts protection",
+    "zh_CN": "施展防护",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_22096007ec70e947",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can cast protection",
+    "zh_CN": "可以施展防护",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_234d28249b180616",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "spiderweb",
+    "zh_CN": "蜘蛛网",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bb36dc09fac74a93",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "launches a sticky web",
+    "zh_CN": "射出一张黏性蛛网",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3ed498f0f201bb9c",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can launch sticky webs",
+    "zh_CN": "可以射出黏性蛛网",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_92f473809e5979a7",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "spark",
+    "zh_CN": "火花",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_052c91c090407319",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "shoots a spark",
+    "zh_CN": "射出火花",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_238e16882fb176bd",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can throw sparks of lightning",
+    "zh_CN": "可以释放闪电火花",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e4dc22d10676bc3e",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "dragonfire",
+    "zh_CN": "龙火",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cdf20151b95a6a29",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "breathes a gout of white-hot flame",
+    "zh_CN": "喷吐一股白炽烈焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9c9841999e85763b",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "can breathe gouts of white-hot flame",
+    "zh_CN": "可以喷吐白炽烈焰",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_864ea39fe7e2b271",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "arrow",
+    "zh_CN": "箭",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_44df337740d7bd94",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "shoots an arrow",
+    "zh_CN": "射箭",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_60aa2cd4bea3a0ff",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "attacks from a distance",
+    "zh_CN": "远距离攻击",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_62dd7fb357617a8d",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "poisoned dart",
+    "zh_CN": "毒镖",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_5597496f90d93ec5",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "fires a dart",
+    "zh_CN": "发射飞镖",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_9fea6b8c86365036",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "fires strength-sapping darts",
+    "zh_CN": "发射会削弱力量的飞镖",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_78cca5b33ee987cb",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "growing vines",
+    "zh_CN": "生长的藤蔓",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_847a70a0501a07f9",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "releases carnivorous vines into the ground",
+    "zh_CN": "将食肉藤蔓送入地下",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4d7739bb967e3fcf",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "conjures carnivorous vines",
+    "zh_CN": "召唤食肉藤蔓",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_05e236d922a3c021",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "wields a whip",
+    "zh_CN": "挥舞着鞭子",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_14a7df451e41c5e1",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "An alien energy permeates the area. The Amulet of Yendor must be nearby!",
+    "zh_CN": "异界能量弥漫于此。延多护身符一定就在附近！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4bf67f1b8248dc51",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "An overwhelming sense of peace and tranquility settles upon you.",
+    "zh_CN": "一股强烈的平和与宁静感笼罩着你。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4f47ee78c46dd29a",
+    "file": "src/variants/GlobalsBulletBrogue.c",
+    "source": "Guaranteed good runic or heavy weapon",
+    "zh_CN": "保证出现优质符文武器或重型武器",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d2945b8361111192",
+    "file": "src/variants/GlobalsBulletBrogue.c",
+    "source": "An overwhelming sense of peace... nah, not in this dungeon.",
+    "zh_CN": "一股强烈的平和感笼罩着你……算了，这地牢里才不会有这种事。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_41ccc9e0791642d0",
+    "file": "src/variants/GlobalsRapidBrogue.c",
+    "source": "An overwhelming sense of peace and tranquility settles upon you... then you see monsters. Doh.",
+    "zh_CN": "一股深沉的平和与宁静感笼罩着你……接着你看见了怪物。见鬼。",
+    "mode": "lookup",
+    "status": "prototype"
+  }
+]

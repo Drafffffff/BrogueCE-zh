@@ -5,7 +5,7 @@
 
 void initTiles(void);
 void resizeWindow(int width, int height);
-void updateTile(int row, int column, short charIndex,
+void updateTile(int row, int column, int charIndex,
     short foreRed, short foreGreen, short foreBlue,
     short backRed, short backGreen, short backBlue);
 void updateScreen(void);

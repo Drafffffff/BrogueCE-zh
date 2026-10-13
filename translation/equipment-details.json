@@ -1,0 +1,445 @@
+[
+  {
+    "id": "s_66ce158256a5a7e7",
+    "file": "src/brogue/Items.c",
+    "source": ", %s %s %s %s%s%+.2f%s because of your %s strength. ",
+    "zh_CN": "，%.0s%.0s%.0s%s%s%+.2f%s（力量%s）。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_3b11db44a40e00ca",
+    "file": "src/brogue/Items.c",
+    "source": "bonus of ",
+    "zh_CN": "获得加成 ",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d712898a22fe47cd",
+    "file": "src/brogue/Items.c",
+    "source": "penalty of ",
+    "zh_CN": "受到惩罚 ",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ddd36ae5e6900eff",
+    "file": "src/brogue/Items.c",
+    "source": "excess",
+    "zh_CN": "过剩",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_ebd6fb508a3ab489",
+    "file": "src/brogue/Items.c",
+    "source": "inadequate",
+    "zh_CN": "不足",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8dccf256f6d5783e",
+    "file": "src/brogue/Items.c",
+    "source": ". ",
+    "zh_CN": "。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_394d07a1c30297b1",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nThe %s %s%s a %s%s%+.2f%s because of your %s strength. ",
+    "zh_CN": "\n\n%s%.0s%.0s%s%s%+.2f%s（力量%s）。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bf97a280e52aab09",
+    "file": "src/brogue/Items.c",
+    "source": "Wielding the %s%s will %s your current accuracy by %s%i%%%s, and will %s your current damage by %s%i%%%s. ",
+    "zh_CN": "装备%s%s后，命中率将%s %s%i%%%s，伤害将%s %s%i%%%s。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7ff026d8a13ce106",
+    "file": "src/brogue/Items.c",
+    "source": ", assuming it has no hidden properties,",
+    "zh_CN": "（假设没有隐藏属性）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8b4b7a23317905f5",
+    "file": "src/brogue/Items.c",
+    "source": "Wearing the %s%s will result in an armor rating of %s%i%s. ",
+    "zh_CN": "穿上%s%s后，护甲值将为 %s%i%s。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_453f47a1e8ce4d53",
+    "file": "src/brogue/Items.c",
+    "source": "Equipping the %s will %s%s your stealth range by %i%s. ",
+    "zh_CN": "装备%s后，潜行范围将%s%s %i%s。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7eef940beffacae1",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nGlowing runes of %s adorn the %s. ",
+    "zh_CN": "\n\n发光的%s符文装饰着%s。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8642259d57aa4e60",
+    "file": "src/brogue/Items.c",
+    "source": "It is impervious to corrosion when attacking a%s %s, and will never fail to slay one in a single stroke. ",
+    "zh_CN": "攻击%.0s%s时，它不会被腐蚀，并且必定一击杀死目标。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_77d7cd318dba5185",
+    "file": "src/brogue/Items.c",
+    "source": "It will never fail to slay a%s %s in a single stroke. ",
+    "zh_CN": "它必定一击杀死%.0s%s。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_fcaa2a2d5383bee3",
+    "file": "src/brogue/Items.c",
+    "source": "%i%% of the time that it hits an enemy, %i spectral %s%s will spring into being with accuracy and attack power equal to your own, and will dissipate %i turns later. (If the %s is enchanted, %i image%s will appear %i%% of the time, and will last %i turns.)",
+    "zh_CN": "命中敌人时，有 %i%% 的概率召唤 %i 个幽灵%s%.0s，其命中率和攻击力与你相同，持续 %i 回合。（强化%s后，将召唤 %i 个幻影%.0s，触发概率为 %i%%，持续 %i 回合。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_06e9729ba211fe37",
+    "file": "src/brogue/Items.c",
+    "source": "Sometimes, when it hits an enemy, spectral %ss will spring into being with accuracy and attack power equal to your own, and will dissipate shortly thereafter.",
+    "zh_CN": "命中敌人时，有时会召唤幽灵%s，其命中率和攻击力与你相同，片刻后消散。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_32a1f890d2071eb8",
+    "file": "src/brogue/Items.c",
+    "source": "Its runic effect will almost never activate because of your inadequate strength, but sometimes, when",
+    "zh_CN": "力量不足使符文几乎无法触发；但命中敌人时，偶尔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_b6ed67b0ed9264e5",
+    "file": "src/brogue/Items.c",
+    "source": "%i%% of the time that",
+    "zh_CN": "命中敌人时，有 %i%% 的概率",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_a84779cad672aa61",
+    "file": "src/brogue/Items.c",
+    "source": "Sometimes, when",
+    "zh_CN": "命中敌人时，有时",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bdb91f828e55fb10",
+    "file": "src/brogue/Items.c",
+    "source": " it hits an enemy, %s",
+    "zh_CN": "%s",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d1cb25db80debf2f",
+    "file": "src/brogue/Items.c",
+    "source": " for %i turns. ",
+    "zh_CN": "，持续 %i 回合。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_7e3119d9ca93b3ce",
+    "file": "src/brogue/Items.c",
+    "source": " up to %i spaces backward. If the enemy hits an obstruction, it (and any monster it hits) will take damage in proportion to the distance it flew. ",
+    "zh_CN": "最多 %i 格。若敌人撞上障碍，它以及被它撞到的怪物都会受到与击飞距离成比例的伤害。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_de3beca2b44ae6c5",
+    "file": "src/brogue/Items.c",
+    "source": " by 50% of its maximum health. ",
+    "zh_CN": "，数值为其生命上限的 50%。",
+    "mode": "lookup",
+    "status": "prototype",
+    "format": "plain-copy"
+  },
+  {
+    "id": "s_0ec6751b4a39bed7",
+    "file": "src/brogue/Items.c",
+    "source": "(If the %s is enchanted, the chance will increase to %i%%",
+    "zh_CN": "（强化%s后，触发概率将增至 %i%%",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_537b0fa3955b9388",
+    "file": "src/brogue/Items.c",
+    "source": " and the distance will increase to %i.)",
+    "zh_CN": "，距离将增至 %i 格。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2e64a6d32e50bd14",
+    "file": "src/brogue/Items.c",
+    "source": " and the duration will increase to %i turns.)",
+    "zh_CN": "，持续时间将增至 %i 回合。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d84e727959ff7628",
+    "file": "src/brogue/Items.c",
+    "source": ".)",
+    "zh_CN": "。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_e0dbc93f68dd8b0e",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nGlowing runes of an indecipherable language run down the length of the %s. ",
+    "zh_CN": "\n\n发光的符文沿着%s延伸，但其文字无法辨认。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_d4d6862775232b41",
+    "file": "src/brogue/Items.c",
+    "source": "When worn, 33%% of the time that an enemy's attack connects, %i allied spectral duplicate%s of your attacker will appear for 3 turns. ",
+    "zh_CN": "穿戴时，敌人的攻击命中你后，有 33%% 的概率召唤 %i 个该敌人的友方幽灵分身%.0s，持续 3 回合。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_292e2ee22a6ea7e3",
+    "file": "src/brogue/Items.c",
+    "source": "(If the %s is enchanted, the number of duplicates will increase to %i.) ",
+    "zh_CN": "（强化%s后，分身数量将增至 %i。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_c4f8d74c40fe65a5",
+    "file": "src/brogue/Items.c",
+    "source": "When worn, the damage that you incur from physical attacks will be split evenly among yourself and all other adjacent enemies. ",
+    "zh_CN": "穿戴时，你受到的物理伤害会由你和所有相邻敌人平均分摊。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_310490ce36e9f62c",
+    "file": "src/brogue/Items.c",
+    "source": "It will reduce the damage of inbound attacks by a random amount between 1 and %i, which is %i%% of your current maximum health. (If the %s is enchanted, this maximum amount will %s %i.) ",
+    "zh_CN": "它会随机减免 1 至 %i 点伤害，减免上限相当于你生命上限的 %i%%。（强化%s后，减免上限将%s %i 点。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1d756f0b07c1fe33",
+    "file": "src/brogue/Items.c",
+    "source": "remain at",
+    "zh_CN": "保持在",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_af6197733b368256",
+    "file": "src/brogue/Items.c",
+    "source": "increase to",
+    "zh_CN": "增至",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1ce9463282546a14",
+    "file": "src/brogue/Items.c",
+    "source": "It will reduce the damage of inbound attacks by a random amount determined by its enchantment level. ",
+    "zh_CN": "它会随机减免一定伤害，减免上限由附魔等级决定。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_8e573144041ab27c",
+    "file": "src/brogue/Items.c",
+    "source": "Any enemy that attacks you will itself be wounded by %i%% of the damage that it inflicts. (If the %s is enchanted, this percentage will increase to %i%%.) ",
+    "zh_CN": "攻击你的敌人也会受到伤害，数值为其所造成伤害的 %i%%。（强化%s后，这一比例将增至 %i%%。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4723ae1d91b50519",
+    "file": "src/brogue/Items.c",
+    "source": "Any enemy that attacks you will itself be wounded by a percentage (determined by enchantment level) of the damage that it inflicts. ",
+    "zh_CN": "攻击你的敌人也会受到伤害，数值为其所造成伤害的一定比例，由附魔等级决定。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_207945456631e36c",
+    "file": "src/brogue/Items.c",
+    "source": "It offers complete protection from any attacking %s. ",
+    "zh_CN": "它能完全抵御%s的攻击。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_baec640671b9045f",
+    "file": "src/brogue/Items.c",
+    "source": "When worn, you will deflect %i%% of incoming spells -- including directly back at their source %i%% of the time. (If the armor is enchanted, these will increase to %i%% and %i%%.) ",
+    "zh_CN": "穿戴时，来袭法术有 %i%% 的概率被你偏转，有 %i%% 的概率被直接反射回施法者。（强化后，这两个概率将增至 %i%% 和 %i%%。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_62128ef1660074b3",
+    "file": "src/brogue/Items.c",
+    "source": "When worn, %i%% of your own spells will deflect from their target -- including directly back at you %i%% of the time. (If the armor is enchanted, these will decrease to %i%% and %i%%.) ",
+    "zh_CN": "穿戴时，你自己施放的法术有 %i%% 的概率被目标偏转，有 %i%% 的概率被直接反射回你。（强化后，这两个概率将降至 %i%% 和 %i%%。）",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_4688ba4f65a30dbb",
+    "file": "src/brogue/Items.c",
+    "source": "When worn, you will deflect some percentage of incoming spells, determined by enchantment level. ",
+    "zh_CN": "穿戴时，你会偏转一定比例的来袭法术，具体比例由附魔等级决定。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_87ff0811efaffb9a",
+    "file": "src/brogue/Items.c",
+    "source": "When worn, it will maintain a pocket of fresh air around you, rendering you immune to the effects of steam and all toxic gases. ",
+    "zh_CN": "穿戴时，它会在你周围维持一团新鲜空气，使你免疫蒸汽和所有毒气的影响。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1272c54d5974ec57",
+    "file": "src/brogue/Items.c",
+    "source": "When worn, it will safely absorb the concussive impact of any explosions (though you may still be burned). ",
+    "zh_CN": "穿戴时，它能安全吸收爆炸的冲击，但你仍可能被烧伤。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_431fa929794a78a1",
+    "file": "src/brogue/Items.c",
+    "source": "10% of the time it absorbs a blow, its strength requirement will permanently increase. ",
+    "zh_CN": "承受攻击时，有 10% 的概率永久提高它的力量需求。",
+    "mode": "lookup",
+    "status": "prototype",
+    "format": "plain-copy"
+  },
+  {
+    "id": "s_0264c4adc270ffda",
+    "file": "src/brogue/Items.c",
+    "source": "While it is worn, inbound attacks will inflict twice as much damage. ",
+    "zh_CN": "穿戴时，你受到的攻击伤害加倍。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2f4c9608916e83b7",
+    "file": "src/brogue/Items.c",
+    "source": "10% of the time it absorbs a blow, it will explode in flames. ",
+    "zh_CN": "承受攻击时，有 10% 的概率爆发火焰。",
+    "mode": "lookup",
+    "status": "prototype",
+    "format": "plain-copy"
+  },
+  {
+    "id": "s_d68727afad6cf906",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nGlowing runes of an indecipherable language spiral around the %s. ",
+    "zh_CN": "\n\n发光的符文盘绕着%s，但其文字无法辨认。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_14b8d70ef74af6bf",
+    "file": "src/brogue/Items.c",
+    "source": "time will stop while you take an extra turn",
+    "zh_CN": "使时间停止，让你额外行动一次",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_6d1855ca9d069f4b",
+    "file": "src/brogue/Items.c",
+    "source": "the enemy will die instantly",
+    "zh_CN": "使敌人立即死亡",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_33d51736c865899e",
+    "file": "src/brogue/Items.c",
+    "source": "the enemy will be paralyzed",
+    "zh_CN": "使敌人麻痹",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_cb21d10b2db22ef6",
+    "file": "src/brogue/Items.c",
+    "source": "the enemy will be slowed",
+    "zh_CN": "使敌人减速",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_bbf8279720502c28",
+    "file": "src/brogue/Items.c",
+    "source": "the enemy will be confused",
+    "zh_CN": "使敌人混乱",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_14fcb085da8fe08a",
+    "file": "src/brogue/Items.c",
+    "source": "the enemy will be flung",
+    "zh_CN": "将敌人向后击飞",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_72e5e28d41585f0f",
+    "file": "src/brogue/Items.c",
+    "source": "the enemy will be healed",
+    "zh_CN": "使敌人恢复生命",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "s_0e54c4d488d3f3da",
+    "file": "src/brogue/Items.c",
+    "source": "the enemy will be cloned",
+    "zh_CN": "复制出另一个敌人",
+    "mode": "lookup",
+    "status": "prototype"
+  }
+]

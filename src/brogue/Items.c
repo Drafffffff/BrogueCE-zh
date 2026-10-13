@@ -23,6 +23,8 @@
 
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -845,7 +847,7 @@ void pickUpItemAt(pos loc) {
     theItem = itemAtLoc(loc);
 
     if (!theItem) {
-        message("Error: Expected item; item not found.", REQUIRE_ACKNOWLEDGMENT);
+        message(br_tr("Error: Expected item; item not found."), REQUIRE_ACKNOWLEDGMENT);
         return;
     }
 
@@ -874,7 +876,7 @@ void pickUpItemAt(pos loc) {
         if (theItem->category & GOLD) {
             rogue.gold += theItem->quantity;
             rogue.featRecord[FEAT_TONE] = false;
-            sprintf(buf, "you found %i pieces of gold.", theItem->quantity);
+            sprintf(buf, br_tr("you found %i pieces of gold."), theItem->quantity);
             messageWithColor(buf, &itemMessageColor, 0);
             deleteItem(theItem);
             removeItemAt(loc); // triggers tiles with T_PROMOTES_ON_ITEM_PICKUP
@@ -882,7 +884,7 @@ void pickUpItemAt(pos loc) {
         }
 
         if ((theItem->category & AMULET) && numberOfMatchingPackItems(AMULET, 0, 0, false)) {
-            message("you already have the Amulet of Yendor.", 0);
+            message(br_tr("you already have the Amulet of Yendor."), 0);
             deleteItem(theItem);
             return;
         }
@@ -891,7 +893,7 @@ void pickUpItemAt(pos loc) {
 
         itemName(theItem, buf2, true, true, NULL); // include suffix, article
 
-        sprintf(buf, "you now have %s (%c).", buf2, theItem->inventoryLetter);
+        sprintf(buf, br_tr("you now have %s (%c)."), buf2, theItem->inventoryLetter);
         messageWithColor(buf, &itemMessageColor, 0);
 
         removeItemAt(loc); // triggers tiles with T_PROMOTES_ON_ITEM_PICKUP
@@ -918,7 +920,7 @@ void pickUpItemAt(pos loc) {
     } else {
         theItem->flags |= ITEM_PLAYER_AVOIDS; // explore shouldn't try to pick it up more than once.
         itemName(theItem, buf2, false, true, NULL); // include article
-        sprintf(buf, "Your pack is too full to pick up %s.", buf2);
+        sprintf(buf, br_tr("Your pack is too full to pick up %s."), buf2);
         messageWithColor(buf, &badMessageColor, 0);
     }
 }
@@ -1344,7 +1346,7 @@ void call(item *theItem) {
             }
         }
         theItem = promptForItemOfType((WEAPON|ARMOR|SCROLL|RING|POTION|STAFF|WAND|CHARM), ITEM_CAN_BE_IDENTIFIED, 0,
-                                      KEYBOARD_LABELS ? "Call what? (a-z, shift for more info; or <esc> to cancel)" : "Call what?",
+                                      KEYBOARD_LABELS ? br_tr("Call what? (a-z, shift for more info; or <esc> to cancel)") : br_tr("Call what?"),
                                       true);
         updateIdentifiableItems(); // Reset the flags.
     }
@@ -1365,7 +1367,7 @@ void call(item *theItem) {
                 recordKeystroke(RETURN_KEY, false, false);
             }
         } else {
-            message("you already know what that is.", 0);
+            message(br_tr("you already know what that is."), 0);
         }
         return;
     }
@@ -1379,7 +1381,7 @@ void call(item *theItem) {
                 recordKeystroke(RETURN_KEY, false, false);
             }
             return;
-        } else if (confirm("Inscribe this particular item instead of all similar items?", true)) {
+        } else if (confirm(br_tr("Inscribe this particular item instead of all similar items?"), true)) {
             command[c++] = 'y'; // y means yes, since the recording also needs to negotiate the above confirmation prompt.
             if (inscribeItem(theItem)) {
                 command[c++] = '\0';
@@ -1396,7 +1398,7 @@ void call(item *theItem) {
     if (tableForItemCategory(theItem->category)
         && !(tableForItemCategory(theItem->category)[theItem->kind].identified)) {
 
-        if (getInputTextString(itemText, "call them: \"", 29, "", "\"", TEXT_INPUT_NORMAL, false)) {
+        if (getInputTextString(itemText, br_tr("call them: \""), 29, "", "\"", TEXT_INPUT_NORMAL, false)) {
             command[c++] = '\0';
             strcat((char *) command, itemText);
             recordKeystrokeSequence(command);
@@ -1413,7 +1415,7 @@ void call(item *theItem) {
             messageWithColor(buf, &itemMessageColor, 0);
         }
     } else {
-        message("you already know what that is.", 0);
+        message(br_tr("you already know what that is."), 0);
     }
 }
 
@@ -1423,19 +1425,59 @@ void call(item *theItem) {
 // If baseColor is provided, then the suffix will be in gray, flavor portions of the item name (e.g. a "pink" potion,
 //  a "sandalwood" staff, a "ruby" ring) will be in dark purple, and the Amulet of Yendor and lumenstones will be in yellow.
 //  BaseColor itself will be the color that the name reverts to outside of these colored portions.
+/* Display-only palette keyed by this run's public potion appearance. No kind
+   -> effect color mapping, state mutation or random call is permitted here. */
+static const struct {const char *name;color ink;} br_potion_inks[]={
+    {"crimson",{.red=92,.green=35,.blue=48}}, {"scarlet",{.red=100,.green=43,.blue=39}}, {"orange",{.red=100,.green=65,.blue=32}},
+    {"yellow",{.red=95,.green=88,.blue=42}}, {"green",{.red=44,.green=78,.blue=43}}, {"blue",{.red=45,.green=61,.blue=90}},
+    {"indigo",{.red=41,.green=49,.blue=80}}, {"violet",{.red=67,.green=49,.blue=87}}, {"puce",{.red=75,.green=48,.blue=61}},
+    {"mauve",{.red=78,.green=59,.blue=76}}, {"burgundy",{.red=76,.green=39,.blue=50}}, {"turquoise",{.red=35,.green=76,.blue=73}},
+    {"aquamarine",{.red=48,.green=83,.blue=73}}, {"gray",{.red=65,.green=65,.blue=69}}, {"pink",{.red=93,.green=60,.blue=76}},
+    {"white",{.red=88,.green=88,.blue=91}}, {"lavender",{.red=75,.green=68,.blue=91}}, {"tan",{.red=79,.green=66,.blue=49}},
+    {"brown",{.red=69,.green=52,.blue=37}}, {"cyan",{.red=39,.green=81,.blue=87}}, {"black",{.red=58,.green=56,.blue=62}},
+};
+const color *br_item_display_color(const item *theItem) {
+    if(br_is_zh() && theItem->category==POTION && theItem->kind>=0 && gameConst && theItem->kind<gameConst->numberPotionKinds) {
+        const char *flavor=potionTable[theItem->kind].flavor;
+        for(size_t i=0;flavor && i<sizeof br_potion_inks/sizeof *br_potion_inks;i++)
+            if(!strcmp(flavor,br_potion_inks[i].name))return &br_potion_inks[i].ink;
+    }
+    return theItem->foreColor?theItem->foreColor:&itemMessageColor;
+}
+
+/* Display-only runic names; itemRunicName remains canonical for SeedCatalog. */
+static void br_item_display_runic(item *theItem, char *out, size_t capacity) {
+    char canonical[30] = "";
+    if (!br_is_zh()) {
+        itemRunicName(theItem,canonical);
+        br_text_copy(out,capacity,canonical);
+        return;
+    }
+    out[0] = 0;
+    if (!(theItem->flags & ITEM_RUNIC)) return;
+    const char *name = theItem->category == WEAPON
+        ? weaponRunicNames[theItem->enchant2] : armorRunicNames[theItem->enchant2];
+    if ((theItem->category == ARMOR && theItem->enchant2 == A_IMMUNITY)
+        || (theItem->category == WEAPON && theItem->enchant2 == W_SLAYING)) {
+        snprintf(out,capacity,"%s·%s",br_tr(monsterClassCatalog[theItem->vorpalEnemy].name),br_tr(name));
+    } else {
+        br_text_copy(out,capacity,br_tr(name));
+    }
+}
+
 void itemName(item *theItem, char *root, boolean includeDetails, boolean includeArticle, const color *baseColor) {
-    char buf[DCOLS * 5], pluralization[10], article[10] = "", runicName[30],
+    char buf[DCOLS * 5], pluralization[10], article[10] = "", runicName[128],
     grayEscapeSequence[5], purpleEscapeSequence[5], yellowEscapeSequence[5], baseEscapeSequence[5];
     color tempColor;
 
-    strcpy(pluralization, (theItem->quantity > 1 ? "s" : ""));
+    strcpy(pluralization, (!br_is_zh() && theItem->quantity > 1 ? "s" : ""));
 
     grayEscapeSequence[0] = '\0';
     purpleEscapeSequence[0] = '\0';
     yellowEscapeSequence[0] = '\0';
     baseEscapeSequence[0] = '\0';
     if (baseColor) {
-        tempColor = backgroundMessageColor;
+        tempColor = (br_is_zh() && theItem->category==POTION) ? *br_item_display_color(theItem) : backgroundMessageColor;
         applyColorMultiplier(&tempColor, baseColor); // To gray out the purple if necessary.
         encodeMessageColor(purpleEscapeSequence, 0, &tempColor);
 
@@ -1447,24 +1489,27 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
         applyColorMultiplier(&tempColor, baseColor);
         encodeMessageColor(yellowEscapeSequence, 0, &tempColor);
 
-        encodeMessageColor(baseEscapeSequence, 0, baseColor);
+        if(br_is_zh() && theItem->category==POTION) {
+            tempColor=*br_item_display_color(theItem);applyColorMultiplier(&tempColor,baseColor);
+            encodeMessageColor(baseEscapeSequence,0,&tempColor);
+        } else encodeMessageColor(baseEscapeSequence,0,baseColor);
     }
 
     switch (theItem -> category) {
         case FOOD:
             if (theItem -> kind == FRUIT) {
-                sprintf(root, "mango%s", pluralization);
+                sprintf(root, br_tr("mango%s"), pluralization);
             } else {
                 if (theItem->quantity == 1) {
                     sprintf(article, "some ");
-                    sprintf(root, "food");
+                    strcpy(root, br_tr("food"));
                 } else {
-                    sprintf(root, "ration%s of food", pluralization);
+                    sprintf(root, br_tr("ration%s of food"), pluralization);
                 }
             }
             break;
         case WEAPON:
-            sprintf(root, "%s%s", weaponTable[theItem->kind].name, pluralization);
+            sprintf(root, "%s%s", br_tr(weaponTable[theItem->kind].name), pluralization);
             if (includeDetails) {
                 if ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) {
                     sprintf(buf, "%s%i %s", (theItem->enchant1 < 0 ? "" : "+"), theItem->enchant1, root);
@@ -1473,14 +1518,14 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
 
                 if (theItem->flags & ITEM_RUNIC) {
                     if ((theItem->flags & ITEM_RUNIC_IDENTIFIED) || rogue.playbackOmniscience) {
-                        itemRunicName(theItem, runicName);
-                        sprintf(buf, "%s of %s%s", root, runicName, grayEscapeSequence);
+                        br_item_display_runic(theItem,runicName,sizeof runicName);
+                        sprintf(buf, br_tr("%s of %s%s"), root, runicName, grayEscapeSequence);
                         strcpy(root, buf);
                     } else if (theItem->flags & (ITEM_IDENTIFIED | ITEM_RUNIC_HINTED)) {
                         if (grayEscapeSequence[0]) {
                             strcat(root, grayEscapeSequence);
                         }
-                        strcat(root, " (unknown runic)");
+                        strcat(root, br_tr(" (unknown runic)"));
                     }
                 }
                 sprintf(buf, "%s%s <%i>", root, grayEscapeSequence, theItem->strengthRequired);
@@ -1488,14 +1533,14 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
             }
             break;
         case ARMOR:
-            sprintf(root, "%s", armorTable[theItem->kind].name);
+            sprintf(root, "%s", br_tr(armorTable[theItem->kind].name));
             if (includeDetails) {
 
                 if ((theItem->flags & ITEM_RUNIC)
                     && ((theItem->flags & ITEM_RUNIC_IDENTIFIED)
                         || rogue.playbackOmniscience)) {
-                    itemRunicName(theItem, runicName);
-                    sprintf(buf, "%s of %s%s", root, runicName, grayEscapeSequence);
+                    br_item_display_runic(theItem,runicName,sizeof runicName);
+                    sprintf(buf, br_tr("%s of %s%s"), root, runicName, grayEscapeSequence);
                     strcpy(root, buf);
                     }
 
@@ -1517,21 +1562,21 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
                     && (theItem->flags & (ITEM_IDENTIFIED | ITEM_RUNIC_HINTED))
                     && !(theItem->flags & ITEM_RUNIC_IDENTIFIED)
                     && !rogue.playbackOmniscience) {
-                    strcat(root, " (unknown runic)");
+                    strcat(root, br_tr(" (unknown runic)"));
                 }
             }
             break;
         case SCROLL:
             if (scrollTable[theItem->kind].identified || rogue.playbackOmniscience) {
-                sprintf(root, "scroll%s of %s", pluralization, scrollTable[theItem->kind].name);
+                sprintf(root, br_tr("scroll%s of %s"), pluralization, br_tr(scrollTable[theItem->kind].name));
             } else if (scrollTable[theItem->kind].called) {
-                sprintf(root, "scroll%s called %s%s%s",
+                sprintf(root, br_tr("scroll%s called %s%s%s"),
                         pluralization,
                         purpleEscapeSequence,
                         scrollTable[theItem->kind].callTitle,
                         baseEscapeSequence);
             } else {
-                sprintf(root, "scroll%s entitled %s\"%s\"%s",
+                sprintf(root, br_tr("scroll%s entitled %s\"%s\"%s"),
                         pluralization,
                         purpleEscapeSequence,
                         scrollTable[theItem->kind].flavor,
@@ -1540,36 +1585,36 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
             break;
         case POTION:
             if (potionTable[theItem->kind].identified || rogue.playbackOmniscience) {
-                sprintf(root, "potion%s of %s", pluralization, potionTable[theItem->kind].name);
+                sprintf(root, br_tr("potion%s of %s"), pluralization, br_tr(potionTable[theItem->kind].name));
             } else if (potionTable[theItem->kind].called) {
-                sprintf(root, "potion%s called %s%s%s",
+                sprintf(root, br_tr("potion%s called %s%s%s"),
                         pluralization,
                         purpleEscapeSequence,
                         potionTable[theItem->kind].callTitle,
                         baseEscapeSequence);
             } else {
-                sprintf(root, "%s%s%s potion%s",
+                sprintf(root, br_tr("%s%s%s potion%s"),
                         purpleEscapeSequence,
-                        potionTable[theItem->kind].flavor,
+                        (br_is_zh() && !strcmp(potionTable[theItem->kind].flavor,"aquamarine") ? "海蓝色" : br_tr(potionTable[theItem->kind].flavor)),
                         baseEscapeSequence,
                         pluralization);
             }
             break;
         case WAND:
             if (wandTable[theItem->kind].identified || rogue.playbackOmniscience) {
-                sprintf(root, "wand%s of %s",
+                sprintf(root, br_tr("wand%s of %s"),
                         pluralization,
-                        wandTable[theItem->kind].name);
+                        br_tr(wandTable[theItem->kind].name));
             } else if (wandTable[theItem->kind].called) {
-                sprintf(root, "wand%s called %s%s%s",
+                sprintf(root, br_tr("wand%s called %s%s%s"),
                         pluralization,
                         purpleEscapeSequence,
                         wandTable[theItem->kind].callTitle,
                         baseEscapeSequence);
             } else {
-                sprintf(root, "%s%s%s wand%s",
+                sprintf(root, br_tr("%s%s%s wand%s"),
                         purpleEscapeSequence,
-                        wandTable[theItem->kind].flavor,
+                        br_tr(wandTable[theItem->kind].flavor),
                         baseEscapeSequence,
                         pluralization);
             }
@@ -1581,33 +1626,33 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
                             theItem->charges);
                     strcpy(root, buf);
                 } else if (theItem->enchant2 > 2) {
-                    sprintf(buf, "%s%s (used %i times)",
+                    sprintf(buf, br_tr("%s%s (used %i times)"),
                             root,
                             grayEscapeSequence,
                             theItem->enchant2);
                     strcpy(root, buf);
                 } else if (theItem->enchant2) {
-                    sprintf(buf, "%s%s (used %s)",
+                    sprintf(buf, br_tr("%s%s (used %s)"),
                             root,
                             grayEscapeSequence,
-                            (theItem->enchant2 == 2 ? "twice" : "once"));
+                            (theItem->enchant2 == 2 ? br_tr("twice") : br_tr("once")));
                     strcpy(root, buf);
                 }
             }
             break;
         case STAFF:
             if (staffTable[theItem->kind].identified || rogue.playbackOmniscience) {
-                sprintf(root, "staff%s of %s", pluralization, staffTable[theItem->kind].name);
+                sprintf(root, br_tr("staff%s of %s"), pluralization, br_tr(staffTable[theItem->kind].name));
             } else if (staffTable[theItem->kind].called) {
-                sprintf(root, "staff%s called %s%s%s",
+                sprintf(root, br_tr("staff%s called %s%s%s"),
                         pluralization,
                         purpleEscapeSequence,
                         staffTable[theItem->kind].callTitle,
                         baseEscapeSequence);
             } else {
-                sprintf(root, "%s%s%s staff%s",
+                sprintf(root, br_tr("%s%s%s staff%s"),
                         purpleEscapeSequence,
-                        staffTable[theItem->kind].flavor,
+                        br_tr(staffTable[theItem->kind].flavor),
                         baseEscapeSequence,
                         pluralization);
             }
@@ -1623,17 +1668,17 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
             break;
         case RING:
             if (ringTable[theItem->kind].identified || rogue.playbackOmniscience) {
-                sprintf(root, "ring%s of %s", pluralization, ringTable[theItem->kind].name);
+                sprintf(root, br_tr("ring%s of %s"), pluralization, br_tr(ringTable[theItem->kind].name));
             } else if (ringTable[theItem->kind].called) {
-                sprintf(root, "ring%s called %s%s%s",
+                sprintf(root, br_tr("ring%s called %s%s%s"),
                         pluralization,
                         purpleEscapeSequence,
                         ringTable[theItem->kind].callTitle,
                         baseEscapeSequence);
             } else {
-                sprintf(root, "%s%s%s ring%s",
+                sprintf(root, br_tr("%s%s%s ring%s"),
                         purpleEscapeSequence,
-                        ringTable[theItem->kind].flavor,
+                        br_tr(ringTable[theItem->kind].flavor),
                         baseEscapeSequence,
                         pluralization);
             }
@@ -1643,7 +1688,7 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
             }
             break;
         case CHARM:
-            sprintf(root, "%s charm%s", charmTable[theItem->kind].name, pluralization);
+            sprintf(root, br_tr("%s charm%s"), br_tr(charmTable[theItem->kind].name), pluralization);
 
             if (includeDetails) {
                 sprintf(buf, "%s%i %s", (theItem->enchant1 < 0 ? "" : "+"), theItem->enchant1, root);
@@ -1657,35 +1702,32 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
                     strcpy(root, buf);
                 } else {
                     strcat(root, grayEscapeSequence);
-                    strcat(root, " (ready)");
+                    strcat(root, br_tr(" (ready)"));
                 }
             }
             break;
         case GOLD:
-            sprintf(root, "gold piece%s", pluralization);
+            sprintf(root, br_tr("gold piece%s"), pluralization);
             break;
         case AMULET:
-            sprintf(root, "%sAmulet%s of Yendor%s", yellowEscapeSequence, pluralization, baseEscapeSequence);
+            sprintf(root, br_tr("%sAmulet%s of Yendor%s"), yellowEscapeSequence, pluralization, baseEscapeSequence);
             break;
         case GEM:
-            sprintf(root, "%slumenstone%s%s from depth %i", yellowEscapeSequence, pluralization, baseEscapeSequence, theItem->originDepth);
+            sprintf(root, br_tr("%slumenstone%s%s from depth %i"), yellowEscapeSequence, pluralization, baseEscapeSequence, theItem->originDepth);
             break;
         case KEY:
             if (includeDetails && theItem->originDepth > 0 && theItem->originDepth != rogue.depthLevel) {
-                sprintf(root, "%s%s%s from depth %i",
-                        keyTable[theItem->kind].name,
+                sprintf(root, br_tr("%s%s%s from depth %i"),
+                        br_tr(keyTable[theItem->kind].name),
                         pluralization,
                         grayEscapeSequence,
                         theItem->originDepth);
             } else {
-                sprintf(root,
-                        keyTable[theItem->kind].name,
-                        "%s%s",
-                        pluralization);
+                strcpy(root,br_tr(keyTable[theItem->kind].name));
             }
             break;
         default:
-            sprintf(root, "unknown item%s", pluralization);
+            sprintf(root, br_tr("unknown item%s"), pluralization);
             break;
     }
 
@@ -1701,6 +1743,7 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
             sprintf(article, "a%s ", (isVowelish(root) ? "n" : ""));
         }
     }
+    if (br_is_zh() && theItem->quantity == 1 && br_text_has_unicode(root)) article[0] = 0;
     // strcat(buf, suffixID);
     if (includeArticle) {
         sprintf(buf, "%s%s", article, root);
@@ -1710,6 +1753,11 @@ void itemName(item *theItem, char *root, boolean includeDetails, boolean include
     if (includeDetails && theItem->inscription[0]) {
         sprintf(buf, "%s %s\"%s\"", root, grayEscapeSequence, theItem->inscription);
         strcpy(root, buf);
+    }
+    if(br_is_zh() && baseColor && theItem->category==POTION) {
+        char br_ink[5];color br_tint=*br_item_display_color(theItem);
+        applyColorMultiplier(&br_tint,baseColor);encodeMessageColor(br_ink,0,&br_tint);
+        sprintf(buf,"%s%s%s",br_ink,root,baseEscapeSequence);strcpy(root,buf);
     }
     return;
 }
@@ -1876,6 +1924,24 @@ static boolean monsterClassHasAcidicMonster(const short classID) {
     return false;
 }
 
+static void br_describe_monster_class(char *buf, const short classID, boolean conjunctionAnd) {
+    short i;
+    char buf2[200];
+
+    buf[0] = '\0';
+    for (i = 0; monsterClassCatalog[classID].memberList[i] != 0; i++) {
+        strcpy(buf2, br_tr(monsterCatalog[monsterClassCatalog[classID].memberList[i]].monsterName));
+        if (monsterClassCatalog[classID].memberList[i + 1] != 0) {
+            if (monsterClassCatalog[classID].memberList[i + 2] == 0) {
+                strcat(buf2, conjunctionAnd ? br_tr(" and ") : br_tr(" or "));
+            } else {
+                strcat(buf2, br_tr(", "));
+            }
+        }
+        strcat(buf, buf2);
+    }
+}
+
 void itemDetails(char *buf, item *theItem) {
     char buf2[1000], buf3[1000], theName[500], goodColorEscape[20], badColorEscape[20], whiteColorEscape[20];
     boolean singular, carried;
@@ -1907,7 +1973,7 @@ void itemDetails(char *buf, item *theItem) {
     // Name
     itemName(theItem, theName, true, true, NULL);
     buf[0] = '\0';
-    encodeMessageColor(buf, 0, &itemMessageColor);
+    encodeMessageColor(buf,0,(br_is_zh() && theItem->category==POTION)?br_item_display_color(theItem):&itemMessageColor);
     upperCase(theName);
     strcat(buf, theName);
     if (carried) {
@@ -1925,10 +1991,10 @@ void itemDetails(char *buf, item *theItem) {
     if (tableForItemCategory(theItem->category)
         && (tableForItemCategory(theItem->category)[theItem->kind].identified || rogue.playbackOmniscience)) {
 
-        strcat(buf, tableForItemCategory(theItem->category)[theItem->kind].description);
+        strcat(buf, br_tr(tableForItemCategory(theItem->category)[theItem->kind].description));
 
         if (theItem->category == POTION && theItem->kind == POTION_LIFE) {
-            sprintf(buf2, "\n\nIt will increase your maximum health by %s%i%%%s.",
+            sprintf(buf2, br_tr("\n\nIt will increase your maximum health by %s%i%%%s."),
                     goodColorEscape,
                     (player.info.maxHP + 10) * 100 / player.info.maxHP - 100,
                     whiteColorEscape);
@@ -1937,15 +2003,15 @@ void itemDetails(char *buf, item *theItem) {
     } else {
         switch (theItem->category) {
             case POTION:
-                sprintf(buf2, "%s flask%s contain%s a swirling %s liquid. Who knows what %s will do when drunk or thrown?",
+                sprintf(buf2, br_tr("%s flask%s contain%s a swirling %s liquid. Who knows what %s will do when drunk or thrown?"),
                         (singular ? "This" : "These"),
                         (singular ? "" : "s"),
                         (singular ? "s" : ""),
-                        tableForItemCategory(theItem->category)[theItem->kind].flavor,
+                        (br_is_zh() && !strcmp(tableForItemCategory(theItem->category)[theItem->kind].flavor,"aquamarine") ? "海蓝色" : br_tr(tableForItemCategory(theItem->category)[theItem->kind].flavor)),
                         (singular ? "it" : "they"));
                 break;
             case SCROLL:
-                sprintf(buf2, "%s parchment%s %s covered with indecipherable writing, and bear%s a title of \"%s.\" Who knows what %s will do when read aloud?",
+                sprintf(buf2, br_tr("%s parchment%s %s covered with indecipherable writing, and bear%s a title of \"%s.\" Who knows what %s will do when read aloud?"),
                         (singular ? "This" : "These"),
                         (singular ? "" : "s"),
                         (singular ? "is" : "are"),
@@ -1954,33 +2020,33 @@ void itemDetails(char *buf, item *theItem) {
                         (singular ? "it" : "they"));
                 break;
             case STAFF:
-                sprintf(buf2, "This gnarled %s staff is warm to the touch. Who knows what it will do when used?",
-                        tableForItemCategory(theItem->category)[theItem->kind].flavor);
+                sprintf(buf2, br_tr("This gnarled %s staff is warm to the touch. Who knows what it will do when used?"),
+                        br_tr(tableForItemCategory(theItem->category)[theItem->kind].flavor));
                 break;
             case WAND:
-                sprintf(buf2, "This thin %s wand is warm to the touch. Who knows what it will do when used?",
-                        tableForItemCategory(theItem->category)[theItem->kind].flavor);
+                sprintf(buf2, br_tr("This thin %s wand is warm to the touch. Who knows what it will do when used?"),
+                        br_tr(tableForItemCategory(theItem->category)[theItem->kind].flavor));
                 break;
             case RING:
-                sprintf(buf2, "This metal band is adorned with a%s %s gem that glitters in the darkness. Who knows what effect it has when worn? ",
-                        isVowelish(tableForItemCategory(theItem->category)[theItem->kind].flavor) ? "n" : "",
-                        tableForItemCategory(theItem->category)[theItem->kind].flavor);
+                sprintf(buf2, br_tr("This metal band is adorned with a%s %s gem that glitters in the darkness. Who knows what effect it has when worn? "),
+                        isVowelish(br_tr(tableForItemCategory(theItem->category)[theItem->kind].flavor)) ? "n" : "",
+                        br_tr(tableForItemCategory(theItem->category)[theItem->kind].flavor));
                 break;
             case CHARM: // Should never be displayed.
-                strcat(buf2, "What a perplexing charm!");
+                strcat(buf2, br_tr("What a perplexing charm!"));
                 break;
             case AMULET:
-                strcpy(buf2, "Legends are told about this mysterious golden amulet, and legions of adventurers have perished in its pursuit. Unfathomable riches await anyone with the skill and ambition to carry it into the light of day.");
+                strcpy(buf2, br_tr("Legends are told about this mysterious golden amulet, and legions of adventurers have perished in its pursuit. Unfathomable riches await anyone with the skill and ambition to carry it into the light of day."));
                 break;
             case GEM:
-                sprintf(buf2, "Faint golden lights swirl and fluoresce beneath the stone%s surface. Lumenstones are said to contain mysterious properties of untold power, but for you, they mean one thing: riches.",
+                sprintf(buf2, br_tr("Faint golden lights swirl and fluoresce beneath the stone%s surface. Lumenstones are said to contain mysterious properties of untold power, but for you, they mean one thing: riches."),
                         (singular ? "'s" : "s'"));
                 break;
             case KEY:
-                strcpy(buf2, keyTable[theItem->kind].description);
+                strcpy(buf2,br_tr(keyTable[theItem->kind].description));
                 break;
             case GOLD:
-                sprintf(buf2, "A pile of %i shining gold coins.", theItem->quantity);
+                sprintf(buf2, br_tr("A pile of %i shining gold coins."), theItem->quantity);
                 break;
             default:
                 break;
@@ -1989,12 +2055,12 @@ void itemDetails(char *buf, item *theItem) {
     }
 
     if (carried && theItem->originDepth > 0) {
-        sprintf(buf2, " (You found %s%s on depth %i.) ",
+        sprintf(buf2, br_tr(" (You found %s%s on depth %i.) "),
             singular ? "it" : "them",
             // items in an item-choice vault are "keys", but are not a KEY
             // we ignore any actual KEY, as those might not be on an altar
             theItem->flags & ITEM_IS_KEY && !(theItem->category & KEY)
-                ? " in a vault" : "",
+                ? br_tr(" in a vault") : "",
             theItem->originDepth
         );
         strcat(buf, buf2);
@@ -2004,9 +2070,9 @@ void itemDetails(char *buf, item *theItem) {
     switch (theItem->category) {
 
         case FOOD:
-            sprintf(buf2, "\n\nYou are %shungry enough to fully enjoy a %s.",
-                    ((STOMACH_SIZE - player.status[STATUS_NUTRITION]) >= foodTable[theItem->kind].power ? "" : "not yet "),
-                    foodTable[theItem->kind].name);
+            sprintf(buf2, br_tr("\n\nYou are %shungry enough to fully enjoy a %s."),
+                    ((STOMACH_SIZE - player.status[STATUS_NUTRITION]) >= foodTable[theItem->kind].power ? "" : br_tr("not yet ")),
+                    br_tr(foodTable[theItem->kind].name));
             strcat(buf, buf2);
             break;
 
@@ -2016,14 +2082,14 @@ void itemDetails(char *buf, item *theItem) {
             if ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) {
                 if (theItem->enchant1) {
                     if (theItem->enchant1 > 0) {
-                        sprintf(buf2, "\n\nThe %s bear%s an intrinsic enchantment of %s+%i%s",
+                        sprintf(buf2, br_tr("\n\nThe %s bear%s an intrinsic enchantment of %s+%i%s"),
                                 theName,
                                 (singular ? "s" : ""),
                                 goodColorEscape,
                                 theItem->enchant1,
                                 whiteColorEscape);
                     } else {
-                        sprintf(buf2, "\n\nThe %s bear%s an intrinsic penalty of %s%i%s",
+                        sprintf(buf2, br_tr("\n\nThe %s bear%s an intrinsic penalty of %s%i%s"),
                                 theName,
                                 (singular ? "s" : ""),
                                 badColorEscape,
@@ -2031,53 +2097,53 @@ void itemDetails(char *buf, item *theItem) {
                                 whiteColorEscape);
                     }
                 } else {
-                    sprintf(buf2, "\n\nThe %s bear%s no intrinsic enchantment",
+                    sprintf(buf2, br_tr("\n\nThe %s bear%s no intrinsic enchantment"),
                             theName,
                             (singular ? "s" : ""));
                 }
                 strcat(buf, buf2);
                 if (strengthModifier(theItem)) {
-                    sprintf(buf2, ", %s %s %s %s%s%+.2f%s because of your %s strength. ",
+                    sprintf(buf2, br_tr(", %s %s %s %s%s%+.2f%s because of your %s strength. "),
                             (theItem->enchant1 ? "and" : "but"),
                             (singular ? "carries" : "carry"),
                             (theItem->enchant1 && (theItem->enchant1 > 0) == (strengthModifier(theItem) > 0) ? "an additional" : "a"),
-                            (strengthModifier(theItem) > 0 ? "bonus of " : "penalty of "),
+                            (strengthModifier(theItem) > 0 ? br_tr("bonus of ") : br_tr("penalty of ")),
                             (strengthModifier(theItem) > 0 ? goodColorEscape : badColorEscape),
                             strengthModifier(theItem) / (double) FP_FACTOR,
                             whiteColorEscape,
-                            (strengthModifier(theItem) > 0 ? "excess" : "inadequate"));
+                            (strengthModifier(theItem) > 0 ? br_tr("excess") : br_tr("inadequate")));
                     strcat(buf, buf2);
                 } else {
-                    strcat(buf, ". ");
+                    strcat(buf, br_tr(". "));
                 }
             } else {
                 if ((theItem->enchant1 > 0) && (theItem->flags & ITEM_MAGIC_DETECTED)) {
-                    sprintf(buf2, "\n\nYou can feel an %saura of benevolent magic%s radiating from the %s. ",
+                    sprintf(buf2, br_tr("\n\nYou can feel an %saura of benevolent magic%s radiating from the %s. "),
                             goodColorEscape,
                             whiteColorEscape,
                             theName);
                     strcat(buf, buf2);
                 }
                 if (strengthModifier(theItem)) {
-                    sprintf(buf2, "\n\nThe %s %s%s a %s%s%+.2f%s because of your %s strength. ",
+                    sprintf(buf2, br_tr("\n\nThe %s %s%s a %s%s%+.2f%s because of your %s strength. "),
                             theName,
                             ((theItem->enchant1 > 0) && (theItem->flags & ITEM_MAGIC_DETECTED) ? "also " : ""),
                             (singular ? "carries" : "carry"),
-                            (strengthModifier(theItem) > 0 ? "bonus of " : "penalty of "),
+                            (strengthModifier(theItem) > 0 ? br_tr("bonus of ") : br_tr("penalty of ")),
                             (strengthModifier(theItem) > 0 ? goodColorEscape : badColorEscape),
                             strengthModifier(theItem) / (double) FP_FACTOR,
                             whiteColorEscape,
-                            (strengthModifier(theItem) > 0 ? "excess" : "inadequate"));
+                            (strengthModifier(theItem) > 0 ? br_tr("excess") : br_tr("inadequate")));
                     strcat(buf, buf2);
                 }
 
                 if (theItem->category & WEAPON) {
-                    sprintf(buf2, "It will reveal its secrets if you defeat %i%s %s with it. ",
+                    sprintf(buf2, br_tr("It will reveal its secrets if you defeat %i%s %s with it. "),
                             theItem->charges,
                             (theItem->charges == gameConst->weaponKillsToAutoID ? "" : " more"),
                             (theItem->charges == 1 ? "enemy" : "enemies"));
                 } else {
-                    sprintf(buf2, "It will reveal its secrets if worn for %i%s turn%s. ",
+                    sprintf(buf2, br_tr("It will reveal its secrets if worn for %i%s turn%s. "),
                             theItem->charges,
                             (theItem->charges == gameConst->armorDelayToAutoID ? "" : " more"),
                             (theItem->charges == 1 ? "" : "s"));
@@ -2113,14 +2179,14 @@ void itemDetails(char *buf, item *theItem) {
                     }
                     accuracyChange  = (new * 100 / current) - 100;
                     damageChange    = (newDamage * 100 / currentDamage) - 100;
-                    sprintf(buf2, "Wielding the %s%s will %s your current accuracy by %s%i%%%s, and will %s your current damage by %s%i%%%s. ",
+                    sprintf(buf2, br_tr("Wielding the %s%s will %s your current accuracy by %s%i%%%s, and will %s your current damage by %s%i%%%s. "),
                             theName,
-                            ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) ? "" : ", assuming it has no hidden properties,",
-                            (((short) accuracyChange) < 0) ? "decrease" : "increase",
+                            ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) ? "" : br_tr(", assuming it has no hidden properties,"),
+                            (((short) accuracyChange) < 0) ? br_tr("decrease") : br_tr("increase"),
                             (((short) accuracyChange) < 0) ? badColorEscape : (accuracyChange > 0 ? goodColorEscape : ""),
                             abs((short) accuracyChange),
                             whiteColorEscape,
-                            (((short) damageChange) < 0) ? "decrease" : "increase",
+                            (((short) damageChange) < 0) ? br_tr("decrease") : br_tr("increase"),
                             (((short) damageChange) < 0) ? badColorEscape : (damageChange > 0 ? goodColorEscape : ""),
                             abs((short) damageChange),
                             whiteColorEscape);
@@ -2137,9 +2203,9 @@ void itemDetails(char *buf, item *theItem) {
 
                     new = max(0, new);
 
-                    sprintf(buf2, "Wearing the %s%s will result in an armor rating of %s%i%s. ",
+                    sprintf(buf2, br_tr("Wearing the %s%s will result in an armor rating of %s%i%s. "),
                             theName,
-                            ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) ? "" : ", assuming it has no hidden properties,",
+                            ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) ? "" : br_tr(", assuming it has no hidden properties,"),
                             (new > displayedArmorValue() ? goodColorEscape : (new < displayedArmorValue() ? badColorEscape : whiteColorEscape)),
                             new, whiteColorEscape);
                 }
@@ -2148,7 +2214,7 @@ void itemDetails(char *buf, item *theItem) {
 
             // protected?
             if (theItem->flags & ITEM_PROTECTED) {
-                sprintf(buf2, "%sThe %s cannot be corroded by acid.%s ",
+                sprintf(buf2, br_tr("%sThe %s cannot be corroded by acid.%s "),
                         goodColorEscape,
                         theName,
                         whiteColorEscape);
@@ -2165,10 +2231,10 @@ void itemDetails(char *buf, item *theItem) {
                 if (rogue.armor) {
                     new -= armorStealthAdjustment(rogue.armor);
                 }
-                sprintf(buf2, "Equipping the %s will %s%s your stealth range by %i%s. ",
+                sprintf(buf2, br_tr("Equipping the %s will %s%s your stealth range by %i%s. "),
                         theName,
                         new > 0 ? badColorEscape : goodColorEscape,
-                        new > 0 ? "increase" : "decrease",
+                        new > 0 ? br_tr("increase") : br_tr("decrease"),
                         abs(new),
                         whiteColorEscape);
                 strcat(buf, buf2);
@@ -2179,25 +2245,25 @@ void itemDetails(char *buf, item *theItem) {
                 // runic?
                 if (theItem->flags & ITEM_RUNIC) {
                     if ((theItem->flags & ITEM_RUNIC_IDENTIFIED) || rogue.playbackOmniscience) {
-                        sprintf(buf2, "\n\nGlowing runes of %s adorn the %s. ",
-                                weaponRunicNames[theItem->enchant2],
+                        sprintf(buf2, br_tr("\n\nGlowing runes of %s adorn the %s. "),
+                                br_tr(weaponRunicNames[theItem->enchant2]),
                                 theName);
                         strcat(buf, buf2);
                         if (theItem->enchant2 == W_SLAYING) {
-                            describeMonsterClass(buf3, theItem->vorpalEnemy, false);
+                            br_describe_monster_class(buf3, theItem->vorpalEnemy, false);
                             if (monsterClassHasAcidicMonster(theItem->vorpalEnemy)) {
-                                sprintf(buf2, "It is impervious to corrosion when attacking a%s %s, and will never fail to slay one in a single stroke. ",
+                                sprintf(buf2, br_tr("It is impervious to corrosion when attacking a%s %s, and will never fail to slay one in a single stroke. "),
                                         (isVowelish(buf3) ? "n" : ""),
                                         buf3);
                             } else {
-                                sprintf(buf2, "It will never fail to slay a%s %s in a single stroke. ",
+                                sprintf(buf2, br_tr("It will never fail to slay a%s %s in a single stroke. "),
                                         (isVowelish(buf3) ? "n" : ""),
                                         buf3);
                             }
                             strcat(buf, buf2);
                         } else if (theItem->enchant2 == W_MULTIPLICITY) {
                             if ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) {
-                                sprintf(buf2, "%i%% of the time that it hits an enemy, %i spectral %s%s will spring into being with accuracy and attack power equal to your own, and will dissipate %i turns later. (If the %s is enchanted, %i image%s will appear %i%% of the time, and will last %i turns.)",
+                                sprintf(buf2, br_tr("%i%% of the time that it hits an enemy, %i spectral %s%s will spring into being with accuracy and attack power equal to your own, and will dissipate %i turns later. (If the %s is enchanted, %i image%s will appear %i%% of the time, and will last %i turns.)"),
                                         runicWeaponChance(theItem, false, 0),
                                         weaponImageCount(enchant),
                                         theName,
@@ -2209,7 +2275,7 @@ void itemDetails(char *buf, item *theItem) {
                                         runicWeaponChance(theItem, true, enchant + enchantMagnitude() * enchantIncrement(theItem)),
                                         weaponImageDuration(enchant + enchantMagnitude() * enchantIncrement(theItem)));
                             } else {
-                                sprintf(buf2, "Sometimes, when it hits an enemy, spectral %ss will spring into being with accuracy and attack power equal to your own, and will dissipate shortly thereafter.",
+                                sprintf(buf2, br_tr("Sometimes, when it hits an enemy, spectral %ss will spring into being with accuracy and attack power equal to your own, and will dissipate shortly thereafter."),
                                         theName);
                             }
                             strcat(buf, buf2);
@@ -2218,84 +2284,84 @@ void itemDetails(char *buf, item *theItem) {
                                 if (runicWeaponChance(theItem, false, 0) < 2
                                     && rogue.strength - player.weaknessAmount < theItem->strengthRequired) {
 
-                                    strcpy(buf2, "Its runic effect will almost never activate because of your inadequate strength, but sometimes, when");
+                                    strcpy(buf2, br_tr("Its runic effect will almost never activate because of your inadequate strength, but sometimes, when"));
                                 } else {
-                                    sprintf(buf2, "%i%% of the time that",
+                                    sprintf(buf2, br_tr("%i%% of the time that"),
                                             runicWeaponChance(theItem, false, 0));
                                 }
                                 strcat(buf, buf2);
                             } else {
-                                strcat(buf, "Sometimes, when");
+                                strcat(buf, br_tr("Sometimes, when"));
                             }
-                            sprintf(buf2, " it hits an enemy, %s",
-                                    weaponRunicEffectDescriptions[theItem->enchant2]);
+                            sprintf(buf2, br_tr(" it hits an enemy, %s"),
+                                    br_tr(weaponRunicEffectDescriptions[theItem->enchant2]));
                             strcat(buf, buf2);
 
                             if ((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience) {
                                 switch (theItem->enchant2) {
                                     case W_SPEED:
-                                        strcat(buf, ". ");
+                                        strcat(buf, br_tr(". "));
                                         break;
                                     case W_PARALYSIS:
-                                        sprintf(buf2, " for %i turns. ",
+                                        sprintf(buf2, br_tr(" for %i turns. "),
                                                 (int) (weaponParalysisDuration(enchant)));
                                         strcat(buf, buf2);
                                         nextLevelState = (int) (weaponParalysisDuration(enchant + enchantMagnitude() * enchantIncrement(theItem)));
                                         break;
                                     case W_SLOWING:
-                                        sprintf(buf2, " for %i turns. ",
+                                        sprintf(buf2, br_tr(" for %i turns. "),
                                                 weaponSlowDuration(enchant));
                                         strcat(buf, buf2);
                                         nextLevelState = weaponSlowDuration(enchant + enchantMagnitude() * enchantIncrement(theItem));
                                         break;
                                     case W_CONFUSION:
-                                        sprintf(buf2, " for %i turns. ",
+                                        sprintf(buf2, br_tr(" for %i turns. "),
                                                 weaponConfusionDuration(enchant));
                                         strcat(buf, buf2);
                                         nextLevelState = weaponConfusionDuration(enchant + enchantMagnitude() * enchantIncrement(theItem));
                                         break;
                                     case W_FORCE:
-                                        sprintf(buf2, " up to %i spaces backward. If the enemy hits an obstruction, it (and any monster it hits) will take damage in proportion to the distance it flew. ",
+                                        sprintf(buf2, br_tr(" up to %i spaces backward. If the enemy hits an obstruction, it (and any monster it hits) will take damage in proportion to the distance it flew. "),
                                                 weaponForceDistance(enchant));
                                         strcat(buf, buf2);
                                         nextLevelState = weaponForceDistance(enchant + enchantMagnitude() * enchantIncrement(theItem));
                                         break;
                                     case W_MERCY:
-                                        strcpy(buf2, " by 50% of its maximum health. ");
+                                        strcpy(buf2, br_tr(" by 50% of its maximum health. "));
                                         strcat(buf, buf2);
                                         break;
                                     default:
-                                        strcpy(buf2, ". ");
+                                        strcpy(buf2, br_tr(". "));
                                         strcat(buf, buf2);
                                         break;
                                 }
 
                                 if (((theItem->flags & ITEM_IDENTIFIED) || rogue.playbackOmniscience)
                                     && runicWeaponChance(theItem, false, 0) < runicWeaponChance(theItem, true, enchant + enchantMagnitude() * enchantIncrement(theItem))){
-                                    sprintf(buf2, "(If the %s is enchanted, the chance will increase to %i%%",
+                                    sprintf(buf2, br_tr("(If the %s is enchanted, the chance will increase to %i%%"),
                                             theName,
                                             runicWeaponChance(theItem, true, enchant + enchantMagnitude() * enchantIncrement(theItem)));
                                     strcat(buf, buf2);
                                     if (nextLevelState) {
                                         if (theItem->enchant2 == W_FORCE) {
-                                            sprintf(buf2, " and the distance will increase to %i.)",
+                                            sprintf(buf2, br_tr(" and the distance will increase to %i.)"),
                                                     nextLevelState);
                                         } else {
-                                            sprintf(buf2, " and the duration will increase to %i turns.)",
+                                            sprintf(buf2, br_tr(" and the duration will increase to %i turns.)"),
                                                     nextLevelState);
                                         }
                                     } else {
-                                        strcpy(buf2, ".)");
+                                        strcpy(buf2, br_tr(".)"));
                                     }
                                     strcat(buf, buf2);
                                 }
                             } else {
-                                strcat(buf, ". ");
+                                strcat(buf, br_tr(". "));
                             }
                         }
 
                     } else if (theItem->flags & ITEM_IDENTIFIED) {
-                        sprintf(buf2, "\n\nGlowing runes of an indecipherable language run down the length of the %s. ",
+                        sprintf(buf2, br_tr("\n\nGlowing runes of an indecipherable language run down the length of the %s. "),
                                 theName);
                         strcat(buf, buf2);
                     }
@@ -2303,13 +2369,13 @@ void itemDetails(char *buf, item *theItem) {
 
                 // equipped? cursed?
                 if (theItem->flags & ITEM_EQUIPPED) {
-                    sprintf(buf2, "\n\nYou hold the %s at the ready%s. ",
+                    sprintf(buf2, br_tr("\n\nYou hold the %s at the ready%s. "),
                             theName,
-                            ((theItem->flags & ITEM_CURSED) ? ", and because it is cursed, you are powerless to let go" : ""));
+                            ((theItem->flags & ITEM_CURSED) ? br_tr(", and because it is cursed, you are powerless to let go") : ""));
                     strcat(buf, buf2);
                 } else if (((theItem->flags & (ITEM_IDENTIFIED | ITEM_MAGIC_DETECTED)) || rogue.playbackOmniscience)
                            && (theItem->flags & ITEM_CURSED)) {
-                    sprintf(buf2, "\n\n%sYou can feel a malevolent magic lurking within the %s.%s ",
+                    sprintf(buf2, br_tr("\n\n%sYou can feel a malevolent magic lurking within the %s.%s "),
                             badColorEscape,
                             theName,
                             whiteColorEscape);
@@ -2321,52 +2387,52 @@ void itemDetails(char *buf, item *theItem) {
                 // runic?
                 if (theItem->flags & ITEM_RUNIC) {
                     if ((theItem->flags & ITEM_RUNIC_IDENTIFIED) || rogue.playbackOmniscience) {
-                        sprintf(buf2, "\n\nGlowing runes of %s adorn the %s. ",
-                                armorRunicNames[theItem->enchant2],
+                        sprintf(buf2, br_tr("\n\nGlowing runes of %s adorn the %s. "),
+                                br_tr(armorRunicNames[theItem->enchant2]),
                                 theName);
                         strcat(buf, buf2);
 
                         // A_MULTIPLICITY, A_MUTUALITY, A_ABSORPTION, A_REPRISAL, A_IMMUNITY, A_REFLECTION, A_BURDEN, A_VULNERABILITY, A_IMMOLATION
                         switch (theItem->enchant2) {
                             case A_MULTIPLICITY:
-                                sprintf(buf2, "When worn, 33%% of the time that an enemy's attack connects, %i allied spectral duplicate%s of your attacker will appear for 3 turns. ",
+                                sprintf(buf2, br_tr("When worn, 33%% of the time that an enemy's attack connects, %i allied spectral duplicate%s of your attacker will appear for 3 turns. "),
                                         armorImageCount(enchant),
                                         (armorImageCount(enchant) == 1 ? "" : "s"));
                                 if (armorImageCount(enchant + enchantMagnitude() * enchantIncrement(theItem)) > armorImageCount(enchant)) {
-                                    sprintf(buf3, "(If the %s is enchanted, the number of duplicates will increase to %i.) ",
+                                    sprintf(buf3, br_tr("(If the %s is enchanted, the number of duplicates will increase to %i.) "),
                                             theName,
                                             (armorImageCount(enchant + enchantMagnitude() * enchantIncrement(theItem))));
                                     strcat(buf2, buf3);
                                 }
                                 break;
                             case A_MUTUALITY:
-                                strcpy(buf2, "When worn, the damage that you incur from physical attacks will be split evenly among yourself and all other adjacent enemies. ");
+                                strcpy(buf2, br_tr("When worn, the damage that you incur from physical attacks will be split evenly among yourself and all other adjacent enemies. "));
                                 break;
                             case A_ABSORPTION:
                                 if (theItem->flags & ITEM_IDENTIFIED) {
-                                    sprintf(buf2, "It will reduce the damage of inbound attacks by a random amount between 1 and %i, which is %i%% of your current maximum health. (If the %s is enchanted, this maximum amount will %s %i.) ",
+                                    sprintf(buf2, br_tr("It will reduce the damage of inbound attacks by a random amount between 1 and %i, which is %i%% of your current maximum health. (If the %s is enchanted, this maximum amount will %s %i.) "),
                                             (int) armorAbsorptionMax(enchant),
                                             (int) (100 * armorAbsorptionMax(enchant) / player.info.maxHP),
                                             theName,
-                                            (armorAbsorptionMax(enchant) == armorAbsorptionMax(enchant + enchantIncrement(theItem)) ? "remain at" : "increase to"),
+                                            (armorAbsorptionMax(enchant) == armorAbsorptionMax(enchant + enchantIncrement(theItem)) ? br_tr("remain at") : br_tr("increase to")),
                                             (int) armorAbsorptionMax(enchant + enchantMagnitude() * enchantIncrement(theItem)));
                                 } else {
-                                    strcpy(buf2, "It will reduce the damage of inbound attacks by a random amount determined by its enchantment level. ");
+                                    strcpy(buf2, br_tr("It will reduce the damage of inbound attacks by a random amount determined by its enchantment level. "));
                                 }
                                 break;
                             case A_REPRISAL:
                                 if (theItem->flags & ITEM_IDENTIFIED) {
-                                    sprintf(buf2, "Any enemy that attacks you will itself be wounded by %i%% of the damage that it inflicts. (If the %s is enchanted, this percentage will increase to %i%%.) ",
+                                    sprintf(buf2, br_tr("Any enemy that attacks you will itself be wounded by %i%% of the damage that it inflicts. (If the %s is enchanted, this percentage will increase to %i%%.) "),
                                             armorReprisalPercent(enchant),
                                             theName,
                                             armorReprisalPercent(enchant + enchantMagnitude() * enchantIncrement(theItem)));
                                 } else {
-                                    strcpy(buf2, "Any enemy that attacks you will itself be wounded by a percentage (determined by enchantment level) of the damage that it inflicts. ");
+                                    strcpy(buf2, br_tr("Any enemy that attacks you will itself be wounded by a percentage (determined by enchantment level) of the damage that it inflicts. "));
                                 }
                                 break;
                             case A_IMMUNITY:
-                                describeMonsterClass(buf3, theItem->vorpalEnemy, false);
-                                sprintf(buf2, "It offers complete protection from any attacking %s. ",
+                                br_describe_monster_class(buf3, theItem->vorpalEnemy, false);
+                                sprintf(buf2, br_tr("It offers complete protection from any attacking %s. "),
                                         buf3);
                                 break;
                             case A_REFLECTION:
@@ -2374,7 +2440,7 @@ void itemDetails(char *buf, item *theItem) {
                                     if (theItem->enchant1 > 0) {
                                         short reflectChance = reflectionChance(enchant);
                                         short reflectChance2 = reflectionChance(enchant + enchantMagnitude() * enchantIncrement(theItem));
-                                        sprintf(buf2, "When worn, you will deflect %i%% of incoming spells -- including directly back at their source %i%% of the time. (If the armor is enchanted, these will increase to %i%% and %i%%.) ",
+                                        sprintf(buf2, br_tr("When worn, you will deflect %i%% of incoming spells -- including directly back at their source %i%% of the time. (If the armor is enchanted, these will increase to %i%% and %i%%.) "),
                                                 reflectChance,
                                                 reflectChance * reflectChance / 100,
                                                 reflectChance2,
@@ -2382,37 +2448,37 @@ void itemDetails(char *buf, item *theItem) {
                                     } else if (theItem->enchant1 < 0) {
                                         short reflectChance = reflectionChance(enchant);
                                         short reflectChance2 = reflectionChance(enchant + enchantMagnitude() * enchantIncrement(theItem));
-                                        sprintf(buf2, "When worn, %i%% of your own spells will deflect from their target -- including directly back at you %i%% of the time. (If the armor is enchanted, these will decrease to %i%% and %i%%.) ",
+                                        sprintf(buf2, br_tr("When worn, %i%% of your own spells will deflect from their target -- including directly back at you %i%% of the time. (If the armor is enchanted, these will decrease to %i%% and %i%%.) "),
                                                 reflectChance,
                                                 reflectChance * reflectChance / 100,
                                                 reflectChance2,
                                                 reflectChance2 * reflectChance2 / 100);
                                     }
                                 } else {
-                                    strcpy(buf2, "When worn, you will deflect some percentage of incoming spells, determined by enchantment level. ");
+                                    strcpy(buf2, br_tr("When worn, you will deflect some percentage of incoming spells, determined by enchantment level. "));
                                 }
                                 break;
                             case A_RESPIRATION:
-                                strcpy(buf2, "When worn, it will maintain a pocket of fresh air around you, rendering you immune to the effects of steam and all toxic gases. ");
+                                strcpy(buf2, br_tr("When worn, it will maintain a pocket of fresh air around you, rendering you immune to the effects of steam and all toxic gases. "));
                                 break;
                             case A_DAMPENING:
-                                strcpy(buf2, "When worn, it will safely absorb the concussive impact of any explosions (though you may still be burned). ");
+                                strcpy(buf2, br_tr("When worn, it will safely absorb the concussive impact of any explosions (though you may still be burned). "));
                                 break;
                             case A_BURDEN:
-                                strcpy(buf2, "10% of the time it absorbs a blow, its strength requirement will permanently increase. ");
+                                strcpy(buf2, br_tr("10% of the time it absorbs a blow, its strength requirement will permanently increase. "));
                                 break;
                             case A_VULNERABILITY:
-                                strcpy(buf2, "While it is worn, inbound attacks will inflict twice as much damage. ");
+                                strcpy(buf2, br_tr("While it is worn, inbound attacks will inflict twice as much damage. "));
                                 break;
                             case A_IMMOLATION:
-                                strcpy(buf2, "10% of the time it absorbs a blow, it will explode in flames. ");
+                                strcpy(buf2, br_tr("10% of the time it absorbs a blow, it will explode in flames. "));
                                 break;
                             default:
                                 break;
                         }
                         strcat(buf, buf2);
                     } else if (theItem->flags & ITEM_IDENTIFIED) {
-                        sprintf(buf2, "\n\nGlowing runes of an indecipherable language spiral around the %s. ",
+                        sprintf(buf2, br_tr("\n\nGlowing runes of an indecipherable language spiral around the %s. "),
                                 theName);
                         strcat(buf, buf2);
                     }
@@ -2420,13 +2486,13 @@ void itemDetails(char *buf, item *theItem) {
 
                 // equipped? cursed?
                 if (theItem->flags & ITEM_EQUIPPED) {
-                    sprintf(buf2, "\n\nYou are wearing the %s%s. ",
+                    sprintf(buf2, br_tr("\n\nYou are wearing the %s%s. "),
                             theName,
-                            ((theItem->flags & ITEM_CURSED) ? ", and because it is cursed, you are powerless to remove it" : ""));
+                            ((theItem->flags & ITEM_CURSED) ? br_tr(", and because it is cursed, you are powerless to remove it") : ""));
                     strcat(buf, buf2);
                 } else if (((theItem->flags & (ITEM_IDENTIFIED | ITEM_MAGIC_DETECTED)) || rogue.playbackOmniscience)
                            && (theItem->flags & ITEM_CURSED)) {
-                    sprintf(buf2, "\n\n%sYou can feel a malevolent magic lurking within the %s.%s ",
+                    sprintf(buf2, br_tr("\n\n%sYou can feel a malevolent magic lurking within the %s.%s "),
                             badColorEscape,
                             theName,
                             whiteColorEscape);
@@ -2441,36 +2507,36 @@ void itemDetails(char *buf, item *theItem) {
             // charges
             new = apparentRingBonus(RING_WISDOM);
             if ((theItem->flags & ITEM_IDENTIFIED)  || rogue.playbackOmniscience) {
-                sprintf(buf2, "\n\nThe %s has %i charges remaining out of a maximum of %i charges, and%s recovers a charge in approximately %lli turns. ",
+                sprintf(buf2, br_tr("\n\nThe %s has %i charges remaining out of a maximum of %i charges, and%s recovers a charge in approximately %lli turns. "),
                         theName,
                         theItem->charges,
                         theItem->enchant1,
-                        new == 0 ? "" : ", with your current rings,",
+                        new == 0 ? "" : br_tr(", with your current rings,"),
                         FP_DIV(staffChargeDuration(theItem), 10 * ringWisdomMultiplier(new * FP_FACTOR)));
                 strcat(buf, buf2);
             } else if (theItem->flags & ITEM_MAX_CHARGES_KNOWN) {
-                sprintf(buf2, "\n\nThe %s has a maximum of %i charges, and%s recovers a charge in approximately %lli turns. ",
+                sprintf(buf2, br_tr("\n\nThe %s has a maximum of %i charges, and%s recovers a charge in approximately %lli turns. "),
                         theName,
                         theItem->enchant1,
-                        new == 0 ? "" : ", with your current rings,",
+                        new == 0 ? "" : br_tr(", with your current rings,"),
                         FP_DIV(staffChargeDuration(theItem), 10 * ringWisdomMultiplier(new * FP_FACTOR)));
                 strcat(buf, buf2);
             }
 
             if (theItem->lastUsed[0] > 0 && theItem->lastUsed[1] > 0 && theItem->lastUsed[2] > 0) {
-                sprintf(buf2, "You last used it %li, %li and %li turns ago. ",
+                sprintf(buf2, br_tr("You last used it %li, %li and %li turns ago. "),
                         rogue.absoluteTurnNumber - theItem->lastUsed[0],
                         rogue.absoluteTurnNumber - theItem->lastUsed[1],
                         rogue.absoluteTurnNumber - theItem->lastUsed[2]);
                 strcat(buf, buf2);
             } else if (theItem->lastUsed[0] > 0 && theItem->lastUsed[1] > 0) {
-                sprintf(buf2, "You last used it %li and %li turns ago. ",
+                sprintf(buf2, br_tr("You last used it %li and %li turns ago. "),
                         rogue.absoluteTurnNumber - theItem->lastUsed[0],
                         rogue.absoluteTurnNumber - theItem->lastUsed[1]);
                 strcat(buf, buf2);
             } else if (theItem->lastUsed[0] > 0) {
                 turnsSinceLatestUse = rogue.absoluteTurnNumber - theItem->lastUsed[0];
-                sprintf(buf2, "You last used it %li turn%s ago. ",
+                sprintf(buf2, br_tr("You last used it %li turn%s ago. "),
                         turnsSinceLatestUse,
                         turnsSinceLatestUse == 1 ? "" : "s");
                 strcat(buf, buf2);
@@ -2481,44 +2547,44 @@ void itemDetails(char *buf, item *theItem) {
                 || rogue.playbackOmniscience) {
                 switch (theItem->kind) {
                     case STAFF_LIGHTNING:
-                        sprintf(buf2, "This staff deals damage to every creature in its line of fire; nothing is immune. (If the staff is enchanted, its average damage will increase by %i%%.)",
+                        sprintf(buf2, br_tr("This staff deals damage to every creature in its line of fire; nothing is immune. (If the staff is enchanted, its average damage will increase by %i%%.)"),
                                 (int) (100 * (staffDamageLow(enchant + enchantMagnitude() * FP_FACTOR) + staffDamageHigh(enchant + enchantMagnitude() * FP_FACTOR)) / (staffDamageLow(enchant) + staffDamageHigh(enchant)) - 100));
                         break;
                     case STAFF_FIRE:
-                        sprintf(buf2, "This staff deals damage to any creature that it hits, unless the creature is immune to fire. (If the staff is enchanted, its average damage will increase by %i%%.) It also sets creatures and flammable terrain on fire.",
+                        sprintf(buf2, br_tr("This staff deals damage to any creature that it hits, unless the creature is immune to fire. (If the staff is enchanted, its average damage will increase by %i%%.) It also sets creatures and flammable terrain on fire."),
                                 (int) (100 * (staffDamageLow(enchant + enchantMagnitude() * FP_FACTOR) + staffDamageHigh(enchant + enchantMagnitude() * FP_FACTOR)) / (staffDamageLow(enchant) + staffDamageHigh(enchant)) - 100));
                         break;
                     case STAFF_POISON:
-                        sprintf(buf2, "The bolt from this staff will poison any creature that it hits for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+                        sprintf(buf2, br_tr("The bolt from this staff will poison any creature that it hits for %i turns. (If the staff is enchanted, this will increase to %i turns.)"),
                                 staffPoison(enchant),
                                 staffPoison(enchant + enchantMagnitude() * FP_FACTOR));
                         break;
                     case STAFF_TUNNELING:
-                        sprintf(buf2, "The bolt from this staff will dissolve %i layers of obstruction. (If the staff is enchanted, this will increase to %i layers.)",
+                        sprintf(buf2, br_tr("The bolt from this staff will dissolve %i layers of obstruction. (If the staff is enchanted, this will increase to %i layers.)"),
                                 theItem->enchant1,
                                 theItem->enchant1 + enchantMagnitude());
                         break;
                     case STAFF_BLINKING:
-                        sprintf(buf2, "This staff enables you to teleport up to %i spaces. (If the staff is enchanted, this will increase to %i spaces.)",
+                        sprintf(buf2, br_tr("This staff enables you to teleport up to %i spaces. (If the staff is enchanted, this will increase to %i spaces.)"),
                                 staffBlinkDistance(enchant),
                                 staffBlinkDistance(enchant + enchantMagnitude() * FP_FACTOR));
                         break;
                     case STAFF_ENTRANCEMENT:
-                        sprintf(buf2, "This staff will compel its target to mirror your movements for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+                        sprintf(buf2, br_tr("This staff will compel its target to mirror your movements for %i turns. (If the staff is enchanted, this will increase to %i turns.)"),
                                 staffEntrancementDuration(enchant),
                                 staffEntrancementDuration(enchant + enchantMagnitude() * FP_FACTOR));
                         break;
                     case STAFF_HEALING:
                         if (enchant / FP_FACTOR < 10) {
-                            sprintf(buf2, "This staff will heal its target by %i%% of its maximum health. (If the staff is enchanted, this will increase to %i%%.)",
+                            sprintf(buf2, br_tr("This staff will heal its target by %i%% of its maximum health. (If the staff is enchanted, this will increase to %i%%.)"),
                                     theItem->enchant1 * 10,
                                     (theItem->enchant1 + enchantMagnitude()) * 10);
                         } else {
-                            strcpy(buf2, "This staff will completely heal its target.");
+                            strcpy(buf2, br_tr("This staff will completely heal its target."));
                         }
                         break;
                     case STAFF_HASTE:
-                        sprintf(buf2, "This staff will cause its target to move twice as fast for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+                        sprintf(buf2, br_tr("This staff will cause its target to move twice as fast for %i turns. (If the staff is enchanted, this will increase to %i turns.)"),
                                 staffHasteDuration(enchant),
                                 staffHasteDuration(enchant + enchantMagnitude() * FP_FACTOR));
                         break;
@@ -2526,22 +2592,22 @@ void itemDetails(char *buf, item *theItem) {
                         strcpy(buf2, "");
                         break;
                     case STAFF_DISCORD:
-                        sprintf(buf2, "This staff will cause discord for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+                        sprintf(buf2, br_tr("This staff will cause discord for %i turns. (If the staff is enchanted, this will increase to %i turns.)"),
                                 staffDiscordDuration(enchant),
                                 staffDiscordDuration(enchant + enchantMagnitude() * FP_FACTOR));
                         break;
                     case STAFF_CONJURATION:
-                        sprintf(buf2, "%i phantom blades will be called into service. (If the staff is enchanted, this will increase to %i blades.)",
+                        sprintf(buf2, br_tr("%i phantom blades will be called into service. (If the staff is enchanted, this will increase to %i blades.)"),
                                 staffBladeCount(enchant),
                                 staffBladeCount(enchant + enchantMagnitude() * FP_FACTOR));
                         break;
                     case STAFF_PROTECTION:
-                        sprintf(buf2, "This staff will shield a creature for up to 20 turns against up to %i damage. (If the staff is enchanted, this will increase to %i damage.)",
+                        sprintf(buf2, br_tr("This staff will shield a creature for up to 20 turns against up to %i damage. (If the staff is enchanted, this will increase to %i damage.)"),
                                 staffProtection(enchant) / 10,
                                 staffProtection(enchant + enchantMagnitude() * FP_FACTOR) / 10);
                         break;
                     default:
-                        strcpy(buf2, "No one knows what this staff does.");
+                        strcpy(buf2, br_tr("No one knows what this staff does."));
                         break;
                 }
                 if (buf2[0]) {
@@ -2555,29 +2621,29 @@ void itemDetails(char *buf, item *theItem) {
             strcat(buf, "\n\n");
             if ((theItem->flags & (ITEM_IDENTIFIED | ITEM_MAX_CHARGES_KNOWN)) || rogue.playbackOmniscience) {
                 if (theItem->charges) {
-                    sprintf(buf2, "%i charge%s remain%s. Enchanting this wand will add %i charge%s.",
+                    sprintf(buf2, br_tr("%i charge%s remain%s. Enchanting this wand will add %i charge%s."),
                             theItem->charges,
                             (theItem->charges == 1 ? "" : "s"),
                             (theItem->charges == 1 ? "s" : ""),
                             wandTable[theItem->kind].range.lowerBound * enchantMagnitude(),
                             (wandTable[theItem->kind].range.lowerBound * enchantMagnitude() == 1 ? "" : "s"));
                 } else {
-                    sprintf(buf2, "No charges remain.  Enchanting this wand will add %i charge%s.",
+                    sprintf(buf2, br_tr("No charges remain.  Enchanting this wand will add %i charge%s."),
                             wandTable[theItem->kind].range.lowerBound * enchantMagnitude(),
                             (wandTable[theItem->kind].range.lowerBound * enchantMagnitude() == 1 ? "" : "s"));
                 }
             } else {
                 if (theItem->enchant2) {
-                    sprintf(buf2, "You have used this wand %i time%s, but do not know how many charges, if any, remain.",
+                    sprintf(buf2, br_tr("You have used this wand %i time%s, but do not know how many charges, if any, remain."),
                             theItem->enchant2,
                             (theItem->enchant2 == 1 ? "" : "s"));
                 } else {
-                    strcpy(buf2, "You have not yet used this wand.");
+                    strcpy(buf2, br_tr("You have not yet used this wand."));
                 }
 
                 if (wandTable[theItem->kind].identified) {
                     strcat(buf, buf2);
-                    sprintf(buf2, " Wands of this type can be found with %i to %i charges. Enchanting this wand will add %i charge%s.",
+                    sprintf(buf2, br_tr(" Wands of this type can be found with %i to %i charges. Enchanting this wand will add %i charge%s."),
                             wandTable[theItem->kind].range.lowerBound,
                             wandTable[theItem->kind].range.upperBound,
                             wandTable[theItem->kind].range.lowerBound * enchantMagnitude(),
@@ -2593,42 +2659,42 @@ void itemDetails(char *buf, item *theItem) {
                     switch (theItem->kind) {
                         case RING_CLAIRVOYANCE:
                             if (theItem->enchant1 > 0) {
-                                sprintf(buf2, "\n\nThis ring provides magical sight with a radius of %i. (If the ring is enchanted, this will increase to %i.)",
+                                sprintf(buf2, br_tr("\n\nThis ring provides magical sight with a radius of %i. (If the ring is enchanted, this will increase to %i.)"),
                                         theItem->enchant1 + 1,
                                         theItem->enchant1 + 1 + enchantMagnitude());
                             } else {
-                                sprintf(buf2, "\n\nThis ring magically blinds you to a radius of %i. (If the ring is enchanted, this will decrease to %i.)",
+                                sprintf(buf2, br_tr("\n\nThis ring magically blinds you to a radius of %i. (If the ring is enchanted, this will decrease to %i.)"),
                                         (theItem->enchant1 * -1) + 1,
                                         (theItem->enchant1 * -1) + 1 - enchantMagnitude());
                             }
                             strcat(buf, buf2);
                             break;
                         case RING_REGENERATION:
-                            sprintf(buf2, "\n\nWith this ring equipped, you will regenerate all of your health in %li turns (instead of %li). (If the ring is enchanted, this will decrease to %li turns.)",
+                            sprintf(buf2, br_tr("\n\nWith this ring equipped, you will regenerate all of your health in %li turns (instead of %li). (If the ring is enchanted, this will decrease to %li turns.)"),
                                     (long) (turnsForFullRegenInThousandths(enchant) / 1000),
                                     (long) TURNS_FOR_FULL_REGEN,
                                     (long) (turnsForFullRegenInThousandths(enchant + enchantMagnitude() * FP_FACTOR) / 1000));
                             strcat(buf, buf2);
                             break;
                         case RING_TRANSFERENCE:
-                            sprintf(buf2, "\n\nDealing direct damage to a creature (whether in melee or otherwise) will %s you by %i%% of the damage dealt. (If the ring is enchanted, this will %s to %i%%.)",
-                                    (theItem->enchant1 >= 0 ? "heal" : "harm"),
+                            sprintf(buf2, br_tr("\n\nDealing direct damage to a creature (whether in melee or otherwise) will %s you by %i%% of the damage dealt. (If the ring is enchanted, this will %s to %i%%.)"),
+                                    (theItem->enchant1 >= 0 ? br_tr("heal") : br_tr("harm")),
                                     abs(theItem->enchant1) * 5,
-                                    (theItem->enchant1 >= 0 ? "increase" : "decrease"),
+                                    (theItem->enchant1 >= 0 ? br_tr("increase") : br_tr("decrease")),
                                     abs(theItem->enchant1 + enchantMagnitude()) * 5);
                             strcat(buf, buf2);
                             break;
                         case RING_WISDOM:
-                            sprintf(buf2, "\n\nWhen worn, your staffs will recharge at %i%% of their normal rate. (If the ring is enchanted, the rate will increase to %i%% of the normal rate.)",
+                            sprintf(buf2, br_tr("\n\nWhen worn, your staffs will recharge at %i%% of their normal rate. (If the ring is enchanted, the rate will increase to %i%% of the normal rate.)"),
                                     (int) (100 * ringWisdomMultiplier(enchant) / FP_FACTOR),
                                     (int) (100 * ringWisdomMultiplier(enchant + enchantMagnitude() * FP_FACTOR) / FP_FACTOR));
                             strcat(buf, buf2);
                             break;
                         case RING_REAPING:
-                            sprintf(buf2, "\n\nEach blow that you land with a weapon will %s your staffs and charms by 0-%i turns per point of damage dealt. (If the ring is enchanted, this will %s to 0-%i turns per point of damage.)",
-                                    (theItem->enchant1 >= 0 ? "recharge" : "drain"),
+                            sprintf(buf2, br_tr("\n\nEach blow that you land with a weapon will %s your staffs and charms by 0-%i turns per point of damage dealt. (If the ring is enchanted, this will %s to 0-%i turns per point of damage.)"),
+                                    (theItem->enchant1 >= 0 ? br_tr("recharge") : br_tr("drain")),
                                     abs(theItem->enchant1),
-                                    (theItem->enchant1 >= 0 ? "increase" : "decrease"),
+                                    (theItem->enchant1 >= 0 ? br_tr("increase") : br_tr("decrease")),
                                     abs(theItem->enchant1 + enchantMagnitude()));
                             strcat(buf, buf2);
                             break;
@@ -2637,29 +2703,29 @@ void itemDetails(char *buf, item *theItem) {
                     }
                 }
             } else {
-                sprintf(buf2, "\n\nIt will reveal its secrets if worn for %i%s turn%s",
+                sprintf(buf2, br_tr("\n\nIt will reveal its secrets if worn for %i%s turn%s"),
                         theItem->charges,
                         (theItem->charges == gameConst->ringDelayToAutoID ? "" : " more"),
                         (theItem->charges == 1 ? "" : "s"));
                 strcat(buf, buf2);
 
                 if (!(theItem->flags & ITEM_IDENTIFIED) && (theItem->charges < gameConst->ringDelayToAutoID || (theItem->flags & ITEM_MAGIC_DETECTED))) {
-                    sprintf(buf2, ", and until then it will function, at best, as a +%i ring.", theItem->timesEnchanted + 1);
+                    sprintf(buf2, br_tr(", and until then it will function, at best, as a +%i ring."), theItem->timesEnchanted + 1);
                     strcat(buf, buf2);
                 } else {
-                    strcat(buf, ".");
+                    strcat(buf, br_tr("."));
                 }
             }
 
             // equipped? cursed?
             if (theItem->flags & ITEM_EQUIPPED) {
-                sprintf(buf2, "\n\nThe %s is on your finger%s. ",
+                sprintf(buf2, br_tr("\n\nThe %s is on your finger%s. "),
                         theName,
-                        ((theItem->flags & ITEM_CURSED) ? ", and because it is cursed, you are powerless to remove it" : ""));
+                        ((theItem->flags & ITEM_CURSED) ? br_tr(", and because it is cursed, you are powerless to remove it") : ""));
                 strcat(buf, buf2);
             } else if (((theItem->flags & (ITEM_IDENTIFIED | ITEM_MAGIC_DETECTED)) || rogue.playbackOmniscience)
                        && (theItem->flags & ITEM_CURSED)) {
-                sprintf(buf2, "\n\n%sYou can feel a malevolent magic lurking within the %s.%s ",
+                sprintf(buf2, br_tr("\n\n%sYou can feel a malevolent magic lurking within the %s.%s "),
                         badColorEscape,
                         theName,
                         whiteColorEscape);
@@ -2669,80 +2735,80 @@ void itemDetails(char *buf, item *theItem) {
         case CHARM:
             switch (theItem->kind) {
                 case CHARM_HEALTH:
-                    sprintf(buf2, "\n\nWhen used, the charm will heal %i%% of your health and recharge in %i turns. (If the charm is enchanted, it will heal %i%% of your health and recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will heal %i%% of your health and recharge in %i turns. (If the charm is enchanted, it will heal %i%% of your health and recharge in %i turns.)"),
                             charmHealing(enchant),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmHealing(enchant + enchantMagnitude() * FP_FACTOR),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_PROTECTION:
-                    sprintf(buf2, "\n\nWhen used, the charm will shield you for up to 20 turns for up to %i%% of your total health and recharge in %i turns. (If the charm is enchanted, it will shield up to %i%% of your total health and recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will shield you for up to 20 turns for up to %i%% of your total health and recharge in %i turns. (If the charm is enchanted, it will shield up to %i%% of your total health and recharge in %i turns.)"),
                             100 * charmProtection(enchant) / 10 / player.info.maxHP,
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             100 * charmProtection(enchant + enchantMagnitude() * FP_FACTOR) / 10 / player.info.maxHP,
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_HASTE:
-                    sprintf(buf2, "\n\nWhen used, the charm will haste you for %i turns and recharge in %i turns. (If the charm is enchanted, the haste will last %i turns and it will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will haste you for %i turns and recharge in %i turns. (If the charm is enchanted, the haste will last %i turns and it will recharge in %i turns.)"),
                             charmEffectDuration(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmEffectDuration(theItem->kind, theItem->enchant1 + enchantMagnitude()),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_FIRE_IMMUNITY:
-                    sprintf(buf2, "\n\nWhen used, the charm will grant you immunity to fire for %i turns and recharge in %i turns. (If the charm is enchanted, the immunity will last %i turns and it will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will grant you immunity to fire for %i turns and recharge in %i turns. (If the charm is enchanted, the immunity will last %i turns and it will recharge in %i turns.)"),
                             charmEffectDuration(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmEffectDuration(theItem->kind, theItem->enchant1 + enchantMagnitude()),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_INVISIBILITY:
-                    sprintf(buf2, "\n\nWhen used, the charm will turn you invisible for %i turns and recharge in %i turns. While invisible, monsters more than two spaces away cannot track you. (If the charm is enchanted, the invisibility will last %i turns and it will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will turn you invisible for %i turns and recharge in %i turns. While invisible, monsters more than two spaces away cannot track you. (If the charm is enchanted, the invisibility will last %i turns and it will recharge in %i turns.)"),
                             charmEffectDuration(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmEffectDuration(theItem->kind, theItem->enchant1 + enchantMagnitude()),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_TELEPATHY:
-                    sprintf(buf2, "\n\nWhen used, the charm will grant you telepathy for %i turns and recharge in %i turns. (If the charm is enchanted, the telepathy will last %i turns and it will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will grant you telepathy for %i turns and recharge in %i turns. (If the charm is enchanted, the telepathy will last %i turns and it will recharge in %i turns.)"),
                             charmEffectDuration(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmEffectDuration(theItem->kind, theItem->enchant1 + enchantMagnitude()),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_LEVITATION:
-                    sprintf(buf2, "\n\nWhen used, the charm will lift you off the ground for %i turns and recharge in %i turns. (If the charm is enchanted, the levitation will last %i turns and it will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will lift you off the ground for %i turns and recharge in %i turns. (If the charm is enchanted, the levitation will last %i turns and it will recharge in %i turns.)"),
                             charmEffectDuration(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmEffectDuration(theItem->kind, theItem->enchant1 + enchantMagnitude()),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_SHATTERING:
-                    sprintf(buf2, "\n\nWhen used, the charm will dissolve the nearby walls up to %i spaces away, and recharge in %i turns. (If the charm is enchanted, it will reach up to %i spaces and recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will dissolve the nearby walls up to %i spaces away, and recharge in %i turns. (If the charm is enchanted, it will reach up to %i spaces and recharge in %i turns.)"),
                             charmShattering(enchant),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmShattering(enchant + enchantMagnitude() * FP_FACTOR),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_GUARDIAN:
-                    sprintf(buf2, "\n\nWhen used, a guardian will materialize for %i turns, and the charm will recharge in %i turns. (If the charm is enchanted, the guardian will last for %i turns and the charm will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, a guardian will materialize for %i turns, and the charm will recharge in %i turns. (If the charm is enchanted, the guardian will last for %i turns and the charm will recharge in %i turns.)"),
                             charmGuardianLifespan(enchant),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmGuardianLifespan(enchant + enchantMagnitude() * FP_FACTOR),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_TELEPORTATION:
-                    sprintf(buf2, "\n\nWhen used, the charm will teleport you elsewhere in the dungeon and recharge in %i turns. (If the charm is enchanted, it will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will teleport you elsewhere in the dungeon and recharge in %i turns. (If the charm is enchanted, it will recharge in %i turns.)"),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_RECHARGING:
-                    sprintf(buf2, "\n\nWhen used, the charm will recharge your staffs (though not your wands or charms), after which it will recharge in %i turns. (If the charm is enchanted, it will recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will recharge your staffs (though not your wands or charms), after which it will recharge in %i turns. (If the charm is enchanted, it will recharge in %i turns.)"),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + enchantMagnitude()));
                     break;
                 case CHARM_NEGATION:
-                    sprintf(buf2, "\n\nWhen used, the charm will emit a wave of anti-magic up to %i spaces away, negating all magical effects on you and on creatures and dropped items in your field of view. It will recharge in %i turns. (If the charm is enchanted, it will reach up to %i spaces and recharge in %i turns.)",
+                    sprintf(buf2, br_tr("\n\nWhen used, the charm will emit a wave of anti-magic up to %i spaces away, negating all magical effects on you and on creatures and dropped items in your field of view. It will recharge in %i turns. (If the charm is enchanted, it will reach up to %i spaces and recharge in %i turns.)"),
                             charmNegationRadius(enchant),
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmNegationRadius(enchant + enchantMagnitude() * FP_FACTOR),
@@ -2818,7 +2884,7 @@ char displayInventory(unsigned short categoryMask,
 
     if (packItems->nextItem == NULL) {
         confirmMessages();
-        message("Your pack is empty!", 0);
+        message(br_tr("Your pack is empty!"), 0);
         restoreRNG;
         return 0;
     }
@@ -2893,6 +2959,15 @@ char displayInventory(unsigned short categoryMask,
         // Set the text for the button:
         itemName(theItem, buf, true, true, (buttons[i].flags & B_HOVER_ENABLED) ? &white : &gray);
         upperCase(buf);
+        if(br_is_zh() && theItem->category==POTION) {
+            color br_ink=*br_item_display_color(theItem);
+            encodeMessageColor(yellowColorEscapeSequence,0,&br_ink);
+            applyColorAverage(&br_ink,&black,35);
+            encodeMessageColor(darkYellowColorEscapeSequence,0,&br_ink);
+        } else {
+            encodeMessageColor(yellowColorEscapeSequence,0,&itemMessageColor);
+            encodeMessageColor(darkYellowColorEscapeSequence,0,&darkItemColor);
+        }
 
         if ((theItem->flags & ITEM_MAGIC_DETECTED)
             && !(theItem->category & AMULET)) { // Won't include food, keys, lumenstones or amulet.
@@ -2919,7 +2994,7 @@ char displayInventory(unsigned short categoryMask,
                     (buttons[i].flags & B_HOVER_ENABLED) ? whiteColorEscapeSequence : grayColorEscapeSequence,
                     buf,
                     grayColorEscapeSequence,
-                    (theItem->flags & ITEM_EQUIPPED ? ((theItem->category & WEAPON) ? " (in hand) " : " (worn) ") : ""));
+                    (theItem->flags & ITEM_EQUIPPED ? ((theItem->category & WEAPON) ? br_tr(" (in hand) ") : br_tr(" (worn) ")) : ""));
             buttons[i].symbol[1] = theItem->displayChar;
         } else {
             sprintf(buttons[i].text, " %c%c %s%s* %s%s%s%s", // The '*' is the item character, e.g. ':' for food.
@@ -2930,7 +3005,7 @@ char displayInventory(unsigned short categoryMask,
                     (buttons[i].flags & B_HOVER_ENABLED) ? whiteColorEscapeSequence : grayColorEscapeSequence,
                     buf,
                     grayColorEscapeSequence,
-                    (theItem->flags & ITEM_EQUIPPED ? ((theItem->category & WEAPON) ? " (in hand) " : " (worn) ") : ""));
+                    (theItem->flags & ITEM_EQUIPPED ? ((theItem->category & WEAPON) ? br_tr(" (in hand) ") : br_tr(" (worn) ")) : ""));
             buttons[i].symbol[0] = theItem->displayChar;
         }
 
@@ -2945,7 +3020,7 @@ char displayInventory(unsigned short categoryMask,
     itemCount = itemNumber;
     if (!itemNumber) {
         confirmMessages();
-        message("Nothing of that type!", 0);
+        message(br_tr("Nothing of that type!"), 0);
         restoreRNG;
         return 0;
     }
@@ -2953,13 +3028,13 @@ char displayInventory(unsigned short categoryMask,
         // Add the two extra lines as disabled buttons.
         itemSpaceRemaining = MAX_PACK_ITEMS - numberOfItemsInPack();
         if (itemSpaceRemaining) {
-            sprintf(buttons[itemNumber + extraLineCount].text, "%s%s    You have room for %i more item%s.",
+            sprintf(buttons[itemNumber + extraLineCount].text, br_tr("%s%s    You have room for %i more item%s."),
                     grayColorEscapeSequence,
                     (magicDetected ? "  " : ""),
                     itemSpaceRemaining,
                     (itemSpaceRemaining == 1 ? "" : "s"));
         } else {
-            sprintf(buttons[itemNumber + extraLineCount].text, "%s%s    Your pack is full.",
+            sprintf(buttons[itemNumber + extraLineCount].text, br_tr("%s%s    Your pack is full."),
                     grayColorEscapeSequence,
                     (magicDetected ? "  " : ""));
         }
@@ -2967,7 +3042,7 @@ char displayInventory(unsigned short categoryMask,
         extraLineCount++;
 
         sprintf(buttons[itemNumber + extraLineCount].text,
-                KEYBOARD_LABELS ? "%s%s -- press (a-z) for more info -- " : "%s%s -- touch an item for more info -- ",
+                KEYBOARD_LABELS ? br_tr("%s%s -- press (a-z) for more info -- ") : br_tr("%s%s -- touch an item for more info -- "),
                 grayColorEscapeSequence,
                 (magicDetected ? "  " : ""));
         maxLength = max(maxLength, (strLenWithoutEscapes(buttons[itemNumber + extraLineCount].text)));
@@ -3138,7 +3213,7 @@ short numberOfMatchingPackItems(unsigned short categoryMask,
     if (packItems->nextItem == NULL) {
         if (displayErrors) {
             confirmMessages();
-            message("Your pack is empty!", 0);
+            message(br_tr("Your pack is empty!"), 0);
         }
         return 0;
     }
@@ -3210,7 +3285,7 @@ void strengthCheck(item *theItem, boolean noisy) {
             strengthDeficiency = theItem->strengthRequired - max(0, rogue.strength - player.weaknessAmount);
             strcpy(buf1, "");
             itemName(theItem, buf1, false, false, NULL);
-            sprintf(buf2, "You can barely lift the %s; %i more strength would be ideal.", buf1, strengthDeficiency);
+            sprintf(buf2, br_tr("You can barely lift the %s; %i more strength would be ideal."), buf1, strengthDeficiency);
             message(buf2, 0);
         }
 
@@ -3218,7 +3293,7 @@ void strengthCheck(item *theItem, boolean noisy) {
             strengthDeficiency = theItem->strengthRequired - max(0, rogue.strength - player.weaknessAmount);
             strcpy(buf1, "");
             itemName(theItem, buf1, false, false, NULL);
-            sprintf(buf2, "You stagger under the weight of the %s; %i more strength would be ideal.",
+            sprintf(buf2, br_tr("You stagger under the weight of the %s; %i more strength would be ideal."),
                     buf1, strengthDeficiency);
             message(buf2, 0);
         }
@@ -3237,7 +3312,7 @@ void equip(item *theItem) {
     command[c++] = EQUIP_KEY;
     if (!theItem) {
         theItem = promptForItemOfType((WEAPON|ARMOR|RING), 0, ITEM_EQUIPPED,
-                                      KEYBOARD_LABELS ? "Equip what? (a-z, shift for more info; or <esc> to cancel)" : "Equip what?", true);
+                                      KEYBOARD_LABELS ? br_tr("Equip what? (a-z, shift for more info; or <esc> to cancel)") : br_tr("Equip what?"), true);
     }
     if (theItem == NULL) {
         return;
@@ -3251,15 +3326,15 @@ void equip(item *theItem) {
         if (theItem->category & RING) {
             if (theItem->flags & ITEM_EQUIPPED) {
                 confirmMessages();
-                message("you are already wearing that ring.", 0);
+                message(br_tr("you are already wearing that ring."), 0);
                 return;
             } else if (rogue.ringLeft && rogue.ringRight) {
                 confirmMessages();
                 theItem2 = promptForItemOfType((RING), ITEM_EQUIPPED, 0,
-                                               "You are already wearing two rings; remove which first?", true);
+                                               br_tr("You are already wearing two rings; remove which first?"), true);
                 if (!theItem2 || theItem2->category != RING || !(theItem2->flags & ITEM_EQUIPPED)) {
                     if (theItem2) { // No message if canceled or did an inventory action instead.
-                        message("Invalid entry.", 0);
+                        message(br_tr("Invalid entry."), 0);
                     }
                     return;
                 } else {
@@ -3270,7 +3345,7 @@ void equip(item *theItem) {
 
         if (theItem->flags & ITEM_EQUIPPED) {
             confirmMessages();
-            message("already equipped.", 0);
+            message(br_tr("already equipped."), 0);
             return;
         }
 
@@ -3293,7 +3368,7 @@ void equip(item *theItem) {
         playerTurnEnded();
     } else {
         confirmMessages();
-        message("You can't equip that.", 0);
+        message(br_tr("You can't equip that."), 0);
     }
 }
 
@@ -5086,7 +5161,7 @@ boolean zap(pos originLoc, pos targetLoc, bolt *theBolt, boolean hideDetails, bo
                     || (theBolt->boltEffect == BE_TUNNELING && (pmap[x2][y2].flags & IMPREGNABLE)))
                 && i < MAX_BOLT_LENGTH - max(DCOLS, DROWS)) {
 
-                sprintf(buf, "the bolt reflects off of %s", tileText(x2, y2));
+                sprintf(buf, "the bolt reflects off of %s", br_display_tile_text(x2, y2));
                 if (projectileReflects(shootingMonst, NULL)) {
                     // If it scores another reflection roll, reflect at caster, unless it's already reflected.
                     numCells = reflectBolt(originLoc.x, originLoc.y, listOfCoordinates, i, !alreadyReflected);
@@ -5691,7 +5766,7 @@ boolean chooseTarget(pos *returnLoc,
         }
 
         if (tabKey) {
-            if (nextTargetAfter(theItem, &newLoc, targetLoc, targetMode, event.shiftKey)) {
+            if (nextTargetAfter(theItem, &newLoc, targetLoc, targetMode, event.controlKey)) {
                 targetLoc = newLoc;
             }
         }
@@ -5967,7 +6042,7 @@ void identifyItemKind(item *theItem) {
 
 void autoIdentify(item *theItem) {
     short quantityBackup;
-    char buf[COLS * 3], oldName[COLS * 3], newName[COLS * 3];
+    char buf[BR_MESSAGE_BYTES], oldName[BR_MESSAGE_BYTES], newName[BR_MESSAGE_BYTES];
 
     if (tableForItemCategory(theItem->category)
         && !tableForItemCategory(theItem->category)[theItem->kind].identified) {
@@ -5977,7 +6052,7 @@ void autoIdentify(item *theItem) {
         theItem->quantity = 1;
         itemName(theItem, newName, false, true, NULL);
         theItem->quantity = quantityBackup;
-        sprintf(buf, "(It must %s %s.)",
+        sprintf(buf, br_tr("(It must %s %s.)"),
                 ((theItem->category & (POTION | SCROLL)) ? "have been" : "be"),
                 newName);
         messageWithColor(buf, &itemMessageColor, 0);
@@ -5990,14 +6065,14 @@ void autoIdentify(item *theItem) {
         itemName(theItem, oldName, false, false, NULL);
         theItem->flags |= (ITEM_RUNIC_IDENTIFIED | ITEM_RUNIC_HINTED);
         itemName(theItem, newName, true, true, NULL);
-        sprintf(buf, "(Your %s must be %s.)", oldName, newName);
+        sprintf(buf, br_tr("(Your %s must be %s.)"), oldName, newName);
         messageWithColor(buf, &itemMessageColor, 0);
     }
 }
 
 // returns whether the item disappeared
 static boolean hitMonsterWithProjectileWeapon(creature *thrower, creature *monst, item *theItem) {
-    char buf[DCOLS], theItemName[DCOLS], targetName[DCOLS], armorRunicString[DCOLS];
+    char buf[BR_MESSAGE_BYTES], theItemName[BR_MESSAGE_BYTES], targetName[BR_MESSAGE_BYTES], armorRunicString[BR_MESSAGE_BYTES];
     boolean thrownWeaponHit;
     item *equippedWeapon;
     short damage;
@@ -6012,7 +6087,7 @@ static boolean hitMonsterWithProjectileWeapon(creature *thrower, creature *monst
     armorRunicString[0] = '\0';
 
     itemName(theItem, theItemName, false, false, NULL);
-    monsterName(targetName, monst, true);
+    br_display_monster_name(targetName, monst, true);
 
     monst->status[STATUS_ENTRANCED] = 0;
 
@@ -6050,14 +6125,14 @@ static boolean hitMonsterWithProjectileWeapon(creature *thrower, creature *monst
         }
 
         if (inflictDamage(thrower, monst, damage, &red, false)) { // monster killed
-            sprintf(buf, "the %s %s %s.",
+            sprintf(buf, br_tr("the %s %s %s."),
                     theItemName,
-                    (monst->info.flags & MONST_INANIMATE) ? "destroyed" : "killed",
+                    (monst->info.flags & MONST_INANIMATE) ? br_tr("destroyed") : br_tr("killed"),
                     targetName);
             messageWithColor(buf, messageColorFromVictim(monst), 0);
             killCreature(monst, false);
         } else {
-            sprintf(buf, "the %s hit %s.", theItemName, targetName);
+            sprintf(buf, br_tr("the %s hit %s."), theItemName, targetName);
             if (theItem->flags & ITEM_RUNIC) {
                 magicWeaponHit(monst, theItem, false);
             }
@@ -6071,7 +6146,7 @@ static boolean hitMonsterWithProjectileWeapon(creature *thrower, creature *monst
         return true;
     } else {
         theItem->flags &= ~ITEM_PLAYER_AVOIDS; // Don't avoid thrown weapons that missed.
-        sprintf(buf, "the %s missed %s.", theItemName, targetName);
+        sprintf(buf, br_tr("the %s missed %s."), theItemName, targetName);
         message(buf, 0);
         return false;
     }
@@ -6080,7 +6155,7 @@ static boolean hitMonsterWithProjectileWeapon(creature *thrower, creature *monst
 static void throwItem(item *theItem, creature *thrower, pos targetLoc, short maxDistance) {
     short i, numCells;
     creature *monst = NULL;
-    char buf[COLS*3], buf2[COLS*3], buf3[COLS*3];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES], buf3[BR_MESSAGE_BYTES];
     enum displayGlyph displayChar;
     color foreColor, backColor, multColor;
     boolean hitSomethingSolid = false, fastForward = false;
@@ -6101,9 +6176,9 @@ static void throwItem(item *theItem, creature *thrower, pos targetLoc, short max
     if (thrower != &player
         && (pmapAt(originLoc)->flags & IN_FIELD_OF_VIEW)) {
 
-        monsterName(buf2, thrower, true);
+        br_display_monster_name(buf2, thrower, true);
         itemName(theItem, buf3, false, true, NULL);
-        sprintf(buf, "%s hurls %s.", buf2, buf3);
+        sprintf(buf, br_tr("%s hurls %s."), buf2, buf3);
         message(buf, 0);
     }
 
@@ -6196,37 +6271,37 @@ static void throwItem(item *theItem, creature *thrower, pos targetLoc, short max
             || theItem->kind == POTION_DESCENT) {
             switch (theItem->kind) {
                 case POTION_POISON:
-                    strcpy(buf, "the flask shatters and a deadly purple cloud billows out!");
+                    strcpy(buf, br_tr("the flask shatters and a deadly purple cloud billows out!"));
                     spawnDungeonFeature(x, y, &dungeonFeatureCatalog[DF_POISON_GAS_CLOUD_POTION], true, false);
                     message(buf, 0);
                     break;
                 case POTION_CONFUSION:
-                    strcpy(buf, "the flask shatters and a multi-hued cloud billows out!");
+                    strcpy(buf, br_tr("the flask shatters and a multi-hued cloud billows out!"));
                     spawnDungeonFeature(x, y, &dungeonFeatureCatalog[DF_CONFUSION_GAS_CLOUD_POTION], true, false);
                     message(buf, 0);
                     break;
                 case POTION_PARALYSIS:
-                    strcpy(buf, "the flask shatters and a cloud of pink gas billows out!");
+                    strcpy(buf, br_tr("the flask shatters and a cloud of pink gas billows out!"));
                     spawnDungeonFeature(x, y, &dungeonFeatureCatalog[DF_PARALYSIS_GAS_CLOUD_POTION], true, false);
                     message(buf, 0);
                     break;
                 case POTION_INCINERATION:
-                    strcpy(buf, "the flask shatters and its contents burst violently into flame!");
+                    strcpy(buf, br_tr("the flask shatters and its contents burst violently into flame!"));
                     message(buf, 0);
                     spawnDungeonFeature(x, y, &dungeonFeatureCatalog[DF_INCINERATION_POTION], true, false);
                     break;
                 case POTION_DARKNESS:
-                    strcpy(buf, "the flask shatters and the lights in the area start fading.");
+                    strcpy(buf, br_tr("the flask shatters and the lights in the area start fading."));
                     spawnDungeonFeature(x, y, &dungeonFeatureCatalog[DF_DARKNESS_POTION], true, false);
                     message(buf, 0);
                     break;
                 case POTION_DESCENT:
-                    strcpy(buf, "as the flask shatters, the ground vanishes!");
+                    strcpy(buf, br_tr("as the flask shatters, the ground vanishes!"));
                     message(buf, 0);
                     spawnDungeonFeature(x, y, &dungeonFeatureCatalog[DF_HOLE_POTION], true, false);
                     break;
                 case POTION_LICHEN:
-                    strcpy(buf, "the flask shatters and deadly spores spill out!");
+                    strcpy(buf, br_tr("the flask shatters and deadly spores spill out!"));
                     message(buf, 0);
                     spawnDungeonFeature(x, y, &dungeonFeatureCatalog[DF_LICHEN_PLANTED], true, false);
                     break;
@@ -6242,14 +6317,14 @@ static void throwItem(item *theItem, creature *thrower, pos targetLoc, short max
             //}
         } else {
             if (cellHasTerrainFlag((pos){ x, y }, T_OBSTRUCTS_PASSABILITY)) {
-                strcpy(buf2, "against");
+                strcpy(buf2, br_is_zh()?"溅在":"against");
             } else if (tileCatalog[pmap[x][y].layers[highestPriorityLayer(x, y, false)]].mechFlags & TM_STAND_IN_TILE) {
-                strcpy(buf2, "into");
+                strcpy(buf2, br_is_zh()?"流入":"into");
             } else {
-                strcpy(buf2, "on");
+                strcpy(buf2, br_is_zh()?"洒在":"on");
             }
-            sprintf(buf, "the flask shatters and %s liquid splashes harmlessly %s %s.",
-                    potionTable[theItem->kind].flavor, buf2, tileText(x, y));
+            sprintf(buf, br_tr("the flask shatters and %s liquid splashes harmlessly %s %s."),
+                    br_tr(potionTable[theItem->kind].flavor), buf2, br_display_tile_text(x, y));
             message(buf, 0);
             // hallucination is the only malevolent potion that splashes harmlessly when thrown
             if (theItem->kind == POTION_HALLUCINATION) {
@@ -6283,7 +6358,7 @@ targeted creature is still targetable, the item is thrown at it without promptin
 */
 void throwCommand(item *theItem, boolean autoThrow) {
     item *thrownItem;
-    char buf[COLS], theName[COLS];
+    char buf[COLS * 3], theName[COLS * 3];
     unsigned char command[10];
     short maxDistance, quantity;
 
@@ -6295,7 +6370,7 @@ void throwCommand(item *theItem, boolean autoThrow) {
     //
     if (theItem == NULL) {
         theItem = promptForItemOfType((ALL_ITEMS), 0, 0,
-                                      KEYBOARD_LABELS ? "Throw what? (a-z, shift for more info; or <esc> to cancel)" : "Throw what?", true);
+                                      KEYBOARD_LABELS ? br_tr("Throw what? (a-z, shift for more info; or <esc> to cancel)") : br_tr("Throw what?"), true);
     }
     if (theItem == NULL) {
         return;
@@ -6318,12 +6393,12 @@ void throwCommand(item *theItem, boolean autoThrow) {
     if (((theItem->flags & ITEM_EQUIPPED) || theItem->timesEnchanted > 0)
         && theItem->quantity <= 1) {
 
-        sprintf(buf, "Are you sure you want to throw your %s?", theName);
+        sprintf(buf, br_tr("Are you sure you want to throw your %s?"), theName);
         if (!confirm(buf, false)) {
             return;
         }
         if (theItem->flags & ITEM_CURSED) {
-            sprintf(buf, "You cannot unequip your %s; it appears to be cursed.", theName);
+            sprintf(buf, br_tr("You cannot unequip your %s; it appears to be cursed."), theName);
             messageWithColor(buf, &itemMessageColor, 0);
             return;
         }
@@ -6332,7 +6407,7 @@ void throwCommand(item *theItem, boolean autoThrow) {
     //
     // Ask location to throw
     //
-    sprintf(buf, "Throw %s %s where? (<hjklyubn>, mouse, or <tab>)",
+    sprintf(buf, br_tr("Throw %s %s where? (<hjklyubn>, mouse, or <tab>)"),
             (theItem->quantity > 1 ? "a" : "your"),
             theName);
     temporaryMessage(buf, REFRESH_SIDEBAR);
@@ -6384,7 +6459,7 @@ void throwCommand(item *theItem, boolean autoThrow) {
 
 void relabel(item *theItem) {
     item *oldItem;
-    char buf[COLS * 3], theName[COLS], newLabel;
+    char buf[COLS * 3], theName[COLS * 3], newLabel;
     unsigned char command[10];
 
     if (!KEYBOARD_LABELS && !rogue.playbackMode) {
@@ -6392,7 +6467,7 @@ void relabel(item *theItem) {
     }
     if (theItem == NULL) {
         theItem = promptForItemOfType((ALL_ITEMS), 0, 0,
-                                      KEYBOARD_LABELS ? "Relabel what? (a-z, shift for more info; or <esc> to cancel)" : "Relabel what?", true);
+                                      KEYBOARD_LABELS ? br_tr("Relabel what? (a-z, shift for more info; or <esc> to cancel)") : "Relabel what?", true);
     }
     if (theItem == NULL) {
         return;
@@ -6418,16 +6493,16 @@ void relabel(item *theItem) {
             if (oldItem) {
                 oldItem->inventoryLetter = theItem->inventoryLetter;
                 itemName(oldItem, theName, true, true, NULL);
-                sprintf(buf, "Relabeled %s as (%c);", theName, oldItem->inventoryLetter);
+                sprintf(buf, br_tr("Relabeled %s as (%c);"), theName, oldItem->inventoryLetter);
                 messageWithColor(buf, &itemMessageColor, 0);
             }
             theItem->inventoryLetter = newLabel;
             itemName(theItem, theName, true, true, NULL);
-            sprintf(buf, "%selabeled %s as (%c).", oldItem ? " r" : "R", theName, newLabel);
+            sprintf(buf, br_tr("%selabeled %s as (%c)."), oldItem ? " r" : "R", theName, newLabel);
             messageWithColor(buf, &itemMessageColor, 0);
         } else {
             itemName(theItem, theName, true, true, NULL);
-            sprintf(buf, "%s %s already labeled (%c).",
+            sprintf(buf, br_tr("%s %s already labeled (%c)."),
                     theName,
                     theItem->quantity == 1 ? "is" : "are",
                     theItem->inventoryLetter);
@@ -6554,7 +6629,7 @@ static boolean useStaffOrWand(item *theItem) {
         messageWithColor(buf, &itemMessageColor, 0);
         return false;
     }
-    temporaryMessage("Direction? (<hjklyubn>, mouse, or <tab>; <return> to confirm)", REFRESH_SIDEBAR);
+    temporaryMessage(br_tr("Direction? (<hjklyubn>, mouse, or <tab>; <return> to confirm)"), REFRESH_SIDEBAR);
     itemName(theItem, buf2, false, false, NULL);
     sprintf(buf, "Zapping your %s:", buf2);
     printString(buf, mapToWindowX(0), 1, &itemMessageColor, &black, NULL);
@@ -6691,7 +6766,7 @@ boolean eat(item *theItem, boolean recordCommands) {
     if (STOMACH_SIZE - player.status[STATUS_NUTRITION] < foodTable[theItem->kind].power) { // Not hungry enough.
         char buf[COLS * 3];
         sprintf(buf, "You're not hungry enough to fully enjoy the %s. Eat it anyway?",
-                (theItem->kind == RATION ? "food" : "mango"));
+                (theItem->kind == RATION ? br_tr("food") : "mango"));
         if (!confirm(buf, false)) {
             return false;
         }
@@ -6795,7 +6870,7 @@ void apply(item *theItem) {
 
     if (!theItem) {
         theItem = promptForItemOfType((SCROLL|FOOD|POTION|STAFF|WAND|CHARM), 0, 0,
-                                      KEYBOARD_LABELS ? "Apply what? (a-z, shift for more info; or <esc> to cancel)" : "Apply what?",
+                                      KEYBOARD_LABELS ? br_tr("Apply what? (a-z, shift for more info; or <esc> to cancel)") : "Apply what?",
                                       true);
     }
 
@@ -6834,7 +6909,7 @@ void apply(item *theItem) {
             return;
         default:
             itemName(theItem, buf2, false, true, NULL);
-            sprintf(buf, "you can't apply %s.", buf2);
+            sprintf(buf, br_tr("you can't apply %s."), buf2);
             message(buf, 0);
             return;
     }
@@ -6990,7 +7065,7 @@ boolean readScroll(item *theItem) {
             }
             do {
                 theItem = promptForItemOfType((ALL_ITEMS), ITEM_CAN_BE_IDENTIFIED, 0,
-                                              KEYBOARD_LABELS ? "Identify what? (a-z; shift for more info)" : "Identify what?",
+                                              KEYBOARD_LABELS ? br_tr("Identify what? (a-z; shift for more info)") : "Identify what?",
                                               false);
                 if (rogue.gameHasEnded) {
                     return false;
@@ -7032,7 +7107,7 @@ boolean readScroll(item *theItem) {
             }
             do {
                 theItem = promptForItemOfType((WEAPON | ARMOR | RING | STAFF | WAND | CHARM), 0, 0,
-                                              KEYBOARD_LABELS ? "Enchant what? (a-z; shift for more info)" : "Enchant what?",
+                                              KEYBOARD_LABELS ? br_tr("Enchant what? (a-z; shift for more info)") : "Enchant what?",
                                               false);
                 confirmMessages();
                 if (theItem == NULL || !(theItem->category & (WEAPON | ARMOR | RING | STAFF | WAND | CHARM))) {
@@ -7504,7 +7579,7 @@ void unequip(item *theItem) {
     command[0] = UNEQUIP_KEY;
     if (theItem == NULL) {
         theItem = promptForItemOfType(ALL_ITEMS, ITEM_EQUIPPED, 0,
-                                      KEYBOARD_LABELS ? "Remove (unequip) what? (a-z or <esc> to cancel)" : "Remove (unequip) what?",
+                                      KEYBOARD_LABELS ? br_tr("Remove (unequip) what? (a-z or <esc> to cancel)") : br_tr("Remove (unequip) what?"),
                                       true);
     }
     if (theItem == NULL) {
@@ -7516,7 +7591,7 @@ void unequip(item *theItem) {
 
     if (!(theItem->flags & ITEM_EQUIPPED)) {
         itemName(theItem, buf2, false, false, NULL);
-        sprintf(buf, "your %s %s not equipped.",
+        sprintf(buf, br_tr("your %s %s not equipped."),
                 buf2,
                 theItem->quantity == 1 ? "was" : "were");
         confirmMessages();
@@ -7532,7 +7607,7 @@ void unequip(item *theItem) {
             itemName(theItem, buf2, false, true, NULL);
         }
         confirmMessages();
-        sprintf(buf, "you are no longer %s %s.", (theItem->category & WEAPON ? "wielding" : "wearing"), buf2);
+        sprintf(buf, br_tr("you are no longer %s %s."), (theItem->category & WEAPON ? "wielding" : "wearing"), buf2);
         messageWithColor(buf, &itemMessageColor, 0);
     }
     playerTurnEnded();
@@ -7552,7 +7627,7 @@ void drop(item *theItem) {
     command[0] = DROP_KEY;
     if (theItem == NULL) {
         theItem = promptForItemOfType(ALL_ITEMS, 0, 0,
-                                      KEYBOARD_LABELS ? "Drop what? (a-z, shift for more info; or <esc> to cancel)" : "Drop what?",
+                                      KEYBOARD_LABELS ? br_tr("Drop what? (a-z, shift for more info; or <esc> to cancel)") : br_tr("Drop what?"),
                                       true);
     }
     if (theItem == NULL) {
@@ -7563,7 +7638,7 @@ void drop(item *theItem) {
 
     if ((theItem->flags & ITEM_EQUIPPED) && (theItem->flags & ITEM_CURSED)) {
         itemName(theItem, buf2, false, false, NULL);
-        sprintf(buf, "you can't; your %s appears to be cursed.", buf2);
+        sprintf(buf, br_tr("you can't; your %s appears to be cursed."), buf2);
         confirmMessages();
         messageWithColor(buf, &itemMessageColor, 0);
     } else if (canDrop()) {
@@ -7574,12 +7649,12 @@ void drop(item *theItem) {
         theItem = dropItem(theItem); // This is where it gets dropped.
         theItem->flags |= ITEM_PLAYER_AVOIDS; // Try not to pick up stuff you've already dropped.
         itemName(theItem, buf2, true, true, NULL);
-        sprintf(buf, "You dropped %s.", buf2);
+        sprintf(buf, br_tr("You dropped %s."), buf2);
         messageWithColor(buf, &itemMessageColor, 0);
         playerTurnEnded();
     } else {
         confirmMessages();
-        message("There is already something there.", 0);
+        message(br_tr("There is already something there."), 0);
     }
 }
 
@@ -7607,7 +7682,7 @@ item *promptForItemOfType(unsigned short category,
     if (keystroke < 'a' || keystroke > 'z') {
         confirmMessages();
         if (keystroke != ESCAPE_KEY && keystroke != ACKNOWLEDGE_KEY) {
-            message("Invalid entry.", 0);
+            message(br_tr("Invalid entry."), 0);
         }
         return NULL;
     }
@@ -7772,9 +7847,9 @@ boolean equipItem(item *theItem, boolean force, item *unequipHint) {
     if (!force) {
         if (previouslyEquippedItem) {
             itemName(previouslyEquippedItem, buf3, false, false, NULL);
-            sprintf(buf1, "Now %s %s instead of your %s.", (theItem->category & WEAPON ? "wielding" : "wearing"), buf2, buf3);
+            sprintf(buf1, br_tr("Now %s %s instead of your %s."), (theItem->category & WEAPON ? "wielding" : "wearing"), buf2, buf3);
         } else {
-            sprintf(buf1, "Now %s %s.", (theItem->category & WEAPON ? "wielding" : "wearing"), buf2);
+            sprintf(buf1, br_tr("Now %s %s."), (theItem->category & WEAPON ? "wielding" : "wearing"), buf2);
         }
 
         confirmMessages();
@@ -7784,16 +7859,16 @@ boolean equipItem(item *theItem, boolean force, item *unequipHint) {
             itemName(theItem, buf2, false, false, NULL);
             switch(theItem->category) {
                 case WEAPON:
-                    sprintf(buf1, "you wince as your grip involuntarily tightens around your %s.", buf2);
+                    sprintf(buf1, br_tr("you wince as your grip involuntarily tightens around your %s."), buf2);
                     break;
                 case ARMOR:
-                    sprintf(buf1, "your %s constricts around you painfully.", buf2);
+                    sprintf(buf1, br_tr("your %s constricts around you painfully."), buf2);
                     break;
                 case RING:
-                    sprintf(buf1, "your %s tightens around your finger painfully.", buf2);
+                    sprintf(buf1, br_tr("your %s tightens around your finger painfully."), buf2);
                     break;
                 default:
-                    sprintf(buf1, "your %s seizes you with a malevolent force.", buf2);
+                    sprintf(buf1, br_tr("your %s seizes you with a malevolent force."), buf2);
                     break;
             }
             messageWithColor(buf1, &itemMessageColor, 0);
@@ -7812,7 +7887,7 @@ boolean unequipItem(item *theItem, boolean force) {
     }
     if ((theItem->flags & ITEM_CURSED) && !force) {
         itemName(theItem, buf2, false, false, NULL);
-        sprintf(buf, "you can't; your %s appear%s to be cursed.",
+        sprintf(buf, br_tr("you can't; your %s appear%s to be cursed."),
                 buf2,
                 theItem->quantity == 1 ? "s" : "");
         confirmMessages();

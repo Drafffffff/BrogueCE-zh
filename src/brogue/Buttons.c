@@ -22,6 +22,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_text.h"
+#include "zh_catalog.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 #include <math.h>
@@ -102,7 +104,8 @@ void drawButton(brogueButton *button, enum buttonDrawStates highlight, screenDis
         bakeColor(&bColor);
         separateColors(&fColor, &bColor);
 
-        enum displayGlyph displayCharacter = button->text[textLoc];
+        BrTextToken token = br_text_next(button->text + textLoc);
+        enum displayGlyph displayCharacter = token.codepoint > 127 ? token.codepoint | BR_UNICODE_FLAG : token.codepoint;
         if (button->text[textLoc] == '*') {
             if (button->symbol[symbolNumber]) {
                 displayCharacter = button->symbol[symbolNumber];
@@ -111,12 +114,18 @@ void drawButton(brogueButton *button, enum buttonDrawStates highlight, screenDis
         }
 
         if (locIsInWindow((windowpos){ button->x + i, button->y })) {
+            for (int k=1; k<token.columns && button->x+i+k<COLS; k++) {
+                plotCharToBuffer(' ', (windowpos){button->x+i+k,button->y}, &fColor, &bColor, dbuf);
+                if(dbuf) dbuf->cells[button->x+i+k][button->y].opacity=opacity;
+            }
             plotCharToBuffer(displayCharacter, (windowpos){ button->x + i, button->y }, &fColor, &bColor, dbuf);
             if (dbuf) {
                 // Only buffers can have opacity set.
                 dbuf->cells[button->x + i][button->y].opacity = opacity;
             }
         }
+        i += token.columns - 1;
+        textLoc += token.bytes - 1;
     }
     restoreRNG;
 }

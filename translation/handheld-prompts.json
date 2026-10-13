@@ -1,0 +1,182 @@
+[
+  {
+    "id": "handheld-item-identify",
+    "file": "src/brogue/Items.c",
+    "source": "Identify what? (a-z; shift for more info)",
+    "zh_CN": "鉴定什么？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Items.c item-selection prompt lookup"
+  },
+  {
+    "id": "handheld-item-enchant",
+    "file": "src/brogue/Items.c",
+    "source": "Enchant what? (a-z; shift for more info)",
+    "zh_CN": "附魔什么？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Items.c item-selection prompt lookup"
+  },
+  {
+    "id": "handheld-item-apply",
+    "file": "src/brogue/Items.c",
+    "source": "Apply what? (a-z, shift for more info; or <esc> to cancel)",
+    "zh_CN": "使用什么？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Items.c item-selection prompt lookup"
+  },
+  {
+    "id": "handheld-item-relabel",
+    "file": "src/brogue/Items.c",
+    "source": "Relabel what? (a-z, shift for more info; or <esc> to cancel)",
+    "zh_CN": "调整哪个物品的标记？上下选择，A 确认；X 查看详情，B 返回。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Items.c item-selection prompt lookup"
+  },
+  {
+    "id": "handheld-item-direction",
+    "file": "src/brogue/Items.c",
+    "source": "Direction? (<hjklyubn>, mouse, or <tab>; <return> to confirm)",
+    "zh_CN": "选择方向：方向键瞄准，A 确认；B 返回。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Items.c direction prompt lookup"
+  },
+  {
+    "id": "handheld-continue-key",
+    "file": "src/brogue/IO.c",
+    "source": "-- press any key to continue --",
+    "zh_CN": "按 A 继续",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "IO.c continue prompt lookup"
+  },
+  {
+    "id": "handheld-continue-space",
+    "file": "src/brogue/IO.c",
+    "source": "Press space to continue.",
+    "zh_CN": "按 A 继续",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "IO.c continue prompt lookup"
+  },
+  {
+    "id": "handheld-continue-menu",
+    "file": "src/brogue/MainMenu.c",
+    "source": "Press space or click to continue.",
+    "zh_CN": "按 A 继续",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "MainMenu.c continue prompt lookup"
+  },
+  {
+    "id": "handheld-save-game-name",
+    "file": "src/brogue/Recordings.c",
+    "source": "Save game as (<esc> to cancel): ",
+    "zh_CN": "游戏存档名称（按 B 返回）：",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Recordings.c filename input; route text entry through handheld character selector"
+  },
+  {
+    "id": "handheld-save-recording-name",
+    "file": "src/brogue/Recordings.c",
+    "source": "Save recording as (<esc> to cancel): ",
+    "zh_CN": "录像存档名称（按 B 返回）：",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Recordings.c filename input; route text entry through handheld character selector"
+  },
+  {
+    "id": "handheld-seed-entry",
+    "file": "src/brogue/MainMenu.c",
+    "source": "Generate dungeon with seed number:",
+    "zh_CN": "输入地牢种子：",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "MainMenu.c seed input; route text entry through handheld character selector"
+  },
+  {
+    "id": "handheld-you-see",
+    "file": "src/brogue/Movement.c",
+    "source": "you see %s.",
+    "zh_CN": "你看见%s。",
+    "mode": "lookup",
+    "status": "prototype",
+    "integration": "Movement.c dynamic message lookup; preserve the single %s argument"
+  },
+  {
+    "id": "handheld-victory-0",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Congratulations; you have transcended the Dungeons of Doom!                 ",
+    "zh_CN": "恭喜！你已超越毁灭地牢！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-victory-1",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Congratulations; you have escaped from the Dungeons of Doom!     ",
+    "zh_CN": "恭喜！你逃出了毁灭地牢！",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-victory-2",
+    "file": "src/brogue/RogueMain.c",
+    "source": "You retire in splendor, forever renowned for your remarkable triumph.     ",
+    "zh_CN": "你荣耀归隐，非凡的胜利将永远为人传颂。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-victory-3",
+    "file": "src/brogue/RogueMain.c",
+    "source": "You sell your treasures and live out your days in fame and glory.",
+    "zh_CN": "你卖掉财宝，在声望与荣耀中度过余生。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-victory-4",
+    "file": "src/brogue/RogueMain.c",
+    "source": "The Birthright of Yendor",
+    "zh_CN": "延多传承",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-message-0",
+    "file": "src/brogue/Items.c",
+    "source": "Relabeled %s as (%c);",
+    "zh_CN": "已将%s的标记调整为（%c）；",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-message-1",
+    "file": "src/brogue/Items.c",
+    "source": "%selabeled %s as (%c).",
+    "zh_CN": "%.0s已将%s的标记调整为（%c）。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-message-2",
+    "file": "src/brogue/Items.c",
+    "source": "%s %s already labeled (%c).",
+    "zh_CN": "%s%.0s已使用标记（%c）。",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "handheld-message-3",
+    "file": "src/brogue/Time.c",
+    "source": "you %s a%s %s",
+    "zh_CN": "你%s%.0s%s",
+    "mode": "lookup",
+    "status": "prototype"
+  }
+]

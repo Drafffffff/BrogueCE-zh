@@ -22,6 +22,8 @@
  */
 
 #include "Rogue.h"
+#include "zh_catalog.h"
+#include "zh_text.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -281,6 +283,35 @@ void monsterName(char *buf, creature *monst, boolean includeArticle) {
     }
 }
 
+void br_display_monster_name(char *buf, creature *monst, boolean includeArticle) {
+    short oldRNG;
+
+    if (monst == &player) {
+        strcpy(buf, br_is_zh() ? "你" : "you");
+        return;
+    }
+    if (canSeeMonster(monst) || rogue.playbackOmniscience) {
+        if (player.status[STATUS_HALLUCINATING] && !rogue.playbackOmniscience && !player.status[STATUS_TELEPATHIC]) {
+
+            oldRNG = rogue.RNG;
+            rogue.RNG = RNG_COSMETIC;
+            //assureCosmeticRNG;
+            sprintf(buf, "%s%s", (includeArticle && !br_is_zh() ? "the " : ""),
+                    br_tr(monsterCatalog[rand_range(1, NUMBER_MONSTER_KINDS - 1)].monsterName));
+            restoreRNG;
+
+            return;
+        }
+        sprintf(buf, "%s%s", (includeArticle ? (monst->creatureState == MONSTER_ALLY ? (br_is_zh() ? "你的" : "your ") : (br_is_zh() ? "" : "the ")) : ""),
+                br_tr(monst->info.monsterName));
+        //monsterText[monst->info.monsterID].name);
+        return;
+    } else {
+        strcpy(buf, br_is_zh() ? "某个东西" : "something");
+        return;
+    }
+}
+
 boolean monsterIsInClass(const creature *monst, const short monsterClass) {
     short i;
     for (i = 0; monsterClassCatalog[monsterClass].memberList[i] != 0; i++) {
@@ -443,6 +474,67 @@ void resolvePronounEscapes(char *text, creature *monst) {
         {"$HIMHER", "you", "him", "her", "it"},
         {"$HISHER", "your", "his", "her", "its"},
         {"$HIMSELFHERSELF", "yourself", "himself", "herself", "itself"}};
+
+    if (monst == &player) {
+        gender = 1;
+    } else if (!canSeeMonster(monst) && !rogue.playbackOmniscience) {
+        gender = 4;
+    } else if (monst->info.flags & MONST_MALE) {
+        gender = 2;
+    } else if (monst->info.flags & MONST_FEMALE) {
+        gender = 3;
+    } else {
+        gender = 4;
+    }
+
+    capitalize = false;
+
+    for (insert = scan = text; *scan;) {
+        if (scan[0] == '$') {
+            for (pronounType=0; pronounType<4; pronounType++) {
+                if (stringsMatch(pronouns[pronounType][0], scan)) {
+                    strcpy(insert, pronouns[pronounType][gender]);
+                    if (capitalize) {
+                        upperCase(insert);
+                        capitalize = false;
+                    }
+                    scan += strlen(pronouns[pronounType][0]);
+                    insert += strlen(pronouns[pronounType][gender]);
+                    break;
+                }
+            }
+            if (pronounType == 4) {
+                // Started with a '$' but didn't match an escape sequence; just copy the character and move on.
+                *(insert++) = *(scan++);
+            }
+        } else if (scan[0] == COLOR_ESCAPE) {
+            for (i=0; i<4; i++) {
+                *(insert++) = *(scan++);
+            }
+        } else { // Didn't match any of the escape sequences; copy the character instead.
+            if (*scan == '.') {
+                capitalize = true;
+            } else if (*scan != ' ') {
+                capitalize = false;
+            }
+
+            *(insert++) = *(scan++);
+        }
+    }
+    *insert = '\0';
+}
+
+void br_resolve_display_pronouns(char *text, creature *monst) {
+    short pronounType, gender, i;
+    char *insert, *scan;
+    boolean capitalize;
+    // Note: Escape sequences MUST be longer than EACH of the possible replacements.
+    // That way, the string only contracts, and we don't need a buffer.
+    const char *pronouns[4][5] = {
+        {"$HESHE", (br_is_zh() ? "你" : "you"), (br_is_zh() ? "他" : "he"), (br_is_zh() ? "她" : "she"), (br_is_zh() ? "它" : "it")},
+        {"$HIMHER", (br_is_zh() ? "你" : "you"), (br_is_zh() ? "他" : "him"), (br_is_zh() ? "她" : "her"), (br_is_zh() ? "它" : "it")},
+        {"$HISHER", (br_is_zh() ? "你的" : "your"), (br_is_zh() ? "他的" : "his"), (br_is_zh() ? "她的" : "her"), (br_is_zh() ? "它的" : "its")},
+        {"$HIMSELFHERSELF", (br_is_zh() ? "你自己" : "yourself"), (br_is_zh() ? "他自己" : "himself"), (br_is_zh() ? "她自己" : "herself"), (br_is_zh() ? "它自己" : "itself")}};
 
     if (monst == &player) {
         gender = 1;
@@ -4210,31 +4302,31 @@ static void getMonsterDominationText(char *buf, const creature *monst) {
         return;
     }
 
-    char monstName[COLS], monstNamePossessive[COLS];
-    monsterName(monstName, monst, true);
+    char monstName[BR_MESSAGE_BYTES], monstNamePossessive[BR_MESSAGE_BYTES];
+    br_display_monster_name(monstName, monst, true);
     strcpy(monstNamePossessive, monstName);
-    strcat(monstNamePossessive, endswith(monstName,"s") ? "'" : "'s");
+    strcat(monstNamePossessive, br_is_zh()?"的":(endswith(monstName,"s") ? "'" : "'s"));
 
-    char newText[20*COLS];
+    char newText[TEXT_MAX_LENGTH];
     short successChance = 0;
     if (!(monst->info.flags & (MONST_INANIMATE | MONST_INVULNERABLE))) {
       successChance = wandDominate(monst);
     }
 
     if (monst->info.flags & MONST_INANIMATE) {
-        sprintf(newText, "\n     A wand of domination will have no effect on objects like %s.",
+        sprintf(newText, br_tr("\n     A wand of domination will have no effect on objects like %s."),
                 monstName);
     } else if (monst->info.flags & MONST_INVULNERABLE) {
-            sprintf(newText, "\n     A wand of domination will not affect %s.",
+            sprintf(newText, br_tr("\n     A wand of domination will not affect %s."),
                     monstName);
     } else if (successChance <= 0) {
-        sprintf(newText, "\n     A wand of domination will fail at %s current health level.",
+        sprintf(newText, br_tr("\n     A wand of domination will fail at %s current health level."),
                 monstNamePossessive);
     } else if (successChance >= 100) {
-        sprintf(newText, "\n     A wand of domination will always succeed at %s current health level.",
+        sprintf(newText, br_tr("\n     A wand of domination will always succeed at %s current health level."),
                 monstNamePossessive);
     } else {
-        sprintf(newText, "\n     A wand of domination will have a %i%% chance of success at %s current health level.",
+        sprintf(newText, br_tr("\n     A wand of domination will have a %i%% chance of success at %s current health level."),
                 successChance,
                 monstNamePossessive);
     }
@@ -4267,11 +4359,11 @@ static void buildProperCommaString(char *dest, char *newText) {
         if (newText[i] == '&') {
             dest[j] = '\0';
             if (!--commaCount) {
-                strcat(dest, " and ");
-                j += 5;
+                strcat(dest, br_tr(" and "));
+                j += strlen(br_tr(" and "));
             } else {
-                strcat(dest, ", ");
-                j += 2;
+                strcat(dest, br_tr(", "));
+                j += strlen(br_is_zh()?"、":", ");
             }
         } else {
             dest[j++] = newText[i];
@@ -4289,16 +4381,16 @@ static void getMonsterAbilitiesText(const creature *monst, char *abilitiesText, 
 
     char buf[TEXT_MAX_LENGTH] = "";
     if (includeNegatable && (monst->mutationIndex >= 0) && mutationCatalog[monst->mutationIndex].canBeNegated) {
-        strcat(buf, "has a rare mutation");
+        strcat(buf, br_tr("has a rare mutation"));
     }
 
     if ((includeNegatable && monst->attackSpeed != monst->info.attackSpeed)
         || (includeNonNegatable && monst->attackSpeed == monst->info.attackSpeed)) {
 
         if (monst->attackSpeed < 100) {
-            strcat(buf, "&attacks quickly");
+            strcat(buf, br_tr("&attacks quickly"));
         } else if (monst->attackSpeed > 100) {
-            strcat(buf, "&attacks slowly");
+            strcat(buf, br_tr("&attacks slowly"));
         }
     }
 
@@ -4306,17 +4398,17 @@ static void getMonsterAbilitiesText(const creature *monst, char *abilitiesText, 
         || (includeNonNegatable && monst->movementSpeed == monst->info.movementSpeed)) {
 
         if (monst->movementSpeed < 100) {
-            strcat(buf, "&moves quickly");
+            strcat(buf, br_tr("&moves quickly"));
         } else if (monst->movementSpeed > 100) {
-            strcat(buf, "&moves slowly");
+            strcat(buf, br_tr("&moves slowly"));
         }
     }
 
     if (includeNonNegatable) {
         if (monst->info.turnsBetweenRegen == 0) {
-            strcat(buf, "&does not regenerate");
+            strcat(buf, br_tr("&does not regenerate"));
         } else if (monst->info.turnsBetweenRegen < 5000) {
-            strcat(buf, "&regenerates quickly");
+            strcat(buf, br_tr("&regenerates quickly"));
         }
     }
 
@@ -4326,7 +4418,7 @@ static void getMonsterAbilitiesText(const creature *monst, char *abilitiesText, 
                 || (includeNonNegatable && (boltCatalog[monst->info.bolts[i]].flags & BF_NOT_NEGATABLE))) {
 
                 strcat(buf, "&");
-                strcat(buf, boltCatalog[monst->info.bolts[i]].abilityDescription);
+                strcat(buf, br_tr(boltCatalog[monst->info.bolts[i]].abilityDescription));
             }
         }
     }
@@ -4338,7 +4430,7 @@ static void getMonsterAbilitiesText(const creature *monst, char *abilitiesText, 
                 || (includeNonNegatable && !monsterAbilityCatalog[i].isNegatable)) {
 
                 strcat(buf, "&");
-                strcat(buf, monsterAbilityCatalog[i].description);
+                strcat(buf, br_tr(monsterAbilityCatalog[i].description));
             }
         }
     }
@@ -4350,7 +4442,7 @@ static void getMonsterAbilitiesText(const creature *monst, char *abilitiesText, 
                 || (includeNonNegatable && !monsterBehaviorCatalog[i].isNegatable)) {
 
                 strcat(buf, "&");
-                strcat(buf, monsterBehaviorCatalog[i].description);
+                strcat(buf, br_tr(monsterBehaviorCatalog[i].description));
             }
         }
     }
@@ -4362,7 +4454,7 @@ static void getMonsterAbilitiesText(const creature *monst, char *abilitiesText, 
                 || (includeNonNegatable && !(monst->bookkeepingFlags & MB_SEIZING))) {
 
                 strcat(buf, "&");
-                strcat(buf, monsterBookkeepingFlagDescriptions[i]);
+                strcat(buf, br_tr(monsterBookkeepingFlagDescriptions[i]));
             }
         }
     }
@@ -4371,14 +4463,14 @@ static void getMonsterAbilitiesText(const creature *monst, char *abilitiesText, 
 }
 
 static boolean staffOrWandEffectOnMonsterDescription(char *newText, item *theItem, creature *monst) {
-    char theItemName[COLS], monstName[COLS];
+    char theItemName[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
     boolean successfulDescription = false;
     fixpt enchant = netEnchant(theItem);
 
     if ((theItem->category & (STAFF | WAND))
         && tableForItemCategory(theItem->category)[theItem->kind].identified) {
 
-        monsterName(monstName, monst, true);
+        br_display_monster_name(monstName, monst, true);
         itemName(theItem, theItemName, false, false, NULL);
 
         switch (boltEffectForItem(theItem)) {
@@ -4386,20 +4478,20 @@ static boolean staffOrWandEffectOnMonsterDescription(char *newText, item *theIte
                 if ((boltCatalog[boltForItem(theItem)].flags & BF_FIERY) && (monst->status[STATUS_IMMUNE_TO_FIRE])
                     || (monst->info.flags & MONST_INVULNERABLE)) {
 
-                    sprintf(newText, "\n     Your %s (%c) will not harm %s.",
+                    sprintf(newText, br_tr("\n     Your %s (%c) will not harm %s."),
                             theItemName,
                             theItem->inventoryLetter,
                             monstName);
                     successfulDescription = true;
                 } else if (theItem->flags & (ITEM_MAX_CHARGES_KNOWN | ITEM_IDENTIFIED)) {
                     if (staffDamageLow(enchant) >= monst->currentHP) {
-                        sprintf(newText, "\n     Your %s (%c) will %s %s in one hit.",
+                        sprintf(newText, br_tr("\n     Your %s (%c) will %s %s in one hit."),
                                 theItemName,
                                 theItem->inventoryLetter,
-                                (monst->info.flags & MONST_INANIMATE) ? "destroy" : "kill",
+                                (monst->info.flags & MONST_INANIMATE) ? br_tr("destroy") : br_tr("kill"),
                                 monstName);
                     } else {
-                        sprintf(newText, "\n     Your %s (%c) will hit %s for between %i%% and %i%% of $HISHER current health.",
+                        sprintf(newText, br_tr("\n     Your %s (%c) will hit %s for between %i%% and %i%% of $HISHER current health."),
                                 theItemName,
                                 theItem->inventoryLetter,
                                 monstName,
@@ -4411,12 +4503,12 @@ static boolean staffOrWandEffectOnMonsterDescription(char *newText, item *theIte
                 break;
             case BE_POISON:
                 if (monst->info.flags & (MONST_INANIMATE | MONST_INVULNERABLE)) {
-                    sprintf(newText, "\n     Your %s (%c) will not affect %s.",
+                    sprintf(newText, br_tr("\n     Your %s (%c) will not affect %s."),
                             theItemName,
                             theItem->inventoryLetter,
                             monstName);
                 } else {
-                    sprintf(newText, "\n     Your %s (%c) will poison %s for %i%% of $HISHER current health.",
+                    sprintf(newText, br_tr("\n     Your %s (%c) will poison %s for %i%% of $HISHER current health."),
                             theItemName,
                             theItem->inventoryLetter,
                             monstName,
@@ -4488,28 +4580,28 @@ static void summarizePack (packSummary *pack) {
 
 
 void monsterDetails(char buf[], creature *monst) {
-    char monstName[COLS], capMonstName[COLS], theItemName[COLS * 3], newText[20*COLS];
+    char monstName[BR_MESSAGE_BYTES], capMonstName[BR_MESSAGE_BYTES], theItemName[BR_MESSAGE_BYTES], newText[TEXT_MAX_LENGTH];
     short i, combatMath, combatMath2, playerKnownAverageDamage, playerKnownMaxDamage, realArmorValue;
     item *theItem;
 
     buf[0] = '\0';
 
-    monsterName(monstName, monst, true);
+    br_display_monster_name(monstName, monst, true);
     strcpy(capMonstName, monstName);
     upperCase(capMonstName);
 
     if (!(monst->info.flags & MONST_RESTRICTED_TO_LIQUID)
          || cellHasTMFlag(monst->loc, TM_ALLOWS_SUBMERGING)) {
         // If the monster is not a beached whale, print the ordinary flavor text.
-        sprintf(newText, "     %s\n     ", monsterText[monst->info.monsterID].flavorText);
+        sprintf(newText, "     %s\n     ", br_tr(monsterText[monst->info.monsterID].flavorText));
         strcat(buf, newText);
     }
 
     if (monst->mutationIndex >= 0) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, mutationCatalog[monst->mutationIndex].textColor);
-        strcpy(newText, mutationCatalog[monst->mutationIndex].description);
-        resolvePronounEscapes(newText, monst);
+        strcpy(newText, br_tr(mutationCatalog[monst->mutationIndex].description));
+        br_resolve_display_pronouns(newText, monst);
         upperCase(newText);
         strcat(newText, "\n     ");
         strcat(buf, newText);
@@ -4520,10 +4612,10 @@ void monsterDetails(char buf[], creature *monst) {
     if (!(monst->info.flags & MONST_ATTACKABLE_THRU_WALLS)
         && cellHasTerrainFlag(monst->loc, T_OBSTRUCTS_PASSABILITY)) {
         // If the monster is trapped in impassible terrain, explain as much.
-        sprintf(newText, "%s is trapped %s %s.\n     ",
+        sprintf(newText, br_tr("%s is trapped %s %s.\n     "),
                 capMonstName,
-                (tileCatalog[pmapAt(monst->loc)->layers[layerWithFlag(monst->loc.x, monst->loc.y, T_OBSTRUCTS_PASSABILITY)]].mechFlags & TM_STAND_IN_TILE) ? "in" : "on",
-                tileCatalog[pmapAt(monst->loc)->layers[layerWithFlag(monst->loc.x, monst->loc.y, T_OBSTRUCTS_PASSABILITY)]].description);
+                (tileCatalog[pmapAt(monst->loc)->layers[layerWithFlag(monst->loc.x, monst->loc.y, T_OBSTRUCTS_PASSABILITY)]].mechFlags & TM_STAND_IN_TILE) ? br_tr("in") : br_tr("on"),
+                br_tr(tileCatalog[pmapAt(monst->loc)->layers[layerWithFlag(monst->loc.x, monst->loc.y, T_OBSTRUCTS_PASSABILITY)]].description));
         strcat(buf, newText);
     }
 
@@ -4533,18 +4625,18 @@ void monsterDetails(char buf[], creature *monst) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &goodMessageColor);
 
-        sprintf(newText, "%s is your ally.\n     ", capMonstName);
+        sprintf(newText, br_tr("%s is your ally.\n     "), capMonstName);
         strcat(buf, newText);
         if (monst->newPowerCount > 0) {
             i = strlen(buf);
             i = encodeMessageColor(buf, i, &advancementMessageColor);
 
             if (monst->newPowerCount == 1) {
-                sprintf(newText, "$HESHE seems ready to learn something new.\n     ");
+                strcpy(newText, br_tr("$HESHE seems ready to learn something new.\n     "));
             } else {
-                sprintf(newText, "$HESHE seems ready to learn %i new talents.\n     ", monst->newPowerCount);
+                sprintf(newText, br_tr("$HESHE seems ready to learn %i new talents.\n     "), monst->newPowerCount);
             }
-            resolvePronounEscapes(newText, monst); // So that it gets capitalized appropriately.
+            br_resolve_display_pronouns(newText, monst); // So that it gets capitalized appropriately.
             upperCase(newText);
             strcat(buf, newText);
         }
@@ -4562,7 +4654,7 @@ void monsterDetails(char buf[], creature *monst) {
 
     // Combat info for the monster attacking the player
     if ((monst->info.flags & MONST_RESTRICTED_TO_LIQUID) && !cellHasTMFlag(monst->loc, TM_ALLOWS_SUBMERGING)) {
-        sprintf(newText, "     %s writhes helplessly on dry land.\n     ", capMonstName);
+        sprintf(newText, br_tr("     %s writhes helplessly on dry land.\n     "), capMonstName);
     } else if (rogue.armor
                && (rogue.armor->flags & ITEM_RUNIC)
                && (rogue.armor->flags & ITEM_RUNIC_IDENTIFIED)
@@ -4570,9 +4662,9 @@ void monsterDetails(char buf[], creature *monst) {
                && monsterIsInClass(monst, rogue.armor->vorpalEnemy)) {
 
         itemName(rogue.armor, theItemName, false, false, NULL);
-        sprintf(newText, "Your %s renders you immune to %s.\n     ", theItemName, monstName);
+        sprintf(newText, br_tr("Your %s renders you immune to %s.\n     "), theItemName, monstName);
     } else if (monst->info.damage.upperBound * monsterDamageAdjustmentAmount(monst) / FP_FACTOR == 0) {
-        sprintf(newText, "%s deals no direct damage.\n     ", capMonstName);
+        sprintf(newText, br_tr("%s deals no direct damage.\n     "), capMonstName);
     } else {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &badMessageColor);
@@ -4583,17 +4675,17 @@ void monsterDetails(char buf[], creature *monst) {
             }
             if (i == 0) {
                 // Already fatally poisoned.
-                sprintf(newText, "%s has a %i%% chance to poison you and typically poisons for %i turns.\n     ",
+                sprintf(newText, br_tr("%s has a %i%% chance to poison you and typically poisons for %i turns.\n     "),
                         capMonstName,
                         combatMath2,
                         (int) ((monst->info.damage.lowerBound + monst->info.damage.upperBound) * monsterDamageAdjustmentAmount(monst) / 2 / FP_FACTOR));
             } else {
-            sprintf(newText, "%s has a %i%% chance to poison you, typically poisons for %i turns, and at worst, could fatally poison you in %i hit%s.\n     ",
+            sprintf(newText, br_tr("%s has a %i%% chance to poison you, typically poisons for %i turns, and at worst, could fatally poison you in %i hit%s.\n     "),
                     capMonstName,
                     combatMath2,
                     (int) ((monst->info.damage.lowerBound + monst->info.damage.upperBound) * monsterDamageAdjustmentAmount(monst) / 2 / FP_FACTOR),
                     i,
-                    (i > 1 ? "s" : ""));
+                    (!br_is_zh() && (i > 1) ? "s" : ""));
             }
         } else {
             combatMath = ((player.currentHP + (monst->info.damage.upperBound * monsterDamageAdjustmentAmount(monst) / FP_FACTOR) - 1) * FP_FACTOR)
@@ -4601,12 +4693,12 @@ void monsterDetails(char buf[], creature *monst) {
             if (combatMath < 1) {
                 combatMath = 1;
             }
-            sprintf(newText, "%s has a %i%% chance to hit you, typically hits for %i%% of your current health, and at worst, could defeat you in %i hit%s.\n     ",
+            sprintf(newText, br_tr("%s has a %i%% chance to hit you, typically hits for %i%% of your current health, and at worst, could defeat you in %i hit%s.\n     "),
                     capMonstName,
                     combatMath2,
                     (int) (100 * (monst->info.damage.lowerBound + monst->info.damage.upperBound) * monsterDamageAdjustmentAmount(monst) / 2 / player.currentHP / FP_FACTOR),
                     combatMath,
-                    (combatMath > 1 ? "s" : ""));
+                    (!br_is_zh() && (combatMath > 1) ? "s" : ""));
         }
     }
     upperCase(newText);
@@ -4629,7 +4721,7 @@ void monsterDetails(char buf[], creature *monst) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &white);
 
-        sprintf(newText, "You deal no direct damage.");
+        strcpy(newText, br_tr("You deal no direct damage."));
     } else if (rogue.weapon
                && (rogue.weapon->flags & ITEM_RUNIC)
                && (rogue.weapon->flags & ITEM_RUNIC_IDENTIFIED)
@@ -4639,16 +4731,16 @@ void monsterDetails(char buf[], creature *monst) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &goodMessageColor);
         itemName(rogue.weapon, theItemName, false, false, NULL);
-        sprintf(newText, "Your %s will slay %s in one stroke.", theItemName, monstName);
+        sprintf(newText, br_tr("Your %s will slay %s in one stroke."), theItemName, monstName);
     } else if (monst->info.flags & (MONST_INVULNERABLE | MONST_IMMUNE_TO_WEAPONS)) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &white);
-        sprintf(newText, "%s is immune to your attacks.", monstName);
+        sprintf(newText, br_tr("%s is immune to your attacks."), monstName);
     } else if (monst->bookkeepingFlags & MB_CAPTIVE) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &goodMessageColor);
 
-        sprintf(newText, "%s is being held captive.", capMonstName);
+        sprintf(newText, br_tr("%s is being held captive."), capMonstName);
     } else {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &goodMessageColor);
@@ -4665,12 +4757,12 @@ void monsterDetails(char buf[], creature *monst) {
         } else {
             combatMath2 = hitProbability(&player, monst);
         }
-        sprintf(newText, "You have a %i%% chance to hit %s, typically hit for %i%% of $HISHER current health, and at best, could defeat $HIMHER in %i hit%s.",
+        sprintf(newText, br_tr("You have a %i%% chance to hit %s, typically hit for %i%% of $HISHER current health, and at best, could defeat $HIMHER in %i hit%s."),
                 combatMath2,
                 monstName,
                 100 * playerKnownAverageDamage / monst->currentHP,
                 combatMath,
-                (combatMath > 1 ? "s" : ""));
+                (!br_is_zh() && (combatMath > 1) ? "s" : ""));
     }
     upperCase(newText);
     strcat(buf, newText);
@@ -4678,20 +4770,20 @@ void monsterDetails(char buf[], creature *monst) {
     packSummary pack = {0};
     summarizePack(&pack);
 
-    char buf2[COLS] = "";
+    char buf2[BR_MESSAGE_BYTES] = "";
     if (monsterIsNegatable(monst)) {
         if (pack.hasNegationCharm) {
-            strcpy(buf2, "negation charm");
+            strcpy(buf2, br_tr("negation charm"));
         }
         if (pack.hasNegationScroll) {
-            strcat(buf2, "&scroll of negation");
+            strcat(buf2, br_tr("&scroll of negation"));
         }
         if (pack.hasNegationWand && !(monst->info.abilityFlags & MA_REFLECT_100)) {
-            strcat(buf2, "&wand of negation");
+            strcat(buf2, br_tr("&wand of negation"));
         }
     }
 
-    char negationMethodText[COLS] = "";
+    char negationMethodText[BR_MESSAGE_BYTES] = "";
     buildProperCommaString(negationMethodText, buf2);
 
     // todo: A wand of polymorph will have no effect on the <monster>
@@ -4702,9 +4794,9 @@ void monsterDetails(char buf[], creature *monst) {
 
     // Will it die if negated and we have the means to negate?
     if ((monst->info.flags & MONST_DIES_IF_NEGATED) && negationMethodText[0]) {
-        sprintf(newText, "\n     Your %s will %s %s.",
+        sprintf(newText, br_tr("\n     Your %s will %s %s."),
             negationMethodText,
-            (monst->info.flags & MONST_INANIMATE) ? "destroy" : "kill",
+            (monst->info.flags & MONST_INANIMATE) ? br_tr("destroy") : br_tr("kill"),
             monstName);
         strcat(buf, newText);
     }
@@ -4713,19 +4805,19 @@ void monsterDetails(char buf[], creature *monst) {
     if (monst->info.flags & MONST_ATTACKABLE_THRU_WALLS) {
         strcpy(buf2, "");
         if (pack.hasShatteringCharm) {
-            strcpy(buf2, "shattering charm");
+            strcpy(buf2, br_tr("shattering charm"));
         }
         if (pack.hasShatteringScroll) {
-            strcat(buf2, "&scroll of shattering");
+            strcat(buf2, br_tr("&scroll of shattering"));
         }
         if (pack.hasTunnelingStaff) {
-            strcat(buf2, "&staff of tunneling");
+            strcat(buf2, br_tr("&staff of tunneling"));
         }
 
-        char shatterMethodText[COLS] = "";
+        char shatterMethodText[BR_MESSAGE_BYTES] = "";
         buildProperCommaString(shatterMethodText, buf2);
         if (shatterMethodText[0]) {
-            sprintf(newText, "\n     Your %s will destroy %s.", shatterMethodText, monstName);
+            sprintf(newText, br_tr("\n     Your %s will destroy %s."), shatterMethodText, monstName);
             strcat(buf, newText);
         }
     }
@@ -4733,11 +4825,11 @@ void monsterDetails(char buf[], creature *monst) {
     // Will it reflect all bolts?
     if ((monst->info.abilityFlags & MA_REFLECT_100) && (pack.staffCount || pack.wandCount)) {
 
-        sprintf(newText, "\n     Bolts from your %s%s%s%s%s that hit %s will be reflected directly back at you.",
-            pack.staffCount ? "staff" : "",
+        sprintf(newText, br_tr("\n     Bolts from your %s%s%s%s%s that hit %s will be reflected directly back at you."),
+            pack.staffCount ? br_tr("staff") : "",
             pack.staffCount > 1 ? "s" : "",
-            pack.wandCount && pack.staffCount ? " and " : "",
-            pack.wandCount ? "wand" : "",
+            pack.wandCount && pack.staffCount ? br_tr(" and ") : "",
+            pack.wandCount ? br_tr("wand") : "",
             pack.wandCount > 1 ? "s" : "",
             monstName);
         strcat(buf, newText);
@@ -4771,7 +4863,7 @@ void monsterDetails(char buf[], creature *monst) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &itemMessageColor);
         itemName(monst->carriedItem, theItemName, true, true, NULL);
-        sprintf(newText, "%s has %s.", capMonstName, theItemName);
+        sprintf(newText, br_tr("%s has %s."), capMonstName, theItemName);
         upperCase(newText);
         strcat(buf, "\n     ");
         strcat(buf, newText);
@@ -4781,8 +4873,8 @@ void monsterDetails(char buf[], creature *monst) {
     if (monst->wasNegated && monst->newPowerCount == monst->totalPowerCount) {
         i = strlen(buf);
         i = encodeMessageColor(buf, i, &pink);
-        sprintf(newText, "%s is stripped of $HISHER special traits.", capMonstName);
-        resolvePronounEscapes(newText, monst);
+        sprintf(newText, br_tr("%s is stripped of $HISHER special traits."), capMonstName);
+        br_resolve_display_pronouns(newText, monst);
         upperCase(newText);
         strcat(buf, "\n     ");
         strcat(buf, newText);
@@ -4790,13 +4882,13 @@ void monsterDetails(char buf[], creature *monst) {
 
     // list the monster's abilities
     encodeMessageColor(buf, strlen(buf), &white);
-    char abilitiesText[20*COLS] = "";
+    char abilitiesText[TEXT_MAX_LENGTH] = "";
 
      // print all abilities if the player has no effective negation source, or they do and the monster dies to negation
     if (((monst->info.flags & MONST_DIES_IF_NEGATED) && negationMethodText[0]) || !negationMethodText[0]) {
         getMonsterAbilitiesText(monst, abilitiesText, true, true);
         if (abilitiesText[0]) {
-            sprintf(newText, "\n     %s %s.", capMonstName, abilitiesText);
+            sprintf(newText, br_tr("\n     %s %s."), capMonstName, abilitiesText);
             strcat(buf, newText);
         }
     } else {
@@ -4804,23 +4896,23 @@ void monsterDetails(char buf[], creature *monst) {
         boolean hasNonNegatableAbilities = false;
         if (abilitiesText[0]) {
             hasNonNegatableAbilities = true;
-            sprintf(newText, "\n     %s %s.", capMonstName, abilitiesText);
+            sprintf(newText, br_tr("\n     %s %s."), capMonstName, abilitiesText);
             strcat(buf, newText);
         }
 
         strcpy(abilitiesText, "");
         getMonsterAbilitiesText(monst, abilitiesText, true, false); // then print negatable abilities, if any
         if (abilitiesText[0]) {
-            sprintf(newText, "\n     %s%s has special traits that can be removed by a ", capMonstName, hasNonNegatableAbilities ? " also" : "");
+            sprintf(newText, br_tr("\n     %s%s has special traits that can be removed by a "), capMonstName, hasNonNegatableAbilities ? br_tr(" also") : "");
             encodeMessageColor(newText, strlen(newText), &itemMessageColor);
             strcat(newText, negationMethodText);
             encodeMessageColor(newText, strlen(newText), &white);
-            strcat(newText, ": it ");
+            strcat(newText, br_tr(": it "));
             strcat(newText, abilitiesText);
-            strcat(newText, ".");
+            strcat(newText, br_tr("."));
             strcat(buf, newText);
         }
     }
 
-    resolvePronounEscapes(buf, monst);
+    br_resolve_display_pronouns(buf, monst);
 }

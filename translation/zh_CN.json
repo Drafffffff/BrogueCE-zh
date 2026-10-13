@@ -1,0 +1,44 @@
+[
+  {
+    "id": "s_a469550b6898c3b5",
+    "file": "src/brogue/MainMenu.c",
+    "source": "     %sN%sew Game     ",
+    "zh_CN": "     %s新%s的冒险     ",
+    "status": "prototype"
+  },
+  {
+    "id": "s_253921f679591732",
+    "file": "src/brogue/MainMenu.c",
+    "source": " *     %sP%slay       ",
+    "zh_CN": " *     %s游%s戏       ",
+    "status": "prototype"
+  },
+  {
+    "id": "s_2023a1123ac9257e",
+    "file": "src/brogue/MainMenu.c",
+    "source": " *     %sV%siew       ",
+    "zh_CN": " *     %s查%s看       ",
+    "status": "prototype"
+  },
+  {
+    "id": "s_1df884d11f9ee08b",
+    "file": "src/brogue/MainMenu.c",
+    "source": "       %sQ%suit       ",
+    "zh_CN": "       %s退%s出       ",
+    "status": "prototype"
+  },
+  {
+    "id": "s_80dd64bb2d44421e",
+    "file": "src/brogue/IO.c",
+    "source": "Save this game and exit?",
+    "zh_CN": "保存游戏并退出？",
+    "status": "prototype"
+  },
+  {
+    "id": "s_f7141b876d6c1124",
+    "file": "src/brogue/RogueMain.c",
+    "source": "Hello and welcome, adventurer, to the Dungeons of Doom!",
+    "zh_CN": "欢迎你，冒险者，来到毁灭地牢！",
+    "status": "prototype"
+  }
+]

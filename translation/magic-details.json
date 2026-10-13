@@ -1,0 +1,236 @@
+[
+  {
+    "id": "s_1eb6a97dd8462ada",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nThe %s has %i charges remaining out of a maximum of %i charges, and%s recovers a charge in approximately %lli turns. ",
+    "zh_CN": "\n\n%s目前剩余 %i 次充能，上限为 %i 次；%s恢复一次充能约需 %lli 回合。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_e3595e785229bb14",
+    "file": "src/brogue/Items.c",
+    "source": ", with your current rings,",
+    "zh_CN": "在当前戒指的影响下，",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "prototype"
+  },
+  {
+    "id": "s_9246bd7bf73ba771",
+    "file": "src/brogue/Items.c",
+    "source": "\n\nThe %s has a maximum of %i charges, and%s recovers a charge in approximately %lli turns. ",
+    "zh_CN": "\n\n%s的充能上限为 %i 次；%s恢复一次充能约需 %lli 回合。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_9d8bc3b9345082e5",
+    "file": "src/brogue/Items.c",
+    "source": "You last used it %li, %li and %li turns ago. ",
+    "zh_CN": "最近三次使用分别在 %li、%li 和 %li 回合前。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_2c1cdac1c828a3a0",
+    "file": "src/brogue/Items.c",
+    "source": "You last used it %li and %li turns ago. ",
+    "zh_CN": "最近两次使用分别在 %li 和 %li 回合前。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_688c62478fc28442",
+    "file": "src/brogue/Items.c",
+    "source": "You last used it %li turn%s ago. ",
+    "zh_CN": "上次使用是在 %li 回合前。%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_dfbebe604012226d",
+    "file": "src/brogue/Items.c",
+    "source": "This staff deals damage to every creature in its line of fire; nothing is immune. (If the staff is enchanted, its average damage will increase by %i%%.)",
+    "zh_CN": "这根法杖会伤害射线上的所有生物，没有生物能免疫。（强化后，平均伤害会提高 %i%%。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_fe73e0a60b4daadb",
+    "file": "src/brogue/Items.c",
+    "source": "This staff deals damage to any creature that it hits, unless the creature is immune to fire. (If the staff is enchanted, its average damage will increase by %i%%.) It also sets creatures and flammable terrain on fire.",
+    "zh_CN": "这根法杖会伤害命中的生物，免疫火焰的生物除外。（强化后，平均伤害会提高 %i%%。）它还会点燃生物和可燃地形。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_4118f822f42c1117",
+    "file": "src/brogue/Items.c",
+    "source": "The bolt from this staff will poison any creature that it hits for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+    "zh_CN": "这根法杖的法术束会使命中的生物中毒 %i 回合。（强化后，会延长至 %i 回合。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_c76e88bf56fdbe25",
+    "file": "src/brogue/Items.c",
+    "source": "The bolt from this staff will dissolve %i layers of obstruction. (If the staff is enchanted, this will increase to %i layers.)",
+    "zh_CN": "这根法杖的法术束会溶解 %i 层障碍。（强化后，会增至 %i 层。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_131bcf0cc7a36a6c",
+    "file": "src/brogue/Items.c",
+    "source": "This staff enables you to teleport up to %i spaces. (If the staff is enchanted, this will increase to %i spaces.)",
+    "zh_CN": "这根法杖能让你传送最多 %i 格。（强化后，会增至 %i 格。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_75030cd2389a8205",
+    "file": "src/brogue/Items.c",
+    "source": "This staff will compel its target to mirror your movements for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+    "zh_CN": "这根法杖会迫使目标模仿你的移动，持续 %i 回合。（强化后，会延长至 %i 回合。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_58bcbc1ae399ef78",
+    "file": "src/brogue/Items.c",
+    "source": "This staff will heal its target by %i%% of its maximum health. (If the staff is enchanted, this will increase to %i%%.)",
+    "zh_CN": "这根法杖会为目标恢复其生命上限的 %i%%。（强化后，会增至 %i%%。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_51e6a27a5efaa1c8",
+    "file": "src/brogue/Items.c",
+    "source": "This staff will completely heal its target.",
+    "zh_CN": "这根法杖会完全恢复目标的生命。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_47e44bbc07807018",
+    "file": "src/brogue/Items.c",
+    "source": "This staff will cause its target to move twice as fast for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+    "zh_CN": "这根法杖会使目标的移动速度翻倍，持续 %i 回合。（强化后，会延长至 %i 回合。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_3bc85f5c3443aab0",
+    "file": "src/brogue/Items.c",
+    "source": "This staff will cause discord for %i turns. (If the staff is enchanted, this will increase to %i turns.)",
+    "zh_CN": "这根法杖会使目标陷入纷争，持续 %i 回合。（强化后，会延长至 %i 回合。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_5110cc4a6ffc666e",
+    "file": "src/brogue/Items.c",
+    "source": "%i phantom blades will be called into service. (If the staff is enchanted, this will increase to %i blades.)",
+    "zh_CN": "将召出 %i 把幻影之刃为你作战。（强化后，会增至 %i 把。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_9223289dd1ec8ed9",
+    "file": "src/brogue/Items.c",
+    "source": "This staff will shield a creature for up to 20 turns against up to %i damage. (If the staff is enchanted, this will increase to %i damage.)",
+    "zh_CN": "这根法杖会为一个生物提供最长 20 回合的护盾，最多抵挡 %i 点伤害。（强化后，会增至 %i 点伤害。）",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_8e75b14c01e5516d",
+    "file": "src/brogue/Items.c",
+    "source": "No one knows what this staff does.",
+    "zh_CN": "没有人知道这根法杖有什么作用。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_89ba56278f498548",
+    "file": "src/brogue/Items.c",
+    "source": "%i charge%s remain%s. Enchanting this wand will add %i charge%s.",
+    "zh_CN": "剩余 %i 次充能。%.0s%.0s强化这根魔杖会补充 %i 次充能。%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_efdefaee4a425871",
+    "file": "src/brogue/Items.c",
+    "source": "No charges remain.  Enchanting this wand will add %i charge%s.",
+    "zh_CN": "充能已耗尽。强化这根魔杖会补充 %i 次充能。%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_d6b6941b941db5a2",
+    "file": "src/brogue/Items.c",
+    "source": "You have used this wand %i time%s, but do not know how many charges, if any, remain.",
+    "zh_CN": "你已经使用这根魔杖 %i 次，但不知道还剩多少充能，也可能已经耗尽。%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_37c8b67929bb6341",
+    "file": "src/brogue/Items.c",
+    "source": "You have not yet used this wand.",
+    "zh_CN": "你还没有使用过这根魔杖。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_878812eea61d0ca4",
+    "file": "src/brogue/Items.c",
+    "source": " Wands of this type can be found with %i to %i charges. Enchanting this wand will add %i charge%s.",
+    "zh_CN": " 这种魔杖生成时具有 %i 至 %i 次充能。强化这根魔杖会补充 %i 次充能。%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_0850748961a52943",
+    "file": "src/brogue/Items.c",
+    "source": "This gnarled %s staff is warm to the touch. Who knows what it will do when used?",
+    "zh_CN": "这根扭曲的%s法杖摸起来温热。使用它会发生什么呢？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  },
+  {
+    "id": "s_358526892f53e55e",
+    "file": "src/brogue/Items.c",
+    "source": "This thin %s wand is warm to the touch. Who knows what it will do when used?",
+    "zh_CN": "这根纤细的%s魔杖摸起来温热。使用它会发生什么呢？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "prototype"
+  }
+]

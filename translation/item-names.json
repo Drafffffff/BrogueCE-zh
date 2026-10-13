@@ -1,0 +1,997 @@
+[
+  {
+    "id": "n_510f5a4c61057319",
+    "file": "src/brogue/Items.c",
+    "source": "%s of %s%s",
+    "zh_CN": "%s·%s%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 2
+  },
+  {
+    "id": "n_acd8fe7749877e3a",
+    "file": "src/brogue/Items.c",
+    "source": "scroll%s of %s",
+    "zh_CN": "%s%s卷轴",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_b0f979c93c6ebe77",
+    "file": "src/brogue/Items.c",
+    "source": "potion%s of %s",
+    "zh_CN": "%s%s药水",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_f215e623771f2a6e",
+    "file": "src/brogue/Items.c",
+    "source": "wand%s of %s",
+    "zh_CN": "%s%s魔杖",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_a024e4c9721424bd",
+    "file": "src/brogue/Items.c",
+    "source": "staff%s of %s",
+    "zh_CN": "%s%s法杖",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_c987fc119f765c2d",
+    "file": "src/brogue/Items.c",
+    "source": "ring%s of %s",
+    "zh_CN": "%s%s戒指",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_236669c429db269e",
+    "file": "src/brogue/Items.c",
+    "source": "%s charm%s",
+    "zh_CN": "%s护符%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_67363ec0f31c05f1",
+    "file": "src/brogue/Items.c",
+    "source": "scroll%s called %s%s%s",
+    "zh_CN": "卷轴%s（命名为%s%s%s）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_6f621faf021ee5c4",
+    "file": "src/brogue/Items.c",
+    "source": "scroll%s entitled %s\"%s\"%s",
+    "zh_CN": "卷轴%s%s「%s」%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_fac6d3827719ea30",
+    "file": "src/brogue/Items.c",
+    "source": "potion%s called %s%s%s",
+    "zh_CN": "药水%s（命名为%s%s%s）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_085a55d8fcd63259",
+    "file": "src/brogue/Items.c",
+    "source": "wand%s called %s%s%s",
+    "zh_CN": "魔杖%s（命名为%s%s%s）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_3bf4d97380bf4e24",
+    "file": "src/brogue/Items.c",
+    "source": "staff%s called %s%s%s",
+    "zh_CN": "法杖%s（命名为%s%s%s）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_604a13ce0e4a8bed",
+    "file": "src/brogue/Items.c",
+    "source": "ring%s called %s%s%s",
+    "zh_CN": "戒指%s（命名为%s%s%s）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_5103232f0ea24eea",
+    "file": "src/brogue/Items.c",
+    "source": "%s%s%s potion%s",
+    "zh_CN": "%s%s%s药水%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_b8a0e85366d9e505",
+    "file": "src/brogue/Items.c",
+    "source": "%s%s%s wand%s",
+    "zh_CN": "%s%s%s魔杖%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_195e2d48fba8a9ee",
+    "file": "src/brogue/Items.c",
+    "source": "%s%s%s staff%s",
+    "zh_CN": "%s%s%s法杖%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_a76c0e3209b78cba",
+    "file": "src/brogue/Items.c",
+    "source": "%s%s%s ring%s",
+    "zh_CN": "%s%s%s戒指%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_21093d461d401294",
+    "file": "src/brogue/Items.c",
+    "source": "%s%s (used %i times)",
+    "zh_CN": "%s%s（已用 %i 次）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_34fd5697e4572dd2",
+    "file": "src/brogue/Items.c",
+    "source": "%s%s (used %s)",
+    "zh_CN": "%s%s（%s）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_c01456139259e39e",
+    "file": "src/brogue/Items.c",
+    "source": "gold piece%s",
+    "zh_CN": "金币%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_dc08ebb8ab90efef",
+    "file": "src/brogue/Items.c",
+    "source": "%sAmulet%s of Yendor%s",
+    "zh_CN": "%s延多护身符%s%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_7266374cd254e01d",
+    "file": "src/brogue/Items.c",
+    "source": "%slumenstone%s%s from depth %i",
+    "zh_CN": "%s光辉石%s%s（来自第 %i 层）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_f2efc8ff9afec85f",
+    "file": "src/brogue/Items.c",
+    "source": "%s%s%s from depth %i",
+    "zh_CN": "%s%s%s（来自第 %i 层）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_cd3ba8907a369af5",
+    "file": "src/brogue/Items.c",
+    "source": "unknown item%s",
+    "zh_CN": "未知物品%s",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_a1cfc3e0c4bef626",
+    "file": "src/brogue/Items.c",
+    "source": " (ready)",
+    "zh_CN": " （就绪）",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_200651a8b2d5912f",
+    "file": "src/brogue/Items.c",
+    "source": "once",
+    "zh_CN": "已用一次",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_dc8ffdbf2736dbdf",
+    "file": "src/brogue/Items.c",
+    "source": "twice",
+    "zh_CN": "已用两次",
+    "mode": "literal",
+    "status": "prototype",
+    "expected_count": 1
+  },
+  {
+    "id": "n_d1645c981e0a812b",
+    "file": "src/brogue/Globals.c",
+    "source": "mutuality",
+    "zh_CN": "共伤",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_f30409c51a78ed69",
+    "file": "src/brogue/Globals.c",
+    "source": "reflection",
+    "zh_CN": "反射",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_9201cb8c6ee9a36e",
+    "file": "src/brogue/Globals.c",
+    "source": "abomination",
+    "zh_CN": "畸怪",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_5d9c970dcd517291",
+    "file": "src/brogue/Globals.c",
+    "source": "dar",
+    "zh_CN": "达尔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_ab91a82d14cfc612",
+    "file": "src/brogue/Globals.c",
+    "source": "animal",
+    "zh_CN": "野兽",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_f59ddf918f384a1b",
+    "file": "src/brogue/Globals.c",
+    "source": "goblin",
+    "zh_CN": "哥布林",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_04168268566958ff",
+    "file": "src/brogue/Globals.c",
+    "source": "ogre",
+    "zh_CN": "食人魔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_a9c43be948c5cabd",
+    "file": "src/brogue/Globals.c",
+    "source": "dragon",
+    "zh_CN": "巨龙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_b494b694cb092add",
+    "file": "src/brogue/Globals.c",
+    "source": "undead",
+    "zh_CN": "亡灵",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_22d8ec27fc129158",
+    "file": "src/brogue/Globals.c",
+    "source": "jelly",
+    "zh_CN": "果冻",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_7aa28455a7dbd265",
+    "file": "src/brogue/Globals.c",
+    "source": "turret",
+    "zh_CN": "炮塔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_63c5dd2e61a261d4",
+    "file": "src/brogue/Globals.c",
+    "source": "infernal",
+    "zh_CN": "恶魔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_6661473579cc99d9",
+    "file": "src/brogue/Globals.c",
+    "source": "mage",
+    "zh_CN": "施法者",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_3f9c8dacd3db60cc",
+    "file": "src/brogue/Globals.c",
+    "source": "waterborne",
+    "zh_CN": "水生",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_018cc3e8b4c3be5c",
+    "file": "src/brogue/Globals.c",
+    "source": "airborne",
+    "zh_CN": "飞行",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_cd415e0f4ae4e713",
+    "file": "src/brogue/Globals.c",
+    "source": "fireborne",
+    "zh_CN": "火焰生物",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_551916735aeecf14",
+    "file": "src/brogue/Globals.c",
+    "source": "troll",
+    "zh_CN": "巨魔",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_bcc088440f72f206",
+    "file": "src/brogue/Globals.c",
+    "source": "door key",
+    "zh_CN": "门钥匙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_9466bef595fffed0",
+    "file": "src/brogue/Globals.c",
+    "source": "cage key",
+    "zh_CN": "笼子钥匙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_7508709eb492ca7d",
+    "file": "src/brogue/Globals.c",
+    "source": "crystal orb",
+    "zh_CN": "水晶球",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_fd8ed7f18b1dd519",
+    "file": "src/brogue/Globals.c",
+    "source": "crimson",
+    "zh_CN": "绯红色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_f763ca7aa9ae2ff2",
+    "file": "src/brogue/Globals.c",
+    "source": "scarlet",
+    "zh_CN": "猩红色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_1b4c9133da73a711",
+    "file": "src/brogue/Globals.c",
+    "source": "orange",
+    "zh_CN": "橙色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_c685a2c9bab235cc",
+    "file": "src/brogue/Globals.c",
+    "source": "yellow",
+    "zh_CN": "黄色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_ba4788b226aa8dc2",
+    "file": "src/brogue/Globals.c",
+    "source": "green",
+    "zh_CN": "绿色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_16477688c0e00699",
+    "file": "src/brogue/Globals.c",
+    "source": "blue",
+    "zh_CN": "蓝色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_aecdef9987272517",
+    "file": "src/brogue/Globals.c",
+    "source": "indigo",
+    "zh_CN": "靛蓝色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_22d2084f01936c56",
+    "file": "src/brogue/Globals.c",
+    "source": "violet",
+    "zh_CN": "紫罗兰色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_2049eab422ec24fd",
+    "file": "src/brogue/Globals.c",
+    "source": "puce",
+    "zh_CN": "暗紫红色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_2e03ffd54c5a3eda",
+    "file": "src/brogue/Globals.c",
+    "source": "mauve",
+    "zh_CN": "淡紫色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_b8cfbefe5fc598d0",
+    "file": "src/brogue/Globals.c",
+    "source": "burgundy",
+    "zh_CN": "酒红色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_753f8578d0109c09",
+    "file": "src/brogue/Globals.c",
+    "source": "turquoise",
+    "zh_CN": "绿松石色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_c26c15c0c17fd901",
+    "file": "src/brogue/Globals.c",
+    "source": "aquamarine",
+    "zh_CN": "海蓝宝石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_0e92d69f9b951b18",
+    "file": "src/brogue/Globals.c",
+    "source": "gray",
+    "zh_CN": "灰色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_a67a41c8bc79d5da",
+    "file": "src/brogue/Globals.c",
+    "source": "pink",
+    "zh_CN": "粉红色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_018fa96a44715c90",
+    "file": "src/brogue/Globals.c",
+    "source": "white",
+    "zh_CN": "白色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_fef8cec0ffdcbf78",
+    "file": "src/brogue/Globals.c",
+    "source": "lavender",
+    "zh_CN": "薰衣草色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_0e5123df1126f9d2",
+    "file": "src/brogue/Globals.c",
+    "source": "tan",
+    "zh_CN": "黄褐色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_5eb67f9f8409b9c3",
+    "file": "src/brogue/Globals.c",
+    "source": "brown",
+    "zh_CN": "棕色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_3057b5dce3050113",
+    "file": "src/brogue/Globals.c",
+    "source": "cyan",
+    "zh_CN": "青色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_c006c7e3ab14d686",
+    "file": "src/brogue/Globals.c",
+    "source": "black",
+    "zh_CN": "黑色",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_ec427d6227e21928",
+    "file": "src/brogue/Globals.c",
+    "source": "teak",
+    "zh_CN": "柚木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_df877645404747cb",
+    "file": "src/brogue/Globals.c",
+    "source": "oak",
+    "zh_CN": "橡木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_6519e440bf4ec634",
+    "file": "src/brogue/Globals.c",
+    "source": "redwood",
+    "zh_CN": "红杉木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_4ce5019f09edebc7",
+    "file": "src/brogue/Globals.c",
+    "source": "rowan",
+    "zh_CN": "花楸木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_da454b02b4700b1f",
+    "file": "src/brogue/Globals.c",
+    "source": "willow",
+    "zh_CN": "柳木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_30ff9ed854d8b6e2",
+    "file": "src/brogue/Globals.c",
+    "source": "mahogany",
+    "zh_CN": "桃花心木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_baea0112fd79e471",
+    "file": "src/brogue/Globals.c",
+    "source": "pinewood",
+    "zh_CN": "松木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_49ead2b1066bda1e",
+    "file": "src/brogue/Globals.c",
+    "source": "maple",
+    "zh_CN": "枫木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_add1743eae5bbd8e",
+    "file": "src/brogue/Globals.c",
+    "source": "bamboo",
+    "zh_CN": "竹制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_c3c42df167add9d9",
+    "file": "src/brogue/Globals.c",
+    "source": "ironwood",
+    "zh_CN": "铁木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_6c3ce7c0efc142a6",
+    "file": "src/brogue/Globals.c",
+    "source": "pearwood",
+    "zh_CN": "梨木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_548a42517fa28525",
+    "file": "src/brogue/Globals.c",
+    "source": "birch",
+    "zh_CN": "桦木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_2daf0e6c79009f92",
+    "file": "src/brogue/Globals.c",
+    "source": "cherry",
+    "zh_CN": "樱桃木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_b8d976ef0be935c3",
+    "file": "src/brogue/Globals.c",
+    "source": "eucalyptus",
+    "zh_CN": "桉木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_3748fbd132cd645a",
+    "file": "src/brogue/Globals.c",
+    "source": "walnut",
+    "zh_CN": "胡桃木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_0c27463993671779",
+    "file": "src/brogue/Globals.c",
+    "source": "cedar",
+    "zh_CN": "雪松木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_c74f319c8358e5d5",
+    "file": "src/brogue/Globals.c",
+    "source": "rosewood",
+    "zh_CN": "紫檀木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_6d12f211cccc24fb",
+    "file": "src/brogue/Globals.c",
+    "source": "yew",
+    "zh_CN": "紫杉木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_fc3abadd79e33f42",
+    "file": "src/brogue/Globals.c",
+    "source": "sandalwood",
+    "zh_CN": "檀香木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_ab99a7dae1674784",
+    "file": "src/brogue/Globals.c",
+    "source": "hickory",
+    "zh_CN": "山核桃木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_b0252dc49ad20cb1",
+    "file": "src/brogue/Globals.c",
+    "source": "hemlock",
+    "zh_CN": "铁杉木",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_fcbbcd5a59bf48a1",
+    "file": "src/brogue/Globals.c",
+    "source": "bronze",
+    "zh_CN": "青铜",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_b86262f9bc892590",
+    "file": "src/brogue/Globals.c",
+    "source": "steel",
+    "zh_CN": "钢制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_33a28bc4f5826ca7",
+    "file": "src/brogue/Globals.c",
+    "source": "brass",
+    "zh_CN": "黄铜",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_28ca7a8ae3bb35aa",
+    "file": "src/brogue/Globals.c",
+    "source": "pewter",
+    "zh_CN": "锡合金",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_47c4d6406db7b344",
+    "file": "src/brogue/Globals.c",
+    "source": "nickel",
+    "zh_CN": "镍制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_d16f06fe255d801e",
+    "file": "src/brogue/Globals.c",
+    "source": "copper",
+    "zh_CN": "铜制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_faaa92f6df65089f",
+    "file": "src/brogue/Globals.c",
+    "source": "aluminum",
+    "zh_CN": "铝制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_068be8be83f9bfaf",
+    "file": "src/brogue/Globals.c",
+    "source": "tungsten",
+    "zh_CN": "钨制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_d37f48d804113b47",
+    "file": "src/brogue/Globals.c",
+    "source": "titanium",
+    "zh_CN": "钛制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_a2bdc78162b620e9",
+    "file": "src/brogue/Globals.c",
+    "source": "cobalt",
+    "zh_CN": "钴制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_ddf8d310d2169330",
+    "file": "src/brogue/Globals.c",
+    "source": "chromium",
+    "zh_CN": "铬制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_78cde64c3e47f2cb",
+    "file": "src/brogue/Globals.c",
+    "source": "silver",
+    "zh_CN": "银制",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_81c9d6128b5fcd7b",
+    "file": "src/brogue/Globals.c",
+    "source": "diamond",
+    "zh_CN": "钻石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_bd3de56071621915",
+    "file": "src/brogue/Globals.c",
+    "source": "opal",
+    "zh_CN": "欧泊",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_360a977a55dc6c84",
+    "file": "src/brogue/Globals.c",
+    "source": "garnet",
+    "zh_CN": "石榴石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_b9138194ffe9e7c8",
+    "file": "src/brogue/Globals.c",
+    "source": "ruby",
+    "zh_CN": "红宝石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_88670bf6f7563a74",
+    "file": "src/brogue/Globals.c",
+    "source": "amethyst",
+    "zh_CN": "紫水晶",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_f249e8e4349fc97f",
+    "file": "src/brogue/Globals.c",
+    "source": "topaz",
+    "zh_CN": "黄玉",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_1c5483264189feef",
+    "file": "src/brogue/Globals.c",
+    "source": "onyx",
+    "zh_CN": "缟玛瑙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_d1eba667e8e21ea5",
+    "file": "src/brogue/Globals.c",
+    "source": "tourmaline",
+    "zh_CN": "碧玺",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_8c673a0108578213",
+    "file": "src/brogue/Globals.c",
+    "source": "sapphire",
+    "zh_CN": "蓝宝石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_4e2295dd929e424a",
+    "file": "src/brogue/Globals.c",
+    "source": "obsidian",
+    "zh_CN": "黑曜石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_ce9b71b32e32d977",
+    "file": "src/brogue/Globals.c",
+    "source": "malachite",
+    "zh_CN": "孔雀石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_c26e57ce338c5af3",
+    "file": "src/brogue/Globals.c",
+    "source": "emerald",
+    "zh_CN": "祖母绿",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_5db6810e7cf9ff07",
+    "file": "src/brogue/Globals.c",
+    "source": "jade",
+    "zh_CN": "翡翠",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_51a0e36033ee22d1",
+    "file": "src/brogue/Globals.c",
+    "source": "alexandrite",
+    "zh_CN": "变石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_e5e9fe383c0fa301",
+    "file": "src/brogue/Globals.c",
+    "source": "agate",
+    "zh_CN": "玛瑙",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_e9ae489d32824c63",
+    "file": "src/brogue/Globals.c",
+    "source": "bloodstone",
+    "zh_CN": "血石",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_3721e1a2ad55f5ac",
+    "file": "src/brogue/Globals.c",
+    "source": "jasper",
+    "zh_CN": "碧玉",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_62484e22a6a5ade1",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "health",
+    "zh_CN": "治疗",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_dde6e8974b46a1ed",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "guardian",
+    "zh_CN": "守护者",
+    "mode": "lookup",
+    "status": "prototype"
+  },
+  {
+    "id": "n_58d54e7c7553ce1f",
+    "file": "src/variants/GlobalsBrogue.c",
+    "source": "fear",
+    "zh_CN": "恐惧",
+    "mode": "lookup",
+    "status": "prototype"
+  }
+]
