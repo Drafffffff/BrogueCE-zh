@@ -574,11 +574,11 @@ void br_map_draw(SDL_Renderer *r, int width, int height, SDL_Texture *atlas, int
         }
     }
     char coordinates[128];
-    if (acknowledging) snprintf(coordinates,sizeof coordinates,acknowledging==2?"A/B 继续  X 背包  L1 消息  R1 信息":"A/B 继续    L1 消息    R1 信息");
+    if (acknowledging) snprintf(coordinates,sizeof coordinates,acknowledging==2?"A/B 继续  X 背包  m 消息  R1 信息":"A/B 继续    m 消息    R1 信息");
     else if (automated) snprintf(coordinates,sizeof coordinates,"[B] 中断自动行动");
     else if (aiming || mode) snprintf(coordinates,sizeof coordinates,"光标 %d,%d    角色 %d,%d",(aiming?tx:cx)+1,(aiming?ty:cy)+1,px+1,py+1);
-    else if(replay) snprintf(coordinates,sizeof coordinates,"ST 播放  左右 逐回合  上下 变速  Menu 菜单");
-    else snprintf(coordinates,sizeof coordinates,"X背包 Y搜索 ST等待 L1消息 R1信息 Menu行动 L2附近");
+    else if(replay) snprintf(coordinates,sizeof coordinates,"ST 播放  左右 逐回合  上下 变速  L1 菜单");
+    else snprintf(coordinates,sizeof coordinates,"X背包 Y搜索 ST等待 m消息 R1信息 L1行动 L2附近");
     if(aiming && !acknowledging) {
         size_t used=strlen(coordinates);snprintf(coordinates+used,sizeof coordinates-used,"  Select 全图  R1 信息");
     }

@@ -77,13 +77,13 @@ int br_pad_feed(BrPad *p,int code,int value,Uint32 now,int context,SDL_Event *ou
     if(index<0) return 0; /* Volume and power remain available to the system. */
     unsigned mask=1u<<index;
     if(!value) {int was_held=!!(p->held&mask);p->held&=~mask;
-        if(code==312 && was_held && !p->menu_used)return emit(out,SDLK_F6,0);
+        if(code==312 && was_held && !p->menu_used && context!=2 && context!=8 && context!=9 && context!=10)return emit(out,SDLK_F2,0);
         if(code==306 && p->repeat_kind==2)p->repeat_kind=0;return 0;}
     if(p->held&mask) return 0;
     if(code==312)p->menu_used=!!(p->held || p->direction);
     p->held|=mask;
     p->repeat_kind=0;
-    if(code==312) {p->pending=0;return 0;} /* Release tap opens actions; chords remain system-owned. */
+    if(code==312) {p->pending=0;return 0;} /* Release tap opens history; chords remain system-owned. */
     if(p->held&(1u<<8)) {p->pending=0;return 0;}
     p->pending=0;
     switch(code) {
@@ -96,12 +96,12 @@ int br_pad_feed(BrPad *p,int code,int value,Uint32 now,int context,SDL_Event *ou
                 p->repeat_kind=2;p->repeat_due=now+345;return emit(out,0,'s');
             }
             return context==4?emit(out,SDLK_TAB,0):0; /* Y: search */
-        case 308:return context==9?0:emit(out,(context==0 || context==6 || context==8 || context==10)?SDLK_PAGEUP:SDLK_F2,0); /* L1: previous page in modals; messages in dungeon */
-        case 309:return context==9?0:emit(out,(context==0 || context==6 || context==8 || context==10)?SDLK_PAGEDOWN:SDLK_F5,0); /* R1: next page in modals; interactive information in dungeon */
+        case 308:return context==9?0:emit(out,context==10?SDLK_F2:(context==0 || context==6 || context==8)?SDLK_PAGEUP:SDLK_F6,0); /* L1: previous page in modals; actions in dungeon */
+        case 309:return context==9?0:emit(out,(context==0 || context==6 || context==8)?SDLK_PAGEDOWN:SDLK_F5,0); /* R1: next page in modals; interactive information in dungeon */
         case 310:return emit(out,SDLK_F3,0); /* Select: map */
         case 311:return context==4?emit(out,0,' '):context==2?emit(out,SDLK_F7,0):context==1?emit(out,0,(p->held&(1u<<10))?'Z':'.'):emit(out,SDLK_RETURN,0); /* Start: wait/rest/confirm */
-        case 314:return context==10?emit(out,SDLK_F2,0):(context==1 || context==3 || context==4 || context==5)?emit(out,SDLK_F9,0):0; /* L2: previous action tab; passive overlay in dungeon */
-        case 315:return context==10?emit(out,SDLK_F5,0):0; /* R2: next action tab; dungeon modifier only */
+        case 314:return (context==1 || context==3 || context==4 || context==5)?emit(out,SDLK_F9,0):0; /* L2: passive overlay in dungeon; disabled in modals */
+        case 315:return 0; /* R2: dungeon modifier only */
         default:return 0;
     }
 }

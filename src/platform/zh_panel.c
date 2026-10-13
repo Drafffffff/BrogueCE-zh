@@ -280,7 +280,7 @@ static void draw_tabs(SDL_Renderer *r,int width,int height) {
     line(r,hint_text,left+22,top+300,BR_UI_MUTED,46);
     line(r,page,right-68,top+300,BR_UI_MUTED,5);
     br_ui_fill(r,(SDL_Rect){0,height-28,width,28},(SDL_Color){0,0,0,255});
-    line(r,"L2/R2 切签  L1/R1 翻页  X 回常用",18,height-24,BR_UI_MUTED,(width-36)/10);
+    line(r,"L1/R1 切签  上下选项  X 回常用",18,height-24,BR_UI_MUTED,(width-36)/10);
 }
 static void draw_object(SDL_Renderer *r,int width,int height) {
     int left=(width-612)/2,top=(height-332)/2,right=width-left;

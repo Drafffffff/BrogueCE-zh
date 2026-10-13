@@ -524,7 +524,7 @@ static const Entry catalog[] = {
 {"Poisoned","中毒"},
 {"Poisonous spores burst from the corpse!","有毒孢子从尸体中迸发！"},
 {"Praying","祈祷中"},
-{"Press <?> for help at any time.","随时按 Menu 打开行动菜单查看帮助。"},
+{"Press <?> for help at any time.","随时按 L1 打开行动菜单查看帮助。"},
 {"Press space or click to continue.","按 A 继续"},
 {"Press space to continue.","按 A 继续"},
 {"Pure Mage","纯粹法师"},

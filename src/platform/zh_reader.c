@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-static char content[20000] = "打开物品说明或查看消息后，按 L1 进入大字阅读。";
+static char content[20000] = "打开物品说明或查看消息后，按 m 进入大字阅读。";
 static char alternate[20000], alternate_title[160];
 static int active, offset, maximum, closing, use_alternate;
 static void copy_text(char *to,size_t capacity,const char *from);
