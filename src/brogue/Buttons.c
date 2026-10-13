@@ -23,7 +23,10 @@
 
 #include "Rogue.h"
 #include "zh_text.h"
+#include "zh_reader.h"
 #include "zh_catalog.h"
+#include "zh_map.h"
+#include "zh_panel.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 #include <math.h>
@@ -114,10 +117,8 @@ void drawButton(brogueButton *button, enum buttonDrawStates highlight, screenDis
         }
 
         if (locIsInWindow((windowpos){ button->x + i, button->y })) {
-            for (int k=1; k<token.columns && button->x+i+k<COLS; k++) {
+            for (int k=1; k<token.columns && button->x+i+k<COLS; k++)
                 plotCharToBuffer(' ', (windowpos){button->x+i+k,button->y}, &fColor, &bColor, dbuf);
-                if(dbuf) dbuf->cells[button->x+i+k][button->y].opacity=opacity;
-            }
             plotCharToBuffer(displayCharacter, (windowpos){ button->x + i, button->y }, &fColor, &bColor, dbuf);
             if (dbuf) {
                 // Only buffers can have opacity set.

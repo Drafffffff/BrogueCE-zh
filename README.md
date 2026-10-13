@@ -6,10 +6,20 @@
 
 | 分支 | 内容 |
 | --- | --- |
-| **汉化**（当前） | 原版桌面游戏 + 中文文本、UTF-8 排版、中文字体；Mac / Linux 键鼠操作 |
-| **移植** | 包含汉化，再增加 RG34XX / NextUI、全手柄操作、掌机镜头与阅读面板 |
+| **汉化** | 原版桌面游戏 + 中文文本、UTF-8 排版、中文字体；Mac / Linux 键鼠操作 |
+| **移植**（当前） | 包含汉化，再增加 RG34XX / NextUI、全手柄操作、掌机镜头与阅读面板 |
 
-## 下载与安装
+## RG34XX / NextUI 安装
+
+下载 `RG34XX-NextUI.zip`，将包中的 `Roms` 文件夹合并到 SD 卡根目录。安装前正常保存并退出 Brogue；覆盖同名程序文件，存档保存在 `.userdata/shared/brogue-rg34xx`，不要删除该目录。启动入口为 **Ports → Brogue**，附封面，标题保留原版动态火焰。
+
+完整按键见 [掌机操作](docs/掌机操作.md)：X 背包、Y 搜索、L1 历史、R1 附近、L2 五页签；长按方向和搜索可连续动作。顶部固定两行，生命条为红色。菜单、物品动作、阅读与瞄准均支持手柄。
+
+本分支包含汉化分支的中文文本，并增加独立掌机界面。桌面专用的 Ctrl+Tab 和软件渲染修复不适用于掌机；共用的投掷、怪物说明与目录漏译修复已同步。预发布包已做本地 ARM64 回归；本次共用文本修复尚未完成实机长时间游玩验证。仅以 RG34XX / NextUI 为目标，其他 H700 固件需自行适配。
+
+源码可直接构建；固定工具链与依赖校验、打包脚本见 `packaging/build-rg34xx.py`。安装 Docker 与 Python 3 后，在仓库根目录执行 `python3 packaging/build-rg34xx.py`。输出 `.build/dist`。桌面键鼠版本请使用 `汉化` 分支。
+
+## 桌面汉化版本
 
 - **Mac Apple Silicon**：下载 `macOS-arm64.zip`，将 `Brogue CE 中文.app` 拖入 Applications。当前预编译包要求 **macOS 26 或以上**；已打包动态库，无需 Homebrew。应用为本地签名，未经过 Apple 公证。源码可以在满足依赖的其他 macOS 版本上自行编译。
 - **Linux x86_64 / Bazzite**：下载 `Linux-x86_64.tar.gz`，解压 `Brogue` 到 `~/Games/`，执行 `~/Games/Brogue/launch.sh`。保留原版键鼠操作，默认全屏；程序使用系统 SDL2、glibc、FreeType，并附 SDL2_image / SDL2_ttf。已在 Bazzite 44 验证，其他发行版需要相应运行库。

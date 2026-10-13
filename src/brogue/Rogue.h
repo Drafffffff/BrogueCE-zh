@@ -3117,7 +3117,6 @@ extern "C" {
     void hideCursor(void);
     void showCursor(void);
     void mainInputLoop(void);
-short br_desktop_action_menu(void);
     boolean isDisturbed(short x, short y);
     void discover(short x, short y);
     short randValidDirectionFrom(creature *monst, short x, short y, boolean respectAvoidancePreferences);

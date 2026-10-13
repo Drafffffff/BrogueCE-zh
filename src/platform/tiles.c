@@ -2,8 +2,13 @@
 #include <stdlib.h>
 #include <SDL_image.h>
 #include "zh_glyph.h"
+#include "zh_reader.h"
 #include "zh_text.h"
+#include "zh_map.h"
+#include "zh_panel.h"
+#include "zh_keyboard.h"
 #include "platform.h"
+#include "GlobalsBase.h"
 #include "tiles.h"
 
 #define PI  3.14159265358979323846
@@ -593,10 +598,6 @@ void updateTile(int row, int column, int charIndex,
     short foreRed, short foreGreen, short foreBlue,
     short backRed, short backGreen, short backBlue)
 {
-    int previous=screenTiles[row][column].charIndex;
-    if(column+1<COLS && (previous & BR_UNICODE_FLAG)
-        && br_text_columns(previous & ~BR_UNICODE_FLAG)==2)
-        screenTiles[row][column+1].needsRefresh=1;
     screenTiles[row][column] = (ScreenTile){
         .foreRed   = foreRed,
         .foreGreen = foreGreen,
@@ -624,6 +625,25 @@ void updateTile(int row, int column, int charIndex,
 /// This works because, unlike the accelerated renderers, the software renderer draws on a
 /// single surface and doesn't do double-buffering.
 ///
+/* Display-only atlas at local-camera resolution, reusing upstream resampling. */
+static SDL_Texture *br_local_atlas(SDL_Renderer *renderer) {
+    static SDL_Texture *texture;
+    static SDL_Renderer *owner;
+    if (texture && owner == renderer) return texture;
+    int savedWidth=baseTileWidth, savedHeight=baseTileHeight;
+    baseTileWidth=18; baseTileHeight=22;
+    SDL_Surface *surface=SDL_CreateRGBSurfaceWithFormat(0,18*TILE_COLS,22*TILE_ROWS,32,SDL_PIXELFORMAT_ARGB8888);
+    if (!surface) sdlfatal(__FILE__,__LINE__);
+    for(int row=0;row<TILE_ROWS;row++) for(int col=0;col<TILE_COLS;col++)
+        downscaleTile(surface,18,22,row,col,false);
+    baseTileWidth=savedWidth; baseTileHeight=savedHeight;
+    texture=SDL_CreateTextureFromSurface(renderer,surface);
+    SDL_FreeSurface(surface);
+    if (!texture || SDL_SetTextureBlendMode(texture,SDL_BLENDMODE_BLEND)) sdlfatal(__FILE__,__LINE__);
+    owner=renderer;
+    return texture;
+}
+
 void updateScreen() {
     if (!Win) return;
 
@@ -645,20 +665,39 @@ void updateScreen() {
     if (outputWidth == 0 || outputHeight == 0) return;
 
     createTextures(renderer, outputWidth, outputHeight);
+    br_map_session(rogue.gameInProgress,rogue.automationActive || rogue.autoPlayingLevel);
+    if(rogue.gameInProgress) br_map_player(player.loc.x,player.loc.y,rogue.depthLevel,player.currentHP,player.info.maxHP);
+    static int mapWasVisible;
+    int mapVisible=br_map_showing() || br_panel_active() || br_reader_active() || br_keyboard_active();
+    if(mapVisible || mapWasVisible) {
+        for(int y=0;y<ROWS;y++) for(int x=0;x<COLS;x++) screenTiles[y][x].needsRefresh=1;
+    }
+    mapWasVisible=mapVisible;
+    if(mapVisible && !br_panel_cover_active()) {
+        if(br_keyboard_active()) br_keyboard_draw(renderer,outputWidth,outputHeight);
+        else if(br_reader_active()) br_reader_draw(renderer,outputWidth,outputHeight);
+        else if(br_panel_active()) {
+            if(br_panel_overlay() && br_map_showing()) {
+                br_map_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
+                SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
+                /* Light enough that the dungeon stays readable behind a window:
+                   opening a panel usually means looking at something on the map,
+                   and a half-black screen hides the thing being asked about. */
+                SDL_SetRenderDrawColor(renderer,0,0,0,48);
+                SDL_RenderFillRect(renderer,NULL);
+                SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_NONE);
+            }
+            br_panel_draw(renderer,outputWidth,outputHeight);
+        }
+        else br_map_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
+        SDL_RenderPresent(renderer);
+        return;
+    }
 
     if (!softwareRendering) {
         // black out the frame (double-buffering invalidated it)
         if (SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0) < 0) sdlfatal(__FILE__, __LINE__);
         if (SDL_RenderClear(renderer) < 0) sdlfatal(__FILE__, __LINE__);
-    }
-
-    if(softwareRendering)for(int y=0;y<ROWS;y++)for(int x=0;x<COLS-1;x++) {
-        ScreenTile *tile=&screenTiles[y][x];
-        if((tile->charIndex & BR_UNICODE_FLAG)
-            && br_text_columns(tile->charIndex & ~BR_UNICODE_FLAG)==2
-            && (tile->needsRefresh || screenTiles[y][x+1].needsRefresh)) {
-            tile->needsRefresh=screenTiles[y][x+1].needsRefresh=1;
-        }
     }
 
     // To please the OpenGL renderer, we'll proceed in 5 steps:
@@ -741,8 +780,7 @@ void updateScreen() {
 
     for (int y=0; y<ROWS; y++) for (int x=0; x<COLS; x++) {
         ScreenTile *tile = &screenTiles[y][x];
-        if (!(tile->charIndex & 0x200000)) continue;
-        if(softwareRendering && !tile->needsRefresh)continue;
+        if (br_reader_active() || !(tile->charIndex & 0x200000)) continue;
         unsigned int cp = tile->charIndex & ~0x200000;
         int wide = br_text_columns(cp);
         SDL_Rect area = {x*outputWidth/COLS, y*outputHeight/ROWS,
@@ -750,6 +788,9 @@ void updateScreen() {
             ((y+1)*outputHeight/ROWS)-(y*outputHeight/ROWS)};
         br_draw_glyph(renderer, cp, area, (SDL_Color){round(2.55*tile->foreRed),round(2.55*tile->foreGreen),round(2.55*tile->foreBlue),255});
     }
+    if (br_map_showing()) br_map_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
+    br_reader_draw(renderer,outputWidth,outputHeight);
+    if(br_panel_cover_active()) br_panel_draw(renderer,outputWidth,outputHeight);
     SDL_RenderPresent(renderer);
 
     // the screen is now up to date

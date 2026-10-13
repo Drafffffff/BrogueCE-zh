@@ -6,7 +6,7 @@ cflags := -Isrc/brogue -Isrc/platform -Isrc/variants -std=c99 \
 libs := -lm
 cppflags := -DDATADIR=$(DATADIR)
 
-sources := src/platform/zh_text.c src/platform/zh_glyph.c src/platform/zh_catalog.c $(wildcard src/brogue/*.c) $(wildcard src/variants/*.c) $(addprefix src/platform/,main.c platformdependent.c null-platform.c)
+sources := src/platform/zh_ui.c src/platform/zh_text.c src/platform/zh_glyph.c src/platform/zh_reader.c src/platform/zh_catalog.c src/platform/zh_map.c src/platform/zh_panel.c src/platform/zh_pad.c src/platform/zh_commands.c src/platform/zh_keyboard.c $(wildcard src/brogue/*.c) $(wildcard src/variants/*.c) $(addprefix src/platform/,main.c platformdependent.c null-platform.c)
 objects :=
 
 ifeq ($(SYSTEM),WINDOWS)

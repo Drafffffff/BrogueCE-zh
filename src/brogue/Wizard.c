@@ -22,7 +22,10 @@
 
 #include "Rogue.h"
 #include "zh_text.h"
+#include "zh_reader.h"
 #include "zh_catalog.h"
+#include "zh_map.h"
+#include "zh_panel.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -31,63 +34,38 @@ static void initializeCreateItemButton(brogueButton *button, char *text) {
 
     initializeButton(button);
     strcpy(buttonText,text);
-    upperCase(buttonText);
     strcpy(button->text,buttonText);
 }
 
 #define DIALOG_CREATE_ITEM_MAX_BUTTONS 26
 
 // Display a dialog window for the user to select a single entry from a list
-static short dialogSelectEntryFromList(
-        brogueButton *buttons,
-        short buttonCount,
-        char *windowTitle
-) {
-
-    short x=0, y=0, width=0, height=0;
-    screenDisplayBuffer dbuf;
-    short i, selectedButton, len, maxLen;
-    char buttonText[COLS];
-
-    maxLen = strlen(windowTitle);
-
-    for (i=0; i < buttonCount; i++) {
-        buttons[i].flags &= ~(B_WIDE_CLICK_AREA | B_GRADIENT);
-        buttons[i].buttonColor = interfaceBoxColor;
-        buttons[i].hotkey[0] = 'a' + i;
-        buttons[i].hotkey[1] = 'A' + i;
-        buttons[i].x = WINDOW_POSITION_DUNGEON_TOP_LEFT.window_x;
-        buttons[i].y = WINDOW_POSITION_DUNGEON_TOP_LEFT.window_y + 1 + i;
-        if (KEYBOARD_LABELS) {
-            sprintf(buttonText, "%c) %s", (int)buttons[i].hotkey[0], buttons[i].text);
-            strcpy(buttons[i].text, buttonText);
-            len = strlen(buttonText);
-            if (len > maxLen) {
-                maxLen = len;
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Only display and original letter keys; generation stays in Wizard.c. */
+static short dialogSelectEntryFromList(brogueButton *buttons,short buttonCount,char *windowTitle) {
+    const SavedDisplayBuffer saved=saveDisplayBuffer();
+    br_panel_begin(br_tr(windowTitle),NULL);
+    for(int i=0;i<buttonCount;i++) {
+        buttons[i].hotkey[0]='a'+i;buttons[i].hotkey[1]='A'+i;
+        buttons[i].x=2;buttons[i].y=2+i;
+        const char *label=br_tr(buttons[i].text);
+        char lower[BUTTON_TEXT_SIZE];
+        if(label==buttons[i].text) {
+            size_t k=0;
+            for(;k+1<sizeof lower && buttons[i].text[k];k++) {
+                unsigned char c=buttons[i].text[k];lower[k]=c>='A' && c<='Z'?c-'A'+'a':c;
             }
+            lower[k]=0;
+            const char *translated=br_tr(lower);
+            if(translated!=lower) label=translated;
         }
+        br_panel_add(label,buttons[i].hotkey[0],(buttons[i].flags&B_ENABLED)!=0);
     }
-
-    width = maxLen + 1;
-    height = buttonCount + 2;
-    x = WINDOW_POSITION_DUNGEON_TOP_LEFT.window_x;
-    y = WINDOW_POSITION_DUNGEON_TOP_LEFT.window_y;
-    clearDisplayBuffer(&dbuf);
-
-    //Dialog Title
-    printString(windowTitle, x , y - 1, &itemMessageColor, &interfaceBoxColor, &dbuf);
-    //Dialog background
-    rectangularShading(x - 1, y - 1, width + 1, height + 1, &interfaceBoxColor, INTERFACE_OPACITY, &dbuf);
-    //Display the title/background and save the prior display state
-    const SavedDisplayBuffer rbuf = saveDisplayBuffer();
-    overlayDisplayBuffer(&dbuf);
-    //Display the buttons and wait for user selection
-    selectedButton = buttonInputLoop(buttons, buttonCount, x, y, width, height, NULL);
-    //Revert the display state
-    restoreDisplayBuffer(&rbuf);
-
-    return selectedButton;
+    short selected=buttonInputLoop(buttons,buttonCount,1,1,COLS-2,ROWS-2,NULL);
+    br_panel_end();restoreDisplayBuffer(&saved);
+    return selected;
 }
+
 
 // Display a dialog window for the user to chose a vorpal enemy. Remove the runic if none selected.
 static short dialogCreateItemChooseVorpalEnemy() {
@@ -191,7 +169,7 @@ static short dialogCreateItemChooseKind(enum itemCategory category) {
         initializeCreateItemButton(&(buttons[i]), buttonText);
     }
 
-    sprintf(title,"Create %s:",itemCategoryNames[unflag(category)]);
+    snprintf(title,sizeof title,"巫师：%s",br_tr(itemCategoryNames[unflag(category)]));
     return dialogSelectEntryFromList(buttons, i, title);
 }
 
@@ -233,14 +211,14 @@ static void dialogCreateItemChooseEnchantmentLevel(item *theItem) {
         }
     }
 
-    sprintf(prompt, br_tr("How many enchants (%d to %d) [default %d]?"), minVal, maxVal, defaultVal);
+    snprintf(prompt,sizeof prompt, br_tr("How many enchants (%d to %d) [default %d]?"), minVal, maxVal, defaultVal);
     getInputTextString(inputBuf, prompt, maxInputLength, "", "", TEXT_INPUT_NORMAL, true);
 
     // Validate the input
     int enchants;
     if (strlen(inputBuf)                      // we need some input
         && sscanf(inputBuf, "%d", &enchants)  // try to convert to number
-        && sprintf(buf, "%d", enchants)       // convert back to string
+        && snprintf(buf,sizeof buf, "%d", enchants)       // convert back to string
         && strcmp(buf, inputBuf) == 0) {       // compare (0 if equal)
         // handle out of range input
         if (enchants > maxVal) {
@@ -298,7 +276,7 @@ static void dialogCreateMonsterChooseMutation(creature *theMonster) {
 
     selectedMutation = dialogSelectEntryFromList(buttons, j+1, "Choose a mutation:");
 
-    if (selectedMutation != noMutation) {
+    if (selectedMutation >= 0 && selectedMutation != noMutation) {
         mutateMonster(theMonster, selectedMutation);
     }
 }
@@ -312,7 +290,7 @@ static void dialogCreateMonster() {
     short i, j=0, selectedMonster, monsterOffset, buttonCount=0;
     const short MONSTERS_PER_PAGE = 24;
     const short CREATABLE_MONSTER_KINDS = NUMBER_MONSTER_KINDS - 2;
-    char theMessage[COLS] = "";
+    char theMessage[TEXT_MAX_LENGTH] = "";
     char monsterRangeText[COLS];
     creature *theMonster, *oldMonster;
     creatureType monsterKinds[NUMBER_MONSTER_KINDS];
@@ -332,9 +310,9 @@ static void dialogCreateMonster() {
 
     for (i=0; i < CREATABLE_MONSTER_KINDS; i+=MONSTERS_PER_PAGE) {
         if (i + MONSTERS_PER_PAGE < CREATABLE_MONSTER_KINDS) {
-            sprintf(monsterRangeText,"%s - %s",monsterKinds[i].monsterName, monsterKinds[i + MONSTERS_PER_PAGE-1].monsterName);
+            snprintf(monsterRangeText,sizeof monsterRangeText,"%s - %s",monsterKinds[i].monsterName, monsterKinds[i + MONSTERS_PER_PAGE-1].monsterName);
         } else {
-            sprintf(monsterRangeText,"%s - %s",monsterKinds[i].monsterName, monsterKinds[CREATABLE_MONSTER_KINDS-1].monsterName);
+            snprintf(monsterRangeText,sizeof monsterRangeText,"%s - %s",monsterKinds[i].monsterName, monsterKinds[CREATABLE_MONSTER_KINDS-1].monsterName);
         }
         initializeCreateItemButton(&(buttons[buttonCount]), monsterRangeText);
         buttonCount++;
@@ -372,9 +350,9 @@ static void dialogCreateMonster() {
     initializeMonster(theMonster, false);
     
     if (theMonster->info.displayChar == G_TURRET) {
-        sprintf(theMessage, br_tr("Create %s where? Choose a visible wall."), theMonster->info.monsterName);
+        snprintf(theMessage,sizeof theMessage, br_tr("Create %s where? Choose a visible wall."), br_tr(theMonster->info.monsterName));
     } else {
-        sprintf(theMessage, br_tr("Create %s where? Choose a visible unobstructed location."), theMonster->info.monsterName);
+        snprintf(theMessage,sizeof theMessage, br_tr("Create %s where? Choose a visible unobstructed location."), br_tr(theMonster->info.monsterName));
     }
     temporaryMessage(theMessage, REFRESH_SIDEBAR);
 
@@ -393,7 +371,7 @@ static void dialogCreateMonster() {
         }
 
         if (!locationIsValid) {
-            sprintf(theMessage, br_tr("Invalid location. %s"), KEYBOARD_LABELS ? br_tr("-- Press space or click to continue --") : br_tr("-- Touch anywhere to continue --"));
+            snprintf(theMessage,sizeof theMessage, br_tr("Invalid location. %s"), KEYBOARD_LABELS ? br_tr("-- Press space or click to continue --") : br_tr("-- Touch anywhere to continue --"));
             temporaryMessage(theMessage, REQUIRE_ACKNOWLEDGMENT);
             killCreature(theMonster, true);
             removeDeadMonsters();
@@ -418,15 +396,15 @@ static void dialogCreateMonster() {
             || theMonster->info.monsterID == MK_PHOENIX_EGG
             || theMonster->info.monsterID == MK_PHYLACTERY
                 ) {
-            sprintf(theMessage, br_tr("Make the %s your ally?"), theMonster->info.monsterName);
+            snprintf(theMessage,sizeof theMessage, br_tr("Make the %s your ally?"), br_tr(theMonster->info.monsterName));
             if (confirm(theMessage, false)) {
                 becomeAllyWith(theMonster);
-                sprintf(theMessage, br_tr("Allied %s created."), theMonster->info.monsterName);
+                snprintf(theMessage,sizeof theMessage, br_tr("Allied %s created."), br_tr(theMonster->info.monsterName));
             } else {
-                sprintf(theMessage, br_tr("%s created."), theMonster->info.monsterName);
+                snprintf(theMessage,sizeof theMessage, br_tr("%s created."), br_tr(theMonster->info.monsterName));
             }
         } else {
-            sprintf(theMessage, br_tr("%s created."), theMonster->info.monsterName);
+            snprintf(theMessage,sizeof theMessage, br_tr("%s created."), br_tr(theMonster->info.monsterName));
         }
         message(theMessage, 0);
     } else {  // no location chosen
@@ -442,9 +420,9 @@ static void dialogCreateItem() {
     brogueButton buttons[DIALOG_CREATE_ITEM_MAX_BUTTONS];
     char buttonText[COLS];
     short i, selectedCategory, selectedKind;
-    char message[COLS] = "";
+    char message[TEXT_MAX_LENGTH] = "";
     item *theItem;
-    char theItemName[100]="";
+    char theItemName[TEXT_MAX_LENGTH]="";
 
     if (numberOfItemsInPack() == MAX_PACK_ITEMS) {
         messageWithColor(br_tr("Your pack is already full."), &itemMessageColor, 0);
@@ -457,6 +435,8 @@ static void dialogCreateItem() {
     }
 
     selectedCategory = dialogSelectEntryFromList(buttons, i, "Create item:");
+
+    if (selectedCategory < 0) return;
 
     if (tableForItemCategory(Fl(selectedCategory))) {
         selectedKind = dialogCreateItemChooseKind(Fl(selectedCategory));
@@ -479,7 +459,7 @@ static void dialogCreateItem() {
 
     if (Fl(selectedCategory) == GOLD) {
         rogue.gold += theItem->quantity;
-        sprintf(message, br_tr("you found %i pieces of gold.%s"), theItem->quantity, rogue.featRecord[FEAT_TONE] ? br_tr(".. and strike a tone of disappointment.") : "");
+        snprintf(message,sizeof message, br_tr("you found %i pieces of gold.%s"), theItem->quantity, rogue.featRecord[FEAT_TONE] ? br_tr(".. and strike a tone of disappointment.") : "");
         rogue.featRecord[FEAT_TONE] = false;
         messageWithColor(message, &itemMessageColor, 0);
         deleteItem(theItem);
@@ -503,7 +483,7 @@ static void dialogCreateItem() {
     theItem = addItemToPack(theItem);
     itemName(theItem, theItemName, true, true, NULL);
 
-    sprintf(message,br_tr("you now have %s (%c)."), theItemName, theItem->inventoryLetter);
+    snprintf(message,sizeof message,br_tr("you now have %s (%c)."), theItemName, theItem->inventoryLetter);
     messageWithColor(message, &itemMessageColor, 0);
 }
 

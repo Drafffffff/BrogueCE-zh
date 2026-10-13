@@ -5,7 +5,14 @@
 #include <limits.h>
 #include <SDL_image.h>
 #include "platform.h"
+#include "zh_pad.h"
+#include "zh_commands.h"
+#include "GlobalsBase.h"
 #include "tiles.h"
+#include "zh_reader.h"
+#include "zh_map.h"
+#include "zh_panel.h"
+#include "zh_keyboard.h"
 
 #define PAUSE_BETWEEN_EVENT_POLLING     36L//17
 #define MAX_REMAPS  128
@@ -143,6 +150,19 @@ If an event is available, returns true and updates returnEvent. Otherwise
 it returns false and an error event. This function also processes
 platform-specific inputs/behaviours.
 */
+/* Convert physical pointer coordinates back through the camera, including HiDPI. */
+static int br_camera_mouse(Uint32 windowID,int x,int y,int *wx,int *wy) {
+    if (!br_map_showing()) return -1;
+    SDL_Window *window=SDL_GetWindowFromID(windowID);
+    int w,h,rw,rh,mx,my;
+    if(!window) return 0;
+    SDL_GetWindowSize(window,&w,&h);
+    if(!w || !h || SDL_GetRendererOutputSize(SDL_GetRenderer(window),&rw,&rh)) return 0;
+    if(!br_map_pointer(x*rw/w,y*rh/h,&mx,&my)) return 0;
+    *wx=mapToWindowX(mx); *wy=mapToWindowY(my);
+    return 1;
+}
+
 static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
     static int mx = 0, my = 0;
 
@@ -155,7 +175,29 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
 
 
     // ~ for (int i=0; i < 100 && SDL_PollEvent(&event); i++) {
+    int brPlayback=rogue.playbackMode && (rogue.playbackPaused || rogue.playbackBetweenTurns);
+    br_map_playback(brPlayback,rogue.playbackPaused,rogue.playbackOOS,rogue.playerTurnNumber,rogue.howManyTurns);
+    br_map_player(player.loc.x,player.loc.y,rogue.depthLevel,player.currentHP,player.info.maxHP);
+    br_commands_state(WIZARD_MODE,rogue.mode==GAME_MODE_EASY,rogue.lastItemThrown!=NULL,rogue.swappedIn!=NULL && rogue.swappedOut!=NULL,hasGraphics);
+    br_pad_poll(br_keyboard_active()?2:br_reader_active()?6:(br_panel_active() || br_map_nearby_active())?8:br_map_browsing()?5:br_map_ack_active()==2?7:br_map_ack_active()?0:br_map_aiming()?3:brPlayback?4:br_map_moving());
     while (SDL_PollEvent(&event)) {
+        boolean brTextEntry=br_keyboard_active() || br_panel_active();
+        if (br_keyboard_event(&event)) { ret=false; returnEvent->eventType=EVENT_ERROR; refreshScreen(); updateScreen(); continue; }
+        if(brPlayback && event.type==SDL_KEYDOWN && !event.key.repeat
+           && (event.key.keysym.sym==SDLK_F6 || event.key.keysym.sym==SDLK_F3)
+           && !br_reader_active() && !br_panel_active() && !br_keyboard_active() && !br_map_aiming())
+            rogue.playbackPaused=true;
+        if (!br_commands_active() && !(br_map_nearby_active() && !br_reader_active() && event.type==SDL_KEYDOWN && event.key.keysym.sym==SDLK_F2) && br_reader_event(&event)) { ret=false; returnEvent->eventType=EVENT_ERROR; refreshScreen(); updateScreen(); continue; }
+        if(!br_panel_active() && !br_keyboard_active() && br_map_event(&event)) { ret=false; returnEvent->eventType=EVENT_ERROR; refreshScreen(); updateScreen(); continue; }
+        if (br_commands_event(&event,(!br_reader_active() && !br_map_nearby_active() && !br_map_aiming() && !br_map_browsing())?(brPlayback?2:br_map_moving()):0)) { ret=false; returnEvent->eventType=EVENT_ERROR; refreshScreen(); updateScreen(); continue; }
+        int brKey,brControl,brShift;
+        if(br_commands_take(&brKey,&brControl,&brShift)) {
+            returnEvent->eventType=KEYSTROKE;returnEvent->param1=brKey;
+            returnEvent->param2=0;returnEvent->controlKey=brControl;returnEvent->shiftKey=brShift;
+            return true;
+        }
+        if (br_panel_event(&event)) { ret=false; returnEvent->eventType=EVENT_ERROR; refreshScreen(); updateScreen(); continue; }
+        if(br_panel_take_detail()) returnEvent->shiftKey=true;
         if (event.type == SDL_QUIT) {
             // the player clicked the X button!
             SDL_Quit();
@@ -165,6 +207,8 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
             resizeWindow(event.window.data1, event.window.data2);
         } else if (event.type == SDL_KEYDOWN) {
             SDL_Keycode key = event.key.keysym.sym;
+            returnEvent->controlKey = _modifierHeld(1) || (event.key.keysym.mod & KMOD_CTRL);
+            returnEvent->shiftKey = _modifierHeld(0) || (event.key.keysym.mod & KMOD_SHIFT);
 
             if (key == SDLK_PAGEUP) {
                 resizeWindow(max(windowWidth * 11/10, windowWidth + 1), max(windowHeight * 11/10, windowHeight + 1));
@@ -174,7 +218,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
                 resizeWindow(max(windowWidth * 10/11, 1), max(windowHeight * 10/11, 1));
                 continue;
             } else if (key == SDLK_F11 || key == SDLK_F12
-                    || key == SDLK_RETURN && (SDL_GetModState() & KMOD_ALT)) {
+                    || key == SDLK_RETURN && !brTextEntry && (SDL_GetModState() & KMOD_ALT)) {
                 fullScreen = !fullScreen;
                 resizeWindow(-1, -1);  // Reset to starting resolution
                 continue;
@@ -219,8 +263,10 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
                 } else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_RIGHT) {
                     returnEvent->eventType = RIGHT_MOUSE_UP;
                 }
-                returnEvent->param1 = event.button.x * COLS / windowWidth;
-                returnEvent->param2 = event.button.y * ROWS / windowHeight;
+                int wx,wy,mapped=br_camera_mouse(event.button.windowID,event.button.x,event.button.y,&wx,&wy);
+                if(mapped==0) { ret=false; returnEvent->eventType=EVENT_ERROR; continue; }
+                returnEvent->param1 = mapped>0 ? wx : event.button.x * COLS / windowWidth;
+                returnEvent->param2 = mapped>0 ? wy : event.button.y * ROWS / windowHeight;
                 return true;
             }
         } else if (event.type == SDL_MOUSEMOTION) {
@@ -228,6 +274,8 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
             // in the queue is important. That's why we just set ret=true
             int xcell = event.motion.x * COLS / windowWidth,
                 ycell = event.motion.y * ROWS / windowHeight;
+            int mapped=br_camera_mouse(event.motion.windowID,event.motion.x,event.motion.y,&xcell,&ycell);
+            if(mapped==0) continue;
             if (xcell != mx || ycell != my) {
                 returnEvent->eventType = MOUSE_ENTERED_CELL;
                 returnEvent->param1 = xcell;
@@ -386,6 +434,14 @@ static int fontIndex(enum displayGlyph glyph) {
     }
 }
 
+
+void br_game_nearby_add(const BrNearby *entry,int glyph) {
+    BrNearby copy=*entry;copy.atlas=fontIndex(glyph);br_map_nearby_add(&copy);
+}
+void br_map_record(int x,int y,int glyph,int fr,int fg,int fb,int br,int bg,int bb) {
+    br_map_put(x,y,fontIndex(glyph),(SDL_Color){fr*255/100,fg*255/100,fb*255/100,255},
+        (SDL_Color){br*255/100,bg*255/100,bb*255/100,255});
+}
 
 static void _plotChar(
     enum displayGlyph inputChar,

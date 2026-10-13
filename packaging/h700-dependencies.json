@@ -1,0 +1,31 @@
+{
+  "toolchain": "ghcr.io/loveretro/h700-toolchain@sha256:c9d160c407570a771683e6a471757b44f6e155a7df7d1804c70f901ee3890da3",
+  "sdl_image": {
+    "version": "2.8.2",
+    "url": "https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.8.2.tar.gz",
+    "sha256": "8f486bbfbcf8464dd58c9e5d93394ab0255ce68b51c5a966a918244820a76ddc"
+  },
+  "freetype": {
+    "version": "2.13.3",
+    "url": "https://github.com/freetype/freetype/archive/refs/tags/VER-2-13-3.tar.gz",
+    "filename": "freetype-2.13.3.tar.gz",
+    "sha256": "bc5c898e4756d373e0d991bab053036c5eb2aa7c0d5c67e8662ddc6da40c4103"
+  },
+  "sdl_ttf": {
+    "version": "2.22.0",
+    "url": "https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.22.0.tar.gz",
+    "filename": "SDL2_ttf-2.22.0.tar.gz",
+    "sha256": "d48cbd1ce475b9e178206bf3b72d56b66d84d44f64ac05803328396234d67723"
+  },
+  "font": {
+    "version": "Noto CJK Sans SC 2.004",
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf",
+    "filename": "NotoSansCJKsc-Regular.otf",
+    "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b"
+  },
+  "font_license": {
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/LICENSE",
+    "filename": "NotoSansCJK-OFL.txt",
+    "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+  }
+}

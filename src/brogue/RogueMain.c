@@ -23,7 +23,34 @@
 
 #include "Rogue.h"
 #include "zh_text.h"
+#include "zh_reader.h"
 #include "zh_catalog.h"
+#include "zh_map.h"
+#include "zh_panel.h"
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+#include <stdarg.h>
+typedef struct {char text[19000];size_t length;int full;} BrInfo;
+static void br_info_reset(BrInfo *report) {memset(report,0,sizeof *report);}
+static void br_info_append(BrInfo *report,const char *format,...) {
+    if(report->full) return;
+    size_t available=sizeof report->text-report->length-128;
+    va_list args;va_start(args,format);
+    int count=vsnprintf(report->text+report->length,available,format,args);
+    va_end(args);
+    if(count<0 || (size_t)count>=available) {
+        report->text[report->length]=0;report->full=1;return;
+    }
+    report->length+=(size_t)count;
+}
+static void br_info_show(const char *title,BrInfo *report) {
+    if(report->full) snprintf(report->text+report->length,sizeof report->text-report->length,
+        "\n内容过长，后续条目未显示。\n");
+    br_panel_begin(title,report->text);
+    br_panel_add("返回",ACKNOWLEDGE_KEY,1);
+    waitForAcknowledgment();
+    br_panel_end();
+}
+
 #include "GlobalsBase.h"
 #include "Globals.h"
 #include "GlobalsBrogue.h"
@@ -190,6 +217,7 @@ void initializeGameVariant() {
 // Either way, previousGameSeed is set to the seed we use.
 // None of this seed stuff is applicable if we're playing a recording.
 void initializeRogue(uint64_t seed) {
+    br_inventory_clear();
     short i, j, k;
     item *theItem;
     boolean playingback, playbackFF, playbackPaused, displayStealthRangeMode;
@@ -1046,6 +1074,7 @@ void freeEverything() {
 }
 
 void gameOver(char *killedBy, boolean useCustomPhrasing) {
+    BrInfo br_death;br_info_reset(&br_death);
     short i, y;
     char buf[200], highScoreText[200], buf2[200];
     rogueHighScoresEntry theEntry;
@@ -1089,10 +1118,12 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
         refreshSideBar(-1, -1, false);
         messageWithColor(buf, &badMessageColor, 0);
         displayMoreSignWithoutWaitingForAcknowledgment();
+        br_map_acknowledging(2);
 
         do {
             if (rogue.playbackMode) break;
             nextBrogueEvent(&theEvent, false, false, false);
+            if(theEvent.eventType==KEYSTROKE && theEvent.param1==RETURN_KEY) theEvent.param1=ACKNOWLEDGE_KEY;
             if (theEvent.eventType == KEYSTROKE
                 && theEvent.param1 != ACKNOWLEDGE_KEY
                 && theEvent.param1 != ESCAPE_KEY
@@ -1109,6 +1140,7 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
         } while (!(theEvent.eventType == KEYSTROKE && (theEvent.param1 == ACKNOWLEDGE_KEY || theEvent.param1 == ESCAPE_KEY)
                    || theEvent.eventType == MOUSE_UP));
 
+        br_map_acknowledging(0);
         confirmMessages();
 
         rogue.playbackMode = playback;
@@ -1160,6 +1192,7 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
         strcat(buf, buf2);
     }
     if (numberOfMatchingPackItems(AMULET, 0, 0, false) > 0) {
+        br_info_append(&br_death,"随身携带延多护符。\n");
         strcat(buf, ", amulet in hand");
     }
     strcat(buf, ".");
@@ -1168,6 +1201,8 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
     strcpy(theEntry.description, highScoreText);
 
     if (!rogue.quit) {
+        br_info_append(&br_death,useCustomPhrasing?"%s，位于第 %d 层。\n":"死于%s，位于第 %d 层。\n",br_tr(killedBy),rogue.depthLevel);
+        br_info_append(&br_death,"得分 %li\n\n本局达成的额外成就\n",theEntry.score);
         printString(buf, (COLS - strLenWithoutEscapes(buf)) / 2, ROWS / 2, &gray, &black, 0);
 
         y = ROWS / 2 + 3;
@@ -1177,11 +1212,12 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
 
                 sprintf(buf, "%s: %s", featTable[i].name, featTable[i].description);
                 printString(buf, (COLS - strLenWithoutEscapes(buf)) / 2, y, &advancementMessageColor, &black, 0);
+                br_info_append(&br_death,"%s：%s\n\n",br_tr(featTable[i].name),br_tr(featTable[i].description));
                 y++;
             }
         }
 
-        displayMoreSign();
+        br_info_show("本局结束 · 结算",&br_death);
     }
 
     if (serverMode) {
@@ -1218,7 +1254,8 @@ void gameOver(char *killedBy, boolean useCustomPhrasing) {
 }
 
 void victory(boolean superVictory) {
-    char buf[COLS*3], victoryVerb[20];
+    BrInfo br_treasure,br_feats;br_info_reset(&br_treasure);br_info_reset(&br_feats);
+    char buf[TEXT_MAX_LENGTH], victoryVerb[20];
     item *theItem;
     short i, j, gemCount = 0;
     unsigned long totalValue = 0;
@@ -1244,6 +1281,7 @@ void victory(boolean superVictory) {
         funkyFade(&dbuf, &superVictoryColor, 0, 240, mapToWindowX(player.loc.x), mapToWindowY(player.loc.y), false);
         displayMoreSign();
         printString(br_tr("Congratulations; you have transcended the Dungeons of Doom!                 "), mapToWindowX(0), mapToWindowY(-1), &black, &white, 0);
+        br_map_message(br_tr("Congratulations; you have transcended the Dungeons of Doom!                 "));
         displayMoreSign();
         clearDisplayBuffer(&dbuf);
         deleteMessages();
@@ -1254,6 +1292,7 @@ void victory(boolean superVictory) {
         funkyFade(&dbuf, &white, 0, 240, mapToWindowX(player.loc.x), mapToWindowY(player.loc.y), false);
         displayMoreSign();
         printString(br_tr("Congratulations; you have escaped from the Dungeons of Doom!     "), mapToWindowX(0), mapToWindowY(-1), &black, &white, 0);
+        br_map_message(br_tr("Congratulations; you have escaped from the Dungeons of Doom!     "));
         displayMoreSign();
         deleteMessages();
         strcpy(displayedMessage[0], br_tr("You sell your treasures and live out your days in fame and glory."));
@@ -1272,6 +1311,7 @@ void victory(boolean superVictory) {
     sprintf(buf, "%li", rogue.gold);
     printString(buf, mapToWindowX(60), mapToWindowY(1), &itemMessageColor, &black, &dbuf);
     totalValue += rogue.gold;
+    br_info_append(&br_treasure,"%s\n\n金币  %lu\n",br_tr(displayedMessage[0]),rogue.gold);
 
     for (i = 4, theItem = packItems->nextItem; theItem != NULL; theItem = theItem->nextItem) {
         if (theItem->category & GEM) {
@@ -1283,10 +1323,12 @@ void victory(boolean superVictory) {
             sprintf(buf, "%li", max(0, itemValue(theItem) * 2));
             printString(buf, mapToWindowX(60), min(ROWS-1, i + 1), &itemMessageColor, &black, &dbuf);
             totalValue += max(0, itemValue(theItem) * 2);
+            br_info_append(&br_treasure,"%s  %s\n",br_tr("The Birthright of Yendor"),buf);
             i++;
         } else {
             identify(theItem);
             itemName(theItem, buf, true, true, &white);
+            br_info_append(&br_treasure,"%s  %lu\n",buf,(unsigned long)max(0,itemValue(theItem)));
             upperCase(buf);
 
             plotCharToBuffer(theItem->displayChar, (windowpos){ mapToWindowX(2), min(ROWS-1, i + 1) }, &yellow, &black, &dbuf);
@@ -1307,7 +1349,8 @@ void victory(boolean superVictory) {
     printString(buf, mapToWindowX(60), min(ROWS-1, i + 1), &lightBlue, &black, &dbuf);
 
     funkyFade(&dbuf, &white, 0, 120, COLS/2, ROWS/2, true);
-    displayMoreSign();
+    br_info_append(&br_treasure,"\n总价值  %lu\n",totalValue);
+    br_info_show("胜利 · 财宝结算",&br_treasure);
 
     //
     // Third screen - List of achievements with recording save prompt
@@ -1322,6 +1365,7 @@ void victory(boolean superVictory) {
         if (rogue.featRecord[j]) {
             sprintf(buf, "%s: %s", featTable[j].name, featTable[j].description);
             printString(buf, mapToWindowX(2), i, &advancementMessageColor, &black, NULL);
+            br_info_append(&br_feats,"%s：%s\n\n",br_tr(featTable[j].name),br_tr(featTable[j].description));
             i++;
         }
     }
@@ -1351,7 +1395,8 @@ void victory(boolean superVictory) {
     rogue.playbackMode = false;
     rogue.playbackMode = isPlayback;
 
-    displayMoreSign();
+    if(!br_feats.length) br_info_append(&br_feats,"本局未达成额外成就。\n");
+    br_info_show("胜利 · 成就",&br_feats);
 
     if (serverMode) {
         saveRecordingNoPrompt(recordingFilename);

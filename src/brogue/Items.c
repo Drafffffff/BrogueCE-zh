@@ -24,7 +24,68 @@
 
 #include "Rogue.h"
 #include "zh_text.h"
+#include "zh_reader.h"
 #include "zh_catalog.h"
+#include "zh_map.h"
+#include "zh_panel.h"
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Existing button labels and hotkeys are the authority for enabled actions. */
+static unsigned br_native_symbol(int glyph) {
+    switch(glyph) {
+        case G_FOOD:return ':';case G_WEAPON:return ')';case G_ARMOR:return ']';
+        case G_POTION:return '!';case G_SCROLL:return '?';case G_RING:return '=';
+        case G_WAND:return '-';case G_STAFF:return '/';case G_CHARM:return '+';
+        case G_GOLD:return '$';case G_AMULET:return '&';case G_GEM:return '*';
+        default:return glyph>0 && glyph<128?(unsigned)glyph:'*';
+    }
+}
+static void br_native_buttons(const char *title,const char *body,brogueButton *buttons,int count) {
+    br_panel_begin(title,body);
+    for(int i=0;i<count;i++) {
+        brogueButton *button=&buttons[i];
+        if(!(button->flags & B_DRAW) || !(button->flags & B_ENABLED)) continue;
+        char label[BUTTON_TEXT_SIZE+64];int symbol=0;size_t used=0;
+        for(const char *p=button->text;*p;) {
+            BrTextToken t=br_text_next(p);
+            if(used+t.bytes>=sizeof label) break;
+            if(!t.is_color && t.codepoint=='*') {
+                int glyph=symbol<COLS ? button->symbol[symbol] : 0;symbol++;
+                const char *magic=glyph==G_GOOD_MAGIC?"良性魔法":glyph==G_BAD_MAGIC?"恶性魔法":glyph==G_UP_ARROW?"上一页":glyph==G_DOWN_ARROW?"下一页":NULL;
+                if(magic) {
+                    size_t bytes=strlen(magic);if(used+bytes>=sizeof label)break;
+                    memcpy(label+used,magic,bytes);used+=bytes;
+                } else label[used++]=br_native_symbol(glyph);
+            } else {memcpy(label+used,p,t.bytes);used+=t.bytes;}
+            p+=t.bytes;
+        }
+        while(used && label[used-1]==' ')used--;
+        label[used]=0;
+        /* Strip display-only letter shortcuts, retaining color and protection. */
+        const char *first=label;
+        while(*first) {
+            BrTextToken t=br_text_next(first);
+            if(t.is_color || t.codepoint==' ') first+=t.bytes;else break;
+        }
+        if((*first>='a' && *first<='z') || (*first>='A' && *first<='Z')) {
+            const char *last=first+1;
+            while(*last && br_text_next(last).is_color) last+=br_text_next(last).bytes;
+            if(*last==')' || *last=='}' || *last==':') {
+                int protected=*last=='}';
+                char clean[sizeof label];size_t n=0;
+                for(const char *p=label;*p;) {
+                    BrTextToken t=br_text_next(p);
+                    if(p<first || p>last || t.is_color) {memcpy(clean+n,p,t.bytes);n+=t.bytes;}
+                    p+=t.bytes;
+                }
+                clean[n]=0;
+                if(protected && n+strlen("（受保护）")<sizeof clean) strcat(clean,"（受保护）");
+                strcpy(label,clean);
+            }
+        }
+        br_panel_add(label,button->hotkey[0],body ? (button->flags & B_ENABLED)!=0 : (button->flags & B_HOVER_ENABLED)!=0);
+    }
+}
+
 #include "GlobalsBase.h"
 #include "Globals.h"
 
@@ -38,6 +99,7 @@ item *initializeItem() {
     item *theItem;
 
     theItem = (item *) malloc(sizeof(item));
+    br_inventory_forget(theItem);
     memset(theItem, '\0', sizeof(item) );
 
     theItem->category = 0;
@@ -3096,6 +3158,14 @@ char displayInventory(unsigned short categoryMask,
         restoreDisplayBuffer(&rbuf);   // Remove the inventory display while the buttons are active,
                                             // since they look the same and we don't want their opacities to stack.
 
+        char br_pack_title[160];
+        snprintf(br_pack_title,sizeof br_pack_title,"背包  剩余空间 %d",MAX_PACK_ITEMS-numberOfItemsInPack());
+        br_native_buttons(br_pack_title,NULL,buttons,itemCount);
+        br_panel_inventory();
+        const void *br_pack_rows[DROWS];
+        for(int br_i=0;br_i<itemNumber;br_i++)br_pack_rows[br_i]=itemList[br_i];
+        br_inventory_restore(categoryMask,requiredFlags,forbiddenFlags,
+            (waitForAcknowledge?1:0)|(rogue.playbackMode?2:0),br_pack_rows,itemNumber);
         highlightItemLine = buttonInputLoop(buttons,
                                             itemCount + extraLineCount + 2, // the 2 is for up/down hotkeys
                                             COLS - maxLength,
@@ -3103,6 +3173,8 @@ char displayInventory(unsigned short categoryMask,
                                             maxLength,
                                             itemNumber + extraLineCount,
                                             &theEvent);
+        br_inventory_remember(highlightItemLine>=0 && highlightItemLine<itemNumber?highlightItemLine:br_panel_selected());
+        br_panel_end();
         if (highlightItemLine == itemNumber + extraLineCount + 0) {
             // Up key
             highlightItemLine = itemNumber - 1;
@@ -3134,6 +3206,7 @@ char displayInventory(unsigned short categoryMask,
 
                 if (theEvent.shiftKey || theEvent.controlKey || waitForAcknowledge) {
                     // Display an information window about the item.
+                    br_panel_prefer_details(theEvent.shiftKey || theEvent.controlKey);
                     actionKey = printCarriedItemDetails(theItem, max(2, mapToWindowX(DCOLS - maxLength - 42)), mapToWindowY(2), 40, includeButtons);
 
                     restoreDisplayBuffer(&rbuf); // remove the item info window
@@ -5716,7 +5789,7 @@ boolean chooseTarget(pos *returnLoc,
         // In playback, pull the next event (a mouseclick) and use that location as the target.
         *returnLoc = pullMouseClickDuringPlayback();
         rogue.cursorLoc = INVALID_POS;
-        return true;
+        br_game_target_view(0,0,0); return true;
     }
 
     oldRNG = rogue.RNG;
@@ -5762,11 +5835,11 @@ boolean chooseTarget(pos *returnLoc,
             confirmMessages();
             rogue.cursorLoc = INVALID_POS;
             restoreRNG;
-            return false;
+            br_game_target_view(0,0,0); return false;
         }
 
         if (tabKey) {
-            if (nextTargetAfter(theItem, &newLoc, targetLoc, targetMode, event.controlKey)) {
+            if (nextTargetAfter(theItem, &newLoc, targetLoc, targetMode, event.shiftKey)) {
                 targetLoc = newLoc;
             }
         }
@@ -5809,6 +5882,7 @@ boolean chooseTarget(pos *returnLoc,
         }
 
         oldTargetLoc = targetLoc;
+        br_game_target_view(1,targetLoc.x,targetLoc.y);
         moveCursor(&targetConfirmed, &canceled, &tabKey, &targetLoc, &event, NULL, false, true, false);
         if (event.eventType == RIGHT_MOUSE_UP) { // Right mouse cancels.
             canceled = true;
@@ -5824,7 +5898,7 @@ boolean chooseTarget(pos *returnLoc,
         confirmMessages();
         restoreRNG;
         rogue.cursorLoc = INVALID_POS;
-        return false;
+        br_game_target_view(0,0,0); return false;
     }
 
     monst = monsterAtLoc(targetLoc);
@@ -5835,7 +5909,7 @@ boolean chooseTarget(pos *returnLoc,
     *returnLoc = targetLoc;
     restoreRNG;
     rogue.cursorLoc = INVALID_POS;
-    return true;
+    br_game_target_view(0,0,0); return true;
 }
 
 // Returns the number of total, good, or bad item kinds for the given item category. To ignore
@@ -6472,11 +6546,19 @@ void relabel(item *theItem) {
     if (theItem == NULL) {
         return;
     }
-    temporaryMessage("New letter? (a-z)", 0);
+    temporaryMessage("选择新的物品标记。", 0);
+    if(!rogue.playbackMode) {
+        br_panel_begin("选择物品标记",NULL);
+        for(int br_i=0;br_i<26;br_i++) {
+            char br_label[64];snprintf(br_label,sizeof br_label,"标记 %c",'a'+br_i);
+            br_panel_add(br_label,'a'+br_i,1);
+        }
+    }
     newLabel = '\0';
     do {
         newLabel = nextKeyPress(true);
     } while (!newLabel);
+    if(!rogue.playbackMode) br_panel_end();
 
     if (newLabel >= 'A' && newLabel <= 'Z') {
         newLabel += 'a' - 'A'; // lower-case.
@@ -8011,6 +8093,7 @@ void addItemToChain(item *theItem, item *theChain) {
 }
 
 void deleteItem(item *theItem) {
+    br_inventory_forget(theItem);
     free(theItem);
 }
 

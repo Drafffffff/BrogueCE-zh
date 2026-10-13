@@ -23,7 +23,10 @@
 
 #include "Rogue.h"
 #include "zh_text.h"
+#include "zh_reader.h"
 #include "zh_catalog.h"
+#include "zh_map.h"
+#include "zh_panel.h"
 #include "GlobalsBase.h"
 #include "Globals.h"
 

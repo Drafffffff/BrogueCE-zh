@@ -26,11 +26,312 @@
 
 #include "Rogue.h"
 #include "zh_text.h"
+#include "zh_reader.h"
 #include "zh_catalog.h"
+#include "zh_map.h"
+static void br_game_inspect_view(const screenDisplayBuffer *buffer,int x,int y);
+#include "zh_panel.h"
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+#include <stdarg.h>
+typedef struct {char text[19000];size_t length;int full;} BrInfo;
+static void br_info_reset(BrInfo *report) {memset(report,0,sizeof *report);}
+static void br_info_append(BrInfo *report,const char *format,...) {
+    if(report->full) return;
+    size_t available=sizeof report->text-report->length-128;
+    va_list args;va_start(args,format);
+    int count=vsnprintf(report->text+report->length,available,format,args);
+    va_end(args);
+    if(count<0 || (size_t)count>=available) {
+        report->text[report->length]=0;report->full=1;return;
+    }
+    report->length+=(size_t)count;
+}
+static void br_info_show(const char *title,BrInfo *report) {
+    if(report->full) snprintf(report->text+report->length,sizeof report->text-report->length,
+        "\n内容过长，后续条目未显示。\n");
+    br_panel_begin(title,report->text);
+    br_panel_add("返回",ACKNOWLEDGE_KEY,1);
+    waitForAcknowledgment();
+    br_panel_end();
+}
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Display-only reports. Callers supply the original achievement/identification
+   decisions and discovery probability; no rule or RNG work occurs here. */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Page the original formatted archive, keeping each page in chronological
+   order and showing its newest lines first on screen via initial scroll. */
+static void br_info_archive(char rows[][BR_MESSAGE_BYTES],int length) {
+    const int per_page=16;
+    if(length<0) length=0;
+    if(length>MESSAGE_ARCHIVE_LINES) length=MESSAGE_ARCHIVE_LINES;
+    int pages=(length+per_page-1)/per_page,page=0,done=0;
+    if(!pages) pages=1;
+    do {
+        BrInfo report;br_info_reset(&report);
+        int end=MESSAGE_ARCHIVE_LINES-page*per_page;
+        int start=max(MESSAGE_ARCHIVE_LINES-length,end-per_page);
+        for(int i=start;i<end;i++) br_info_append(&report,"%s\n",rows[i]);
+        char title[160];snprintf(title,sizeof title,"消息归档  %d/%d 页  ·  页内从旧到新",page+1,pages);
+        br_panel_begin(title,report.text);
+        br_panel_add("返回",ACKNOWLEDGE_KEY,1);
+        if(page+1<pages) br_panel_add("更早消息",'p',1);
+        if(page>0) br_panel_add("较新消息",'n',1);
+        br_panel_scroll_bottom();
+        for(;;) {
+            rogueEvent event;nextBrogueEvent(&event,false,false,true);
+            if(event.eventType!=KEYSTROKE) continue;
+            if(event.param1==ESCAPE_KEY || event.param1==ACKNOWLEDGE_KEY || event.param1==RETURN_KEY) {done=1;break;}
+            if(event.param1=='p' && page+1<pages) {page++;break;}
+            if(event.param1=='n' && page>0) {page--;break;}
+        }
+        br_panel_end();
+    } while(!done);
+}
+
+static BrInfo br_discovery_report;
+static void br_info_feat(BrInfo *report,const char *name,const char *description,int initial,int current) {
+    const char *state=current==initial?"进行中":current?"已达成 (+)":"已失败 (-)";
+    br_info_append(report,"%s  ·  %s\n%s\n\n",br_tr(name),state,br_tr(description));
+}
+static void br_info_discovery(const char *name,int identified,int magic,int probability) {
+    br_info_append(&br_discovery_report,"%s  ·  %s",br_tr(name),identified?"已鉴定":"未鉴定");
+    if(!identified) {
+        if(magic==1) br_info_append(&br_discovery_report," · 良性魔法");
+        else if(magic==-1) br_info_append(&br_discovery_report," · 恶性魔法");
+        if(probability>=0) br_info_append(&br_discovery_report," (%d%%)",probability);
+    }
+    br_info_append(&br_discovery_report,"\n");
+}
+static void br_info_help(void) {
+    BrInfo report;br_info_reset(&report);
+    br_info_append(&report,"掌机探索\n"
+        "十字键：移动或攻击。同时按两个方向可斜向移动；每次按下走一步。按住 R2 再按方向可奔跑；遇到危险按 B 中断。\n"
+        "A：开启检查光标；方向移动光标，A 前往目标，B 返回，X 切换目标。\n"
+        "B：取消操作或中断自动探索/休息。X：背包。Y：搜索一次。Start：等待一回合。\n"
+        "L2：常用行动和分类子菜单。上下选择，A 执行或进入，B 返回上一级。菜单记住上次路径和选择。使用、装备、卸下、投掷、丢弃、命名、上下楼和保存都在菜单中。\n"
+        "连续搜索、八方向奔跑和快速探索也在行动菜单中，沿用原版停止条件；B 可中断。巫师模式可用菜单生成物品或怪物。\n"
+        "Select：全图；方向浏览，A 放大，X 回角色，B 先回全图再返回探索。\n"
+        "L1：大字阅读最近消息。R1：角色与附近信息。\n\n"
+        "原生窗口与输入\n"
+        "列表上下选择、A 确认、B 返回；L2/R2 翻页。正文上下滚动、左右选操作。\n"
+        "阅读窗口可用 L2/R2 翻页。物品标记通过上下选择，不必输入字母。\n"
+        "屏幕输入：方向选字符、A 输入、X 删除、Start 完成、B 取消。当前支持原版 ASCII 和数字，尚无中文输入法。\n"
+        "消息等待确认时 A/B 继续；死亡时 X 可查看背包。\n"
+        "Menu 组合键交给系统；音量和电源不作为游戏命令。\n\n"
+        "观看录像\n"
+        "Start 暂停/继续，方向左右逐回合前后、上下变速，L2 打开录像菜单，A 检查，X 背包，Y 全知视角。\n"
+        "录像菜单的操作帮助提供跳转和其他说明。\n");
+    br_info_show("操作帮助",&report);
+}
+
+#include "zh_keyboard.h"
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Existing button labels and hotkeys are the authority for enabled actions. */
+static unsigned br_native_symbol(int glyph) {
+    switch(glyph) {
+        case G_FOOD:return ':';case G_WEAPON:return ')';case G_ARMOR:return ']';
+        case G_POTION:return '!';case G_SCROLL:return '?';case G_RING:return '=';
+        case G_WAND:return '-';case G_STAFF:return '/';case G_CHARM:return '+';
+        case G_GOLD:return '$';case G_AMULET:return '&';case G_GEM:return '*';
+        default:return glyph>0 && glyph<128?(unsigned)glyph:'*';
+    }
+}
+static void br_native_buttons(const char *title,const char *body,brogueButton *buttons,int count) {
+    br_panel_begin(title,body);
+    for(int i=0;i<count;i++) {
+        brogueButton *button=&buttons[i];
+        if(!(button->flags & B_DRAW) || !(button->flags & B_ENABLED)) continue;
+        char label[BUTTON_TEXT_SIZE+64];int symbol=0;size_t used=0;
+        for(const char *p=button->text;*p;) {
+            BrTextToken t=br_text_next(p);
+            if(used+t.bytes>=sizeof label) break;
+            if(!t.is_color && t.codepoint=='*') {
+                int glyph=symbol<COLS ? button->symbol[symbol] : 0;symbol++;
+                const char *magic=glyph==G_GOOD_MAGIC?"良性魔法":glyph==G_BAD_MAGIC?"恶性魔法":glyph==G_UP_ARROW?"上一页":glyph==G_DOWN_ARROW?"下一页":NULL;
+                if(magic) {
+                    size_t bytes=strlen(magic);if(used+bytes>=sizeof label)break;
+                    memcpy(label+used,magic,bytes);used+=bytes;
+                } else label[used++]=br_native_symbol(glyph);
+            } else {memcpy(label+used,p,t.bytes);used+=t.bytes;}
+            p+=t.bytes;
+        }
+        while(used && label[used-1]==' ')used--;
+        label[used]=0;
+        /* Strip display-only letter shortcuts, retaining color and protection. */
+        const char *first=label;
+        while(*first) {
+            BrTextToken t=br_text_next(first);
+            if(t.is_color || t.codepoint==' ') first+=t.bytes;else break;
+        }
+        if((*first>='a' && *first<='z') || (*first>='A' && *first<='Z')) {
+            const char *last=first+1;
+            while(*last && br_text_next(last).is_color) last+=br_text_next(last).bytes;
+            if(*last==')' || *last=='}' || *last==':') {
+                int protected=*last=='}';
+                char clean[sizeof label];size_t n=0;
+                for(const char *p=label;*p;) {
+                    BrTextToken t=br_text_next(p);
+                    if(p<first || p>last || t.is_color) {memcpy(clean+n,p,t.bytes);n+=t.bytes;}
+                    p+=t.bytes;
+                }
+                clean[n]=0;
+                if(protected && n+strlen("（受保护）")<sizeof clean) strcat(clean,"（受保护）");
+                strcpy(label,clean);
+            }
+        }
+        br_panel_add(label,button->hotkey[0],body ? (button->flags & B_ENABLED)!=0 : (button->flags & B_HOVER_ENABLED)!=0);
+    }
+}
+
 #include "GlobalsBase.h"
 #include "Globals.h"
 
 #define D_DISABLE_BACKGROUND_COLORS     (WIZARD_MODE && 0)
+static char br_carried_title[512];
+static unsigned br_carried_glyph;
+static SDL_Color br_carried_color;
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Included in IO.c. Capture existing sidebar labels without re-querying or
+   re-naming creatures (which could disturb hallucination cosmetic RNG). */
+static short estimatedArmorValue(void);
+static int br_capturing_sidebar, br_sidebar_nearby;
+static char br_sidebar_rows[ROWS][BR_MESSAGE_BYTES];
+static SDL_Color br_sidebar_inks[ROWS];
+static int br_sidebar_bars[ROWS],br_sidebar_is_nearby[ROWS];
+static int br_sidebar_glyph,br_sidebar_name_lines=1;
+static SDL_Color br_sidebar_symbol_ink;
+static SDL_Color br_sidebar_color(const color *c,int dim) {
+    return (SDL_Color){clamp(c->red,0,100)*255/(dim?200:100),clamp(c->green,0,100)*255/(dim?200:100),clamp(c->blue,0,100)*255/(dim?200:100),255};
+}
+static void br_sidebar_symbol(int glyph,const color *c) {
+    if(!br_capturing_sidebar)return;
+    br_sidebar_glyph=glyph;br_sidebar_symbol_ink=br_sidebar_color(c,0);
+}
+static void br_sidebar_reset(void) {
+    memset(br_sidebar_rows,0,sizeof br_sidebar_rows);
+    memset(br_sidebar_inks,0,sizeof br_sidebar_inks);
+    memset(br_sidebar_is_nearby,0,sizeof br_sidebar_is_nearby);
+    for(int y=0;y<ROWS;y++)br_sidebar_bars[y]=-1;
+    br_map_nearby_reset();
+}
+static void br_sidebar_emit(int first,int end,int x,int y,int is_player) {
+    BrNearby entry={0};entry.x=x;entry.y=y;entry.player=is_player;
+    entry.ink=br_sidebar_symbol_ink;
+    if(first<0 || first>=ROWS || !br_sidebar_rows[first][0])return;
+    br_text_copy(entry.name,sizeof entry.name,br_sidebar_rows[first]);
+    for(int row=first+br_sidebar_name_lines;row<end && row<ROWS-1 && entry.line_count<BR_NEARBY_LINES;row++) {
+        if(!br_sidebar_rows[row][0])continue;
+        int n=entry.line_count++;
+        br_text_copy(entry.lines[n],sizeof entry.lines[n],br_sidebar_rows[row]);
+        entry.tones[n]=br_sidebar_inks[row];entry.bars[n]=br_sidebar_bars[row];
+    }
+    br_game_nearby_add(&entry,br_sidebar_glyph);
+}
+static void br_sidebar_label(int y,const char *text) {
+    if(!br_capturing_sidebar || y<0 || y>=ROWS-1) return;
+    text=br_tr(text);
+    char clean[BR_MESSAGE_BYTES];
+    size_t used=0;
+    for(BrTextToken t;(t=br_text_next(text)).bytes;text+=t.bytes) {
+        if(t.is_color) continue;
+        if(used+t.bytes>=sizeof clean) break;
+        memcpy(clean+used,text,t.bytes);used+=t.bytes;
+    }
+    while(used && clean[used-1]==' ') used--;
+    clean[used]=0;
+    const char *label=clean;while(*label==' ')label++;
+    if(*label) {
+        br_text_copy(br_sidebar_rows[y],sizeof br_sidebar_rows[y],br_tr(label));
+        br_sidebar_is_nearby[y]=br_sidebar_nearby;
+    }
+}
+static void br_sidebar_paint(int y,const char *label,const color *ink) {
+    br_sidebar_label(y,label);
+    if(br_capturing_sidebar && y>=0 && y<ROWS-1)br_sidebar_inks[y]=br_sidebar_color(ink,0);
+}
+static void br_sidebar_bar(int y,const char *label,long current,long maximum) {
+    if(!br_capturing_sidebar || y<0 || y>=ROWS-1) return;
+    char value[BR_MESSAGE_BYTES], translated[256];
+    const char *name=br_tr(label);
+    int amount;char sign, tail;
+    if(sscanf(label,"Weakened: -%d%c",&amount,&tail)==1)
+        snprintf(translated,sizeof translated,"%s%d",br_tr("Weakened: -"),amount),name=translated;
+    else if(sscanf(label,"Poisoned (x%d)%c",&amount,&tail)==1)
+        snprintf(translated,sizeof translated,"%s ×%d",br_tr("Poisoned"),amount),name=translated;
+    else if(sscanf(label,"Fatal Poison (x%d)%c",&amount,&tail)==1)
+        snprintf(translated,sizeof translated,"%s ×%d",br_tr("Fatal Poison"),amount),name=translated;
+    else if(!strncmp(label,"       Health",13) && strchr(label,'(')
+            && sscanf(strchr(label,'('),"(%c%d%%)%c",&sign,&amount,&tail)==2)
+        snprintf(translated,sizeof translated,"%s (%c%d%%)",br_tr("Health"),sign,amount),name=translated;
+    /* Preserve the visible bar's rough proportion, without revealing a
+       monster's internal hit points or maximum hit points. */
+    long percent=maximum>0 ? clamp(current*100/maximum,0,100) : 0;
+    snprintf(value,sizeof value,"%s 约 %ld%%",name,percent/5*5);
+    br_sidebar_label(y,value);
+    br_sidebar_bars[y]=percent/5*5;
+}
+static void br_hud_build(void) {
+    br_map_searching(player.status[STATUS_SEARCHING]>0);
+    char values[1024], compact[1024]="", full[20000], line[512];
+    int unknown=rogue.armor && !(rogue.armor->flags & ITEM_IDENTIFIED) && !rogue.playbackOmniscience;
+    int armor=unknown ? estimatedArmorValue() : displayedArmorValue();
+    int nutrition=player.status[STATUS_NUTRITION];
+    const char *hunger=nutrition>HUNGER_THRESHOLD ? "饱腹" : nutrition>WEAK_THRESHOLD ? "饥饿" :
+        nutrition>FAINT_THRESHOLD ? "饥饿虚弱" : nutrition>0 ? "即将昏厥" : "饥饿濒死";
+    /* Nutrition is drawn as a bar on row two, so the word moves out of the
+       metrics line and into the R1 detail, where the exact numbers already are. */
+    int hunger_level=nutrition>HUNGER_THRESHOLD ? 0 : nutrition>WEAK_THRESHOLD ? 1 :
+        nutrition>FAINT_THRESHOLD ? 2 : 3;
+    snprintf(values,sizeof values,"力 %d 护甲 %d%s 潜行 %d",
+        rogue.strength-player.weaknessAmount,armor,unknown?"?":"",rogue.stealthRange);
+    snprintf(full,sizeof full,"第 %d 层    生命 %d/%d\n%s\n营养 %s %d/%d  金币 %lu\n\n状态\n",
+        rogue.depthLevel,player.currentHP,player.info.maxHP,values,hunger,nutrition,STOMACH_SIZE,rogue.gold);
+    const int priority[]={STATUS_POISONED,STATUS_BURNING,STATUS_PARALYZED,STATUS_CONFUSED,STATUS_STUCK,STATUS_WEAKENED};
+    int seen[NUMBER_OF_STATUS_EFFECTS]={0}, count=0, hidden=0;
+    /* Status text now shares the first row with the depth and mode, so it gets
+       the whole span between them and the right-hand gauges. */
+    int effect_space=(BR_HUD_LABEL_X-18)/10-14;
+    if(effect_space<0)effect_space=0;
+    for(int n=0;n<NUMBER_OF_STATUS_EFFECTS+(int)(sizeof priority/sizeof *priority);n++) {
+        int i=n<(int)(sizeof priority/sizeof *priority) ? priority[n] : n-(int)(sizeof priority/sizeof *priority);
+        if(seen[i]) continue;
+        seen[i]=1;
+        if(!statusEffectCatalog[i].name[0] || player.status[i]<=0) continue;
+        const char *name=br_tr(statusEffectCatalog[i].name);
+        if(i==STATUS_POISONED && player.status[i]*player.poisonAmount>=player.currentHP) name=br_tr("Fatal Poison");
+        int percent=player.maxStatus[i]>0 ? clamp(100*player.status[i]/player.maxStatus[i],0,100) : 0;
+        snprintf(line,sizeof line,"%s 约 %d%%",name,percent/5*5);
+        strcat(full,line);
+        if(i==STATUS_POISONED) {
+            snprintf(line,sizeof line,"  每回合伤害 %d",player.poisonAmount);strcat(full,line);
+        } else if(i==STATUS_WEAKENED) {
+            snprintf(line,sizeof line,"  力量惩罚 %d",player.weaknessAmount);strcat(full,line);
+        }
+        strcat(full,"\n");count++;
+        if(i==STATUS_SEARCHING)continue; /* Same live state, fixed upper-right label. */
+        if(br_text_width(compact)+br_text_width(name)+2<=effect_space) {
+            char ink[5];
+            const color *tone=(i==STATUS_POISONED || i==STATUS_BURNING || i==STATUS_PARALYZED || i==STATUS_WEAKENED || i==STATUS_SLOWED || i==STATUS_CONFUSED || i==STATUS_STUCK || i==STATUS_NAUSEOUS || i==STATUS_DISCORDANT || i==STATUS_MAGICAL_FEAR || i==STATUS_DARKNESS)?&badMessageColor:&goodMessageColor;
+            encodeMessageColor(ink,0,tone);strcat(compact,ink);strcat(compact,name);strcat(compact,"  ");
+        }
+        else hidden++;
+    }
+    if(!count) strcat(full,"无状态效果\n");
+    if(hidden) {snprintf(line,sizeof line,"+%d",hidden);strcat(compact,line);}
+    strcat(full,"\n附近信息\n");
+    int nearby=0;
+    for(int row=0;row<ROWS;row++) {
+        const char *p=br_sidebar_rows[row];while(*p==' ')p++;
+        if(*p && br_sidebar_is_nearby[row]) {
+            size_t used=strlen(full);
+            if(used+strlen(p)+2>=sizeof full) break;
+            strcat(full,p);strcat(full,"\n");nearby++;
+        }
+    }
+    if(!nearby) strcat(full,"暂无可见目标\n");
+    br_map_hud(values,compact,full,nutrition,STOMACH_SIZE,hunger_level);
+}
+
 
 // Populates path[][] with a list of coordinates starting at origin and traversing down the map. Returns the number of steps in the path.
 short getPlayerPathOnMap(pos path[1000], short **map, pos origin) {
@@ -195,9 +496,9 @@ static short actionMenu(short x, boolean playingBack) {
         if (playingBack) {
 #ifdef ENABLE_PLAYBACK_SWITCH
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  br_tr("  %sP: %sPlay from here  "), yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  "  %sP: %sPlay from here  ", yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Play from here  "));
+                strcpy(buttons[buttonCount].text, "  Play from here  ");
             }
             buttons[buttonCount].hotkey[0] = SWITCH_TO_PLAYING_KEY;
             buttonCount++;
@@ -207,18 +508,18 @@ static short actionMenu(short x, boolean playingBack) {
             buttonCount++;
 #endif
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  br_tr("  %sk: %sFaster playback  "), yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  "  %sk: %sFaster playback  ", yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Faster playback  "));
+                strcpy(buttons[buttonCount].text, "  Faster playback  ");
             }
             buttons[buttonCount].hotkey[0] = UP_KEY;
             buttons[buttonCount].hotkey[1] = UP_ARROW;
             buttons[buttonCount].hotkey[2] = NUMPAD_8;
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  br_tr("  %sj: %sSlower playback  "), yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  "  %sj: %sSlower playback  ", yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Slower playback  "));
+                strcpy(buttons[buttonCount].text, "  Slower playback  ");
             }
             buttons[buttonCount].hotkey[0] = DOWN_KEY;
             buttons[buttonCount].hotkey[1] = DOWN_ARROW;
@@ -229,23 +530,23 @@ static short actionMenu(short x, boolean playingBack) {
             buttonCount++;
 
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  br_tr("%s0-9: %sFast forward to turn  "), yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  "%s0-9: %sFast forward to turn  ", yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Fast forward to turn  "));
+                strcpy(buttons[buttonCount].text, "  Fast forward to turn  ");
             }
             buttons[buttonCount].hotkey[0] = '0';
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  br_tr("  %s<:%s Previous Level  "), yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  "  %s<:%s Previous Level  ", yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Previous Level  "));
+                strcpy(buttons[buttonCount].text, "  Previous Level  ");
             }
             buttons[buttonCount].hotkey[0] = ASCEND_KEY;
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text,  br_tr("  %s>:%s Next Level  "), yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text,  "  %s>:%s Next Level  ", yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Next Level  "));
+                strcpy(buttons[buttonCount].text, "  Next Level  ");
             }
             buttons[buttonCount].hotkey[0] = DESCEND_KEY;
             buttonCount++;
@@ -254,34 +555,34 @@ static short actionMenu(short x, boolean playingBack) {
             buttonCount++;
         } else {
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, br_tr("  %sZ: %sRest until better  "),      yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, "  %sZ: %sRest until better  ",      yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Rest until better  "));
+                strcpy(buttons[buttonCount].text, "  Rest until better  ");
             }
             buttons[buttonCount].hotkey[0] = AUTO_REST_KEY;
             buttonCount++;
 
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, br_tr("  %sA: %sAutopilot  "),              yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, "  %sA: %sAutopilot  ",              yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Autopilot  "));
+                strcpy(buttons[buttonCount].text, "  Autopilot  ");
             }
             buttons[buttonCount].hotkey[0] = AUTOPLAY_KEY;
             buttonCount++;
 
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, br_tr("  %sT: %sRe-throw at last monster  "),              yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, "  %sT: %sRe-throw at last monster  ",              yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Re-throw at last monster  "));
+                strcpy(buttons[buttonCount].text, "  Re-throw at last monster  ");
             }
             buttons[buttonCount].hotkey[0] = RETHROW_KEY;
             buttonCount++;
 
             if (rogue.mode != GAME_MODE_EASY) {
                 if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, br_tr("  %s&: %sEasy mode  "),              yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, "  %s&: %sEasy mode  ",              yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, br_tr("  Easy mode  "));
+                    strcpy(buttons[buttonCount].text, "  Easy mode  ");
                 }
                 buttons[buttonCount].hotkey[0] = EASY_MODE_KEY;
                 buttonCount++;
@@ -293,17 +594,17 @@ static short actionMenu(short x, boolean playingBack) {
         }
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, br_tr("  %s\\: %s[%s] Hide color effects  "),   yellowColorEscape, whiteColorEscape, rogue.trueColorMode ? "X" : " ");
+            sprintf(buttons[buttonCount].text, "  %s\\: %s[%s] Hide color effects  ",   yellowColorEscape, whiteColorEscape, rogue.trueColorMode ? "X" : " ");
         } else {
-            sprintf(buttons[buttonCount].text, br_tr("  [%s] Hide color effects  "),   rogue.trueColorMode ? " " : "X");
+            sprintf(buttons[buttonCount].text, "  [%s] Hide color effects  ",   rogue.trueColorMode ? " " : "X");
         }
         buttons[buttonCount].hotkey[0] = TRUE_COLORS_KEY;
         takeActionOurselves[buttonCount] = true;
         buttonCount++;
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, br_tr("  %s]: %s[%s] Display stealth range  "), yellowColorEscape, whiteColorEscape, rogue.displayStealthRangeMode ? "X" : " ");
+            sprintf(buttons[buttonCount].text, "  %s]: %s[%s] Display stealth range  ", yellowColorEscape, whiteColorEscape, rogue.displayStealthRangeMode ? "X" : " ");
         } else {
-            sprintf(buttons[buttonCount].text, br_tr("  [%s] Show stealth range  "),   rogue.displayStealthRangeMode ? "X" : " ");
+            sprintf(buttons[buttonCount].text, "  [%s] Show stealth range  ",   rogue.displayStealthRangeMode ? "X" : " ");
         }
         buttons[buttonCount].hotkey[0] = STEALTH_RANGE_KEY;
         takeActionOurselves[buttonCount] = true;
@@ -311,9 +612,9 @@ static short actionMenu(short x, boolean playingBack) {
 
         if (hasGraphics) {
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, br_tr("  %sG: %s[%c] Enable graphics  "), yellowColorEscape, whiteColorEscape, " X~"[graphicsMode]);
+                sprintf(buttons[buttonCount].text, "  %sG: %s[%c] Enable graphics  ", yellowColorEscape, whiteColorEscape, " X~"[graphicsMode]);
             } else {
-                sprintf(buttons[buttonCount].text, br_tr("  [%c] Enable graphics  "),   " X~"[graphicsMode]);
+                sprintf(buttons[buttonCount].text, "  [%c] Enable graphics  ",   " X~"[graphicsMode]);
             }
             buttons[buttonCount].hotkey[0] = GRAPHICS_KEY;
             takeActionOurselves[buttonCount] = true;
@@ -325,37 +626,37 @@ static short actionMenu(short x, boolean playingBack) {
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, br_tr("  %sF: %sFeats             "),   yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, "  %sF: %sFeats             ",   yellowColorEscape, whiteColorEscape);
         } else {
-            strcpy(buttons[buttonCount].text, br_tr("  Feats             "));
+            strcpy(buttons[buttonCount].text, "  Feats             ");
         }
         buttons[buttonCount].hotkey[0] = FEATS_KEY;
         buttonCount++;
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, br_tr("  %sD: %sDiscovered items  "),   yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, "  %sD: %sDiscovered items  ",   yellowColorEscape, whiteColorEscape);
         } else {
-            strcpy(buttons[buttonCount].text, br_tr("  Discovered items  "));
+            strcpy(buttons[buttonCount].text, "  Discovered items  ");
         }
         buttons[buttonCount].hotkey[0] = DISCOVERIES_KEY;
         DEBUG {
             buttonCount++;
             if (KEYBOARD_LABELS) {
-                sprintf(buttons[buttonCount].text, br_tr("  %sC: %sCreate item or monster  "), yellowColorEscape, whiteColorEscape);
+                sprintf(buttons[buttonCount].text, "  %sC: %sCreate item or monster  ", yellowColorEscape, whiteColorEscape);
             } else {
-                strcpy(buttons[buttonCount].text, br_tr("  Create item or monster  "));
+                strcpy(buttons[buttonCount].text, "  Create item or monster  ");
             }
             buttons[buttonCount].hotkey[0] = CREATE_ITEM_MONSTER_KEY;
         }
         buttonCount++;
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, br_tr("  %s~: %sView dungeon seed  "),  yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, "  %s~: %sView dungeon seed  ",  yellowColorEscape, whiteColorEscape);
         } else {
-            strcpy(buttons[buttonCount].text, br_tr("  View dungeon seed  "));
+            strcpy(buttons[buttonCount].text, "  View dungeon seed  ");
         }
         buttons[buttonCount].hotkey[0] = SEED_KEY;
         buttonCount++;
         if (KEYBOARD_LABELS) { // No help button if we're not in keyboard mode.
-            sprintf(buttons[buttonCount].text, br_tr("  %s?: %sHelp  "), yellowColorEscape, whiteColorEscape);
+            sprintf(buttons[buttonCount].text, "  %s?: %sHelp  ", yellowColorEscape, whiteColorEscape);
             buttons[buttonCount].hotkey[0] = BROGUE_HELP_KEY;
             buttonCount++;
         }
@@ -366,33 +667,33 @@ static short actionMenu(short x, boolean playingBack) {
         if (!serverMode) {
             if (playingBack) {
                  if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, br_tr("  %sO: %sOpen saved game  "),        yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, "  %sO: %sOpen saved game  ",        yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, br_tr("  Open saved game  "));
+                    strcpy(buttons[buttonCount].text, "  Open saved game  ");
                 }
                 buttons[buttonCount].hotkey[0] = LOAD_SAVED_GAME_KEY;
                 buttonCount++;
                 if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, br_tr("  %sV: %sView saved recording  "),       yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, "  %sV: %sView saved recording  ",       yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, br_tr("  View saved recording  "));
+                    strcpy(buttons[buttonCount].text, "  View saved recording  ");
                 }
                 buttons[buttonCount].hotkey[0] = VIEW_RECORDING_KEY;
                 buttonCount++;
             } else {
                 if (KEYBOARD_LABELS) {
-                    sprintf(buttons[buttonCount].text, br_tr("  %sS: %sSave and exit  "),  yellowColorEscape, whiteColorEscape);
+                    sprintf(buttons[buttonCount].text, "  %sS: %sSave and exit  ",  yellowColorEscape, whiteColorEscape);
                 } else {
-                    strcpy(buttons[buttonCount].text, br_tr("  Save and exit  "));
+                    strcpy(buttons[buttonCount].text, "  Save and exit  ");
                 }
                 buttons[buttonCount].hotkey[0] = SAVE_GAME_KEY;
                 buttonCount++;
             }
         }
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text, br_tr("  %sQ: %sQuit %s  "),    yellowColorEscape, whiteColorEscape, (playingBack ? br_tr("to title screen") : br_tr("and abandon game")));
+            sprintf(buttons[buttonCount].text, "  %sQ: %sQuit %s  ",    yellowColorEscape, whiteColorEscape, (playingBack ? "to title screen" : "and abandon game"));
         } else {
-            sprintf(buttons[buttonCount].text, br_tr("  Quit %s  "),   (playingBack ? br_tr("to title screen") : br_tr("and abandon game")));
+            sprintf(buttons[buttonCount].text, "  Quit %s  ",   (playingBack ? "to title screen" : "and abandon game"));
         }
         buttons[buttonCount].hotkey[0] = QUIT_KEY;
         buttonCount++;
@@ -463,74 +764,61 @@ static void initializeMenuButtons(buttonState *state, brogueButton buttons[5]) {
 
     if (rogue.playbackMode) {
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  br_tr(" Unpause (%sspace%s) "), goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  " Unpause (%sspace%s) ", goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   br_tr("     Unpause     "));
+            strcpy(buttons[buttonCount].text,   "     Unpause     ");
         }
         buttons[buttonCount].hotkey[0] = ACKNOWLEDGE_KEY;
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  br_tr("Omniscience (%stab%s)"), goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  "Omniscience (%stab%s)", goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   br_tr("   Omniscience   "));
+            strcpy(buttons[buttonCount].text,   "   Omniscience   ");
         }
         buttons[buttonCount].hotkey[0] = TAB_KEY;
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  br_tr(" Next Turn (%sl%s) "), goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  " Next Turn (%sl%s) ", goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   br_tr("   Next Turn   "));
+            strcpy(buttons[buttonCount].text,   "   Next Turn   ");
         }
         buttons[buttonCount].hotkey[0] = RIGHT_KEY;
         buttons[buttonCount].hotkey[1] = RIGHT_ARROW;
         buttonCount++;
 
-        strcpy(buttons[buttonCount].text,       br_tr("  Menu  "));
+        strcpy(buttons[buttonCount].text,       "  Menu  ");
         buttonCount++;
     } else {
-        sprintf(buttons[buttonCount].text,  br_tr("   E%sx%splore   "), goldTextEscape, whiteTextEscape);
+        sprintf(buttons[buttonCount].text,  "   E%sx%splore   ", goldTextEscape, whiteTextEscape);
         buttons[buttonCount].hotkey[0] = EXPLORE_KEY;
         buttons[buttonCount].hotkey[1] = 'X';
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  br_tr("   Rest (%sz%s)   "), goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  "   Rest (%sz%s)   ", goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   br_tr("     Rest     "));
+            strcpy(buttons[buttonCount].text,   "     Rest     ");
         }
         buttons[buttonCount].hotkey[0] = REST_KEY;
         buttonCount++;
 
         if (KEYBOARD_LABELS) {
-            sprintf(buttons[buttonCount].text,  br_tr("  Search (%ss%s)  "), goldTextEscape, whiteTextEscape);
+            sprintf(buttons[buttonCount].text,  "  Search (%ss%s)  ", goldTextEscape, whiteTextEscape);
         } else {
-            strcpy(buttons[buttonCount].text,   br_tr("    Search    "));
+            strcpy(buttons[buttonCount].text,   "    Search    ");
         }
         buttons[buttonCount].hotkey[0] = SEARCH_KEY;
         buttonCount++;
 
-        strcpy(buttons[buttonCount].text,       br_tr("    Menu    "));
+        strcpy(buttons[buttonCount].text,       "    Menu    ");
         buttonCount++;
     }
 
-    sprintf(buttons[4].text,    br_tr("   %sI%snventory   "), goldTextEscape, whiteTextEscape);
+    sprintf(buttons[4].text,    "   %sI%snventory   ", goldTextEscape, whiteTextEscape);
     buttons[4].hotkey[0] = INVENTORY_KEY;
     buttons[4].hotkey[1] = 'I';
-
-    const char *names[5] = {"探索","等待","搜索","菜单","背包"};
-    const char *keys[5] = {"x","z","s","m","i"};
-    if(rogue.playbackMode) {
-        names[0]="播放/暂停";keys[0]="Space";
-        names[1]="全知";keys[1]="Tab";
-        names[2]="下一回合";keys[2]="l/→";
-    }
-    encodeMessageColor(goldTextEscape,0,&yellow);
-    for(i=0;i<5;i++)
-        snprintf(buttons[i].text,sizeof buttons[i].text," %s (%s%s%s) ",
-                 names[i],goldTextEscape,keys[i],whiteTextEscape);
-    buttons[3].hotkey[0]='m';
 
     x = mapToWindowX(0);
     for (i=0; i<5; i++) {
@@ -710,7 +998,14 @@ void mainInputLoop() {
 
             // Get the input!
             rogue.playbackMode = playingBack;
+            br_map_player(player.loc.x,player.loc.y,rogue.depthLevel,player.currentHP,player.info.maxHP);
+            br_hud_build();
+            br_map_exploring(!textDisplayed && !rogue.cursorMode);
+            if(rogue.cursorMode && isPosInMap(rogue.cursorLoc))
+                br_game_inspect_view(textDisplayed?&rbuf.savedScreen:&displayBuffer,rogue.cursorLoc.x,rogue.cursorLoc.y);
             doEvent = moveCursor(&targetConfirmed, &canceled, &tabKey, &rogue.cursorLoc, &theEvent, &state, !textDisplayed, rogue.cursorMode, true);
+            br_map_target(0,0,0);
+            br_map_exploring(0);
             rogue.playbackMode = false;
 
             if (state.buttonChosen == 3) { // Actions menu button.
@@ -759,7 +1054,7 @@ void mainInputLoop() {
 
             if (tabKey && !playingBack) { // The tab key cycles the cursor through monsters, items and terrain features.
                 pos newLoc;
-                if (nextTargetAfter(NULL, &newLoc, rogue.cursorLoc, AUTOTARGET_MODE_EXPLORE, theEvent.controlKey)) {
+                if (nextTargetAfter(NULL, &newLoc, rogue.cursorLoc, AUTOTARGET_MODE_EXPLORE, theEvent.shiftKey)) {
                     rogue.cursorLoc = newLoc;
                 }
             }
@@ -924,6 +1219,7 @@ void refreshScreen() {
 // higher-level redraw
 void displayLevel() {
     short i, j;
+    br_map_clear(DCOLS,DROWS);
 
     for( i=0; i<DCOLS; i++ ) {
         for (j = DROWS-1; j >= 0; j--) {
@@ -1299,7 +1595,7 @@ void getCellAppearance(pos loc, enum displayGlyph *returnChar, color *returnFore
             } else {
                 theItem = itemAtLoc(loc);
                 cellChar = theItem->displayChar;
-                cellForeColor = *(theItem->foreColor);
+                cellForeColor = *br_item_display_color(theItem);
                 // Remember the item was here
                 pmapAt(loc)->rememberedItemCategory = theItem->category;
                 pmapAt(loc)->rememberedItemKind = theItem->kind;
@@ -1523,6 +1819,10 @@ void refreshDungeonCell(pos loc) {
 
     getCellAppearance(loc, &cellChar, &foreColor, &backColor);
     plotCharWithColor(cellChar, mapToWindow(loc), &foreColor, &backColor);
+    cellDisplayBuffer *shown = &displayBuffer.cells[mapToWindowX(loc.x)][mapToWindowY(loc.y)];
+    br_map_record(loc.x,loc.y,shown->character,shown->foreColorComponents[0],
+        shown->foreColorComponents[1],shown->foreColorComponents[2],
+        shown->backColorComponents[0],shown->backColorComponents[1],shown->backColorComponents[2]);
 }
 
 void applyColorMultiplier(color *baseColor, const color *multiplierColor) {
@@ -2234,7 +2534,7 @@ static void displayWaypoints() {
             }
         }
     }
-    temporaryMessage(br_tr("Waypoints:"), REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage("Waypoints:", REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 }
 
@@ -2269,7 +2569,7 @@ static void displayMachines() {
             }
         }
     }
-    temporaryMessage(br_tr("Machines:"), REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage("Machines:", REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 
     restoreRNG;
@@ -2297,7 +2597,7 @@ static void displayChokeMap() {
             }
         }
     }
-    temporaryMessage(br_tr("Choke map:"), REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage("Choke map:", REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 }
 
@@ -2321,7 +2621,7 @@ static void displayLoops() {
             }
         }
     }
-    temporaryMessage(br_tr("Loops:"), REQUIRE_ACKNOWLEDGMENT);
+    temporaryMessage("Loops:", REQUIRE_ACKNOWLEDGMENT);
     displayLevel();
 }
 
@@ -2654,7 +2954,7 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             if (confirm(br_tr("Quit and abandon this game? (The save will be deleted.)"), false)) {
                 recordKeystroke(QUIT_KEY, false, false);
                 rogue.quit = true;
-                gameOver(br_tr("Quit"), true);
+                gameOver("Quit", true);
             }
             break;
         case GRAPHICS_KEY:
@@ -2791,7 +3091,9 @@ boolean getInputTextString(char *inputText,
         strcpy(suffix, promptSuffix);
     }
 
+    br_keyboard_begin(prompt,textEntryType==TEXT_INPUT_NUMBERS);
     do {
+        br_keyboard_value(inputText,charNum,maxLength-promptSuffixLen,promptSuffix);
         printString(suffix, charNum + x, y, &gray, &black, 0);
         plotCharWithColor((suffix[0] ? suffix[0] : ' '), (windowpos){ x + charNum, y }, &black, &white);
         keystroke = nextKeyPress(true);
@@ -2843,6 +3145,7 @@ boolean getInputTextString(char *inputText,
         restoreDisplayBuffer(&rbuf);
     }
 
+    br_keyboard_end();
     inputText[charNum] = '\0';
 
     if (keystroke == ESCAPE_KEY) {
@@ -2875,6 +3178,15 @@ void flashMessage(char *message, short x, short y, int time, const color *fColor
     rogue.RNG = RNG_COSMETIC;
     //assureCosmeticRNG;
 
+    char br_alert_text[2048];
+    int br_threshold;
+    if(br_is_zh() && sscanf(message," <%d%% health ",&br_threshold)==1)
+        snprintf(br_alert_text,sizeof br_alert_text,"生命低于 %d%%",br_threshold);
+    else if(br_is_zh() && sscanf(message," >%d%% poisoned ",&br_threshold)==1)
+        snprintf(br_alert_text,sizeof br_alert_text,"中毒伤害超过生命的 %d%%",br_threshold);
+    else if(br_is_zh() && !strcmp(message," Fatally poisoned "))
+        snprintf(br_alert_text,sizeof br_alert_text,"中毒伤害足以致命！");
+    else br_text_copy(br_alert_text,sizeof br_alert_text,br_tr(message));
     messageLength = strLenWithoutEscapes(message);
     fastForward = false;
 
@@ -2907,6 +3219,10 @@ void flashMessage(char *message, short x, short y, int time, const color *fColor
                 plotCharWithColor(dchar, (windowpos){ j+x, y }, &foreColor, &backColor);
             }
         }
+        br_map_alert(br_alert_text,
+            (SDL_Color){fColor->red*255/100,fColor->green*255/100,fColor->blue*255/100,255},
+            (SDL_Color){bColor->red*255/100,bColor->green*255/100,bColor->blue*255/100,255},
+            100-percentComplete);
         previousPercentComplete = percentComplete;
         fastForward = pauseBrogue(stepInMs, PAUSE_BEHAVIOR_DEFAULT);
     }
@@ -2915,6 +3231,7 @@ void flashMessage(char *message, short x, short y, int time, const color *fColor
         plotCharWithColor(dbufs[j].character, (windowpos){ j+x, y }, &foreColor, &(backColors[j]));
     }
 
+    br_map_alert("",(SDL_Color){0},(SDL_Color){0},0);
     restoreRNG;
 }
 
@@ -2931,6 +3248,8 @@ void waitForAcknowledgment() {
 
     do {
         nextBrogueEvent(&theEvent, false, false, false);
+        if(theEvent.eventType==KEYSTROKE && theEvent.param1==RETURN_KEY)
+            theEvent.param1=ACKNOWLEDGE_KEY;
         if (theEvent.eventType == KEYSTROKE && theEvent.param1 != ACKNOWLEDGE_KEY && theEvent.param1 != ESCAPE_KEY) {
             flashTemporaryAlert(br_tr(" -- Press space or click to continue -- "), 500);
         }
@@ -3043,7 +3362,7 @@ static int formatCountedMessage(char *buffer, size_t size, archivedMessage *m) {
     if (m->count <= 1) {
         length = snprintf(buffer, size, "%s", m->message);
     } else if (m->count >= MAX_MESSAGE_REPEATS) {
-        length = snprintf(buffer, size, br_tr("%s (many)"), m->message);
+        length = snprintf(buffer, size, "%s (many)", m->message);
     } else {
         length = snprintf(buffer, size, "%s (x%d)", m->message, m->count);
     }
@@ -3223,11 +3542,37 @@ void formatRecentMessages(char buffer[][BR_MESSAGE_BYTES], size_t height, short 
 }
 
 // Display recent archived messages after recalculating message confirmations.
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Snapshot the native ring without folding, marking messages as seen, RNG,
+   changing its retention or putting presentation data in saves/recordings. */
+static void br_history_capture(void) {
+    int count=0;
+    while(count<500 && count<MESSAGE_ARCHIVE_ENTRIES && getArchivedMessage(count+1)->message[0])count++;
+    if(!br_reader_history_begin())return;
+    for(int back=count;back>0;back--) {
+        archivedMessage *entry=getArchivedMessage(back);
+        char counted[BR_MESSAGE_BYTES+64];
+        formatCountedMessage(counted,sizeof counted,entry);
+        if(entry->count>=MAX_MESSAGE_REPEATS && br_is_zh())
+            snprintf(counted,sizeof counted,"%s（多次）",entry->message);
+        br_reader_history_add(entry->turn,counted);
+    }
+    br_reader_history_end();
+}
+
 void displayRecentMessages() {
     short i;
     char messageBuffer[MESSAGE_LINES][BR_MESSAGE_BYTES];
 
     formatRecentMessages(messageBuffer, MESSAGE_LINES, 0, &messagesUnconfirmed);
+    char readerText[MESSAGE_LINES*BR_MESSAGE_BYTES+1] = "";
+    for (int row=0; row<MESSAGE_LINES; row++) {
+        strncat(readerText,messageBuffer[row],sizeof(readerText)-strlen(readerText)-1);
+        strncat(readerText,"\n",sizeof(readerText)-strlen(readerText)-1);
+    }
+    br_reader_set(readerText);
+    br_history_capture();
+    br_map_message(readerText);
 
     for (i = 0; i < MESSAGE_LINES; i++) {
         strcpy(displayedMessage[i], messageBuffer[MESSAGE_LINES - i - 1]);
@@ -3374,7 +3719,7 @@ static short scrollMessageArchive(char messages[MESSAGE_ARCHIVE_LINES][BR_MESSAG
 }
 
 void displayMessageArchive() {
-    short length, offset, height;
+    short length;
     char messageBuffer[MESSAGE_ARCHIVE_LINES][BR_MESSAGE_BYTES];
 
     formatRecentMessages(messageBuffer, MESSAGE_ARCHIVE_LINES, &length, 0);
@@ -3383,13 +3728,9 @@ void displayMessageArchive() {
         return;
     }
 
-    height = min(length, MESSAGE_ARCHIVE_VIEW_LINES);
-    offset = height;
-
-
-    animateMessageArchive(true, messageBuffer, length, offset, height);
-    offset = scrollMessageArchive(messageBuffer, length, offset, height);
-    animateMessageArchive(false, messageBuffer, length, offset, height);
+    const SavedDisplayBuffer rbuf=saveDisplayBuffer();
+    br_info_archive(messageBuffer,min(length,MESSAGE_ARCHIVE_LINES));
+    restoreDisplayBuffer(&rbuf);
 
     updateFlavorText();
     confirmMessages();
@@ -3401,11 +3742,12 @@ void displayMessageArchive() {
 // This is primarily used to display prompts.
 void temporaryMessage(const char *msg, unsigned long flags) {
     msg=br_tr(msg);
+    br_map_context_message(msg);
     char message[COLS];
     short i, j;
 
     assureCosmeticRNG;
-    strcpy(message, msg);
+    br_text_copy(message,sizeof message,msg);
 
     for (i=0; message[i] == COLOR_ESCAPE; i += 4) {
         upperCase(&(message[i]));
@@ -3435,19 +3777,17 @@ void messageWithColor(const char *msg, const color *theColor, unsigned long flag
 
     i=0;
     i = encodeMessageColor(buf, i, theColor);
-    strcpy(&(buf[i]), msg);
+    br_text_copy(buf+i,sizeof buf-i,msg);
     message(buf, flags);
 }
 
 void flavorMessage(const char *msg) {
     msg=br_tr(msg);
+    br_map_context_message(msg);
     short i;
     char text[COLS*20];
 
-    for (i=0; i < COLS*2 && msg[i] != '\0'; i++) {
-        text[i] = msg[i];
-    }
-    text[i] = '\0';
+    br_text_copy(text,COLS*2+1,msg);
 
     for(i=0; text[i] == COLOR_ESCAPE; i+=4);
     upperCase(&(text[i]));
@@ -3474,6 +3814,7 @@ void message(const char *msg, unsigned long flags) {
         return;
     }
 
+    msg=br_tr(msg);
     msg=br_tr(msg);
     assureCosmeticRNG;
 
@@ -3515,7 +3856,7 @@ void message(const char *msg, unsigned long flags) {
     // archive entry for it instead.
     if (newMessage) {
         archiveEntry = &messageArchive[messageArchivePosition];
-        strcpy(archiveEntry->message, msg);
+        br_text_copy(archiveEntry->message,sizeof archiveEntry->message,msg);
         archiveEntry->count = 1;
         archiveEntry->turn = rogue.playerTurnNumber;
         archiveEntry->flags = flags;
@@ -3553,6 +3894,9 @@ void displayMoreSign() {
         return;
     }
 
+    br_map_player(player.loc.x,player.loc.y,rogue.depthLevel,player.currentHP,player.info.maxHP);
+    br_hud_build();
+    br_map_acknowledging(1);
     if (strLenWithoutEscapes(displayedMessage[0]) < DCOLS - 8 || messagesUnconfirmed > 0) {
         printString("--MORE--", COLS - 8, MESSAGE_LINES-1, &black, &white, 0);
         waitForAcknowledgment();
@@ -3564,6 +3908,8 @@ void displayMoreSign() {
             refreshDungeonCell((pos){ DCOLS - i, 0 });
         }
     }
+    br_map_acknowledging(0);
+
 }
 
 // Inserts a four-character color escape sequence into a string at the insertion point.
@@ -3602,7 +3948,7 @@ short encodeMessageColor(char *msg, short i, const color *theColor) {
 short decodeMessageColor(const char *msg, short i, color *returnColor) {
 
     if (msg[i] != COLOR_ESCAPE) {
-        printf("%s",br_tr("\nAsked to decode a color escape that didn't exist!"));
+        printf("\nAsked to decode a color escape that didn't exist!");
         *returnColor = white;
     } else {
         i++;
@@ -3736,6 +4082,7 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
         return;
     }
 
+    br_capturing_sidebar=1; br_sidebar_reset();
     oldRNG = rogue.RNG;
     rogue.RNG = RNG_COSMETIC;
     //assureCosmeticRNG;
@@ -3775,15 +4122,15 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
 
     // Header information for playback mode.
     if (rogue.playbackMode) {
-        printString(br_tr("   -- PLAYBACK --   "), 0, printY++, &white, &black, 0);
+        printString("   -- PLAYBACK --   ", 0, printY++, &white, &black, 0);
         if (rogue.howManyTurns > 0) {
-            sprintf(buf, br_tr("Turn %li/%li"), rogue.playerTurnNumber, rogue.howManyTurns);
+            sprintf(buf, "Turn %li/%li", rogue.playerTurnNumber, rogue.howManyTurns);
             printProgressBar(0, printY++, buf, rogue.playerTurnNumber, rogue.howManyTurns, &darkPurple, false);
         }
         if (rogue.playbackOOS) {
-            printString(br_tr("    [OUT OF SYNC]   "), 0, printY++, &badMessageColor, &black, 0);
+            printString("    [OUT OF SYNC]   ", 0, printY++, &badMessageColor, &black, 0);
         } else if (rogue.playbackPaused) {
-            printString(br_tr("      [PAUSED]      "), 0, printY++, &gray, &black, 0);
+            printString("      [PAUSED]      ", 0, printY++, &gray, &black, 0);
         }
         printString("                    ", 0, printY++, &white, &black, 0);
     }
@@ -3891,6 +4238,7 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
     // Entities are now listed. Start printing.
 
     for (i=0; i<displayEntityCount && printY < ROWS - 1; i++) { // Bottom line is reserved for the depth.
+        br_sidebar_nearby = entityType[i] != EDT_CREATURE || entityList[i] != &player; br_sidebar_name_lines=1;
         oldPrintY = printY;
         if (entityType[i] == EDT_CREATURE) {
             x = ((creature *) entityList[i])->loc.x;
@@ -3916,6 +4264,7 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
                                       (focusEntity && (x != focusX || y != focusY)),
                                       (x == focusX && y == focusY));
         }
+        br_sidebar_emit(oldPrintY,printY,x,y,!br_sidebar_nearby);
         if (focusEntity && (x == focusX && y == focusY) && printY < ROWS) {
             gotFocusedEntityOnScreen = true;
         }
@@ -3924,22 +4273,26 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
         }
     }
 
+    br_sidebar_nearby=0;
     if (gotFocusedEntityOnScreen) {
         // Wrap things up.
         for (i=printY; i< ROWS - 1; i++) {
             printString("                    ", 0, i, &white, &black, 0);
         }
-        sprintf(buf, br_tr("  -- Depth: %i --%s   "), rogue.depthLevel, (rogue.depthLevel < 10 ? " " : ""));
+        sprintf(buf, "  -- Depth: %i --%s   ", rogue.depthLevel, (rogue.depthLevel < 10 ? " " : ""));
         printString(buf, 0, ROWS - 1, &white, &black, 0);
     } else if (!focusedEntityMustGoFirst) {
         // Failed to get the focusMonst printed on the screen. Try again, this time with the focus first.
         refreshSideBar(focusX, focusY, true);
     }
 
+    br_capturing_sidebar=0;
+    br_hud_build();
     restoreRNG;
 }
 
 void printString(const char *theString, short x, short y, const color *foreColor, const color *backColor, screenDisplayBuffer *dbuf) {
+    if(!dbuf && x<STAT_BAR_WIDTH) br_sidebar_paint(y,theString,foreColor);
     theString=br_tr(theString);
     color fColor = *foreColor;
     for (BrTextToken token; x < COLS && (token = br_text_next(theString)).bytes; theString += token.bytes) {
@@ -4101,73 +4454,8 @@ char nextKeyPress(boolean textInput) {
 #define BROGUE_HELP_LINE_COUNT  33
 
 void printHelpScreen() {
-    short i, j;
-    char helpText[BROGUE_HELP_LINE_COUNT][DCOLS*3] = {
-        "",
-        "",
-        "          -- 操作说明 --",
-        "",
-        "          鼠标  ****移动光标（可查看怪物与地形）",
-        "          单击  ****前往目标位置",
-        "  Ctrl+单击  ****前进一格",
-        "       <return>  ****启用键盘光标控制",
-        "    <space/esc>  ****关闭键盘光标控制",
-        "hjklyubn、方向键或小键盘  ****移动或攻击（按 Ctrl 或 Shift 奔跑）",
-        "",
-        "a/e/r/t/d/c/R/w  ****使用/装备/卸下/投掷/丢下/命名/重新标记/交换物品",
-        "              T  ****向上次目标再次投掷上次使用的物品",
-        " i、鼠标右键  ****查看背包",
-        "              D  ****列出已发现物品",
-        "",
-        "              z  ****休息一回合",
-        "              Z  ****休息 100 回合，或直到发生事件",
-        "              s  ****搜索隐藏物（Ctrl-S：长时间搜索）",
-        "           <, >  ****前往楼梯",
-        "              x  ****自动探索（Ctrl-X：快进）",
-        "              A  ****自动游玩（Ctrl-A：快进）",
-        "              M  ****查看旧消息",
-        "              G  ****切换图形贴图 (（若可用）)",
-        "",
-        "              S  ****保存并退出",
-        "              Q  ****退出并放弃本局",
-        "",
-        "              \\  ****关闭/启用颜色效果",
-        "              ]  ****显示/隐藏潜行范围",
-        "    <space/esc>  ****清除消息或取消操作",
-        "",
-        "        -- 按空格键或单击继续 --"
-    };
-
-    // Replace the "****"s with color escapes.
-    for (i=0; i<BROGUE_HELP_LINE_COUNT; i++) {
-        for (j=0; helpText[i][j]; j++) {
-            if (helpText[i][j] == '*') {
-                j = encodeMessageColor(helpText[i], j, &white);
-            }
-        }
-    }
-
-    const SavedDisplayBuffer rbuf = saveDisplayBuffer();
-
-    screenDisplayBuffer dbuf;
-    clearDisplayBuffer(&dbuf);
-
-    // Print the text to the dbuf.
-    for (i=0; i<BROGUE_HELP_LINE_COUNT && i < ROWS; i++) {
-        printString(helpText[i], mapToWindowX(1), i, &itemMessageColor, &black, &dbuf);
-    }
-
-    // Set the dbuf opacity.
-    for (i=0; i<DCOLS; i++) {
-        for (j=0; j<ROWS; j++) {
-            //plotCharWithColor(' ', (windowpos) { mapToWindowX(i), j }, &black, &black);
-            dbuf.cells[mapToWindowX(i)][j].opacity = INTERFACE_OPACITY;
-        }
-    }
-
-    // Display.
-    overlayDisplayBuffer(&dbuf);
-    waitForAcknowledgment();
+    const SavedDisplayBuffer rbuf=saveDisplayBuffer();
+    br_info_help();
     restoreDisplayBuffer(&rbuf);
     updateFlavorText();
     updateMessageDisplay();
@@ -4193,6 +4481,7 @@ static void printDiscoveries(short category, short count, unsigned short itemCha
     }
 
     for (i = 0; i < count; i++) {
+        int br_probability=-1; magic=0;
         if (theTable[i].identified) {
             theColor = &white;
             plotCharToBuffer(itemCharacter, (windowpos){ x, y + i }, &itemColor, &black, dbuf);
@@ -4211,18 +4500,22 @@ static void printDiscoveries(short category, short count, unsigned short itemCha
             && theTable[i].frequency > 0
             && totalFrequency > 0) {
 
-            sprintf(buf2, " (%i%%)", theTable[i].frequency * 100 / totalFrequency);
+            br_probability=theTable[i].frequency * 100 / totalFrequency;
+            sprintf(buf2, " (%i%%)", br_probability);
             strcat(buf, buf2);
         }
 
         upperCase(buf);
         strcat(buf, " ");
         printString(buf, x + 2, y + i, theColor, &black, dbuf);
+        br_info_discovery(theTable[i].name,theTable[i].identified,theTable[i].identified?0:magic,br_probability);
     }
 }
 
 /// @brief Display the feats screen. Lists all feats and their achievement status.
 void displayFeatsScreen() {
+    BrInfo br_report;br_info_reset(&br_report);
+    br_info_append(&br_report,"进行中：仍保持原始状态。已达成 (+)：完成目标。已失败 (-)：本局已无法达成。\n\n");
     char availableColorEscape[5] = "", achievedColorEscape[5] = "", failedColorEscape[5] = "";
     encodeMessageColor(availableColorEscape, 0, &white);
     encodeMessageColor(achievedColorEscape, 0, &advancementMessageColor);
@@ -4232,7 +4525,7 @@ void displayFeatsScreen() {
     clearDisplayBuffer(&dbuf);
 
     // Title
-    char buf[COLS*2] = ""; strcpy(buf,br_tr("-- FEATS --"));
+    char buf[COLS*2] = "-- FEATS --";
     short y = 1;
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), y, &flavorTextColor, &black, &dbuf);
 
@@ -4251,15 +4544,16 @@ void displayFeatsScreen() {
         }
         sprintf(buf, "%*s %s%s %s", FEAT_NAME_LENGTH, featTable[i].name, featColorEscape, featStatusChar, featTable[i].description);
         printString(buf, mapToWindowX(0), y + i + 1, &itemMessageColor, &black, &dbuf);
+        br_info_feat(&br_report,featTable[i].name,featTable[i].description,featTable[i].initialValue,rogue.featRecord[i]);
     }
 
     // Legend
-    strcpy(buf,br_tr("-- LEGEND --"));
+    strcpy(buf,"-- LEGEND --");
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), ROWS-5, &gray, &black, &dbuf);
-    sprintf(buf, br_tr("%sFailed(-)  %sAchieved(+)  "), failedColorEscape, achievedColorEscape);
+    sprintf(buf, "%sFailed(-)  %sAchieved(+)  ", failedColorEscape, achievedColorEscape);
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), ROWS-4, &white, &black, &dbuf);
 
-    strcpy(buf,KEYBOARD_LABELS ? br_tr("-- press any key to continue --") : br_tr("-- touch anywhere to continue --"));
+    strcpy(buf,KEYBOARD_LABELS ? br_tr("-- press any key to continue --") : "-- touch anywhere to continue --");
     printString(buf, mapToWindowX((DCOLS - FEAT_NAME_LENGTH - strLenWithoutEscapes(buf)) / 2), ROWS-2, &itemMessageColor, &black, &dbuf);
 
     // Set the opacity
@@ -4270,34 +4564,41 @@ void displayFeatsScreen() {
     }
     const SavedDisplayBuffer rbuf = saveDisplayBuffer();
     overlayDisplayBuffer(&dbuf);
-    waitForKeystrokeOrMouseClick();
+    br_info_show("本局成就",&br_report);
     restoreDisplayBuffer(&rbuf);
 }
 
 void printDiscoveriesScreen() {
     short i, j, y;
+    br_info_reset(&br_discovery_report);
+    br_info_append(&br_discovery_report,"原版目录列出所有种类。百分比为剩余未鉴定种类的相对生成概率，不是某件物品的鉴定结果。\n");
     const SavedDisplayBuffer rbuf = saveDisplayBuffer();
 
     screenDisplayBuffer dbuf;
 
     clearDisplayBuffer(&dbuf);
 
-    printString(br_tr("-- SCROLLS --"), mapToWindowX(2), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    printString("-- SCROLLS --", mapToWindowX(2), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    br_info_append(&br_discovery_report,"\n卷轴\n");
     printDiscoveries(SCROLL, gameConst->numberScrollKinds, G_SCROLL, mapToWindowX(3), ++y, &dbuf);
 
-    printString(br_tr("-- RINGS --"), mapToWindowX(2), y += gameConst->numberScrollKinds + 1, &flavorTextColor, &black, &dbuf);
+    printString("-- RINGS --", mapToWindowX(2), y += gameConst->numberScrollKinds + 1, &flavorTextColor, &black, &dbuf);
+    br_info_append(&br_discovery_report,"\n戒指\n");
     printDiscoveries(RING, NUMBER_RING_KINDS, G_RING, mapToWindowX(3), ++y, &dbuf);
 
-    printString(br_tr("-- POTIONS --"), mapToWindowX(29), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    printString("-- POTIONS --", mapToWindowX(29), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    br_info_append(&br_discovery_report,"\n药水\n");
     printDiscoveries(POTION, gameConst->numberPotionKinds, G_POTION, mapToWindowX(30), ++y, &dbuf);
 
-    printString(br_tr("-- STAFFS --"), mapToWindowX(53), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    printString("-- STAFFS --", mapToWindowX(53), y = mapToWindowY(1), &flavorTextColor, &black, &dbuf);
+    br_info_append(&br_discovery_report,"\n法杖\n");
     printDiscoveries(STAFF, NUMBER_STAFF_KINDS, G_STAFF, mapToWindowX(54), ++y, &dbuf);
 
-    printString(br_tr("-- WANDS --"), mapToWindowX(53), y += NUMBER_STAFF_KINDS + 1, &flavorTextColor, &black, &dbuf);
+    printString("-- WANDS --", mapToWindowX(53), y += NUMBER_STAFF_KINDS + 1, &flavorTextColor, &black, &dbuf);
+    br_info_append(&br_discovery_report,"\n魔杖\n");
     printDiscoveries(WAND, gameConst->numberWandKinds, G_WAND, mapToWindowX(54), ++y, &dbuf);
 
-    printString(KEYBOARD_LABELS ? br_tr("-- press any key to continue --") : br_tr("-- touch anywhere to continue --"),
+    printString(KEYBOARD_LABELS ? br_tr("-- press any key to continue --") : "-- touch anywhere to continue --",
                 mapToWindowX(20), mapToWindowY(DROWS-2), &itemMessageColor, &black, &dbuf);
 
     for (i=0; i<COLS; i++) {
@@ -4307,12 +4608,13 @@ void printDiscoveriesScreen() {
     }
     overlayDisplayBuffer(&dbuf);
 
-    waitForKeystrokeOrMouseClick();
+    br_info_show("已发现物品种类",&br_discovery_report);
 
     restoreDisplayBuffer(&rbuf);
 }
 
 void printHighScores(boolean hiliteMostRecent) {
+    BrInfo br_report;br_info_reset(&br_report);
     short i, hiliteLineNum, maxLength = 0, leftOffset;
     rogueHighScoresEntry list[HIGH_SCORES_COUNT] = {{0}};
     char buf[DCOLS*3];
@@ -4336,7 +4638,7 @@ void printHighScores(boolean hiliteMostRecent) {
 
     scoreColor = black;
     applyColorAverage(&scoreColor, &itemMessageColor, 100);
-    printString(br_tr("-- HIGH SCORES --"), (COLS - 17 + 1) / 2, 0, &scoreColor, &black, 0);
+    printString("-- HIGH SCORES --", (COLS - 17 + 1) / 2, 0, &scoreColor, &black, 0);
 
     for (i = 0; i < HIGH_SCORES_COUNT && list[i].score > 0; i++) {
         scoreColor = black;
@@ -4360,17 +4662,19 @@ void printHighScores(boolean hiliteMostRecent) {
 
         // description
         printString(list[i].description, leftOffset + 23, i + 2, &scoreColor, &black, 0);
+        br_info_append(&br_report,"%d. %ld 分  %s%s\n%s\n\n",i+1,list[i].score,list[i].date,i==hiliteLineNum?"  最近一局":"",list[i].description);
     }
 
     scoreColor = black;
     applyColorAverage(&scoreColor, &goodMessageColor, 100);
 
-    printString(KEYBOARD_LABELS ? br_tr("Press space to continue.") : br_tr("Touch anywhere to continue."),
-                (COLS - strLenWithoutEscapes(KEYBOARD_LABELS ? br_tr("Press space to continue.") : br_tr("Touch anywhere to continue."))) / 2,
+    printString(KEYBOARD_LABELS ? br_tr("Press space to continue.") : "Touch anywhere to continue.",
+                (COLS - strLenWithoutEscapes(KEYBOARD_LABELS ? br_tr("Press space to continue.") : "Touch anywhere to continue.")) / 2,
                 ROWS - 1, &scoreColor, &black, 0);
 
     commitDraws();
-    waitForAcknowledgment();
+    if(!br_report.length) br_info_append(&br_report,"暂无最高分记录。\n");
+    br_info_show("最高分",&br_report);
 }
 
 void displayGrid(short **map) {
@@ -4430,21 +4734,23 @@ void printSeed() {
     char mode[14] = "";
 
     if (rogue.mode == GAME_MODE_EASY) {
-        strcpy(mode,br_tr("easy mode; "));
+        strcpy(mode,"easy mode; ");
     } else if (WIZARD_MODE) {
-        strcpy(mode,br_tr("wizard mode; "));
+        strcpy(mode,"wizard mode; ");
     }
     if (rogue.hideSeed) {
-        snprintf(buf, COLS, br_tr("Dungeon seed HIDDEN; turn #%lu; %sversion %s"), rogue.playerTurnNumber, mode, gameConst->versionString);
+        snprintf(buf, COLS, "Dungeon seed HIDDEN; turn #%lu; %sversion %s", rogue.playerTurnNumber, mode, gameConst->versionString);
     }
     else {
-        snprintf(buf, COLS, br_tr("Dungeon seed #%llu; turn #%lu; %sversion %s"), (unsigned long long)rogue.seed, rogue.playerTurnNumber, mode, gameConst->versionString);
+        snprintf(buf, COLS, "Dungeon seed #%llu; turn #%lu; %sversion %s", (unsigned long long)rogue.seed, rogue.playerTurnNumber, mode, gameConst->versionString);
     }
     message(buf, 0);
 }
 
 void printProgressBar(short x, short y, const char barLabel[COLS], long amtFilled, long amtMax, const color *fillColor, boolean dim) {
-    unsigned int barText[20]; // string length is 20
+    br_sidebar_bar(y,barLabel,amtFilled,amtMax);
+    if(br_capturing_sidebar && y>=0 && y<ROWS-1)br_sidebar_inks[y]=br_sidebar_color(fillColor,dim);
+    char barText[] = "                    "; // string length is 20
     short i, labelOffset;
     color currentFillColor, textColor, progressBarColor, darkenedBarColor;
 
@@ -4471,15 +4777,9 @@ void printProgressBar(short x, short y, const char barLabel[COLS], long amtFille
     darkenedBarColor = progressBarColor;
     applyColorAverage(&darkenedBarColor, &black, 75);
 
-    barLabel=br_tr(barLabel);
-    for(int col=0;col<20;col++)barText[col]=' ';
-    labelOffset=max(0,(20-br_text_width(barLabel))/2);
-    for(const char *p=barLabel;*p;) {
-        BrTextToken t=br_text_next(p);p+=t.bytes;
-        if(t.is_color)continue;
-        if(labelOffset+t.columns>20)break;
-        barText[labelOffset]=t.codepoint>127?t.codepoint|BR_UNICODE_FLAG:t.codepoint;
-        labelOffset+=t.columns;
+    labelOffset = (20 - strlen(barLabel)) / 2;
+    for (i = 0; i < (short) strlen(barLabel); i++) {
+        barText[i + labelOffset] = barLabel[i];
     }
 
     amtFilled = clamp(amtFilled, 0, amtMax);
@@ -4531,6 +4831,7 @@ static short creatureHealthChangePercent(creature *monst) {
 // returns the y-coordinate after the last line printed
 short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight) {
     char buf[COLS * 2], buf2[COLS * 2], monstName[COLS], tempColorEscape[5], grayColorEscape[5];
+    char br_full_name[BR_MESSAGE_BYTES];
     enum displayGlyph monstChar;
     color monstForeColor, monstBackColor, healthBarColor, tempColor;
     short initialY, i, j, highlightStrength, percent;
@@ -4587,28 +4888,35 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
             applyColorAugment(&monstBackColor, &black, 100);
         }
         plotCharWithColor(monstChar, (windowpos){ 0, y }, &monstForeColor, &monstBackColor);
+        br_sidebar_symbol(monstChar,&monstForeColor);
         if(monst->carriedItem) {
             plotCharWithColor(monst->carriedItem->displayChar, (windowpos) { 1, y }, &itemColor, &black);
         }
-        br_display_monster_name(monstName, monst, false);
+        monsterName(monstName, monst, false);
+        br_text_copy(br_full_name,sizeof br_full_name,br_tr(monstName));
         upperCase(monstName);
 
         if (monst == &player) {
             strcat(monstName, " xxxx");
             encodeMessageColor(monstName, strlen(monstName) - 4, &monstForeColor);
             if (player.status[STATUS_INVISIBLE]) {
-                strcat(monstName, "（隐形）");
+                strcat(monstName, "(invisible)");
             } else if (playerInDarkness()) {
                 //encodeMessageColor(monstName, strlen(monstName) - 4, &playerInDarknessColor);
-                strcat(monstName, "（阴影）");
+                strcat(monstName, "(dark)");
             } else if (!(pmapAt(player.loc)->flags & IS_IN_SHADOW)) {
                 //encodeMessageColor(monstName, strlen(monstName) - 4, &playerInLightColor);
-                strcat(monstName, "（明处）");
+                strcat(monstName, "(lit)");
             }
         }
 
+        if(monst==&player) {
+            const char *light=strstr(monstName,"(invisible)")?"（隐形）":strstr(monstName,"(dark)")?"（阴影中）":strstr(monstName,"(lit)")?"（明处）":"";
+            size_t used=strlen(br_full_name);snprintf(br_full_name+used,sizeof br_full_name-used,"%s",light);
+        }
         sprintf(buf, ": %s", monstName);
         printString(buf, monst->carriedItem?2:1, y++, (dim ? &gray : &white), &black, 0);
+        br_sidebar_label(y-1,br_full_name);
     }
 
     // mutation, if any
@@ -4618,6 +4926,8 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
 
         strcpy(buf, "                    ");
         sprintf(buf2, "xxxx(%s)", mutationCatalog[monst->mutationIndex].title);
+        char br_mutation[BR_MESSAGE_BYTES];
+        snprintf(br_mutation,sizeof br_mutation,"变异：%s",br_tr(mutationCatalog[monst->mutationIndex].title));
         tempColor = *mutationCatalog[monst->mutationIndex].textColor;
         if (dim) {
             applyColorAverage(&tempColor, &black, 50);
@@ -4629,6 +4939,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
         }
         buf[24] = '\0';
         printString(buf, 0, y++, (dim ? &gray : &white), &black, 0);
+        br_sidebar_label(y-1,br_mutation);
     }
 
     // hit points
@@ -4649,7 +4960,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
             sprintf(buf2, "(%s%i%%)", percent > 0 ? "+" : "", percent);
             strcpy(&(buf[20 - strlen(buf2)]), buf2);
         } else {
-            strcpy(buf, br_tr("Health"));
+            strcpy(buf, "Health");
         }
         printProgressBar(0, y++, buf, monst->currentHP, monst->info.maxHP, &healthBarColor, dim);
     }
@@ -4825,6 +5136,7 @@ void describeHallucinatedItem(char *buf) {
 
 // Returns the y-coordinate after the last line printed.
 short printItemInfo(item *theItem, short y, boolean dim, boolean highlight) {
+    char br_full_name[BR_MESSAGE_BYTES];
     char name[COLS * 3];
     enum displayGlyph itemChar;
     color itemForeColor, itemBackColor;
@@ -4855,7 +5167,7 @@ short printItemInfo(item *theItem, short y, boolean dim, boolean highlight) {
                 itemForeColor = itemColor;
             } else {
                 itemChar = theItem->displayChar;
-                itemForeColor = *(theItem->foreColor);
+                itemForeColor = *br_item_display_color(theItem);
             }
         }
         applyColorBounds(&itemForeColor, 0, 100);
@@ -4868,19 +5180,22 @@ short printItemInfo(item *theItem, short y, boolean dim, boolean highlight) {
             applyColorAverage(&itemBackColor, &black, 50);
         }
         plotCharWithColor(itemChar, (windowpos){ 0, y }, &itemForeColor, &itemBackColor);
+        br_sidebar_symbol(itemChar,&itemForeColor);
         printString(":                  ", 1, y, (dim ? &gray : &white), &black, 0);
         if (rogue.playbackOmniscience || !player.status[STATUS_HALLUCINATING]) {
             itemName(theItem, name, true, true, (dim ? &gray : &white));
         } else {
             describeHallucinatedItem(name);
         }
-        br_text_copy(name,sizeof name,br_tr(name));
+        br_text_copy(br_full_name,sizeof br_full_name,br_tr(name));
         upperCase(name);
         lineCount = wrapText(NULL, name, 20-3);
+        br_sidebar_name_lines=max(1,lineCount);
         for (i=initialY + 1; i <= initialY + lineCount + 1 && i < ROWS - 1; i++) {
             printString("                    ", 0, i, (dim ? &darkGray : &gray), &black, 0);
         }
         y = printStringWithWrapping(name, 3, y, 20-3, (dim ? &gray : &white), &black, NULL); // Advances y.
+        br_sidebar_label(initialY,br_full_name);
     }
 
     if (highlight) {
@@ -4903,6 +5218,7 @@ short printTerrainInfo(short x, short y, short py, const char *description, bool
     color foreColor, backColor;
     short initialY, i, j, highlightStrength, lineCount;
     boolean inPath;
+    char br_full_name[BR_MESSAGE_BYTES];
     char name[DCOLS*2];
     color textColor;
     short oldRNG;
@@ -4932,11 +5248,13 @@ short printTerrainInfo(short x, short y, short py, const char *description, bool
             applyColorAverage(&backColor, &black, 50);
         }
         plotCharWithColor(displayChar, (windowpos){ 0, py }, &foreColor, &backColor);
+        br_sidebar_symbol(displayChar,&foreColor);
         printString(":                  ", 1, py, (dim ? &gray : &white), &black, 0);
         strcpy(name, description);
-        br_text_copy(name,sizeof name,br_tr(name));
+        br_text_copy(br_full_name,sizeof br_full_name,br_tr(name));
         upperCase(name);
         lineCount = wrapText(NULL, name, 20-3);
+        br_sidebar_name_lines=max(1,lineCount);
         for (i=initialY + 1; i <= initialY + lineCount + 1 && i < ROWS - 1; i++) {
             printString("                    ", 0, i, (dim ? &darkGray : &gray), &black, 0);
         }
@@ -4945,6 +5263,7 @@ short printTerrainInfo(short x, short y, short py, const char *description, bool
             applyColorScalar(&textColor, 50);
         }
         py = printStringWithWrapping(name, 3, py, 20-3, &textColor, &black, NULL); // Advances y.
+        br_sidebar_label(initialY,br_full_name);
     }
 
     if (highlight) {
@@ -5009,6 +5328,7 @@ void rectangularShading(short x, short y, short width, short height,
 short printTextBox(char *textBuf, short x, short y, short width,
                    const color *foreColor, const color *backColor,
                    brogueButton *buttons, short buttonCount) {
+    br_reader_set(textBuf);
     short x2, y2, lineCount, i, bx, by, padLines;
 
     if (width <= 0) {
@@ -5071,7 +5391,11 @@ short printTextBox(char *textBuf, short x, short y, short width,
     overlayDisplayBuffer(&dbuf);
 
     if (buttonCount > 0) {
-        return buttonInputLoop(buttons, buttonCount, x2, y2, width, by - y2 + 1 + padLines, NULL);
+        br_native_buttons("详情与操作",textBuf,buttons,buttonCount);
+        if(br_carried_title[0]) br_panel_object(br_carried_title,br_carried_glyph,br_carried_color);
+        short choice=buttonInputLoop(buttons, buttonCount, x2, y2, width, by - y2 + 1 + padLines, NULL);
+        br_panel_end();
+        return choice;
     } else {
         return -1;
     }
@@ -5141,19 +5465,6 @@ unsigned long printCarriedItemDetails(item *theItem,
             b++;
         }
     }
-    if(br_is_zh()) {
-        for(int i=0;i<b;i++) {
-            int key=buttons[i].hotkey[0];
-            const char *label=key==APPLY_KEY ?
-                (theItem->category==POTION ? "喝下" : theItem->category==FOOD ? "食用" :
-                 theItem->category==SCROLL ? "阅读" : "使用") :
-                key==EQUIP_KEY ? "装备" : key==UNEQUIP_KEY ? "卸下" :
-                key==DROP_KEY ? "丢弃" : key==THROW_KEY ? "投掷" :
-                key==CALL_KEY ? "命名" : "改字母";
-            snprintf(buttons[i].text,sizeof buttons[i].text," %s%s (%s%c%s) ",
-                whiteColorEscape,label,goldColorEscape,key,whiteColorEscape);
-        }
-    }
     // Add invisible previous and next buttons, so up and down arrows can page through items.
     // Previous
     buttons[b].flags = B_ENABLED; // clear everything else
@@ -5168,7 +5479,12 @@ unsigned long printCarriedItemDetails(item *theItem,
     buttons[b].hotkey[2] = DOWN_ARROW;
     b++;
 
+    itemName(theItem,br_carried_title,true,false,&white);
+    const color *br_ink=br_item_display_color(theItem);
+    br_carried_color=(SDL_Color){clamp(br_ink->red,0,100)*255/100,clamp(br_ink->green,0,100)*255/100,clamp(br_ink->blue,0,100)*255/100,255};
+    br_carried_glyph=br_native_symbol(theItem->displayChar);
     b = printTextBox(textBuf, x, y, width, &white, &interfaceBoxColor, buttons, b);
+    br_carried_title[0]=0;
 
     if (b >= 0) {
         return buttons[b].hotkey[0];
@@ -5184,5 +5500,24 @@ void printFloorItemDetails(item *theItem) {
 
     printTextBox(textBuf, theItem->loc.x, 0, 0, &white, &black, NULL, 0);
 }
-
-short br_desktop_action_menu(void) { return actionMenu(mapToWindowX(0),true); }
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Copy only the original final display, including its fog and trajectory.
+   No cell appearance query, target choice, line calculation or RNG call. */
+static void br_copy_cursor_display(const screenDisplayBuffer *buffer) {
+    br_map_player(player.loc.x,player.loc.y,rogue.depthLevel,player.currentHP,player.info.maxHP);
+    br_hud_build();
+    for(int row=0;row<DROWS;row++) for(int col=0;col<DCOLS;col++) {
+        const cellDisplayBuffer *shown=&buffer->cells[mapToWindowX(col)][mapToWindowY(row)];
+        br_map_record(col,row,shown->character,shown->foreColorComponents[0],
+            shown->foreColorComponents[1],shown->foreColorComponents[2],
+            shown->backColorComponents[0],shown->backColorComponents[1],shown->backColorComponents[2]);
+    }
+}
+void br_game_target_view(int enabled,int x,int y) {
+    if(enabled)br_copy_cursor_display(&displayBuffer);
+    br_map_target(enabled,x,y);
+}
+static void br_game_inspect_view(const screenDisplayBuffer *buffer,int x,int y) {
+    br_copy_cursor_display(buffer);
+    br_map_inspect(1,x,y);
+}
