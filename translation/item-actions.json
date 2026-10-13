@@ -358,5 +358,1477 @@
     "mode": "literal",
     "expected_count": 1,
     "status": "prototype"
+  },
+  {
+    "id": "s_9f38e32d2dea8bce",
+    "file": "src/brogue/Items.c",
+    "source": "Your %s has no charges.",
+    "zh_CN": "你的%s没有剩余充能。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_e6fd0b128a3e87fd",
+    "file": "src/brogue/Items.c",
+    "source": "Zapping your %s:",
+    "zh_CN": "正在使用你的%s：",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_e84051a9f14099b4",
+    "file": "src/brogue/Items.c",
+    "source": "you zap your %s at %s.",
+    "zh_CN": "你使用%s，瞄准%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_08723f3ebea37d48",
+    "file": "src/brogue/Items.c",
+    "source": "you zap your %s.",
+    "zh_CN": "你使用了%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_2d43c5707b622311",
+    "file": "src/brogue/Items.c",
+    "source": "(Your %s must be ",
+    "zh_CN": "（原来你的%s是",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_46327660167a8274",
+    "file": "src/brogue/Items.c",
+    "source": "Your %s fizzles; it must be out of charges for now.",
+    "zh_CN": "你的%s没有反应；暂时应该是没充能了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_d55fcaaf1d5ee6f2",
+    "file": "src/brogue/Items.c",
+    "source": "Your %s fizzles; it must be depleted.",
+    "zh_CN": "你的%s没有反应；它的能量一定耗尽了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_8e143ec90c53d65a",
+    "file": "src/brogue/Items.c",
+    "source": "You're not hungry enough to fully enjoy the %s. Eat it anyway?",
+    "zh_CN": "你还不够饿，吃下%s会浪费一部分食物。仍要吃吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_1d6bccb7e98dbb1a",
+    "file": "src/brogue/Items.c",
+    "source": "That food tasted delicious!",
+    "zh_CN": "真是美味！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_0d78f09f05fefc66",
+    "file": "src/brogue/Items.c",
+    "source": "My, what a yummy mango!",
+    "zh_CN": "啊，这芒果真好吃！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_740648b2a46fd6af",
+    "file": "src/brogue/Items.c",
+    "source": "Your %s hasn't finished recharging.",
+    "zh_CN": "你的%s还没有充能完毕。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_a1f7444bdd23306a",
+    "file": "src/brogue/Items.c",
+    "source": "You feel much healthier.",
+    "zh_CN": "你感觉健康多了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_b024ab5cc0ddccf5",
+    "file": "src/brogue/Items.c",
+    "source": "A shimmering shield coalesces around you.",
+    "zh_CN": "一道闪烁的护盾在你周围凝聚。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_0a2d9422cee3090f",
+    "file": "src/brogue/Items.c",
+    "source": "you no longer fear fire.",
+    "zh_CN": "你不再惧怕火焰。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_3acb152bce2b9af4",
+    "file": "src/brogue/Items.c",
+    "source": "You shiver as a chill runs up your spine.",
+    "zh_CN": "一股寒意沿着脊背窜上来，你不禁打了个寒战。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_d97a372d8ac20df7",
+    "file": "src/brogue/Items.c",
+    "source": "you float into the air!",
+    "zh_CN": "你飘向空中！",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_cc0d5df4a1ec5168",
+    "file": "src/brogue/Items.c",
+    "source": "your charm emits a wave of turquoise light that pierces the nearby walls!",
+    "zh_CN": "你的护符发出一道青绿色光芒，穿透了附近的墙壁！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_9227baee0c92a04b",
+    "file": "src/brogue/Items.c",
+    "source": "your charm flashes and the form of a mythical guardian coalesces!",
+    "zh_CN": "你的护符闪烁起来，一位神话中的守护者逐渐显形！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_b3176ef62aa49489",
+    "file": "src/brogue/Items.c",
+    "source": "your charm",
+    "zh_CN": "你的护符",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_a6689df43017ffb1",
+    "file": "src/brogue/Items.c",
+    "source": "Apply what?",
+    "zh_CN": "使用哪件物品？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_dacbc48f0803d7c2",
+    "file": "src/brogue/Items.c",
+    "source": "they're",
+    "zh_CN": "这些物品是",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_24ceef1cb6b0cbc0",
+    "file": "src/brogue/Items.c",
+    "source": "it's",
+    "zh_CN": "这件物品是",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_d12abf4a90ab503b",
+    "file": "src/brogue/Items.c",
+    "source": "you feel yourself slow down.",
+    "zh_CN": "你觉得自己慢了下来。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_ae2926e944fef5dd",
+    "file": "src/brogue/Items.c",
+    "source": "you feel yourself speed up.",
+    "zh_CN": "你觉得自己加快了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_31b91afcacce2783",
+    "file": "src/brogue/Items.c",
+    "source": "%s looks healthier",
+    "zh_CN": "%s看起来更健康了",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_70ee5ed89c1f401d",
+    "file": "src/brogue/Items.c",
+    "source": "you can somehow tell that you are alone on this depth at the moment.",
+    "zh_CN": "你隐约感觉到此刻这一层只有你独自一人。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_732155f28f9a417d",
+    "file": "src/brogue/Items.c",
+    "source": "you can somehow feel the presence of other creatures' minds!",
+    "zh_CN": "你似乎感知到了其他生物的心灵！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_2219deb6450906de",
+    "file": "src/brogue/Items.c",
+    "source": "Really read a scroll of %s?",
+    "zh_CN": "真的要读%s卷轴吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_570ec09cef3682d0",
+    "file": "src/brogue/Items.c",
+    "source": "Really read a cursed scroll?",
+    "zh_CN": "真的要读一张被诅咒的卷轴吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_b0781fe0a9daf523",
+    "file": "src/brogue/Items.c",
+    "source": "this is a scroll of identify.",
+    "zh_CN": "这是一张鉴定卷轴。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_74b07ede02154359",
+    "file": "src/brogue/Items.c",
+    "source": "everything in your pack is already identified.",
+    "zh_CN": "背包中的所有物品都已鉴定。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_cf33d7e1278124d0",
+    "file": "src/brogue/Items.c",
+    "source": "Identify what?",
+    "zh_CN": "鉴定什么？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_0b3dcc45c4443be1",
+    "file": "src/brogue/Items.c",
+    "source": "you already know %s %s.",
+    "zh_CN": "你已经了解%.0s%s了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_42b57632c93fb87d",
+    "file": "src/brogue/Items.c",
+    "source": "this is",
+    "zh_CN": "这是",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_e678ab215cdd1e10",
+    "file": "src/brogue/Items.c",
+    "source": "these are",
+    "zh_CN": "这些是",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_bb462f5c6a9b06b5",
+    "file": "src/brogue/Items.c",
+    "source": "your pack glows with a cleansing light, and a malevolent energy disperses.",
+    "zh_CN": "你的背包发出净化之光，邪恶能量消散了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_f0e7632777de019b",
+    "file": "src/brogue/Items.c",
+    "source": "your pack glows with a cleansing light, but nothing happens.",
+    "zh_CN": "你的背包发出净化之光，但什么也没发生。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_435e3a41c0b61885",
+    "file": "src/brogue/Items.c",
+    "source": "this is a scroll of enchanting.",
+    "zh_CN": "这是一张附魔卷轴。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_0950690262b29d93",
+    "file": "src/brogue/Items.c",
+    "source": "you have nothing that can be enchanted.",
+    "zh_CN": "你没有可以附魔的物品。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_9636e933b3e0df35",
+    "file": "src/brogue/Items.c",
+    "source": "Enchant what?",
+    "zh_CN": "附魔什么？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_bc97639be6bb0cf7",
+    "file": "src/brogue/Items.c",
+    "source": "Can't enchant that.",
+    "zh_CN": "无法附魔该物品。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_ca86bc04a68493e0",
+    "file": "src/brogue/Items.c",
+    "source": "your %s gleam%s briefly in the darkness.",
+    "zh_CN": "你的%s在黑暗中短暂闪耀%.0s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_3f7b164078592c2f",
+    "file": "src/brogue/Items.c",
+    "source": "a malevolent force leaves your %s.",
+    "zh_CN": "一股邪恶力量离开了你的%s。",
+    "mode": "literal",
+    "expected_count": 3,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_14971f94522b1985",
+    "file": "src/brogue/Items.c",
+    "source": "a protective golden light covers your %s.",
+    "zh_CN": "一道金色的护佑之光笼罩着你的%s。",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_4a81c3728940b354",
+    "file": "src/brogue/Items.c",
+    "source": "a protective golden light surrounds you, but it quickly disperses.",
+    "zh_CN": "一道金色的护佑之光环绕着你，但很快就消散了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_c6e3f7a6fdac24fe",
+    "file": "src/brogue/Items.c",
+    "source": "a protective golden light covers your empty hands, but it quickly disperses.",
+    "zh_CN": "一道金色的护佑之光笼罩着你空空的双手，但很快就消散了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_08e85ed81afaac76",
+    "file": "src/brogue/Items.c",
+    "source": "sprays of color arc to the ground, forming glyphs where they alight.",
+    "zh_CN": "彩色光束落向地面，在落点形成了符文。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_08ab653f0d52424a",
+    "file": "src/brogue/Items.c",
+    "source": "this scroll has a map on it!",
+    "zh_CN": "这张卷轴上画着一幅地图！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_e3e585300fbf78a2",
+    "file": "src/brogue/Items.c",
+    "source": "the scroll emits a piercing shriek that echoes throughout the dungeon!",
+    "zh_CN": "卷轴发出尖厉的啸声，在整个地牢中回荡！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_47480d2869dfb8ad",
+    "file": "src/brogue/Items.c",
+    "source": "the fabric of space ripples, and monsters appear!",
+    "zh_CN": "空间的结构泛起涟漪，怪物出现了！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_7ca9da5e0d7ac2cb",
+    "file": "src/brogue/Items.c",
+    "source": "the fabric of space ripples, and a monster appears!",
+    "zh_CN": "空间的结构泛起涟漪，一只怪物出现了！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_7fc0f2df265238f6",
+    "file": "src/brogue/Items.c",
+    "source": "the fabric of space boils violently around you, but nothing happens.",
+    "zh_CN": "空间在你周围剧烈沸腾，但什么也没发生。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_b07d0429930e442c",
+    "file": "src/brogue/Items.c",
+    "source": "the scroll",
+    "zh_CN": "这张卷轴",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_7ed620470a62d0b5",
+    "file": "src/brogue/Items.c",
+    "source": "the scroll emits a wave of turquoise light that pierces the nearby walls!",
+    "zh_CN": "卷轴发出一道青绿色光芒，穿透了附近的墙壁！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_80eaf40b510bfa28",
+    "file": "src/brogue/Items.c",
+    "source": "Really drink a potion of %s?",
+    "zh_CN": "真的要喝下%s药水吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_0cd87da6bf0cf2f4",
+    "file": "src/brogue/Items.c",
+    "source": "Really drink a cursed potion?",
+    "zh_CN": "真的要喝下被诅咒的药水吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_7b2ff2ea1a4b8fa7",
+    "file": "src/brogue/Items.c",
+    "source": "%syour maximum health increases by %i%%.",
+    "zh_CN": "%s你的生命上限提高了 %i%%。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_7f9b8d6f2e028bec",
+    "file": "src/brogue/Items.c",
+    "source": "you heal completely and ",
+    "zh_CN": "你完全恢复了生命，",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_4c134b335657a4ee",
+    "file": "src/brogue/Items.c",
+    "source": "colors are everywhere! The walls are singing!",
+    "zh_CN": "色彩无处不在！墙壁正在歌唱！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_ce5b90c05bc3c619",
+    "file": "src/brogue/Items.c",
+    "source": "as you uncork the flask, it explodes in flame!",
+    "zh_CN": "你拔开瓶塞时，瓶子突然燃烧起来！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_82474c8feb565dd5",
+    "file": "src/brogue/Items.c",
+    "source": "your vision flickers as a cloak of darkness settles around you!",
+    "zh_CN": "黑暗笼罩了你的视野，眼前的景象闪烁不定！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_d6258a4d06c21ada",
+    "file": "src/brogue/Items.c",
+    "source": "vapor pours out of the flask and causes the floor to disappear!",
+    "zh_CN": "蒸汽从瓶中涌出，使地板消失了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_172d03743a879e57",
+    "file": "src/brogue/Items.c",
+    "source": "newfound strength surges through your body.",
+    "zh_CN": "一股新生的力量涌遍全身。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_8a9ed9ff473083c7",
+    "file": "src/brogue/Items.c",
+    "source": "caustic gas billows out of the open flask!",
+    "zh_CN": "腐蚀性气体从打开的瓶子中喷涌而出！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_7d56a89c4f38fb9b",
+    "file": "src/brogue/Items.c",
+    "source": "your muscles stiffen as a cloud of pink gas bursts from the open flask!",
+    "zh_CN": "粉色气云从打开的瓶子中喷出，你的肌肉顿时僵硬！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_55d3ed021a47f5df",
+    "file": "src/brogue/Items.c",
+    "source": "a shimmering cloud of rainbow-colored gas billows out of the open flask!",
+    "zh_CN": "彩虹色气云从打开的瓶子中闪耀着涌出！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_aa28ba0edb8f12eb",
+    "file": "src/brogue/Items.c",
+    "source": "a handful of tiny spores burst out of the open flask!",
+    "zh_CN": "一把微小的孢子从打开的瓶子中迸出！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_24ba6453f534512c",
+    "file": "src/brogue/Items.c",
+    "source": "you can somehow feel the presence of magic on the level and in your pack.",
+    "zh_CN": "你似乎感知到了本层和背包中的魔法。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_e2b5a03ef56067ef",
+    "file": "src/brogue/Items.c",
+    "source": "you can somehow feel the presence of magic on the level.",
+    "zh_CN": "你似乎感知到了本层的魔法。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_9c0c91e23776ac2f",
+    "file": "src/brogue/Items.c",
+    "source": "you can somehow feel the presence of magic in your pack.",
+    "zh_CN": "你似乎感知到了背包中的魔法。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_c208fdcc18728e6e",
+    "file": "src/brogue/Items.c",
+    "source": "you can somehow feel the absence of magic on the level and in your pack.",
+    "zh_CN": "你似乎感知不到本层或背包中的魔法。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_384043185fa8e931",
+    "file": "src/brogue/Items.c",
+    "source": "a comforting breeze envelops you, and you no longer fear fire.",
+    "zh_CN": "令人舒适的微风环绕着你，你不再惧怕火焰。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_b5f83dbe316eda43",
+    "file": "src/brogue/Items.c",
+    "source": "you shiver as a chill runs up your spine.",
+    "zh_CN": "你不禁打了个寒战，一股寒意沿着脊背窜上来。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_6aa25d4d456db7b3",
+    "file": "src/brogue/Items.c",
+    "source": "you feel very strange, as though your body doesn't know how to react!",
+    "zh_CN": "你感觉很不对劲，仿佛身体不知道该如何反应！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_8ba29fa1b33bfd47",
+    "file": "src/brogue/Items.c",
+    "source": "wielding",
+    "zh_CN": "手持",
+    "mode": "literal",
+    "expected_count": 3,
+    "status": "reviewed"
+  },
+  {
+    "id": "s_d3aa80dae30696b3",
+    "file": "src/brogue/Items.c",
+    "source": "wearing",
+    "zh_CN": "穿着",
+    "mode": "literal",
+    "expected_count": 3,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_fadf7824924e9838",
+    "file": "src/brogue/Items.c",
+    "source": "something has gone terribly wrong!",
+    "zh_CN": "出大问题了！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_6e43e19153233173",
+    "file": "src/brogue/Items.c",
+    "source": "a pressure plate clicks underneath the %s!",
+    "zh_CN": "%s下面的压力板咔嗒一声响！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_c60b9b46b211b6ec",
+    "file": "src/brogue/Items.c",
+    "source": "the runes fade from your %s.",
+    "zh_CN": "符文从你的%s上褪去了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_8762faa183cb57a7",
+    "file": "src/brogue/Items.c",
+    "source": "%s shatter%s from the strain!",
+    "zh_CN": "%s不堪重负，碎裂了%.0s！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_3af201d9b3a3fdf5",
+    "file": "src/brogue/Items.c",
+    "source": "The %s plunge%s out of sight!",
+    "zh_CN": "%s%.0s消失在视线之外！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_b69f45ed816bc595",
+    "file": "src/brogue/Items.c",
+    "source": "inscribe: %s \"",
+    "zh_CN": "刻写：%s“",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_10b42cd077e2e769",
+    "file": "src/brogue/Items.c",
+    "source": "You have nothing suitable.",
+    "zh_CN": "没有合适的物品。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_fa691b40c40dbbfa",
+    "file": "src/brogue/Items.c",
+    "source": "You hear a piercing shriek; something must have triggered a nearby alarm.",
+    "zh_CN": "你听见一声尖厉的尖啸；一定是有什么东西触发了附近的警报。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_186274ef5bba16dc",
+    "file": "src/brogue/Items.c",
+    "source": "%s dissipates into thin air",
+    "zh_CN": "%s消散在空气中",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_61a3085092b84674",
+    "file": "src/brogue/Items.c",
+    "source": "%s shatters into tiny pieces",
+    "zh_CN": "%s碎成了细小碎片",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_b6a6a7fe3fceff34",
+    "file": "src/brogue/Items.c",
+    "source": "%s falls to the ground, lifeless",
+    "zh_CN": "%s倒在地上，一动不动",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_eccf06fd1ce39a85",
+    "file": "src/brogue/Items.c",
+    "source": "%s is stripped of $HISHER special traits",
+    "zh_CN": "%s失去了特殊能力",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_5c65952e9c19c782",
+    "file": "src/brogue/Items.c",
+    "source": "your muscles weaken as an enervating toxin fills your veins.",
+    "zh_CN": "衰弱毒素涌入你的血管，肌肉变得无力。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_da5b52108a5a79e2",
+    "file": "src/brogue/Items.c",
+    "source": "a surge of energy courses through your pack, recharging your ",
+    "zh_CN": "一股能量涌过你的背包，为你的",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_8947fddfb35f011e",
+    "file": "src/brogue/Items.c",
+    "source": "a surge of energy courses through your pack, but nothing happens.",
+    "zh_CN": "一股能量涌过你的背包，但什么也没发生。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_dd8c954f8caee01d",
+    "file": "src/brogue/Items.c",
+    "source": "%s emits a numbing torrent of anti-magic!",
+    "zh_CN": "%s释放出令人麻木的反魔法洪流！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_0c8eb8400ba878dc",
+    "file": "src/brogue/Items.c",
+    "source": "%s emits a wave of unsettling purple radiation!",
+    "zh_CN": "%s释放出令人不安的紫色辐射波！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_dea23ec22312babf",
+    "file": "src/brogue/Items.c",
+    "source": "%s ignore%s %s %s",
+    "zh_CN": "%s无视了%.0s%.0s%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_2a76762203d8a5ed",
+    "file": "src/brogue/Items.c",
+    "source": "Killed by a reflected %s",
+    "zh_CN": "死于反射的%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_8892906e626c6ac3",
+    "file": "src/brogue/Items.c",
+    "source": "you hear %s %s",
+    "zh_CN": "你听见%s%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_73cdef83b56e8b9c",
+    "file": "src/brogue/Items.c",
+    "source": "%s %s hits %s",
+    "zh_CN": "%.0s%s击中了%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_8839ad0ca692aa94",
+    "file": "src/brogue/Items.c",
+    "source": "%s is bound to your will!",
+    "zh_CN": "%s服从了你的意志！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_a7b41ea81beebd16",
+    "file": "src/brogue/Items.c",
+    "source": "%s resists the bolt of domination.",
+    "zh_CN": "%s抵抗了支配法术束。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_fe1af80dc6ca2107",
+    "file": "src/brogue/Items.c",
+    "source": "%s %s %s sick",
+    "zh_CN": "%s%.0s%s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_e5d1790395512cdf",
+    "file": "src/brogue/Items.c",
+    "source": "the bolt hits you and you suddenly feel disoriented.",
+    "zh_CN": "法术束击中你，你突然感到晕头转向。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_8c0252f479a6a82f",
+    "file": "src/brogue/Items.c",
+    "source": "%s is entranced!",
+    "zh_CN": "%s陷入恍惚！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_dec679870d55f970",
+    "file": "src/brogue/Items.c",
+    "source": "%s deflect%s the %s",
+    "zh_CN": "%s挡开了%.0s%s",
+    "mode": "literal",
+    "expected_count": 2,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_37d556a8917e796a",
+    "file": "src/brogue/Items.c",
+    "source": "the bolt reflects off of %s",
+    "zh_CN": "法术束从%s身上反弹",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_166cf27be39ef89d",
+    "file": "src/brogue/Items.c",
+    "source": "You have nothing to swap.",
+    "zh_CN": "没有可交换的物品。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_b2dc365b56de48dd",
+    "file": "src/brogue/Items.c",
+    "source": "Blink across lava with unknown range?",
+    "zh_CN": "未知距离闪过熔岩上方？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_9541a1ae7d5293dd",
+    "file": "src/brogue/Items.c",
+    "source": "No such item.",
+    "zh_CN": "没有这种物品。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_893f0cb04e126d17",
+    "file": "src/brogue/Items.c",
+    "source": "ERROR: An item was supposed to be here, but I couldn't find it.",
+    "zh_CN": "错误：本应有一件物品，但找不到。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_aa5978d2cc38a4ff",
+    "file": "src/brogue/Time.c",
+    "source": "you catch fire",
+    "zh_CN": "你着火了",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_081976e848ce7c3e",
+    "file": "src/brogue/Time.c",
+    "source": "%s catches fire",
+    "zh_CN": "%s着火了",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_20adc41b736c6c65",
+    "file": "src/brogue/Time.c",
+    "source": "A pocket of cool, clean air swirls around you.",
+    "zh_CN": "一股清凉洁净的空气在你周围盘旋。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_ebac305fdc696e60",
+    "file": "src/brogue/Time.c",
+    "source": "you plunge into %s!",
+    "zh_CN": "你坠入%s！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_96af8ad7d8e564b4",
+    "file": "src/brogue/Time.c",
+    "source": "%s is consumed by the %s instantly!",
+    "zh_CN": "%s瞬间被%s吞噬！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_9e3936aa59bd624b",
+    "file": "src/brogue/Time.c",
+    "source": "a pressure plate clicks underneath %s!",
+    "zh_CN": "%s下面的压力板咔嗒一声响！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_78b2d2dd33ecb61a",
+    "file": "src/brogue/Time.c",
+    "source": "you are stuck fast in %s!",
+    "zh_CN": "你被牢牢困在%s里！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_0f3e779f532eeead",
+    "file": "src/brogue/Time.c",
+    "source": "%s is stuck fast in %s!",
+    "zh_CN": "%s被牢牢困在%s里！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_5f7cc2d84faf93b4",
+    "file": "src/brogue/Time.c",
+    "source": "Your %s pulses and absorbs the damage.",
+    "zh_CN": "你的%s脉动起来，吸收了伤害。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_8bd9419111d727ba",
+    "file": "src/brogue/Time.c",
+    "source": "%s engulfs %s.",
+    "zh_CN": "%s吞没了%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_75238e06cf3c75ad",
+    "file": "src/brogue/Time.c",
+    "source": "%s choke%s and gag%s on the overpowering stench of decay.",
+    "zh_CN": "%s%.0s因腐臭而剧烈咳嗽作呕%.0s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_87d2bf0f779b3e8b",
+    "file": "src/brogue/Time.c",
+    "source": "%s %s very confused!",
+    "zh_CN": "%s%.0s陷入了混乱！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_0e880c599750b3c4",
+    "file": "src/brogue/Time.c",
+    "source": "%s %s paralyzed!",
+    "zh_CN": "%s%.0s麻痹了！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_3a890bdde2fedf79",
+    "file": "src/brogue/Time.c",
+    "source": "the lichen's grasping tendrils poison %s.",
+    "zh_CN": "地衣的卷须缠住了%s，使其中毒。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_6422690b06dfa1fa",
+    "file": "src/brogue/Time.c",
+    "source": "%s float%s away in the current!",
+    "zh_CN": "%s%.0s被水流冲走了！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_54b278e566c5f0eb",
+    "file": "src/brogue/Time.c",
+    "source": " and have no food",
+    "zh_CN": "并且没有食物",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_23be140575a8e3f5",
+    "file": "src/brogue/Time.c",
+    "source": "you are hungry%s.",
+    "zh_CN": "你饿了%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_76eaf1e42f6f9412",
+    "file": "src/brogue/Time.c",
+    "source": "you feel weak with hunger%s.",
+    "zh_CN": "你因饥饿而虚弱%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_a0fa86a9438d13f9",
+    "file": "src/brogue/Time.c",
+    "source": "you feel faint with hunger%s.",
+    "zh_CN": "你因饥饿而头昏眼花%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_b26fa479f1369366",
+    "file": "src/brogue/Time.c",
+    "source": "unable to control your hunger, you eat a %s.",
+    "zh_CN": "你无法控制饥饿，吃下了%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_2e5705ca9e3d3f96",
+    "file": "src/brogue/Time.c",
+    "source": "%s burn%s up!",
+    "zh_CN": "%s烧成了灰烬%.0s！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_93273afd8a428d8c",
+    "file": "src/brogue/Time.c",
+    "source": "you have developed a telepathic bond with your %s.",
+    "zh_CN": "你和你的%s建立了心灵连接。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_aae06116cef8e635",
+    "file": "src/brogue/Time.c",
+    "source": "%s plunges out of sight!",
+    "zh_CN": "%s坠入视线之外！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_33d2f939ec69fe88",
+    "file": "src/brogue/Time.c",
+    "source": "you are now familiar enough with your %s to identify it.",
+    "zh_CN": "你已熟悉你的%s，可以辨认它了。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_676b5da3eecbe0c4",
+    "file": "src/brogue/Time.c",
+    "source": "your %s has recharged.",
+    "zh_CN": "你的%s已充能完毕。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_cd8893344b2b347f",
+    "file": "src/brogue/Time.c",
+    "source": "%s plummets from above and splatters against the ground!",
+    "zh_CN": "%s从上方坠落，重重摔在地上！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_377ed38c0e805b8c",
+    "file": "src/brogue/Time.c",
+    "source": "%s falls from above and crashes to the ground!",
+    "zh_CN": "%s从上方落下，砰地撞在地上！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_5efbb9ef34b5af33",
+    "file": "src/brogue/Time.c",
+    "source": "%s swoops into the cavern from above.",
+    "zh_CN": "%s从上方飞入洞窟。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_267cc86f268131c3",
+    "file": "src/brogue/Time.c",
+    "source": "the runes on your %s gleam balefully.",
+    "zh_CN": "你%s上的符文发出不祥的光芒。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_f9e372241f5a9114",
+    "file": "src/brogue/Time.c",
+    "source": "the runes on your %s glow protectively.",
+    "zh_CN": "你%s上的符文发出护佑的光芒。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_f1c817264a6631f6",
+    "file": "src/brogue/Movement.c",
+    "source": "unknown terrain",
+    "zh_CN": "未知地形",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_6bea0e19e115efd7",
+    "file": "src/brogue/Movement.c",
+    "source": "you use your %s %s %s.",
+    "zh_CN": "你用%s%s%s。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_8ad7036aa26345c3",
+    "file": "src/brogue/Movement.c",
+    "source": "%s vomit%s profusely",
+    "zh_CN": "%s剧烈呕吐%.0s",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_72d24945bf5585e5",
+    "file": "src/brogue/Movement.c",
+    "source": "you free the grateful %s and gain a faithful ally.",
+    "zh_CN": "你解救了%s，它满怀感激，成为了你的忠诚盟友。",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_79d67248909f597f",
+    "file": "src/brogue/Movement.c",
+    "source": "Degrade your %s by attacking %s?",
+    "zh_CN": "攻击会腐蚀你的%s，仍要攻击%s吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_c99dc9da7b22db71",
+    "file": "src/brogue/Movement.c",
+    "source": "Are you sure you want to attack %s?",
+    "zh_CN": "确定要攻击%s吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_cbcfb7ba3743810e",
+    "file": "src/brogue/Movement.c",
+    "source": "Risk stumbling into lava?",
+    "zh_CN": "冒险踩入熔岩？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_47e792dc60676a77",
+    "file": "src/brogue/Movement.c",
+    "source": "Free the captive %s?",
+    "zh_CN": "要解救被囚禁的%s吗？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_bdc49a80a3184943",
+    "file": "src/brogue/Movement.c",
+    "source": "you struggle but %s is holding your legs!",
+    "zh_CN": "你奋力挣扎，但%s抓住了你的双腿！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_fbca9ea5ae0db564",
+    "file": "src/brogue/Movement.c",
+    "source": "you cannot move; %s is holding your legs!",
+    "zh_CN": "%s抓住了你的双腿，你无法移动！",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_cb02821715417ace",
+    "file": "src/brogue/Movement.c",
+    "source": "Dive into the depths?",
+    "zh_CN": "跳入深处？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_04fb12293cf0f820",
+    "file": "src/brogue/Movement.c",
+    "source": "Venture into flame?",
+    "zh_CN": "踏入火焰？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_cc4f89e32827aab3",
+    "file": "src/brogue/Movement.c",
+    "source": "Venture into dangerous gas?",
+    "zh_CN": "走进危险气体？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_35fadc11914c3e62",
+    "file": "src/brogue/Movement.c",
+    "source": "Step onto the pressure plate?",
+    "zh_CN": "踩上压力板？",
+    "mode": "literal",
+    "expected_count": 1,
+    "status": "reviewed"
+  },
+  {
+    "id": "results_0a9515a848177028",
+    "file": "src/brogue/Time.c",
+    "source": "%s %s %s.",
+    "zh_CN": "%s%s%s。",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_f500955a16ebd2df",
+    "file": "src/brogue/Time.c",
+    "source": "is destroyed by",
+    "zh_CN": "毁于",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_3df506617cd85382",
+    "file": "src/brogue/Time.c",
+    "source": "dies in",
+    "zh_CN": "死于",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_f27d48502a7bc5a5",
+    "file": "src/brogue/Items.c",
+    "source": "staffs",
+    "zh_CN": "法杖",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_e89385f13fdf6095",
+    "file": "src/brogue/Items.c",
+    "source": "wands",
+    "zh_CN": "魔杖",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_d6936d74fa7938eb",
+    "file": "src/brogue/Items.c",
+    "source": "charms",
+    "zh_CN": "护符",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_a52ff550b4c76703",
+    "file": "src/brogue/Items.c",
+    "source": "kills",
+    "zh_CN": "击杀了",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_6b0d1f6c97a835e4",
+    "file": "src/brogue/Items.c",
+    "source": "destroys",
+    "zh_CN": "摧毁了",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_cb8dd649a2b78785",
+    "file": "src/brogue/Items.c",
+    "source": "get destroyed",
+    "zh_CN": "被摧毁了",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_a8d79f40ddb79de5",
+    "file": "src/brogue/Items.c",
+    "source": "die",
+    "zh_CN": "死去了",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_fb5eebf6cc89e161",
+    "file": "src/brogue/Items.c",
+    "source": "fatally",
+    "zh_CN": "中了致命的毒",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "results_4c6a4839f83d20d2",
+    "file": "src/brogue/Items.c",
+    "source": "very",
+    "zh_CN": "严重中毒",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "s_d0b3cba71f725563",
+    "file": "src/brogue/Items.c",
+    "source": "bolt",
+    "zh_CN": "魔法射线",
+    "mode": "lookup",
+    "status": "prototype"
   }
 ]

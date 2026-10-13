@@ -107,7 +107,7 @@ const char *tileFlavor(short x, short y) {
 
 // Retrieves a pointer to the description text of the highest-priority terrain at the given location
 const char *tileText(short x, short y) {
-    return tileCatalog[pmap[x][y].layers[highestPriorityLayer(x, y, false)]].description;
+    return br_tr(tileCatalog[pmap[x][y].layers[highestPriorityLayer(x, y, false)]].description);
 }
 
 const char *br_display_tile_text(short x,short y) { return br_tr(tileText(x,y)); }
@@ -412,22 +412,22 @@ void printLocationDescription(short x, short y) {
 void useKeyAt(item *theItem, short x, short y) {
     short layer, i;
     creature *monst;
-    char buf[COLS], buf2[COLS], terrainName[COLS], preposition[10];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES], terrainName[BR_MESSAGE_BYTES], preposition[10];
     boolean disposable;
 
-    strcpy(terrainName, "unknown terrain"); // redundant failsafe
+    strcpy(terrainName, br_tr("unknown terrain")); // redundant failsafe
     for (layer = 0; layer < NUMBER_TERRAIN_LAYERS; layer++) {
         if (tileCatalog[pmap[x][y].layers[layer]].mechFlags & TM_PROMOTES_WITH_KEY) {
-            if (tileCatalog[pmap[x][y].layers[layer]].description[0] == 'a'
-                && tileCatalog[pmap[x][y].layers[layer]].description[1] == ' ') {
-                sprintf(terrainName, "the %s", &(tileCatalog[pmap[x][y].layers[layer]].description[2]));
+            if (br_tr(tileCatalog[pmap[x][y].layers[layer]].description)[0] == 'a'
+                && br_tr(tileCatalog[pmap[x][y].layers[layer]].description)[1] == ' ') {
+                sprintf(terrainName, "the %s", &(br_tr(tileCatalog[pmap[x][y].layers[layer]].description)[2]));
             } else {
-                strcpy(terrainName, tileCatalog[pmap[x][y].layers[layer]].description);
+                strcpy(terrainName, br_tr(tileCatalog[pmap[x][y].layers[layer]].description));
             }
             if (tileCatalog[pmap[x][y].layers[layer]].mechFlags & TM_STAND_IN_TILE) {
-                strcpy(preposition, "in");
+                strcpy(preposition, br_tr("in"));
             } else {
-                strcpy(preposition, "on");
+                strcpy(preposition, br_tr("on"));
             }
             promoteTile(x, y, layer, false);
         }
@@ -445,7 +445,7 @@ void useKeyAt(item *theItem, short x, short y) {
     if (disposable) {
         if (removeItemFromChain(theItem, packItems)) {
             itemName(theItem, buf2, true, false, NULL);
-            sprintf(buf, "you use your %s %s %s.",
+            sprintf(buf, br_tr("you use your %s %s %s."),
                     buf2,
                     preposition,
                     terrainName);
@@ -488,14 +488,14 @@ short randValidDirectionFrom(creature *monst, short x, short y, boolean respectA
 }
 
 void vomit(creature *monst) {
-    char buf[COLS], monstName[COLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
     spawnDungeonFeature(monst->loc.x, monst->loc.y, &dungeonFeatureCatalog[DF_VOMIT], true, false);
 
     if (canDirectlySeeMonster(monst)
         && !rogue.automationActive) {
 
-        monsterName(monstName, monst, true);
-        sprintf(buf, "%s vomit%s profusely", monstName, (monst == &player ? "" : "s"));
+        br_display_monster_name(monstName, monst, true);
+        sprintf(buf, br_tr("%s vomit%s profusely"), monstName, (monst == &player ? "" : "s"));
         combatMessage(buf, NULL);
     }
 }
@@ -533,11 +533,11 @@ void becomeAllyWith(creature *monst) {
 }
 
 void freeCaptive(creature *monst) {
-    char buf[COLS * 3], monstName[COLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
 
     becomeAllyWith(monst);
-    monsterName(monstName, monst, false);
-    sprintf(buf, "you free the grateful %s and gain a faithful ally.", monstName);
+    br_display_monster_name(monstName, monst, false);
+    sprintf(buf, br_tr("you free the grateful %s and gain a faithful ally."), monstName);
     message(buf, 0);
 }
 
@@ -562,8 +562,8 @@ boolean freeCaptivesEmbeddedAt(short x, short y) {
 /// @return true to abort the attack
 static boolean abortAttackAgainstAcidicTarget(const creature *hitList[8]) {
     short i;
-    char monstName[COLS], weaponName[COLS];
-    char buf[COLS*3];
+    char monstName[BR_MESSAGE_BYTES], weaponName[BR_MESSAGE_BYTES];
+    char buf[BR_MESSAGE_BYTES];
 
     if (rogue.weapon && !(rogue.weapon->flags & ITEM_PROTECTED)) {
 
@@ -576,9 +576,9 @@ static boolean abortAttackAgainstAcidicTarget(const creature *hitList[8]) {
                     || rogue.weapon->enchant2 != W_SLAYING
                     || !monsterIsInClass(hitList[i], rogue.weapon->vorpalEnemy))) {
 
-                monsterName(monstName, hitList[i], true);
+                br_display_monster_name(monstName, hitList[i], true);
                 itemName(rogue.weapon, weaponName, false, false, NULL);
-                sprintf(buf, "Degrade your %s by attacking %s?", weaponName, monstName);
+                sprintf(buf, br_tr("Degrade your %s by attacking %s?"), weaponName, monstName);
                 if (confirm(buf, false)) {
                     return false; // Fire when ready!
                 } else {
@@ -601,9 +601,9 @@ static boolean abortAttackAgainstDiscordantAlly(const creature *hitList[8]) {
             && hitList[i]->status[STATUS_DISCORDANT]
             && canSeeMonster(hitList[i])) {
 
-            char monstName[COLS], buf[COLS*3];
-            monsterName(monstName, hitList[i], true);
-            sprintf(buf, "Are you sure you want to attack %s?", monstName);
+            char monstName[BR_MESSAGE_BYTES], buf[BR_MESSAGE_BYTES];
+            br_display_monster_name(monstName, hitList[i], true);
+            sprintf(buf, br_tr("Are you sure you want to attack %s?"), monstName);
             if (confirm(buf, false)) {
                 return false; // Don't abort. Attack the ally.
             } else {
@@ -852,8 +852,8 @@ boolean playerMoves(short direction) {
     boolean playerMoved = false, specialAttackAborted = false, anyAttackHit = false;
     creature *defender = NULL, *tempMonst = NULL;
     const creature *hitList[16] = {NULL};
-    char monstName[COLS];
-    char buf[COLS*3];
+    char monstName[BR_MESSAGE_BYTES];
+    char buf[BR_MESSAGE_BYTES];
     const int directionKeys[8] = {UP_KEY, DOWN_KEY, LEFT_KEY, RIGHT_KEY, UPLEFT_KEY, DOWNLEFT_KEY, UPRIGHT_KEY, DOWNRIGHT_KEY};
 
     brogueAssert(direction >= 0 && direction < DIRECTION_COUNT);
@@ -886,7 +886,7 @@ boolean playerMoves(short direction) {
                          && canSeeMonster(monsterAtLoc((pos){ newestX, newestY }))
                          && monsterAtLoc((pos){ newestX, newestY })->creatureState != MONSTER_ALLY)) {
 
-                    if (!confirm("Risk stumbling into lava?", false)) {
+                    if (!confirm(br_tr("Risk stumbling into lava?"), false)) {
                         cancelKeystroke();
                         return false;
                     } else {
@@ -958,8 +958,8 @@ boolean playerMoves(short direction) {
             // if there is a monster there
 
             if (defender->bookkeepingFlags & MB_CAPTIVE) {
-                monsterName(monstName, defender, false);
-                sprintf(buf, "Free the captive %s?", monstName);
+                br_display_monster_name(monstName, defender, false);
+                sprintf(buf, br_tr("Free the captive %s?"), monstName);
                 if (committed || confirm(buf, false)) {
                     committed = true;
                     if (cellHasTMFlag((pos){ newX, newY }, TM_PROMOTES_WITH_KEY) && keyInPackFor((pos){ newX, newY })) {
@@ -1031,16 +1031,16 @@ boolean playerMoves(short direction) {
                     && !diagonalBlocked(player.loc.x, player.loc.y, tempMonst->loc.x, tempMonst->loc.y, false)
                     && !tempMonst->status[STATUS_ENTRANCED]) {
 
-                    monsterName(monstName, tempMonst, true);
+                    br_display_monster_name(monstName, tempMonst, true);
                     if (committed || !canSeeMonster(tempMonst)) {
                         committed = true;
-                        sprintf(buf, "you struggle but %s is holding your legs!", monstName);
+                        sprintf(buf, br_tr("you struggle but %s is holding your legs!"), monstName);
                         moveEntrancedMonsters(direction);
                         message(buf, 0);
                         playerTurnEnded();
                         return true;
                     } else {
-                        sprintf(buf, "you cannot move; %s is holding your legs!", monstName);
+                        sprintf(buf, br_tr("you cannot move; %s is holding your legs!"), monstName);
                         message(buf, 0);
                         cancelKeystroke();
                         return false;
@@ -1068,7 +1068,7 @@ boolean playerMoves(short direction) {
                    && cellHasTerrainFlag((pos){ newX, newY }, T_AUTO_DESCENT)
                    && (!cellHasTerrainFlag((pos){ newX, newY }, T_ENTANGLES) || cellHasTMFlag((pos){ newX, newY }, TM_PROMOTES_ON_PLAYER_ENTRY))
                    && !cellHasTMFlag((pos){ newX, newY }, TM_IS_SECRET)
-                   && !confirm("Dive into the depths?", false)) {
+                   && !confirm(br_tr("Dive into the depths?"), false)) {
 
             brogueAssert(!committed);
             cancelKeystroke();
@@ -1080,7 +1080,7 @@ boolean playerMoves(short direction) {
                    && player.status[STATUS_IMMUNE_TO_FIRE] <= 1
                    && cellHasTerrainFlag((pos){ newX, newY }, T_IS_FIRE)
                    && !cellHasTMFlag((pos){ newX, newY }, TM_EXTINGUISHES_FIRE)
-                   && !confirm("Venture into flame?", false)) {
+                   && !confirm(br_tr("Venture into flame?"), false)) {
 
             brogueAssert(!committed);
             cancelKeystroke();
@@ -1091,7 +1091,7 @@ boolean playerMoves(short direction) {
                    && !player.status[STATUS_BURNING]
                    && cellHasTerrainFlag((pos){ newX, newY }, T_CAUSES_CONFUSION | T_CAUSES_PARALYSIS)
                    && (!rogue.armor || !(rogue.armor->flags & ITEM_RUNIC) || !(rogue.armor->flags & ITEM_RUNIC_IDENTIFIED) || rogue.armor->enchant2 != A_RESPIRATION)
-                   && !confirm("Venture into dangerous gas?", false)) {
+                   && !confirm(br_tr("Venture into dangerous gas?"), false)) {
 
             brogueAssert(!committed);
             cancelKeystroke();
@@ -1107,7 +1107,7 @@ boolean playerMoves(short direction) {
                         (!cellHasTerrainType((pos){ newX, newY }, GAS_TRAP_POISON)
                          && !cellHasTerrainType((pos){ newX, newY }, GAS_TRAP_PARALYSIS)
                          && !cellHasTerrainType((pos){ newX, newY }, GAS_TRAP_CONFUSION)))
-                   && !confirm("Step onto the pressure plate?", false)) {
+                   && !confirm(br_tr("Step onto the pressure plate?"), false)) {
 
             brogueAssert(!committed);
             cancelKeystroke();

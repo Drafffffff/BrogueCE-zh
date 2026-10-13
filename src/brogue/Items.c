@@ -394,7 +394,7 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
             break;
         default:
             theEntry = NULL;
-            message("something has gone terribly wrong!", REQUIRE_ACKNOWLEDGMENT);
+            message(br_tr("something has gone terribly wrong!"), REQUIRE_ACKNOWLEDGMENT);
             break;
     }
     if (theItem
@@ -449,7 +449,7 @@ item *placeItemAt(item *theItem, pos dest) {
                 refreshDungeonCell(dest);
             }
             itemName(theItem, theItemName, false, false, NULL);
-            sprintf(buf, "a pressure plate clicks underneath the %s!", theItemName);
+            sprintf(buf, br_tr("a pressure plate clicks underneath the %s!"), theItemName);
             message(buf, REQUIRE_ACKNOWLEDGMENT);
         }
         for (layer = 0; layer < NUMBER_TERRAIN_LAYERS; layer++) {
@@ -1063,7 +1063,7 @@ void checkForDisenchantment(item *theItem) {
         if (theItem->flags & ITEM_IDENTIFIED) {
             identify(theItem);
             itemName(theItem, buf2, false, false, NULL);
-            sprintf(buf, "the runes fade from your %s.", buf2);
+            sprintf(buf, br_tr("the runes fade from your %s."), buf2);
             messageWithColor(buf, &itemMessageColor, 0);
         }
     }
@@ -1093,7 +1093,7 @@ static void swapItemToEnchantLevel(item *theItem, short newEnchant, boolean ench
         || (theItem->category & WAND) && newEnchant < 0) {
 
         itemName(theItem, buf1, false, true, NULL);
-        sprintf(buf2, "%s shatter%s from the strain!",
+        sprintf(buf2, br_tr("%s shatter%s from the strain!"),
                 buf1,
                 theItem->quantity == 1 ? "s" : "");
         x = theItem->loc.x;
@@ -1208,7 +1208,7 @@ void updateFloorItems() {
         if (cellHasTerrainFlag((pos){ x, y }, T_AUTO_DESCENT)) {
             if (playerCanSeeOrSense(x, y)) {
                 itemName(theItem, buf, false, false, NULL);
-                sprintf(buf2, "The %s plunge%s out of sight!", buf, (theItem->quantity > 1 ? "" : "s"));
+                sprintf(buf2, br_tr("The %s plunge%s out of sight!"), buf, (theItem->quantity > 1 ? "" : "s"));
                 messageWithColor(buf2, &itemMessageColor, 0);
             }
             if (playerCanSee(x, y)) {
@@ -1299,12 +1299,12 @@ static boolean inscribeItem(item *theItem) {
     itemName(theItem, nameOfItem, true, true, NULL);
     strcpy(theItem->inscription, oldInscription);
 
-    sprintf(buf, "inscribe: %s \"", nameOfItem);
+    sprintf(buf, br_tr("inscribe: %s \""), nameOfItem);
     if (getInputTextString(itemText, buf, min(29, DCOLS - strLenWithoutEscapes(buf) - 1), "", "\"", TEXT_INPUT_NORMAL, false)) {
         strcpy(theItem->inscription, itemText);
         confirmMessages();
         itemName(theItem, nameOfItem, true, true, NULL);
-        sprintf(buf, "%s %s.", (theItem->quantity > 1 ? "they're" : "it's"), nameOfItem);
+        sprintf(buf, "%s %s.", (theItem->quantity > 1 ? br_tr("they're") : br_tr("it's")), nameOfItem);
         messageWithColor(buf, &itemMessageColor, 0);
         return true;
     } else {
@@ -3231,7 +3231,7 @@ short numberOfMatchingPackItems(unsigned short categoryMask,
     if (matchingItemCount == 0) {
         if (displayErrors) {
             confirmMessages();
-            message("You have nothing suitable.", 0);
+            message(br_tr("You have nothing suitable."), 0);
         }
         return 0;
     }
@@ -3472,7 +3472,7 @@ void aggravateMonsters(short distance, short x, short y, const color *flashColor
         discoverCell(x, y);
         colorFlash(flashColor, 0, (DISCOVERED | MAGIC_MAPPED), 10, distance, x, y);
         if (!playerCanSee(x, y)) {
-            message("You hear a piercing shriek; something must have triggered a nearby alarm.", 0);
+            message(br_tr("You hear a piercing shriek; something must have triggered a nearby alarm."), 0);
         }
     }
 
@@ -3809,10 +3809,10 @@ static boolean negationWillAffectMonster(creature *monst, boolean isBolt) {
 boolean negate(creature *monst) {
     short i, j;
     enum boltType backupBolts[20];
-    char buf[DCOLS * 3], monstName[DCOLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
     boolean negated = false;
 
-    monsterName(monstName, monst, true);
+    br_display_monster_name(monstName, monst, true);
 
     if (monst->info.abilityFlags & ~MA_NON_NEGATABLE_ABILITIES) {
         monst->info.abilityFlags &= MA_NON_NEGATABLE_ABILITIES; // negated monsters lose all special abilities
@@ -3827,11 +3827,11 @@ boolean negate(creature *monst) {
 
     if (monst->info.flags & MONST_DIES_IF_NEGATED) {
         if (monst->status[STATUS_LEVITATING]) {
-            sprintf(buf, "%s dissipates into thin air", monstName);
+            sprintf(buf, br_tr("%s dissipates into thin air"), monstName);
         } else if (monst->info.flags & MONST_INANIMATE) {
-            sprintf(buf, "%s shatters into tiny pieces", monstName);
+            sprintf(buf, br_tr("%s shatters into tiny pieces"), monstName);
         } else {
-            sprintf(buf, "%s falls to the ground, lifeless", monstName);
+            sprintf(buf, br_tr("%s falls to the ground, lifeless"), monstName);
         }
         killCreature(monst, false);
         combatMessage(buf, messageColorFromVictim(monst));
@@ -3890,8 +3890,8 @@ boolean negate(creature *monst) {
     }
 
     if (negated && monst != &player && !(monst->info.flags & MONST_DIES_IF_NEGATED)) {
-        sprintf(buf, "%s is stripped of $HISHER special traits", monstName);
-        resolvePronounEscapes(buf, monst);
+        sprintf(buf, br_tr("%s is stripped of $HISHER special traits"), monstName);
+        br_resolve_display_pronouns(buf, monst);
         combatMessage(buf, messageColorFromVictim(monst));
     }
 
@@ -3906,7 +3906,7 @@ void weaken(creature *monst, short maxDuration) {
     monst->status[STATUS_WEAKENED] = max(monst->status[STATUS_WEAKENED], maxDuration);
     monst->maxStatus[STATUS_WEAKENED] = max(monst->maxStatus[STATUS_WEAKENED], maxDuration);
     if (monst == &player) {
-        messageWithColor("your muscles weaken as an enervating toxin fills your veins.", &badMessageColor, 0);
+        messageWithColor(br_tr("your muscles weaken as an enervating toxin fills your veins."), &badMessageColor, 0);
         strengthCheck(rogue.weapon, true);
         strengthCheck(rogue.armor, true);
     }
@@ -3983,7 +3983,7 @@ void slow(creature *monst, short turns) {
         monst->status[STATUS_HASTED] = 0;
         if (monst == &player) {
             updateEncumbrance();
-            message("you feel yourself slow down.", 0);
+            message(br_tr("you feel yourself slow down."), 0);
         } else {
             monst->movementSpeed = monst->info.movementSpeed * 2;
             monst->attackSpeed = monst->info.attackSpeed * 2;
@@ -3997,7 +3997,7 @@ void haste(creature *monst, short turns) {
         monst->status[STATUS_HASTED] = monst->maxStatus[STATUS_HASTED] = turns;
         if (monst == &player) {
             updateEncumbrance();
-            message("you feel yourself speed up.", 0);
+            message(br_tr("you feel yourself speed up."), 0);
         } else {
             monst->movementSpeed = monst->info.movementSpeed / 2;
             monst->attackSpeed = monst->info.attackSpeed / 2;
@@ -4006,7 +4006,7 @@ void haste(creature *monst, short turns) {
 }
 
 void heal(creature *monst, short percent, boolean panacea) {
-    char buf[COLS], monstName[COLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
     monst->currentHP = min(monst->info.maxHP, monst->currentHP + percent * monst->info.maxHP / 100);
     if (panacea) {
         if (monst->status[STATUS_HALLUCINATING] > 1) {
@@ -4042,8 +4042,8 @@ void heal(creature *monst, short percent, boolean panacea) {
         && monst != &player
         && !panacea) {
 
-        monsterName(monstName, monst, true);
-        sprintf(buf, "%s looks healthier", monstName);
+        br_display_monster_name(monstName, monst, true);
+        sprintf(buf, br_tr("%s looks healthier"), monstName);
         combatMessage(buf, NULL);
     }
 }
@@ -4055,16 +4055,16 @@ static void makePlayerTelepathic(short duration) {
         refreshDungeonCell(monst->loc);
     }
     if (!hasNextCreature(iterateCreatures(monsters))) {
-        message("you can somehow tell that you are alone on this depth at the moment.", 0);
+        message(br_tr("you can somehow tell that you are alone on this depth at the moment."), 0);
     } else {
-        message("you can somehow feel the presence of other creatures' minds!", 0);
+        message(br_tr("you can somehow feel the presence of other creatures' minds!"), 0);
     }
 }
 
 static void rechargeItems(unsigned long categories) {
     item *tempItem;
     short x, y, z, i, categoryCount;
-    char buf[DCOLS * 3];
+    char buf[BR_MESSAGE_BYTES];
 
     x = y = z = 0; // x counts staffs, y counts wands, z counts charms
     for (tempItem = packItems->nextItem; tempItem != NULL; tempItem = tempItem->nextItem) {
@@ -4087,39 +4087,39 @@ static void rechargeItems(unsigned long categories) {
 
     if (categoryCount) {
         i = 0;
-        strcpy(buf, "a surge of energy courses through your pack, recharging your ");
+        strcpy(buf, br_tr("a surge of energy courses through your pack, recharging your "));
         if (x) {
             i++;
-            strcat(buf, x == 1 ? "staff" : "staffs");
+            strcat(buf, x == 1 ? br_tr("staff") : br_tr("staffs"));
             if (i == categoryCount - 1) {
-                strcat(buf, " and ");
+                strcat(buf, br_tr(" and "));
             } else if (i <= categoryCount - 2) {
-                strcat(buf, ", ");
+                strcat(buf, br_tr(", "));
             }
         }
         if (y) {
             i++;
-            strcat(buf, y == 1 ? "wand" : "wands");
+            strcat(buf, y == 1 ? br_tr("wand") : br_tr("wands"));
             if (i == categoryCount - 1) {
-                strcat(buf, " and ");
+                strcat(buf, br_tr(" and "));
             } else if (i <= categoryCount - 2) {
-                strcat(buf, ", ");
+                strcat(buf, br_tr(", "));
             }
         }
         if (z) {
-            strcat(buf, z == 1 ? "charm" : "charms");
+            strcat(buf, z == 1 ? br_tr("charm") : br_tr("charms"));
         }
-        strcat(buf, ".");
+        strcat(buf, br_tr("."));
         message(buf, 0);
     } else {
-        message("a surge of energy courses through your pack, but nothing happens.", 0);
+        message(br_tr("a surge of energy courses through your pack, but nothing happens."), 0);
     }
 }
 
 //void causeFear(const char *emitterName) {
 //    creature *monst;
 //    short numberOfMonsters = 0;
-//    char buf[DCOLS*3], mName[DCOLS];
+//    char buf[BR_MESSAGE_BYTES], mName[BR_MESSAGE_BYTES];
 //
 //    for (monst = monsters->nextCreature; monst != NULL; monst = monst->nextCreature) {
 //        if (pmapAt(monst->loc)->flags & IN_FIELD_OF_VIEW
@@ -4130,7 +4130,7 @@ static void rechargeItems(unsigned long categories) {
 //            monst->creatureState = MONSTER_FLEEING;
 //            if (canSeeMonster(monst)) {
 //                numberOfMonsters++;
-//                monsterName(mName, monst, true);
+//                br_display_monster_name(mName, monst, true);
 //            }
 //        }
 //    }
@@ -4147,9 +4147,9 @@ static void rechargeItems(unsigned long categories) {
 
 static void negationBlast(const char *emitterName, const short distance) {
     item *theItem;
-    char buf[DCOLS];
+    char buf[BR_MESSAGE_BYTES];
 
-    sprintf(buf, "%s emits a numbing torrent of anti-magic!", emitterName);
+    sprintf(buf, br_tr("%s emits a numbing torrent of anti-magic!"), emitterName);
     messageWithColor(buf, &itemMessageColor, 0);
     colorFlash(&pink, 0, IN_FIELD_OF_VIEW, 3 + distance / 5, distance, player.loc.x, player.loc.y);
     negate(&player);
@@ -4202,9 +4202,9 @@ static void negationBlast(const char *emitterName, const short distance) {
 }
 
 static void discordBlast(const char *emitterName, const short distance) {
-    char buf[DCOLS];
+    char buf[BR_MESSAGE_BYTES];
 
-    sprintf(buf, "%s emits a wave of unsettling purple radiation!", emitterName);
+    sprintf(buf, br_tr("%s emits a wave of unsettling purple radiation!"), emitterName);
     messageWithColor(buf, &itemMessageColor, 0);
     colorFlash(&discordColor, 0, IN_FIELD_OF_VIEW, 3 + distance / 5, distance, player.loc.x, player.loc.y);
     for (creatureIterator it = iterateCreatures(monsters); hasNextCreature(it);) {
@@ -4437,7 +4437,7 @@ enum boltType boltForItem(item *theItem) {
 static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                    boolean boltInView, boolean alreadyReflected,
                    boolean *autoID, boolean *lightingChanged) {
-    char buf[COLS], monstName[COLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
     creature *monst; // Creature being hit by the bolt, if any.
     creature *newMonst; // Utility variable for plenty
     boolean terminateBolt = false;
@@ -4451,7 +4451,7 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
 
     monst = monsterAtLoc((pos){ x, y });
     if (monst && !(monst->bookkeepingFlags & MB_SUBMERGED)) {
-        monsterName(monstName, monst, true);
+        br_display_monster_name(monstName, monst, true);
 
         switch(theBolt->boltEffect) {
             case BE_ATTACK:
@@ -4479,11 +4479,11 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                     || (monst->info.flags & MONST_INVULNERABLE)) {
 
                     if (canSeeMonster(monst)) {
-                        sprintf(buf, "%s ignore%s %s %s",
+                        sprintf(buf, br_tr("%s ignore%s %s %s"),
                                 monstName,
                                 (monst == &player ? "" : "s"),
-                                canSeeMonster(caster) ? "the" : "a",
-                                theBolt->name);
+                                br_is_zh()?"":(canSeeMonster(caster) ? "the" : "a"),
+                                br_tr(theBolt->name));
                         combatMessage(buf, 0);
                     }
                 } else if (inflictDamage(caster, monst, staffDamage(theBolt->magnitude * FP_FACTOR), theBolt->backColor, false)) {
@@ -4491,7 +4491,7 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                     if (player.currentHP <= 0) {
                         killCreature(monst, false);
                         if (caster == &player) {
-                            sprintf(buf, "Killed by a reflected %s", theBolt->name);
+                            sprintf(buf, br_tr("Killed by a reflected %s"), br_tr(theBolt->name));
                             gameOver(buf, true);
                         }
                         terminateBolt = true;
@@ -4499,13 +4499,13 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                     }
                     if (boltInView || canSeeMonster(monst)) {
                         sprintf(buf, "%s %s %s %s",
-                                canSeeMonster(caster) ? "the" : "a",
-                                theBolt->name,
-                                ((monst->info.flags & MONST_INANIMATE) ? "destroys" : "kills"),
+                                br_is_zh()?"":(canSeeMonster(caster) ? "the" : "a"),
+                                br_tr(theBolt->name),
+                                ((monst->info.flags & MONST_INANIMATE) ? br_tr("destroys") : br_tr("kills")),
                                 monstName);
                         combatMessage(buf, messageColorFromVictim(monst));
                     } else {
-                        sprintf(buf, "you hear %s %s", monstName, ((monst->info.flags & MONST_INANIMATE) ? "get destroyed" : "die"));
+                        sprintf(buf, br_tr("you hear %s %s"), monstName, ((monst->info.flags & MONST_INANIMATE) ? br_tr("get destroyed") : br_tr("die")));
                         combatMessage(buf, 0);
                     }
                     killCreature(monst, false);
@@ -4519,9 +4519,9 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                         monst->status[STATUS_MAGICAL_FEAR] = 0;
                     }
                     if (boltInView) {
-                        sprintf(buf, "%s %s hits %s",
-                                canSeeMonster(caster) ? "the" : "a",
-                                theBolt->name,
+                        sprintf(buf, br_tr("%s %s hits %s"),
+                                br_is_zh()?"":(canSeeMonster(caster) ? "the" : "a"),
+                                br_tr(theBolt->name),
                                 monstName);
                         combatMessage(buf, messageColorFromVictim(monst));
                     }
@@ -4604,7 +4604,7 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                             if (autoID) {
                                 *autoID = true;
                             }
-                            sprintf(buf, "%s is bound to your will!", monstName);
+                            sprintf(buf, br_tr("%s is bound to your will!"), monstName);
                             message(buf, 0);
                             if (boltCatalog[BOLT_DOMINATION].backColor) {
                                 flashMonster(monst, boltCatalog[BOLT_DOMINATION].backColor, 100);
@@ -4614,7 +4614,7 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                         if (autoID) {
                             *autoID = true;
                         }
-                        sprintf(buf, "%s resists the bolt of domination.", monstName);
+                        sprintf(buf, br_tr("%s resists the bolt of domination."), monstName);
                         message(buf, 0);
                     }
                 }
@@ -4651,10 +4651,10 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                             *autoID = true;
                         }
                         if (monst != &player) {
-                            sprintf(buf, "%s %s %s sick",
+                            sprintf(buf, br_tr("%s %s %s sick"),
                                     monstName,
                                     (monst == &player ? "feel" : "looks"),
-                                    (monst->status[STATUS_POISONED] * monst->poisonAmount >= monst->currentHP && !player.status[STATUS_HALLUCINATING] ? "fatally" : "very"));
+                                    (monst->status[STATUS_POISONED] * monst->poisonAmount >= monst->currentHP && !player.status[STATUS_HALLUCINATING] ? br_tr("fatally") : br_tr("very")));
                             combatMessage(buf, messageColorFromVictim(monst));
                         }
                     }
@@ -4665,7 +4665,7 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                     flashMonster(monst, &confusionGasColor, 100);
                     monst->status[STATUS_CONFUSED] = staffEntrancementDuration(theBolt->magnitude * FP_FACTOR);
                     monst->maxStatus[STATUS_CONFUSED] = max(monst->status[STATUS_CONFUSED], monst->maxStatus[STATUS_CONFUSED]);
-                    message("the bolt hits you and you suddenly feel disoriented.", REQUIRE_ACKNOWLEDGMENT);
+                    message(br_tr("the bolt hits you and you suddenly feel disoriented."), REQUIRE_ACKNOWLEDGMENT);
                     if (autoID) {
                         *autoID = true;
                     }
@@ -4679,7 +4679,7 @@ static boolean updateBolt(bolt *theBolt, creature *caster, short x, short y,
                         if (autoID) {
                             *autoID = true;
                         }
-                        sprintf(buf, "%s is entranced!", monstName);
+                        sprintf(buf, br_tr("%s is entranced!"), monstName);
                         message(buf, 0);
                     }
                 }
@@ -4890,7 +4890,7 @@ boolean zap(pos originLoc, pos targetLoc, bolt *theBolt, boolean hideDetails, bo
     pos listOfCoordinates[MAX_BOLT_LENGTH];
     short i, j, k, x, y, x2, y2, numCells, blinkDistance = 0, boltLength, initialBoltLength, lights[DCOLS][DROWS][3];
     creature *monst = NULL, *shootingMonst;
-    char buf[COLS], monstName[COLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
     boolean autoID = false;
     boolean lightingChanged = false;
     boolean fastForward = false;
@@ -5008,11 +5008,11 @@ boolean zap(pos originLoc, pos targetLoc, bolt *theBolt, boolean hideDetails, bo
             alreadyReflected = true;
 
             if (boltInView) {
-                monsterName(monstName, monst, true);
-                sprintf(buf, "%s deflect%s the %s",
+                br_display_monster_name(monstName, monst, true);
+                sprintf(buf, br_tr("%s deflect%s the %s"),
                         monstName,
                         (monst == &player ? "" : "s"),
-                        hideDetails ? "bolt" : theBolt->name);
+                        hideDetails ? br_tr("bolt") : br_tr(theBolt->name));
                 combatMessage(buf, 0);
             }
             if (monst == &player
@@ -5161,7 +5161,7 @@ boolean zap(pos originLoc, pos targetLoc, bolt *theBolt, boolean hideDetails, bo
                     || (theBolt->boltEffect == BE_TUNNELING && (pmap[x2][y2].flags & IMPREGNABLE)))
                 && i < MAX_BOLT_LENGTH - max(DCOLS, DROWS)) {
 
-                sprintf(buf, "the bolt reflects off of %s", br_display_tile_text(x2, y2));
+                sprintf(buf, br_tr("the bolt reflects off of %s"), br_display_tile_text(x2, y2));
                 if (projectileReflects(shootingMonst, NULL)) {
                     // If it scores another reflection roll, reflect at caster, unless it's already reflected.
                     numCells = reflectBolt(originLoc.x, originLoc.y, listOfCoordinates, i, !alreadyReflected);
@@ -5185,7 +5185,7 @@ boolean zap(pos originLoc, pos targetLoc, bolt *theBolt, boolean hideDetails, bo
 
     if (pmap[x][y].flags & (HAS_MONSTER | HAS_PLAYER)) {
         monst = monsterAtLoc((pos){ x, y });
-        monsterName(monstName, monst, true);
+        br_display_monster_name(monstName, monst, true);
     } else {
         monst = NULL;
     }
@@ -6198,7 +6198,7 @@ static void throwItem(item *theItem, creature *thrower, pos targetLoc, short max
 //
 //              monsterName(buf2, monst, true);
 //              itemName(theItem, buf3, false, false, NULL);
-//              sprintf(buf, "%s deflect%s the %s", buf2, (monst == &player ? "" : "s"), buf3);
+//              sprintf(buf, br_tr("%s deflect%s the %s"), buf2, (monst == &player ? "" : "s"), buf3);
 //              combatMessage(buf, 0);
 //              continue;
 //          }
@@ -6519,7 +6519,7 @@ void swapLastEquipment() {
 
     if (rogue.swappedIn == NULL || rogue.swappedOut == NULL) {
         confirmMessages();
-        message("You have nothing to swap.", 0);
+        message(br_tr("You have nothing to swap."), 0);
         return;
     }
 
@@ -6597,7 +6597,7 @@ static boolean playerCancelsBlinking(const pos originLoc, const pos targetLoc, c
         return true;
     }
     if (possibleDeath
-        && !confirm("Blink across lava with unknown range?", false)) {
+        && !confirm(br_tr("Blink across lava with unknown range?"), false)) {
         return true;
     }
     return false;
@@ -6618,20 +6618,20 @@ static void recordApplyItemCommand(item *theItem) {
 }
 
 static boolean useStaffOrWand(item *theItem) {
-    char buf[COLS], buf2[COLS], buf3[COLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES], buf3[BR_MESSAGE_BYTES];
     short maxDistance;
     boolean autoID, confirmedTarget;
     bolt theBolt;
 
     if (theItem->charges <= 0 && (theItem->flags & ITEM_IDENTIFIED)) {
         itemName(theItem, buf2, false, false, NULL);
-        sprintf(buf, "Your %s has no charges.", buf2);
+        sprintf(buf, br_tr("Your %s has no charges."), buf2);
         messageWithColor(buf, &itemMessageColor, 0);
         return false;
     }
     temporaryMessage(br_tr("Direction? (<hjklyubn>, mouse, or <tab>; <return> to confirm)"), REFRESH_SIDEBAR);
     itemName(theItem, buf2, false, false, NULL);
-    sprintf(buf, "Zapping your %s:", buf2);
+    sprintf(buf, br_tr("Zapping your %s:"), buf2);
     printString(buf, mapToWindowX(0), 1, &itemMessageColor, &black, NULL);
 
     theBolt = boltCatalog[tableForItemCategory(theItem->category)[theItem->kind].power];
@@ -6671,10 +6671,10 @@ static boolean useStaffOrWand(item *theItem) {
 
             creature *monst = monsterAtLoc(zapTarget);
             if (monst) {
-                monsterName(buf3, monst, true);
-                sprintf(buf, "you zap your %s at %s.", buf2, buf3);
+                br_display_monster_name(buf3, monst, true);
+                sprintf(buf, br_tr("you zap your %s at %s."), buf2, buf3);
             } else {
-                sprintf(buf, "you zap your %s.", buf2);
+                sprintf(buf, br_tr("you zap your %s."), buf2);
             }
             message(buf, 0);
 
@@ -6684,19 +6684,19 @@ static boolean useStaffOrWand(item *theItem) {
                          false);
             if (autoID) {
                 if (!tableForItemCategory(theItem->category)[theItem->kind].identified) {
-                    sprintf(buf, "(Your %s must be ", buf2);
+                    sprintf(buf, br_tr("(Your %s must be "), buf2);
                     identifyItemKind(theItem);
                     itemName(theItem, buf2, false, true, NULL);
                     strcat(buf, buf2);
-                    strcat(buf, ".)");
+                    strcat(buf, br_tr(".)"));
                     messageWithColor(buf, &itemMessageColor, 0);
                 }
             }
         } else {
             if (theItem->category == STAFF) {
-                sprintf(buf, "Your %s fizzles; it must be out of charges for now.", buf2);
+                sprintf(buf, br_tr("Your %s fizzles; it must be out of charges for now."), buf2);
             } else {
-                sprintf(buf, "Your %s fizzles; it must be depleted.", buf2);
+                sprintf(buf, br_tr("Your %s fizzles; it must be depleted."), buf2);
             }
             messageWithColor(buf, &itemMessageColor, 0);
             theItem->flags |= ITEM_MAX_CHARGES_KNOWN;
@@ -6764,9 +6764,9 @@ boolean eat(item *theItem, boolean recordCommands) {
     }
 
     if (STOMACH_SIZE - player.status[STATUS_NUTRITION] < foodTable[theItem->kind].power) { // Not hungry enough.
-        char buf[COLS * 3];
-        sprintf(buf, "You're not hungry enough to fully enjoy the %s. Eat it anyway?",
-                (theItem->kind == RATION ? br_tr("food") : "mango"));
+        char buf[BR_MESSAGE_BYTES];
+        sprintf(buf, br_tr("You're not hungry enough to fully enjoy the %s. Eat it anyway?"),
+                (theItem->kind == RATION ? br_tr("food") : br_tr("mango")));
         if (!confirm(buf, false)) {
             return false;
         }
@@ -6774,9 +6774,9 @@ boolean eat(item *theItem, boolean recordCommands) {
 
     player.status[STATUS_NUTRITION] = min(foodTable[theItem->kind].power + player.status[STATUS_NUTRITION], STOMACH_SIZE);
     if (theItem->kind == RATION) {
-        messageWithColor("That food tasted delicious!", &itemMessageColor, 0);
+        messageWithColor(br_tr("That food tasted delicious!"), &itemMessageColor, 0);
     } else {
-        messageWithColor("My, what a yummy mango!", &itemMessageColor, 0);
+        messageWithColor(br_tr("My, what a yummy mango!"), &itemMessageColor, 0);
     }
 
     if (recordCommands) {
@@ -6791,9 +6791,9 @@ boolean eat(item *theItem, boolean recordCommands) {
 static boolean useCharm(item *theItem) {
 
     if (theItem->charges > 0) {
-        char buf[COLS * 3], buf2[COLS * 3];
+        char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
         itemName(theItem, buf2, false, false, NULL);
-        sprintf(buf, "Your %s hasn't finished recharging.", buf2);
+        sprintf(buf, br_tr("Your %s hasn't finished recharging."), buf2);
         messageWithColor(buf, &itemMessageColor, 0);
         return false;
     }
@@ -6805,7 +6805,7 @@ static boolean useCharm(item *theItem) {
     switch (theItem->kind) {
         case CHARM_HEALTH:
             heal(&player, charmHealing(enchant), false);
-            message("You feel much healthier.", 0);
+            message(br_tr("You feel much healthier."), 0);
             break;
         case CHARM_PROTECTION:
             if (charmProtection(enchant) > player.status[STATUS_SHIELDED]) {
@@ -6815,7 +6815,7 @@ static boolean useCharm(item *theItem) {
             if (boltCatalog[BOLT_SHIELDING].backColor) {
                 flashMonster(&player, boltCatalog[BOLT_SHIELDING].backColor, 100);
             }
-            message("A shimmering shield coalesces around you.", 0);
+            message(br_tr("A shimmering shield coalesces around you."), 0);
             break;
         case CHARM_HASTE:
             haste(&player, charmEffectDuration(theItem->kind, theItem->enchant1));
@@ -6825,11 +6825,11 @@ static boolean useCharm(item *theItem) {
             if (player.status[STATUS_BURNING]) {
                 extinguishFireOnCreature(&player);
             }
-            message("you no longer fear fire.", 0);
+            message(br_tr("you no longer fear fire."), 0);
             break;
         case CHARM_INVISIBILITY:
             imbueInvisibility(&player, charmEffectDuration(theItem->kind, theItem->enchant1));
-            message("You shiver as a chill runs up your spine.", 0);
+            message(br_tr("You shiver as a chill runs up your spine."), 0);
             break;
         case CHARM_TELEPATHY:
             makePlayerTelepathic(charmEffectDuration(theItem->kind, theItem->enchant1));
@@ -6837,14 +6837,14 @@ static boolean useCharm(item *theItem) {
         case CHARM_LEVITATION:
             player.status[STATUS_LEVITATING] = player.maxStatus[STATUS_LEVITATING] = charmEffectDuration(theItem->kind, theItem->enchant1);
             player.bookkeepingFlags &= ~MB_SEIZED; // break free of holding monsters
-            message("you float into the air!", 0);
+            message(br_tr("you float into the air!"), 0);
             break;
         case CHARM_SHATTERING:
-            messageWithColor("your charm emits a wave of turquoise light that pierces the nearby walls!", &itemMessageColor, 0);
+            messageWithColor(br_tr("your charm emits a wave of turquoise light that pierces the nearby walls!"), &itemMessageColor, 0);
             crystalize(charmShattering(enchant));
             break;
         case CHARM_GUARDIAN:
-            messageWithColor("your charm flashes and the form of a mythical guardian coalesces!", &itemMessageColor, 0);
+            messageWithColor(br_tr("your charm flashes and the form of a mythical guardian coalesces!"), &itemMessageColor, 0);
             summonGuardian(theItem);
             break;
         case CHARM_TELEPORTATION:
@@ -6854,7 +6854,7 @@ static boolean useCharm(item *theItem) {
             rechargeItems(STAFF);
             break;
         case CHARM_NEGATION:
-            negationBlast("your charm", charmNegationRadius(enchant) + 1); // Add 1 because otherwise radius 1 would affect only the player.
+            negationBlast(br_tr("your charm"), charmNegationRadius(enchant) + 1); // Add 1 because otherwise radius 1 would affect only the player.
             break;
         default:
             break;
@@ -6866,11 +6866,11 @@ static boolean useCharm(item *theItem) {
 }
 
 void apply(item *theItem) {
-    char buf[COLS * 3], buf2[COLS * 3];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
 
     if (!theItem) {
         theItem = promptForItemOfType((SCROLL|FOOD|POTION|STAFF|WAND|CHARM), 0, 0,
-                                      KEYBOARD_LABELS ? br_tr("Apply what? (a-z, shift for more info; or <esc> to cancel)") : "Apply what?",
+                                      KEYBOARD_LABELS ? br_tr("Apply what? (a-z, shift for more info; or <esc> to cancel)") : br_tr("Apply what?"),
                                       true);
     }
 
@@ -7034,7 +7034,7 @@ boolean readScroll(item *theItem) {
     item *tempItem;
     creature *monst;
     boolean hadEffect = false;
-    char buf[COLS * 3], buf2[COLS * 3];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
 
     itemTable scrollKind = tableForItemCategory(theItem->category)[theItem->kind];
 
@@ -7042,9 +7042,9 @@ boolean readScroll(item *theItem) {
         && ((theItem->flags & ITEM_MAGIC_DETECTED) || scrollKind.identified)) {
 
         if (scrollKind.identified) {
-            sprintf(buf, "Really read a scroll of %s?", scrollKind.name);
+            sprintf(buf, br_tr("Really read a scroll of %s?"), br_tr(scrollKind.name));
         } else {
-            sprintf(buf, "Really read a cursed scroll?");
+            strcpy(buf, br_tr("Really read a cursed scroll?"));
         }
         if (!confirm(buf, false)) {
             return false;
@@ -7058,14 +7058,14 @@ boolean readScroll(item *theItem) {
         case SCROLL_IDENTIFY:
             identify(theItem);
             updateIdentifiableItems();
-            messageWithColor("this is a scroll of identify.", &itemMessageColor, REQUIRE_ACKNOWLEDGMENT);
+            messageWithColor(br_tr("this is a scroll of identify."), &itemMessageColor, REQUIRE_ACKNOWLEDGMENT);
             if (numberOfMatchingPackItems(ALL_ITEMS, ITEM_CAN_BE_IDENTIFIED, 0, false) == 0) {
-                message("everything in your pack is already identified.", 0);
+                message(br_tr("everything in your pack is already identified."), 0);
                 break; // regardless, the scroll is consumed
             }
             do {
                 theItem = promptForItemOfType((ALL_ITEMS), ITEM_CAN_BE_IDENTIFIED, 0,
-                                              KEYBOARD_LABELS ? br_tr("Identify what? (a-z; shift for more info)") : "Identify what?",
+                                              KEYBOARD_LABELS ? br_tr("Identify what? (a-z; shift for more info)") : br_tr("Identify what?"),
                                               false);
                 if (rogue.gameHasEnded) {
                     return false;
@@ -7073,7 +7073,7 @@ boolean readScroll(item *theItem) {
                 if (theItem && !(theItem->flags & ITEM_CAN_BE_IDENTIFIED)) {
                     confirmMessages();
                     itemName(theItem, buf2, true, true, NULL);
-                    sprintf(buf, "you already know %s %s.", (theItem->quantity > 1 ? "they're" : "it's"), buf2);
+                    sprintf(buf, br_tr("you already know %s %s."), (theItem->quantity > 1 ? br_tr("they're") : br_tr("it's")), buf2);
                     messageWithColor(buf, &itemMessageColor, 0);
                 }
             } while (theItem == NULL || !(theItem->flags & ITEM_CAN_BE_IDENTIFIED));
@@ -7081,7 +7081,7 @@ boolean readScroll(item *theItem) {
             confirmMessages();
             identify(theItem);
             itemName(theItem, buf, true, true, NULL);
-            sprintf(buf2, "%s %s.", (theItem->quantity == 1 ? "this is" : "these are"), buf);
+            sprintf(buf2, "%s %s.", (theItem->quantity == 1 ? br_tr("this is") : br_tr("these are")), buf);
             messageWithColor(buf2, &itemMessageColor, 0);
             break;
         case SCROLL_TELEPORT:
@@ -7092,26 +7092,26 @@ boolean readScroll(item *theItem) {
                 hadEffect |= uncurse(tempItem);
             }
             if (hadEffect) {
-                message("your pack glows with a cleansing light, and a malevolent energy disperses.", 0);
+                message(br_tr("your pack glows with a cleansing light, and a malevolent energy disperses."), 0);
             } else {
-                message("your pack glows with a cleansing light, but nothing happens.", 0);
+                message(br_tr("your pack glows with a cleansing light, but nothing happens."), 0);
             }
             break;
         case SCROLL_ENCHANTING:
             identify(theItem);
-            messageWithColor("this is a scroll of enchanting.", &itemMessageColor, REQUIRE_ACKNOWLEDGMENT);
+            messageWithColor(br_tr("this is a scroll of enchanting."), &itemMessageColor, REQUIRE_ACKNOWLEDGMENT);
             if (!numberOfMatchingPackItems((WEAPON | ARMOR | RING | STAFF | WAND | CHARM), 0, 0, false)) {
                 confirmMessages();
-                message("you have nothing that can be enchanted.", 0);
+                message(br_tr("you have nothing that can be enchanted."), 0);
                 break; // regardless, the scroll is consumed
             }
             do {
                 theItem = promptForItemOfType((WEAPON | ARMOR | RING | STAFF | WAND | CHARM), 0, 0,
-                                              KEYBOARD_LABELS ? br_tr("Enchant what? (a-z; shift for more info)") : "Enchant what?",
+                                              KEYBOARD_LABELS ? br_tr("Enchant what? (a-z; shift for more info)") : br_tr("Enchant what?"),
                                               false);
                 confirmMessages();
                 if (theItem == NULL || !(theItem->category & (WEAPON | ARMOR | RING | STAFF | WAND | CHARM))) {
-                    message("Can't enchant that.", REQUIRE_ACKNOWLEDGMENT);
+                    message(br_tr("Can't enchant that."), REQUIRE_ACKNOWLEDGMENT);
                 }
                 if (rogue.gameHasEnded) {
                     return false;
@@ -7165,10 +7165,10 @@ boolean readScroll(item *theItem) {
                 equipItem(theItem, true, NULL);
             }
             itemName(theItem, buf, false, false, NULL);
-            sprintf(buf2, "your %s gleam%s briefly in the darkness.", buf, (theItem->quantity == 1 ? "s" : ""));
+            sprintf(buf2, br_tr("your %s gleam%s briefly in the darkness."), buf, (theItem->quantity == 1 ? "s" : ""));
             messageWithColor(buf2, &itemMessageColor, 0);
             if (uncurse(theItem)) {
-                sprintf(buf2, "a malevolent force leaves your %s.", buf);
+                sprintf(buf2, br_tr("a malevolent force leaves your %s."), buf);
                 messageWithColor(buf2, &itemMessageColor, 0);
             }
             createFlare(player.loc.x, player.loc.y, SCROLL_ENCHANTMENT_LIGHT);
@@ -7181,14 +7181,14 @@ boolean readScroll(item *theItem) {
                 tempItem = rogue.armor;
                 tempItem->flags |= ITEM_PROTECTED;
                 itemName(tempItem, buf2, false, false, NULL);
-                sprintf(buf, "a protective golden light covers your %s.", buf2);
+                sprintf(buf, br_tr("a protective golden light covers your %s."), buf2);
                 messageWithColor(buf, &itemMessageColor, 0);
                 if (uncurse(tempItem)) {
-                    sprintf(buf, "a malevolent force leaves your %s.", buf2);
+                    sprintf(buf, br_tr("a malevolent force leaves your %s."), buf2);
                     messageWithColor(buf, &itemMessageColor, 0);
                 }
             } else {
-                message("a protective golden light surrounds you, but it quickly disperses.", 0);
+                message(br_tr("a protective golden light surrounds you, but it quickly disperses."), 0);
             }
             createFlare(player.loc.x, player.loc.y, SCROLL_PROTECTION_LIGHT);
             break;
@@ -7197,27 +7197,27 @@ boolean readScroll(item *theItem) {
                 tempItem = rogue.weapon;
                 tempItem->flags |= ITEM_PROTECTED;
                 itemName(tempItem, buf2, false, false, NULL);
-                sprintf(buf, "a protective golden light covers your %s.", buf2);
+                sprintf(buf, br_tr("a protective golden light covers your %s."), buf2);
                 messageWithColor(buf, &itemMessageColor, 0);
                 if (uncurse(tempItem)) {
-                    sprintf(buf, "a malevolent force leaves your %s.", buf2);
+                    sprintf(buf, br_tr("a malevolent force leaves your %s."), buf2);
                     messageWithColor(buf, &itemMessageColor, 0);
                 }
                 if (rogue.weapon->quiverNumber) {
                     rogue.weapon->quiverNumber = rand_range(1, 60000);
                 }
             } else {
-                message("a protective golden light covers your empty hands, but it quickly disperses.", 0);
+                message(br_tr("a protective golden light covers your empty hands, but it quickly disperses."), 0);
             }
             createFlare(player.loc.x, player.loc.y, SCROLL_PROTECTION_LIGHT);
             break;
         case SCROLL_SANCTUARY:
             spawnDungeonFeature(player.loc.x, player.loc.y, &dungeonFeatureCatalog[DF_SACRED_GLYPHS], true, false);
-            messageWithColor("sprays of color arc to the ground, forming glyphs where they alight.", &itemMessageColor, 0);
+            messageWithColor(br_tr("sprays of color arc to the ground, forming glyphs where they alight."), &itemMessageColor, 0);
             break;
         case SCROLL_MAGIC_MAPPING:
             confirmMessages();
-            messageWithColor("this scroll has a map on it!", &itemMessageColor, 0);
+            messageWithColor(br_tr("this scroll has a map on it!"), &itemMessageColor, 0);
             for (i=0; i<DCOLS; i++) {
                 for (j=0; j<DROWS; j++) {
                     if (cellHasTMFlag((pos){ i, j }, TM_IS_SECRET)) {
@@ -7245,7 +7245,7 @@ boolean readScroll(item *theItem) {
             break;
         case SCROLL_AGGRAVATE_MONSTER:
             aggravateMonsters(DCOLS + DROWS, player.loc.x, player.loc.y, &gray);
-            message("the scroll emits a piercing shriek that echoes throughout the dungeon!", 0);
+            message(br_tr("the scroll emits a piercing shriek that echoes throughout the dungeon!"), 0);
             break;
         case SCROLL_SUMMON_MONSTER:
             for (j=0; j<25 && numberOfMonsters < 3; j++) {
@@ -7267,22 +7267,22 @@ boolean readScroll(item *theItem) {
                 }
             }
             if (numberOfMonsters > 1) {
-                message("the fabric of space ripples, and monsters appear!", 0);
+                message(br_tr("the fabric of space ripples, and monsters appear!"), 0);
             } else if (numberOfMonsters == 1) {
-                message("the fabric of space ripples, and a monster appears!", 0);
+                message(br_tr("the fabric of space ripples, and a monster appears!"), 0);
             } else {
-                message("the fabric of space boils violently around you, but nothing happens.", 0);
+                message(br_tr("the fabric of space boils violently around you, but nothing happens."), 0);
             }
             break;
         case SCROLL_NEGATION:
-            negationBlast("the scroll", DCOLS);
+            negationBlast(br_tr("the scroll"), DCOLS);
             break;
         case SCROLL_SHATTERING:
-            messageWithColor("the scroll emits a wave of turquoise light that pierces the nearby walls!", &itemMessageColor, 0);
+            messageWithColor(br_tr("the scroll emits a wave of turquoise light that pierces the nearby walls!"), &itemMessageColor, 0);
             crystalize(9);
             break;
         case SCROLL_DISCORD:
-            discordBlast("the scroll", DCOLS);
+            discordBlast(br_tr("the scroll"), DCOLS);
             break;
     }
 
@@ -7324,9 +7324,9 @@ boolean drinkPotion(item *theItem) {
         && ((theItem->flags & ITEM_MAGIC_DETECTED) || potionKind.identified)) {
 
         if (potionKind.identified) {
-            sprintf(buf,"Really drink a potion of %s?", potionKind.name);
+            sprintf(buf,br_tr("Really drink a potion of %s?"), br_tr(potionKind.name));
         } else {
-            sprintf(buf,"Really drink a cursed potion?");
+            strcpy(buf, br_tr("Really drink a cursed potion?"));
         }
         if (!confirm(buf, false)) {
             return false;
@@ -7338,8 +7338,8 @@ boolean drinkPotion(item *theItem) {
 
     switch (theItem->kind) {
         case POTION_LIFE:
-            sprintf(buf, "%syour maximum health increases by %i%%.",
-                    ((player.currentHP < player.info.maxHP) ? "you heal completely and " : ""),
+            sprintf(buf, br_tr("%syour maximum health increases by %i%%."),
+                    ((player.currentHP < player.info.maxHP) ? br_tr("you heal completely and ") : ""),
                     (player.info.maxHP + magnitude) * 100 / player.info.maxHP - 100);
 
             player.info.maxHP += magnitude;
@@ -7349,11 +7349,11 @@ boolean drinkPotion(item *theItem) {
             break;
         case POTION_HALLUCINATION:
             player.status[STATUS_HALLUCINATING] = player.maxStatus[STATUS_HALLUCINATING] = magnitude;
-            message("colors are everywhere! The walls are singing!", 0);
+            message(br_tr("colors are everywhere! The walls are singing!"), 0);
             break;
         case POTION_INCINERATION:
             //colorFlash(&darkOrange, 0, IN_FIELD_OF_VIEW, 4, 4, player.loc.x, player.loc.y);
-            message("as you uncork the flask, it explodes in flame!", 0);
+            message(br_tr("as you uncork the flask, it explodes in flame!"), 0);
             spawnDungeonFeature(player.loc.x, player.loc.y, &dungeonFeatureCatalog[DF_INCINERATION_POTION], true, false);
             exposeCreatureToFire(&player);
             break;
@@ -7362,11 +7362,11 @@ boolean drinkPotion(item *theItem) {
             player.maxStatus[STATUS_DARKNESS] = max(magnitude, player.maxStatus[STATUS_DARKNESS]);
             updateMinersLightRadius();
             updateVision(true);
-            message("your vision flickers as a cloak of darkness settles around you!", 0);
+            message(br_tr("your vision flickers as a cloak of darkness settles around you!"), 0);
             break;
         case POTION_DESCENT:
             colorFlash(&darkBlue, 0, IN_FIELD_OF_VIEW, 3, 3, player.loc.x, player.loc.y);
-            message("vapor pours out of the flask and causes the floor to disappear!", 0);
+            message(br_tr("vapor pours out of the flask and causes the floor to disappear!"), 0);
             spawnDungeonFeature(player.loc.x, player.loc.y, &dungeonFeatureCatalog[DF_HOLE_POTION], true, false);
             if (!player.status[STATUS_LEVITATING]) {
                 player.bookkeepingFlags |= MB_IS_FALLING;
@@ -7380,16 +7380,16 @@ boolean drinkPotion(item *theItem) {
             //Needed to make potion have immediate effect
             player.weaknessAmount = 0;
             updateEncumbrance();
-            messageWithColor("newfound strength surges through your body.", &advancementMessageColor, 0);
+            messageWithColor(br_tr("newfound strength surges through your body."), &advancementMessageColor, 0);
             createFlare(player.loc.x, player.loc.y, POTION_STRENGTH_LIGHT);
             break;
         case POTION_POISON:
             spawnDungeonFeature(player.loc.x, player.loc.y, &dungeonFeatureCatalog[DF_POISON_GAS_CLOUD_POTION], true, false);
-            message("caustic gas billows out of the open flask!", 0);
+            message(br_tr("caustic gas billows out of the open flask!"), 0);
             break;
         case POTION_PARALYSIS:
             spawnDungeonFeature(player.loc.x, player.loc.y, &dungeonFeatureCatalog[DF_PARALYSIS_GAS_CLOUD_POTION], true, false);
-            message("your muscles stiffen as a cloud of pink gas bursts from the open flask!", 0);
+            message(br_tr("your muscles stiffen as a cloud of pink gas bursts from the open flask!"), 0);
             break;
         case POTION_TELEPATHY:
             makePlayerTelepathic(magnitude);
@@ -7397,14 +7397,14 @@ boolean drinkPotion(item *theItem) {
         case POTION_LEVITATION:
             player.status[STATUS_LEVITATING] = player.maxStatus[STATUS_LEVITATING] = magnitude;
             player.bookkeepingFlags &= ~MB_SEIZED; // break free of holding monsters
-            message("you float into the air!", 0);
+            message(br_tr("you float into the air!"), 0);
             break;
         case POTION_CONFUSION:
             spawnDungeonFeature(player.loc.x, player.loc.y, &dungeonFeatureCatalog[DF_CONFUSION_GAS_CLOUD_POTION], true, false);
-            message("a shimmering cloud of rainbow-colored gas billows out of the open flask!", 0);
+            message(br_tr("a shimmering cloud of rainbow-colored gas billows out of the open flask!"), 0);
             break;
         case POTION_LICHEN:
-            message("a handful of tiny spores burst out of the open flask!", 0);
+            message(br_tr("a handful of tiny spores burst out of the open flask!"), 0);
             spawnDungeonFeature(player.loc.x, player.loc.y, &dungeonFeatureCatalog[DF_LICHEN_PLANTED], true, false);
             break;
         case POTION_DETECT_MAGIC: {
@@ -7444,14 +7444,14 @@ boolean drinkPotion(item *theItem) {
             if (hadEffectOnLevel || hadEffectOnPack) {
                 tryIdentifyLastItemKinds(HAS_INTRINSIC_POLARITY);
                 if (hadEffectOnLevel && hadEffectOnPack) {
-                    message("you can somehow feel the presence of magic on the level and in your pack.", 0);
+                    message(br_tr("you can somehow feel the presence of magic on the level and in your pack."), 0);
                 } else if (hadEffectOnLevel) {
-                    message("you can somehow feel the presence of magic on the level.", 0);
+                    message(br_tr("you can somehow feel the presence of magic on the level."), 0);
                 } else {
-                    message("you can somehow feel the presence of magic in your pack.", 0);
+                    message(br_tr("you can somehow feel the presence of magic in your pack."), 0);
                 }
             } else {
-                message("you can somehow feel the absence of magic on the level and in your pack.", 0);
+                message(br_tr("you can somehow feel the absence of magic on the level and in your pack."), 0);
             }
             break;
         }
@@ -7463,14 +7463,14 @@ boolean drinkPotion(item *theItem) {
             if (player.status[STATUS_BURNING]) {
                 extinguishFireOnCreature(&player);
             }
-            message("a comforting breeze envelops you, and you no longer fear fire.", 0);
+            message(br_tr("a comforting breeze envelops you, and you no longer fear fire."), 0);
             break;
         case POTION_INVISIBILITY:
             player.status[STATUS_INVISIBLE] = player.maxStatus[STATUS_INVISIBLE] = magnitude;
-            message("you shiver as a chill runs up your spine.", 0);
+            message(br_tr("you shiver as a chill runs up your spine."), 0);
             break;
         default:
-            message("you feel very strange, as though your body doesn't know how to react!", REQUIRE_ACKNOWLEDGMENT);
+            message(br_tr("you feel very strange, as though your body doesn't know how to react!"), REQUIRE_ACKNOWLEDGMENT);
     }
 
     if (!potionKind.identified) {
@@ -7573,7 +7573,7 @@ int itemMagicPolarity(item *theItem) {
 }
 
 void unequip(item *theItem) {
-    char buf[COLS * 3], buf2[COLS * 3];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
     unsigned char command[3];
 
     command[0] = UNEQUIP_KEY;
@@ -7607,7 +7607,7 @@ void unequip(item *theItem) {
             itemName(theItem, buf2, false, true, NULL);
         }
         confirmMessages();
-        sprintf(buf, br_tr("you are no longer %s %s."), (theItem->category & WEAPON ? "wielding" : "wearing"), buf2);
+        sprintf(buf, br_tr("you are no longer %s %s."), (theItem->category & WEAPON ? br_tr("wielding") : br_tr("wearing")), buf2);
         messageWithColor(buf, &itemMessageColor, 0);
     }
     playerTurnEnded();
@@ -7690,7 +7690,7 @@ item *promptForItemOfType(unsigned short category,
     theItem = itemOfPackLetter(keystroke);
     if (theItem == NULL) {
         confirmMessages();
-        message("No such item.", 0);
+        message(br_tr("No such item."), 0);
         return NULL;
     }
 
@@ -7718,7 +7718,7 @@ item *itemAtLoc(pos loc) {
         pmapAt(loc)->flags &= ~HAS_ITEM;
         hiliteCell(loc.x, loc.y, &white, 75, true);
         rogue.automationActive = false;
-        message("ERROR: An item was supposed to be here, but I couldn't find it.", REQUIRE_ACKNOWLEDGMENT);
+        message(br_tr("ERROR: An item was supposed to be here, but I couldn't find it."), REQUIRE_ACKNOWLEDGMENT);
         refreshDungeonCell(loc);
     }
     return theItem;
@@ -7847,9 +7847,9 @@ boolean equipItem(item *theItem, boolean force, item *unequipHint) {
     if (!force) {
         if (previouslyEquippedItem) {
             itemName(previouslyEquippedItem, buf3, false, false, NULL);
-            sprintf(buf1, br_tr("Now %s %s instead of your %s."), (theItem->category & WEAPON ? "wielding" : "wearing"), buf2, buf3);
+            sprintf(buf1, br_tr("Now %s %s instead of your %s."), (theItem->category & WEAPON ? br_tr("wielding") : br_tr("wearing")), buf2, buf3);
         } else {
-            sprintf(buf1, br_tr("Now %s %s."), (theItem->category & WEAPON ? "wielding" : "wearing"), buf2);
+            sprintf(buf1, br_tr("Now %s %s."), (theItem->category & WEAPON ? br_tr("wielding") : br_tr("wearing")), buf2);
         }
 
         confirmMessages();
