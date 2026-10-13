@@ -90,5 +90,5 @@ void br_keyboard_draw(SDL_Renderer *r,int width,int height) {
     }
     snprintf(caption,sizeof caption,"%d/%d 字节  方向选字符  A 输入  X 删除",used,limit);
     line(r,caption,20,height-54,columns,gray);
-    line(r,"Start 完成  B 取消  删=删除  定=完成  返=取消",20,height-28,columns,gray);
+    line(r,"ST 完成  B 取消  删=删除  定=完成  返=取消",20,height-28,columns,gray);
 }

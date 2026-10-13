@@ -6,12 +6,14 @@
 /* Only the labels, glyph and bars already painted by the native sidebar.
    No creature pointer or internal health value crosses this boundary. */
 typedef struct {
-    int x,y,atlas,player,line_count;
+    int x,y,atlas,player,line_count,creature;
     SDL_Color ink;
     char name[1024],lines[BR_NEARBY_LINES][1024];
     SDL_Color tones[BR_NEARBY_LINES];
     int bars[BR_NEARBY_LINES]; /* -1 text, otherwise rounded visible percent */
 } BrNearby;
+void br_game_map_caption(char *out,size_t capacity,int x,int y);
+void br_game_map_details(int x,int y);
 void br_map_nearby_reset(void);
 void br_map_nearby_add(const BrNearby *entry);
 void br_game_nearby_add(const BrNearby *entry,int glyph);
@@ -37,6 +39,8 @@ void br_game_target_view(int enabled,int x,int y);
 void br_map_message(const char *text);
 void br_map_searching(int enabled);
 /* hunger: 0 fed, 1 hungry, 2 weak, 3 fainting. */
+void br_map_effects_reset(void);
+void br_map_effect(const char *name,int percent,SDL_Color ink);
 void br_map_hud(const char *metrics, const char *statuses, const char *details,
                 int nutrition, int nutrition_max, int hunger);
 /* Both bars share one column grid on the right — label, bar, then value — so
@@ -53,6 +57,8 @@ int br_map_moving(void);
 int br_map_event(const SDL_Event *event);
 /* Returns logical map coordinates for a pointer in the passive local viewport. */
 int br_map_pointer(int screen_x, int screen_y, int *map_x, int *map_y);
+/* Separate screen-space overlay composition; never part of the ASCII map. */
+void br_nearby_overlay_draw(SDL_Renderer *renderer,int width,int height,SDL_Texture *atlas,int aw,int ah);
 void br_map_draw(SDL_Renderer *renderer, int width, int height, SDL_Texture *atlas,
                  int atlas_width, int atlas_height);
 #endif

@@ -13,6 +13,14 @@ typedef struct { int atlas; SDL_Color fore, back; } Cell;
 static Cell cells[128][64];
 static int columns, rows, px, py, depth, hp, max_hp;
 static int nutrition, nutrition_max, hunger;
+static struct {char name[160];int percent;SDL_Color ink;} effects[32];
+static int effect_count;
+void br_map_effects_reset(void) {effect_count=0;}
+void br_map_effect(const char *name,int percent,SDL_Color ink) {
+    if(effect_count>=32)return;
+    snprintf(effects[effect_count].name,sizeof effects[effect_count].name,"%s",name);
+    effects[effect_count].percent=percent;effects[effect_count++].ink=ink;
+}
 static int replay, replay_paused, replay_oos;
 static unsigned long replay_turn,replay_total;
 static int exploring, local = 1, mode, closing, cx, cy;
@@ -30,6 +38,7 @@ static void copy_text(char *to,size_t capacity,const char *from);
 static BrNearby nearby[30];
 static int nearby_count,nearby_open,nearby_selected,nearby_located;
 static int nearby_page_size=3;
+static int nearby_overlay;
 void br_map_nearby_reset(void) {nearby_count=0;}
 void br_map_nearby_add(const BrNearby *entry) {
     if(nearby_count<30)nearby[nearby_count++]=*entry;
@@ -45,7 +54,8 @@ static void nearby_toggle(void) {
         for(int i=0;i<nearby_count;i++)if(nearby[i].x==x && nearby[i].y==y) {nearby_selected=i;found=1;break;}
         if(!found && nearby_count<30) {
             BrNearby e={0};e.x=x;e.y=y;e.atlas=cells[x][y].atlas;e.ink=cells[x][y].fore;
-            copy_text(e.name,sizeof e.name,context_note[0]?context_note:"光标位置");
+            br_game_map_caption(e.name,sizeof e.name,x,y);
+            if(!e.name[0])copy_text(e.name,sizeof e.name,"光标位置");
             nearby_selected=nearby_count;nearby[nearby_count++]=e;
         }
     }
@@ -65,6 +75,7 @@ static int nearby_event(const SDL_Event *event) {
         else if(key==SDLK_F8 && !event->key.repeat && nearby_count)nearby_located=1;
         else if(key==SDLK_RETURN && !event->key.repeat && nearby_count) {
             BrNearby *e=&nearby[nearby_selected];char full[32000];
+            if(!e->player) {br_game_map_details(e->x,e->y);return 1;}
             if(e->player) {
                 copy_text(full,sizeof full,details);
                 char *tail=strstr(full,"\n附近信息\n");if(tail)*tail=0;
@@ -156,6 +167,10 @@ int br_map_moving(void) { return exploring && !mode && !aiming && !acknowledging
 int br_map_showing(void) { return columns && rows && (acknowledging || aiming || ((exploring || session || replay) && (local || mode))); }
 
 int br_map_event(const SDL_Event *event) {
+    if(event->type==SDL_KEYDOWN && event->key.keysym.sym==SDLK_F9) {
+        if(!event->key.repeat && br_map_showing())nearby_overlay=(nearby_overlay+1)%3;
+        return 1;
+    }
     if(nearby_open) {nearby_selected=clamp(nearby_selected,0,nearby_count-1);return nearby_event(event);}
     if(acknowledging) {
         if(event->type==SDL_KEYDOWN && event->key.keysym.sym==SDLK_F5) {
@@ -201,7 +216,12 @@ int br_map_event(const SDL_Event *event) {
         if (key == SDLK_b || key == SDLK_ESCAPE) {
             if (mode == 2) mode = 1;
             else { mode = 0; closing = 1; }
-        } else if (key == SDLK_a || key == SDLK_RETURN) mode = 2;
+        } else if (key == SDLK_a || key == SDLK_RETURN) {
+            if(!event->key.repeat) {
+                if(mode==1)mode=2;
+                else br_game_map_details(cx,cy);
+            }
+        }
         else if (key == SDLK_HOME) { cx = px; cy = py; }
         else if (key == SDLK_LEFT) cx = clamp(cx - 1, 0, columns - 1);
         else if (key == SDLK_RIGHT) cx = clamp(cx + 1, 0, columns - 1);
@@ -304,22 +324,83 @@ static int entry_visible(const BrNearby *e) {
     return e->x>=origin_x && e->x<origin_x+viewport.w/tile_w
         && e->y>=origin_y && e->y<origin_y+viewport.h/tile_h;
 }
+/* Both windows share the placement decision, but neither changes the camera. */
+static int nearby_panel_left(int width) {
+    if(nearby_overlay)return nearby_overlay==1?width-302:16;
+    BrNearby *focus=nearby_count?&nearby[clamp(nearby_selected,0,nearby_count-1)]:NULL;
+    int sx=focus?entry_screen_x(focus->x):width/2,player_x=entry_screen_x(px);
+    int left_cost=(sx<302)*2+(player_x<302);
+    int right_cost=(sx>=width-302)*2+(player_x>=width-302);
+    return left_cost<=right_cost?16:width-302;
+}
+static void small_text(SDL_Renderer *r,const char *value,int x,int y,int limit,SDL_Color ink) {
+    int used=0;
+    for(BrTextToken t;(t=br_text_next(value)).bytes;value+=t.bytes) {
+        if(t.is_color)continue;
+        if(used+t.columns>limit)break;
+        br_draw_glyph(r,t.codepoint,(SDL_Rect){x+used*6,y,t.columns*6,12},ink);used+=t.columns;
+    }
+}
+static void draw_nearby_overlay(SDL_Renderer *r,int width,int height,SDL_Texture *atlas,int aw,int ah) {
+    int ids[30],heights[30],count=0,total=0,used=24;
+    int x=nearby_overlay==1?16:width-194,y=64;
+    /* Copy the native sidebar order, including items and terrain. Only the
+       player is already represented by the permanent HUD. No hidden queries. */
+    for(int i=0;i<nearby_count;i++)if(!nearby[i].player)total++;
+    for(int i=0;i<nearby_count;i++)if(!nearby[i].player) {
+        char wrapped[2400];int rows=br_text_wrap(wrapped,sizeof wrapped,nearby[i].name,23);
+        int h=(rows>0?rows:1)*14+4;
+        for(int k=0;k<nearby[i].line_count;k++)if(nearby[i].bars[k]>=0){h+=16;break;}
+        if(used+h+16>height-80-y)break;
+        ids[count]=i;heights[count++]=h;used+=h;
+    }
+    SDL_BlendMode blend;SDL_GetRenderDrawBlendMode(r,&blend);
+    SDL_SetRenderDrawBlendMode(r,SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(r,18,15,38,160);
+    SDL_Rect background={x,y,178,used+(total>count?16:count?0:20)};
+    SDL_RenderFillRect(r,&background);
+    SDL_SetRenderDrawBlendMode(r,blend);
+    char title[80];snprintf(title,sizeof title,"附近 %d  · L2 切换",total);
+    small_text(r,title,x+10,y+6,26,BR_UI_MUTED);
+    if(!count && !total)small_text(r,"暂无附近对象",x+10,y+24,26,BR_UI_MUTED);
+    int row=y+24;
+    for(int n=0;n<count;n++) {
+        BrNearby *e=&nearby[ids[n]];int bar=-1,state=-1;
+        if(e->atlas>=0 && e->atlas<384) {
+            SDL_Rect src={(e->atlas%16)*aw,(e->atlas/16)*ah,aw,ah},dst={x+10,row,12,14};
+            SDL_SetTextureColorMod(atlas,e->ink.r,e->ink.g,e->ink.b);SDL_RenderCopy(r,atlas,&src,&dst);
+        }
+        char wrapped[2400];br_text_wrap(wrapped,sizeof wrapped,e->name,23);
+        int text_y=row;
+        for(char *line=wrapped;;) {
+            char *nl=strchr(line,'\n');if(nl)*nl=0;
+            small_text(r,line,x+30,text_y,23,e->ink);text_y+=14;
+            if(!nl)break;
+            line=nl+1;
+        }
+        for(int k=0;k<e->line_count;k++) {
+            if(e->bars[k]>=0 && bar<0)bar=k;
+            if(e->bars[k]<0)state=k;
+        }
+        if(bar>=0) {
+            draw_bar(r,x+30,text_y+5,60,4,e->bars[bar],BR_UI_BAR_RED);
+            if(state>=0)small_text(r,e->lines[state],x+96,text_y,12,e->tones[state]);
+        }
+        row+=heights[n];
+    }
+    if(total>count) {
+        char more[80];snprintf(more,sizeof more,"另 %d 项 · R1 查看",total-count);
+        small_text(r,more,x+10,row,26,BR_UI_MUTED);
+    }
+}
 static void draw_nearby(SDL_Renderer *r,int width,int height,SDL_Texture *atlas,int aw,int ah) {
     int panel_width=286,top=60,bottom=height-92;
     if(bottom-top<120)return;
     if(nearby_selected>=nearby_count)nearby_selected=nearby_count?nearby_count-1:0;
     BrNearby *focus=nearby_count?&nearby[nearby_selected]:NULL;
-    int sx=focus?entry_screen_x(focus->x):width/2;
-    int player_x=entry_screen_x(px);
-    /* Prefer the side that covers neither target nor player. If both sides
-       conflict use a shallow summary between them, preserving map geometry. */
-    int left_cost=(sx<panel_width+16)*2+(player_x<panel_width+16);
-    int right_cost=(sx>=width-panel_width-16)*2+(player_x>=width-panel_width-16);
-    int shallow=left_cost && right_cost;
-    int left=left_cost<=right_cost?16:width-panel_width-16;
-    if(shallow) {panel_width=width-32;left=16;}
+    int left=nearby_panel_left(width);
     panel_fill(r,(SDL_Rect){left,top,panel_width,bottom-top},BR_UI_BOX);
-    text(r,shallow?"附近":"角色与附近",left+14,top+8,BR_UI_FOCUS);
+    text(r,"角色与附近",left+14,top+8,BR_UI_FOCUS);
     char pagetext[48];snprintf(pagetext,sizeof pagetext,"%d/%d",nearby_count?nearby_selected+1:0,nearby_count);
     text(r,pagetext,left+panel_width-14-br_text_width(pagetext)*10,top+8,BR_UI_MUTED);
     if(!focus)text(r,"暂无侧栏对象",left+14,top+42,BR_UI_MUTED);
@@ -378,7 +459,7 @@ static void draw_nearby(SDL_Renderer *r,int width,int height,SDL_Texture *atlas,
         y+=heights[i];
     }
     panel_fill(r,(SDL_Rect){0,height-28,width,28},(SDL_Color){0,0,0,255});
-    text(r,nearby_located?"上下选对象  A 详情  B 回原视野  R1 关闭":"上下选对象  A 详情  X 定位  L2/R2 翻页  B 返回",18,height-24,BR_UI_MUTED);
+    text(r,nearby_located?"上下选对象  A 详情  B 回原视野":"上下选对象  A 详情  X 定位  L1/R1 翻页  B 返回",18,height-24,BR_UI_MUTED);
 }
 void br_map_draw(SDL_Renderer *r, int width, int height, SDL_Texture *atlas, int aw, int ah) {
     if (!br_map_showing()) return;
@@ -398,7 +479,21 @@ void br_map_draw(SDL_Renderer *r, int width, int height, SDL_Texture *atlas, int
        them there would collapse almost every state into an anonymous +N. */
     if(statuses[0] && !replay) {
         int sx=18+(br_text_width(title)+2+br_text_width(state)+2)*10;
-        clipped_text(r,statuses,sx,7,BR_UI_DANGER,(BR_HUD_LABEL_X-sx)/10);
+        if(!effect_count)clipped_text(r,statuses,sx,7,BR_UI_DANGER,(BR_HUD_LABEL_X-sx)/10);
+        else {
+            int shown=0;
+            for(int i=0;i<effect_count && shown<1;i++) {
+                int w=br_text_width(effects[i].name)*10;
+                if(sx+w+12+(i+1<effect_count?30:0)>BR_HUD_LABEL_X)break;
+                text(r,effects[i].name,sx,7,effects[i].ink);
+                draw_bar(r,sx,28,w,3,effects[i].percent,effects[i].ink);
+                sx+=w+12;shown++;
+            }
+            if(shown<effect_count) {
+                char more[16];snprintf(more,sizeof more,"+%d",effect_count-shown);
+                clipped_text(r,more,sx,7,BR_UI_MUTED,(BR_HUD_LABEL_X-sx)/10);
+            }
+        }
     }
     text(r,"生命",BR_HUD_LABEL_X,7,BR_UI_INK);
     draw_bar(r,BR_HUD_BAR_X,15,BR_HUD_BAR_W,12,
@@ -482,8 +577,8 @@ void br_map_draw(SDL_Renderer *r, int width, int height, SDL_Texture *atlas, int
     if (acknowledging) snprintf(coordinates,sizeof coordinates,acknowledging==2?"A/B 继续  X 背包  L1 消息  R1 信息":"A/B 继续    L1 消息    R1 信息");
     else if (automated) snprintf(coordinates,sizeof coordinates,"[B] 中断自动行动");
     else if (aiming || mode) snprintf(coordinates,sizeof coordinates,"光标 %d,%d    角色 %d,%d",(aiming?tx:cx)+1,(aiming?ty:cy)+1,px+1,py+1);
-    else if(replay) snprintf(coordinates,sizeof coordinates,"Start 播放  左右 逐回合  上下 变速  L2 菜单");
-    else snprintf(coordinates,sizeof coordinates,"X背包 Y搜索 Start等待 L1消息 R1信息 L2行动 R2+方向奔跑");
+    else if(replay) snprintf(coordinates,sizeof coordinates,"ST 播放  左右 逐回合  上下 变速  Menu 菜单");
+    else snprintf(coordinates,sizeof coordinates,"X背包 Y搜索 ST等待 L1消息 R1信息 Menu行动 L2附近");
     if(aiming && !acknowledging) {
         size_t used=strlen(coordinates);snprintf(coordinates+used,sizeof coordinates-used,"  Select 全图  R1 信息");
     }
@@ -499,7 +594,7 @@ void br_map_draw(SDL_Renderer *r, int width, int height, SDL_Texture *atlas, int
         }
     } else if (mode && !acknowledging) {
         text(r,mode == 1 ? "方向浏览    A 放大    B 返回    X 回角色" :
-             "方向浏览  X 回角色  B 全图  Select 退出",16,height-48,BR_UI_INK);
+             "方向浏览  A 详情  X 回角色  B 全图  Select 退出",16,height-48,BR_UI_INK);
     } else {
         char wrapped[24000];
         int count=br_text_wrap(wrapped,sizeof wrapped,message,(width-32)/10);
@@ -525,4 +620,11 @@ void br_map_draw(SDL_Renderer *r, int width, int height, SDL_Texture *atlas, int
             p+=token.bytes;
         }
     }
+}
+
+/* Independent screen-space composition pass. The platform calls this after the
+   complete map/HUD, before presentation; it owns no tile or camera geometry. */
+void br_nearby_overlay_draw(SDL_Renderer *r,int width,int height,SDL_Texture *atlas,int aw,int ah) {
+    if(br_map_showing() && nearby_overlay)
+        draw_nearby_overlay(r,width,height,atlas,aw,ah);
 }

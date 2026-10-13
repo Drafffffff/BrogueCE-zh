@@ -3,7 +3,7 @@
     "id": "s_b877e51c9249f790",
     "file": "src/brogue/Recordings.c",
     "source": "recording paused. Press space to play.",
-    "zh_CN": "录像已暂停。按 Start 继续播放。",
+    "zh_CN": "录像已暂停。按 ST 继续播放。",
     "status": "prototype",
     "expected_count": 1
   },

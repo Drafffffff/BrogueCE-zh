@@ -31,7 +31,7 @@
 #include "Globals.h"
 
 void exposeCreatureToFire(creature *monst) {
-    char buf[COLS], buf2[COLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
     if ((monst->bookkeepingFlags & MB_IS_DYING)
         || monst->status[STATUS_IMMUNE_TO_FIRE]
         || (monst->info.flags & MONST_INVULNERABLE)
@@ -45,10 +45,10 @@ void exposeCreatureToFire(creature *monst) {
             player.info.foreColor = &torchLightColor;
             refreshDungeonCell(player.loc);
             //updateVision(); // this screws up the firebolt visual effect by erasing it while a message is displayed
-            combatMessage("you catch fire", &badMessageColor);
+            combatMessage(br_tr("you catch fire"), &badMessageColor);
         } else if (canDirectlySeeMonster(monst)) {
-            monsterName(buf, monst, true);
-            sprintf(buf2, "%s catches fire", buf);
+            br_display_monster_name(buf, monst, true);
+            sprintf(buf2, br_tr("%s catches fire"), buf);
             combatMessage(buf2, messageColorFromVictim(monst));
         }
     }
@@ -63,7 +63,7 @@ void updateFlavorText() {
             && rogue.armor->enchant2 == A_RESPIRATION
             && tileCatalog[pmapAt(player.loc)->layers[highestPriorityLayer(player.loc.x, player.loc.y, false)]].flags & T_RESPIRATION_IMMUNITIES) {
 
-            flavorMessage("A pocket of cool, clean air swirls around you.");
+            flavorMessage(br_tr("A pocket of cool, clean air swirls around you."));
         } else if (player.status[STATUS_LEVITATING]) {
             describeLocation(buf, player.loc.x, player.loc.y);
             flavorMessage(buf);
@@ -104,7 +104,7 @@ boolean monsterShouldFall(creature *monst) {
 
 // Called at least every 100 ticks; may be called more frequently.
 void applyInstantTileEffectsToCreature(creature *monst) {
-    char buf[COLS], buf2[COLS], buf3[COLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES], buf3[BR_MESSAGE_BYTES];
     const char *s;
     short *x = &(monst->loc.x), *y = &(monst->loc.y), damage;
     enum dungeonLayers layer;
@@ -174,24 +174,24 @@ void applyInstantTileEffectsToCreature(creature *monst) {
         && cellHasTerrainFlag((pos){ *x, *y }, T_LAVA_INSTA_DEATH)) {
 
         if (monst == &player) {
-            sprintf(buf, "you plunge into %s!",
-                    tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_LAVA_INSTA_DEATH)]].description);
+            sprintf(buf, br_tr("you plunge into %s!"),
+                    br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_LAVA_INSTA_DEATH)]].description));
             message(buf, REQUIRE_ACKNOWLEDGMENT);
             sprintf(buf, "Killed by %s",
-                    tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_LAVA_INSTA_DEATH)]].description);
+                    br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_LAVA_INSTA_DEATH)]].description));
             gameOver(buf, true);
             return;
         } else { // it's a monster
             if (canSeeMonster(monst)) {
-                monsterName(buf, monst, true);
-                s = tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_LAVA_INSTA_DEATH)]].description;
+                br_display_monster_name(buf, monst, true);
+                s = br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_LAVA_INSTA_DEATH)]].description);
                 // Skip over articles
                 if (strncmp(s, "a ", 2) == 0) {
                     s += 2;
                 } else if (strncmp(s, "an ", 3) == 0) {
                     s += 3;
                 }
-                sprintf(buf2, "%s is consumed by the %s instantly!", buf, s);
+                sprintf(buf2, br_tr("%s is consumed by the %s instantly!"), buf, s);
                 messageWithColor(buf2, messageColorFromVictim(monst), 0);
             }
             killCreature(monst, false);
@@ -230,8 +230,8 @@ void applyInstantTileEffectsToCreature(creature *monst) {
             refreshDungeonCell((pos){ *x, *y });
         }
         if (canSeeMonster(monst)) {
-            monsterName(buf, monst, true);
-            sprintf(buf2, "a pressure plate clicks underneath %s!", buf);
+            br_display_monster_name(buf, monst, true);
+            sprintf(buf2, br_tr("a pressure plate clicks underneath %s!"), buf);
             message(buf2, REQUIRE_ACKNOWLEDGMENT);
         } else if (playerCanSee(*x, *y)) {
             // usually means an invisible monster
@@ -288,15 +288,15 @@ void applyInstantTileEffectsToCreature(creature *monst) {
         if (monst == &player) {
             if (!rogue.automationActive) {
                 // Don't interrupt exploration with this message.
-                sprintf(buf2, "you are stuck fast in %s!",
-                        tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_ENTANGLES)]].description);
+                sprintf(buf2, br_tr("you are stuck fast in %s!"),
+                        br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_ENTANGLES)]].description));
                 message(buf2, 0);
             }
         } else if (canDirectlySeeMonster(monst)) { // it's a monster
             if (!rogue.automationActive) {
-                monsterName(buf, monst, true);
-                sprintf(buf2, "%s is stuck fast in %s!", buf,
-                        tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_ENTANGLES)]].description);
+                br_display_monster_name(buf, monst, true);
+                sprintf(buf2, br_tr("%s is stuck fast in %s!"), buf,
+                        br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_ENTANGLES)]].description));
                 message(buf2, 0);
             }
         }
@@ -314,12 +314,12 @@ void applyInstantTileEffectsToCreature(creature *monst) {
             message(tileCatalog[pmap[*x][*y].layers[layer]].flavorText, 0);
             if (rogue.armor && (rogue.armor->flags & ITEM_RUNIC) && rogue.armor->enchant2 == A_DAMPENING) {
                 itemName(rogue.armor, buf2, false, false, NULL);
-                sprintf(buf, "Your %s pulses and absorbs the damage.", buf2);
+                sprintf(buf, br_tr("Your %s pulses and absorbs the damage."), buf2);
                 messageWithColor(buf, &goodMessageColor, 0);
                 autoIdentify(rogue.armor);
             } else if (inflictDamage(NULL, &player, damage, &yellow, false)) {
                 killCreature(&player, false);
-                strcpy(buf2, tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_CAUSES_EXPLOSIVE_DAMAGE)]].description);
+                strcpy(buf2, br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_CAUSES_EXPLOSIVE_DAMAGE)]].description));
                 sprintf(buf, "Killed by %s", buf2);
                 gameOver(buf, true);
                 return;
@@ -328,14 +328,14 @@ void applyInstantTileEffectsToCreature(creature *monst) {
             if (monst->creatureState == MONSTER_SLEEPING) {
                 monst->creatureState = MONSTER_TRACKING_SCENT;
             }
-            monsterName(buf, monst, true);
+            br_display_monster_name(buf, monst, true);
 
             // Get explosive layer before damage in case a death DF replaces the explosion
-            strcpy(buf3, tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_CAUSES_EXPLOSIVE_DAMAGE)]].description);
+            strcpy(buf3, br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_CAUSES_EXPLOSIVE_DAMAGE)]].description));
             if (inflictDamage(NULL, monst, damage, &yellow, false)) {
                 // if killed
-                sprintf(buf2, "%s %s %s.", buf,
-                        (monst->info.flags & MONST_INANIMATE) ? "is destroyed by" : "dies in",
+                sprintf(buf2, br_tr("%s %s %s."), buf,
+                        (monst->info.flags & MONST_INANIMATE) ? br_tr("is destroyed by") : br_tr("dies in"),
                         buf3);
                 messageWithColor(buf2, messageColorFromVictim(monst), 0);
                 killCreature(monst, false);
@@ -343,8 +343,8 @@ void applyInstantTileEffectsToCreature(creature *monst) {
                 return;
             } else {
                 // if survived
-                sprintf(buf2, "%s engulfs %s.",
-                        tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_CAUSES_EXPLOSIVE_DAMAGE)]].description, buf);
+                sprintf(buf2, br_tr("%s engulfs %s."),
+                        br_tr(tileCatalog[pmap[*x][*y].layers[layerWithFlag(*x, *y, T_CAUSES_EXPLOSIVE_DAMAGE)]].description), buf);
                 messageWithColor(buf2, messageColorFromVictim(monst), 0);
             }
         }
@@ -375,8 +375,8 @@ void applyInstantTileEffectsToCreature(creature *monst) {
                     monst->creatureState = MONSTER_TRACKING_SCENT;
                 }
                 flashMonster(monst, &brown, 100);
-                monsterName(buf, monst, true);
-                sprintf(buf2, "%s choke%s and gag%s on the overpowering stench of decay.", buf,
+                br_display_monster_name(buf, monst, true);
+                sprintf(buf2, br_tr("%s choke%s and gag%s on the overpowering stench of decay."), buf,
                         (monst == &player ? "": "s"), (monst == &player ? "": "s"));
                 message(buf2, 0);
             }
@@ -393,8 +393,8 @@ void applyInstantTileEffectsToCreature(creature *monst) {
                     monst->creatureState = MONSTER_TRACKING_SCENT;
                 }
                 flashMonster(monst, &confusionGasColor, 100);
-                monsterName(buf, monst, true);
-                sprintf(buf2, "%s %s very confused!", buf, (monst == &player ? "feel": "looks"));
+                br_display_monster_name(buf, monst, true);
+                sprintf(buf2, br_tr("%s %s very confused!"), buf, (monst == &player ? "feel": "looks"));
                 message(buf2, 0);
             }
             monst->status[STATUS_CONFUSED] = monst->maxStatus[STATUS_CONFUSED] = max(monst->status[STATUS_CONFUSED], 25);
@@ -407,8 +407,8 @@ void applyInstantTileEffectsToCreature(creature *monst) {
 
             if (canDirectlySeeMonster(monst) && !monst->status[STATUS_PARALYZED]) {
                 flashMonster(monst, &pink, 100);
-                monsterName(buf, monst, true);
-                sprintf(buf2, "%s %s paralyzed!", buf, (monst == &player ? "are": "is"));
+                br_display_monster_name(buf, monst, true);
+                sprintf(buf2, br_tr("%s %s paralyzed!"), buf, (monst == &player ? br_tr("are"): br_tr("is")));
                 message(buf2, (monst == &player) ? REQUIRE_ACKNOWLEDGMENT : 0);
             }
             monst->status[STATUS_PARALYZED] = monst->maxStatus[STATUS_PARALYZED] = max(monst->status[STATUS_PARALYZED], 20);
@@ -431,8 +431,8 @@ void applyInstantTileEffectsToCreature(creature *monst) {
                 monst->creatureState = MONSTER_TRACKING_SCENT;
             }
             flashMonster(monst, &green, 100);
-            monsterName(buf, monst, true);
-            sprintf(buf2, "the lichen's grasping tendrils poison %s.", buf);
+            br_display_monster_name(buf, monst, true);
+            sprintf(buf2, br_tr("the lichen's grasping tendrils poison %s."), buf);
             messageWithColor(buf2, messageColorFromVictim(monst), 0);
         }
         damage = max(0, 5 - monst->status[STATUS_POISONED]);
@@ -462,7 +462,7 @@ void applyInstantTileEffectsToCreature(creature *monst) {
 static void applyGradualTileEffectsToCreature(creature *monst, short ticks) {
     short itemCandidates, randItemIndex;
     short x = monst->loc.x, y = monst->loc.y, damage;
-    char buf[COLS * 5], buf2[COLS * 3];
+    char buf[COLS * 5], buf2[BR_MESSAGE_BYTES];
     item *theItem;
     enum dungeonLayers layer;
 
@@ -487,7 +487,7 @@ static void applyGradualTileEffectsToCreature(creature *monst, short ticks) {
                     theItem = dropItem(theItem);
                     if (theItem) {
                         itemName(theItem, buf2, false, true, NULL);
-                        sprintf(buf, "%s float%s away in the current!",
+                        sprintf(buf, br_tr("%s float%s away in the current!"),
                                 buf2,
                                 (theItem->quantity == 1 ? "s" : ""));
                         messageWithColor(buf, &itemMessageColor, 0);
@@ -517,7 +517,7 @@ static void applyGradualTileEffectsToCreature(creature *monst, short ticks) {
                 messageWithColor(tileCatalog[pmap[x][y].layers[layer]].flavorText, &badMessageColor, 0);
                 if (inflictDamage(NULL, &player, damage, tileCatalog[pmap[x][y].layers[layer]].backColor, true)) {
                     killCreature(&player, false);
-                    sprintf(buf, "Killed by %s", tileCatalog[pmap[x][y].layers[layer]].description);
+                    sprintf(buf, "Killed by %s", br_tr(tileCatalog[pmap[x][y].layers[layer]].description));
                     gameOver(buf, true);
                     return;
                 }
@@ -528,7 +528,7 @@ static void applyGradualTileEffectsToCreature(creature *monst, short ticks) {
             }
             if (inflictDamage(NULL, monst, damage, tileCatalog[pmap[x][y].layers[layer]].backColor, true)) {
                 if (canSeeMonster(monst)) {
-                    monsterName(buf, monst, true);
+                    br_display_monster_name(buf, monst, true);
                     sprintf(buf2, "%s dies.", buf);
                     messageWithColor(buf2, messageColorFromVictim(monst), 0);
                 }
@@ -808,31 +808,31 @@ void updateVision(boolean refreshDisplay) {
 
 static void checkNutrition() {
     item *theItem;
-    char buf[DCOLS*3], foodWarning[DCOLS*3];
+    char buf[BR_MESSAGE_BYTES], foodWarning[DCOLS*3];
 
     if (numberOfMatchingPackItems(FOOD, 0, 0, false) == 0) {
-        sprintf(foodWarning, " and have no food");
+        strcpy(foodWarning, br_tr(" and have no food"));
     } else {
         foodWarning[0] = '\0';
     }
 
     if (player.status[STATUS_NUTRITION] == HUNGER_THRESHOLD) {
         player.status[STATUS_NUTRITION]--;
-        sprintf(buf, "you are hungry%s.", foodWarning);
+        sprintf(buf, br_tr("you are hungry%s."), foodWarning);
         message(buf, foodWarning[0] ? REQUIRE_ACKNOWLEDGMENT : 0);
     } else if (player.status[STATUS_NUTRITION] == WEAK_THRESHOLD) {
         player.status[STATUS_NUTRITION]--;
-        sprintf(buf, "you feel weak with hunger%s.", foodWarning);
+        sprintf(buf, br_tr("you feel weak with hunger%s."), foodWarning);
         message(buf, REQUIRE_ACKNOWLEDGMENT);
     } else if (player.status[STATUS_NUTRITION] == FAINT_THRESHOLD) {
         player.status[STATUS_NUTRITION]--;
-        sprintf(buf, "you feel faint with hunger%s.", foodWarning);
+        sprintf(buf, br_tr("you feel faint with hunger%s."), foodWarning);
         message(buf, REQUIRE_ACKNOWLEDGMENT);
     } else if (player.status[STATUS_NUTRITION] <= 1) {
         // Force the player to eat something if he has it
         for (theItem = packItems->nextItem; theItem != NULL; theItem = theItem->nextItem) {
             if (theItem->category == FOOD) {
-                sprintf(buf, "unable to control your hunger, you eat a %s.", (theItem->kind == FRUIT ? "mango" : "ration of food"));
+                sprintf(buf, br_tr("unable to control your hunger, you eat a %s."), (theItem->kind == FRUIT ? br_tr("mango") : br_tr("ration of food")));
                 messageWithColor(buf, &itemMessageColor, REQUIRE_ACKNOWLEDGMENT);
                 confirmMessages();
                 eat(theItem, false);
@@ -850,9 +850,9 @@ static void checkNutrition() {
 
 void burnItem(item *theItem) {
     short x, y;
-    char buf1[COLS * 3], buf2[COLS * 3];
+    char buf1[COLS * 3], buf2[BR_MESSAGE_BYTES];
     itemName(theItem, buf1, false, true, NULL);
-    sprintf(buf2, "%s burn%s up!",
+    sprintf(buf2, br_tr("%s burn%s up!"),
             buf1,
             theItem->quantity == 1 ? "s" : "");
     x = theItem->loc.x;
@@ -889,7 +889,7 @@ static void handleHealthAlerts() {
     short i, currentPercent, previousPercent,
     thresholds[] = {5, 10, 25, 40},
     pThresholds[] = {100, 90, 50};
-    char buf[DCOLS];
+    char buf[BR_MESSAGE_BYTES];
 
     const short healthThresholdsCount = 4,
     poisonThresholdsCount = 3;
@@ -946,8 +946,8 @@ static void addXPXPToAlly(creature *monst) {
         monst->bookkeepingFlags |= MB_TELEPATHICALLY_REVEALED;
         updateVision(true);
         char theMonsterName[100], buf[200];
-        monsterName(theMonsterName, monst, false);
-        sprintf(buf, "you have developed a telepathic bond with your %s.", theMonsterName);
+        br_display_monster_name(theMonsterName, monst, false);
+        sprintf(buf, br_tr("you have developed a telepathic bond with your %s."), theMonsterName);
         messageWithColor(buf, &advancementMessageColor, 0);
     }
 
@@ -1016,7 +1016,7 @@ static void playerFalls() {
             messageWithColor(br_tr("You are injured by the fall."), &badMessageColor, 0);
             if (inflictDamage(NULL, &player, damage, &red, false)) {
                 killCreature(&player, false);
-                gameOver("Killed by a fall", true);
+                gameOver(br_tr("Killed by a fall"), true);
                 killed = true;
             }
         }
@@ -1365,7 +1365,7 @@ static void updateYendorWardenTracking() {
 // This is to avoid having the monster chain change unpredictably in the middle of a turn.
 void monstersFall() {
     short x, y;
-    char buf[DCOLS], buf2[DCOLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
 
     // monsters plunge into chasms at the end of the turn
     for (creatureIterator it = iterateCreatures(monsters); hasNextCreature(it);) {
@@ -1377,8 +1377,8 @@ void monstersFall() {
             y = monst->loc.y;
 
             if (canSeeMonster(monst)) {
-                monsterName(buf, monst, true);
-                sprintf(buf2, "%s plunges out of sight!", buf);
+                br_display_monster_name(buf, monst, true);
+                sprintf(buf2, br_tr("%s plunges out of sight!"), buf);
                 messageWithColor(buf2, messageColorFromVictim(monst), 0);
             }
 
@@ -1776,7 +1776,7 @@ void updateSafeTerrainMap() {
 
 static void processIncrementalAutoID() {
     item *theItem, *autoIdentifyItems[3] = {rogue.armor, rogue.ringLeft, rogue.ringRight};
-    char buf[DCOLS*3], theItemName[DCOLS*3];
+    char buf[BR_MESSAGE_BYTES], theItemName[DCOLS*3];
     short i;
 
     for (i=0; i<3; i++) {
@@ -1788,7 +1788,7 @@ static void processIncrementalAutoID() {
             theItem->charges--;
             if (theItem->charges <= 0) {
                 itemName(theItem, theItemName, false, false, NULL);
-                sprintf(buf, "you are now familiar enough with your %s to identify it.", theItemName);
+                sprintf(buf, br_tr("you are now familiar enough with your %s to identify it."), theItemName);
                 messageWithColor(buf, &itemMessageColor, 0);
 
                 if (theItem->category & ARMOR) {
@@ -1800,7 +1800,7 @@ static void processIncrementalAutoID() {
                 updateIdentifiableItems();
 
                 itemName(theItem, theItemName, true, true, NULL);
-                sprintf(buf, "%s %s.", (theItem->quantity > 1 ? "they are" : "it is"), theItemName);
+                sprintf(buf, br_tr("%s %s."), (theItem->quantity > 1 ? br_tr("they are") : br_tr("it is")), theItemName);
                 messageWithColor(buf, &itemMessageColor, 0);
             }
         }
@@ -1815,7 +1815,7 @@ short staffChargeDuration(const item *theItem) {
 // Multiplier can be negative, in which case staffs and charms will be drained instead of recharged.
 void rechargeItemsIncrementally(short multiplier) {
     item *theItem;
-    char buf[DCOLS*3], theItemName[DCOLS*3];
+    char buf[BR_MESSAGE_BYTES], theItemName[DCOLS*3];
     short rechargeIncrement, staffRechargeDuration;
 
     if (rogue.wisdomBonus) {
@@ -1853,7 +1853,7 @@ void rechargeItemsIncrementally(short multiplier) {
             theItem->charges = clamp(theItem->charges - multiplier, 0, charmRechargeDelay(theItem->kind, theItem->enchant1));
             if (theItem->charges == 0) {
                 itemName(theItem, theItemName, false, false, NULL);
-                sprintf(buf, "your %s has recharged.", theItemName);
+                sprintf(buf, br_tr("your %s has recharged."), theItemName);
                 message(buf, 0);
             }
         }
@@ -1874,7 +1874,7 @@ void extinguishFireOnCreature(creature *monst) {
 
 // n is the monster's depthLevel - 1.
 static void monsterEntersLevel(creature *monst, short n) {
-    char monstName[COLS], buf[COLS];
+    char monstName[BR_MESSAGE_BYTES], buf[BR_MESSAGE_BYTES];
     boolean pit = false;
 
     levels[n].mapStorage[monst->loc.x][monst->loc.y].flags &= ~HAS_MONSTER;
@@ -1927,22 +1927,22 @@ static void monsterEntersLevel(creature *monst, short n) {
     refreshDungeonCell(monst->loc);
 
     if (pit) {
-        monsterName(monstName, monst, true);
+        br_display_monster_name(monstName, monst, true);
         if (!monst->status[STATUS_LEVITATING]) {
             if (inflictDamage(NULL, monst, randClumpedRange(6, 12, 2), &red, false)) {
                 if (canSeeMonster(monst)) {
-                    sprintf(buf, "%s plummets from above and splatters against the ground!", monstName);
+                    sprintf(buf, br_tr("%s plummets from above and splatters against the ground!"), monstName);
                     messageWithColor(buf, messageColorFromVictim(monst), 0);
                 }
                 killCreature(monst, false);
             } else {
                 if (canSeeMonster(monst)) {
-                    sprintf(buf, "%s falls from above and crashes to the ground!", monstName);
+                    sprintf(buf, br_tr("%s falls from above and crashes to the ground!"), monstName);
                     message(buf, 0);
                 }
             }
         } else if (canSeeMonster(monst)) {
-            sprintf(buf, "%s swoops into the cavern from above.", monstName);
+            sprintf(buf, br_tr("%s swoops into the cavern from above."), monstName);
             message(buf, 0);
         }
     }
@@ -2223,7 +2223,7 @@ static void recordCurrentCreatureHealths() {
 // 100 ticks.
 void playerTurnEnded() {
     short soonestTurn, damage, turnsRequiredToShore, turnsToShore;
-    char buf[COLS], buf2[COLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
     boolean fastForward = false;
     short oldRNG;
 
@@ -2313,8 +2313,8 @@ void playerTurnEnded() {
 
                 killCreature(monst, false);
                 if (canSeeMonster(monst)) {
-                    monsterName(buf2, monst, true);
-                    sprintf(buf, "%s dissipates into thin air", buf2);
+                    br_display_monster_name(buf2, monst, true);
+                    sprintf(buf, br_tr("%s dissipates into thin air"), buf2);
                     combatMessage(buf, messageColorFromVictim(monst));
                 }
             }
@@ -2495,11 +2495,11 @@ void playerTurnEnded() {
                         //assureCosmeticRNG;
                         br_display_monster_name(buf2, monst, false);
                         sprintf(buf, br_tr("you %s a%s %s"),
-                                playerCanDirectlySee(monst->loc.x, monst->loc.y) ? (br_is_zh()?"看见":"see") : (br_is_zh()?"感知到":"sense"),
+                                playerCanDirectlySee(monst->loc.x, monst->loc.y) ? (br_is_zh()?"看见":br_tr("see")) : (br_is_zh()?"感知到":br_tr("sense")),
                                 (isVowelish(buf2) ? "n" : ""),
                                 buf2);
                         if (rogue.cautiousMode) {
-                            strcat(buf, ".");
+                            strcat(buf, br_tr("."));
                             message(buf, REQUIRE_ACKNOWLEDGMENT);
                         } else {
                             combatMessage(buf, 0);
@@ -2524,7 +2524,7 @@ void playerTurnEnded() {
 
                         rogue.weapon->flags |= ITEM_RUNIC_HINTED;
                         itemName(rogue.weapon, buf2, false, false, NULL);
-                        sprintf(buf, "the runes on your %s gleam balefully.", buf2);
+                        sprintf(buf, br_tr("the runes on your %s gleam balefully."), buf2);
                         messageWithColor(buf, &itemMessageColor, REQUIRE_ACKNOWLEDGMENT);
                     }
                     if (rogue.armor && rogue.armor->flags & ITEM_RUNIC
@@ -2534,7 +2534,7 @@ void playerTurnEnded() {
 
                         rogue.armor->flags |= ITEM_RUNIC_HINTED;
                         itemName(rogue.armor, buf2, false, false, NULL);
-                        sprintf(buf, "the runes on your %s glow protectively.", buf2);
+                        sprintf(buf, br_tr("the runes on your %s glow protectively."), buf2);
                         messageWithColor(buf, &itemMessageColor, REQUIRE_ACKNOWLEDGMENT);
                     }
                 }

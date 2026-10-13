@@ -6,7 +6,7 @@
 #include "zh_text.h"
 #include <string.h>
 #include <stdio.h>
-typedef struct {char label[512];int hotkey,enabled;SDL_Keycode key;} Choice;
+typedef struct {char label[512],name[512];char state[160];int quantity;SDL_Color state_color;int hotkey,enabled,equipped;SDL_Keycode key;unsigned glyph;SDL_Color color;} Choice;
 static Choice choices[50];
 static char title[160],body[20000],hint_text[256];
 static int active,count,selected,offset,maximum,inventory,detail;
@@ -15,6 +15,7 @@ static int tab_count,tab_selected,object,reading,prefer_details,read_from_invent
 static unsigned object_glyph;
 static SDL_Color object_color;
 static int page_size=8,cover;
+static const int cover_order[9]={0,2,1,3,4,5,6,7,8};
 static int list_pages[51],list_page_count;
 typedef struct {
     uint64_t category,required,forbidden;
@@ -81,6 +82,7 @@ void br_panel_add(const char *label,int hotkey,int enabled) {
         hotkey==LEFT_ARROW?SDLK_LEFT:hotkey==RIGHT_ARROW?SDLK_RIGHT:
         hotkey==TAB_KEY?SDLK_TAB:0;
     if(count>=50 || (!key && (hotkey<32 || hotkey>126))) return;
+    memset(&choices[count],0,sizeof choices[count]);
     copy(choices[count].label,sizeof choices[count].label,label);
     choices[count].hotkey=hotkey;choices[count].key=key;choices[count++].enabled=enabled;
 }
@@ -96,6 +98,10 @@ void br_panel_prefer_details(int enabled) {prefer_details=enabled;}
 void br_panel_object(const char *name,unsigned glyph,SDL_Color color) {
     object=1;reading=count==0 || prefer_details;prefer_details=0;object_glyph=glyph;object_color=color;
     copy(object_name,sizeof object_name,name);
+    /* itemDetails begins with its name/letter paragraph. The object frame
+       already owns that heading; keep the following description untouched. */
+    char *description=strstr(body,"\n\n");
+    if(description)memmove(body,description+2,strlen(description+2)+1);
     for(int i=0;i<count;i++) {
         const char *verb=choices[i].hotkey=='a'?(glyph=='!'?"喝下":glyph==':'?"食用":glyph=='?'?"阅读":"使用"):
             choices[i].hotkey=='e'?"装备":choices[i].hotkey=='r'?"卸下":choices[i].hotkey=='t'?"投掷":
@@ -122,12 +128,42 @@ void br_panel_cover(void) {cover=1;page_size=3;}
 int br_panel_cover_active(void) {return active && cover;}
 void br_panel_end(void) {active=inventory=detail=object=reading=tab_count=cover=0;}
 void br_panel_inventory(void) {inventory=1;}
+int br_panel_inventory_active(void) {return active && inventory;}
+void br_panel_inventory_item(int index,const char *name,unsigned glyph,SDL_Color color,int equipped) {
+    if(index<0 || index>=count)return;
+    copy(choices[index].name,sizeof choices[index].name,name);
+    choices[index].glyph=glyph;choices[index].color=color;choices[index].equipped=equipped;
+}
+void br_panel_inventory_state(int index,int quantity,const char *state,SDL_Color ink) {
+    if(index<0 || index>=count)return;
+    choices[index].quantity=quantity;choices[index].state_color=ink;
+    copy(choices[index].state,sizeof choices[index].state,state);
+}
 int br_panel_take_detail(void) {int value=detail;detail=0;return value;}
 int br_panel_active(void) {return active;}
 int br_panel_event(SDL_Event *e) {
     if(!active) return 0;
     if(e->type==SDL_KEYDOWN) {
         SDL_Keycode key=e->key.keysym.sym;
+        if(cover && count==9 && (key==SDLK_LEFT || key==SDLK_RIGHT || key==SDLK_UP || key==SDLK_DOWN || key==SDLK_PAGEUP || key==SDLK_PAGEDOWN)) {
+            if(!e->key.repeat) {
+                int at=0;while(at<8 && cover_order[at]!=selected)at++;
+                int col=at/3,row=at%3;
+                if(key==SDLK_LEFT || key==SDLK_PAGEUP)col=(col+2)%3;
+                else if(key==SDLK_RIGHT || key==SDLK_PAGEDOWN)col=(col+1)%3;
+                else row=(row+(key==SDLK_UP?2:1))%3;
+                selected=cover_order[col*3+row];
+            }
+            Uint32 window=e->key.windowID;memset(e,0,sizeof *e);
+            e->type=SDL_TEXTINPUT;e->text.windowID=window;e->text.text[0]=':';return 0;
+        }
+        if(inventory && (key==SDLK_PAGEUP || key==SDLK_PAGEDOWN))return 1;
+        if(inventory && (key==SDLK_LEFT || key==SDLK_RIGHT || key==SDLK_UP || key==SDLK_DOWN)) {
+            int step=key==SDLK_LEFT?-1:key==SDLK_RIGHT?1:key==SDLK_UP?-4:4;
+            int next=selected+step;
+            if(next>=0 && next<count && (step!=1 || selected%4<3) && (step!=-1 || selected%4>0))selected=next;
+            return 1;
+        }
         if(key==SDLK_F5 && object) {if(!e->key.repeat) {reading=!reading;read_from_inventory=0;}return 1;}
         if(key==SDLK_ESCAPE) {if(object && reading && count && !read_from_inventory) {reading=0;return 1;}return 0;}
         if(key==SDLK_HOME) {selected=offset=0;return 1;}
@@ -244,7 +280,7 @@ static void draw_tabs(SDL_Renderer *r,int width,int height) {
     line(r,hint_text,left+22,top+300,BR_UI_MUTED,46);
     line(r,page,right-68,top+300,BR_UI_MUTED,5);
     br_ui_fill(r,(SDL_Rect){0,height-28,width,28},(SDL_Color){0,0,0,255});
-    line(r,"L1/R1 切签  L2/R2 翻页  X 回常用",18,height-24,BR_UI_MUTED,(width-36)/10);
+    line(r,"L2/R2 切签  L1/R1 翻页  X 回常用",18,height-24,BR_UI_MUTED,(width-36)/10);
 }
 static void draw_object(SDL_Renderer *r,int width,int height) {
     int left=(width-612)/2,top=(height-332)/2,right=width-left;
@@ -273,26 +309,102 @@ static void draw_object(SDL_Renderer *r,int width,int height) {
         if(i==selected) {br_ui_fill(r,(SDL_Rect){action_x-8,y,202,26},BR_UI_SELECTED);line(r,">",action_x,y,BR_UI_FOCUS,1);}
         line(r,choices[i].label,action_x+26,y,choices[i].enabled?BR_UI_INK:BR_UI_MUTED,16);
     }
-    line(r,"上下选动作  A 执行  B 返回  R1 详情",left+22,top+304,BR_UI_MUTED,(right-left-44)/10);
+    line(r,"上下选动作  A 执行  B 返回",left+22,top+304,BR_UI_MUTED,(right-left-44)/10);
+}
+/* A fixed 26-slot field leaves the whole pack visible. Original itemName
+   supplies public names; the selected native label retains all known stats. */
+static void grid_text(SDL_Renderer *r,const char *value,int x,int y,int columns,int rows,SDL_Color ink) {
+    char wrapped[1800];int total=br_text_wrap(wrapped,sizeof wrapped,value,columns);
+    if(total<0) {line(r,"名称过长",x,y,ink,columns);return;}
+    int row=0,left=x,used=0,first_y=y;
+    for(const char *p=wrapped;*p && row<rows;) {
+        BrTextToken t=br_text_next(p);
+        if(t.is_color) {const unsigned char *c=(const unsigned char*)p;ink=(SDL_Color){(c[1]-25)*255/100,(c[2]-25)*255/100,(c[3]-25)*255/100,255};}
+        else if(t.codepoint=='\n') {row++;x=left;used=0;y+=20;}
+        else {
+            int limit=columns-(row==rows-1 && total>rows?2:0);
+            if(used+t.columns<=limit)br_draw_glyph(r,t.codepoint,(SDL_Rect){x,y,t.columns*10,20},ink);
+            x+=t.columns*10;used+=t.columns;
+        }
+        p+=t.bytes;
+    }
+    if(total>rows)br_draw_glyph(r,0x2026,(SDL_Rect){left+(columns-2)*10,first_y+(rows-1)*20,20,20},ink);
+}
+static void draw_inventory(SDL_Renderer *r,int width,int height) {
+    br_ui_frame(r,width,height,title,1);
+    int left=18,cell=(width-36)/4,top=52,step=(height-172)/7;
+
+    for(int i=0;i<MAX_PACK_ITEMS;i++) {
+        int x=left+(i%4)*cell,y=top+(i/4)*step;
+        if(i==selected && i<count) {
+            br_ui_fill(r,(SDL_Rect){x-2,y-1,cell-6,step-2},BR_UI_SELECTED);
+            line(r,">",x,y,BR_UI_FOCUS,1);
+        }
+        if(i>=count) {line(r,".",x+8,y+12,BR_UI_RULE,1);continue;}
+        Choice *choice=&choices[i];SDL_Color ink=choice->enabled?(choice->glyph=='!'?choice->color:BR_UI_INK):BR_UI_MUTED;
+        if(!choice->glyph)ink=choice->enabled?BR_UI_INK:BR_UI_MUTED;
+        br_draw_glyph(r,choice->glyph?choice->glyph:'*',(SDL_Rect){x+12,y,20,20},choice->enabled?choice->color:BR_UI_MUTED);
+        grid_text(r,choice->name[0]?choice->name:choice->label,x+36,y,(cell-40)/10,1,ink);
+        int reserve=choice->quantity>1?40:0;
+        grid_text(r,choice->state,x+36,y+20,(cell-40-reserve)/10,1,choice->enabled?choice->state_color:BR_UI_MUTED);
+        if(choice->quantity>1) {
+            char amount[32];snprintf(amount,sizeof amount,"×%d",choice->quantity);
+            int columns=(int)strlen(amount);
+            line(r,amount,x+cell-8-columns*10,y+20,choice->enabled?BR_UI_INK:BR_UI_MUTED,columns);
+        }
+    }
+    int footer=height-108;
+    SDL_SetRenderDrawColor(r,BR_UI_RULE.r,BR_UI_RULE.g,BR_UI_RULE.b,255);
+    for(int x=20;x<width-20;x+=10)SDL_RenderDrawLine(r,x,footer-10,x+4,footer-10);
+    if(count)grid_text(r,choices[selected].label,20,footer,(width-40)/10,3,BR_UI_INK);
+    line(r,"方向选物品  A 操作  X 详情  B 返回",20,height-30,BR_UI_MUTED,(width-40)/10);
 }
 void br_panel_draw(SDL_Renderer *r,int width,int height) {
     if(!active) return;
     if(cover) {
-        int top=height-136,first=selected/3*3;
-        br_ui_fill(r,(SDL_Rect){0,top,width,136},BR_UI_BOX);
-        line(r,title,24,top+8,BR_UI_MUTED,(width-48)/10);
-        for(int i=first;i<count && i<first+3;i++) {
-            int y=top+34+(i-first)*24;
-            if(i==selected) {
-                br_ui_fill(r,(SDL_Rect){18,y-1,width-36,24},BR_UI_SELECTED);
-                line(r,">",24,y,BR_UI_FOCUS,1);
-            }
-            line(r,choices[i].label,48,y,i==selected?BR_UI_FOCUS:BR_UI_INK,(width-96)/10);
+        /* A quiet threshold beneath the original live flame/logo. All nine
+           entrances remain visible; this pass never clears the title art. */
+        int top=height-138,margin=36,cell=(width-margin*2)/3;
+        SDL_BlendMode prior;SDL_GetRenderDrawBlendMode(r,&prior);
+        SDL_SetRenderDrawBlendMode(r,SDL_BLENDMODE_BLEND);
+        for(int y=top;y<height;y++) {
+            int alpha=y<top+20?(y-top)*220/20:y>=height-24?255:220;
+            br_ui_fill(r,(SDL_Rect){0,y,width,1},(SDL_Color){10,8,17,(Uint8)alpha});
         }
-        char hint[128];snprintf(hint,sizeof hint,"上下选择  A 确认  L2/R2 翻页                         %d / %d",selected/3+1,(count+2)/3);
-        line(r,hint,24,height-26,BR_UI_MUTED,(width-48)/10);
+        const char *groups[3]={"冒险","往事","设定"};
+        for(int col=0;col<3;col++) {
+            int x=margin+col*cell;
+            /* Section labels use the existing font at the floating-layer size. */
+            const char *label=groups[col];int used=0;
+            for(BrTextToken t;(t=br_text_next(label)).bytes;label+=t.bytes) {
+                br_draw_glyph(r,t.codepoint,(SDL_Rect){x+used*6,top+4,t.columns*6,12},(SDL_Color){169,146,110,255});used+=t.columns;
+            }
+            SDL_SetRenderDrawColor(r,86,67,51,255);SDL_RenderDrawLine(r,x+36,top+10,x+cell-32,top+10);
+            for(int row=0;row<3;row++) {
+                int i=cover_order[col*3+row];if(i>=count)continue;
+                int y=top+26+row*26;
+                if(i==selected) {
+                    for(int dx=0;dx<cell-26;dx++)
+                        br_ui_fill(r,(SDL_Rect){x-10+dx,y-2,1,24},(SDL_Color){116,85,46,(Uint8)(82*(cell-26-dx)/(cell-26))});
+                    line(r,">",x-14,y,BR_UI_FOCUS,1);
+                }
+                line(r,choices[i].label,x+6,y,i==selected?BR_UI_FOCUS:(SDL_Color){202,194,183,255},(cell-24)/10);
+            }
+        }
+        SDL_SetRenderDrawBlendMode(r,prior);
+        const char *meta=strstr(title,"·");meta=meta?meta+strlen("·"):title;
+        while(*meta==' ')meta++;
+        const char *texts[2]={"方向选择   A 确认",meta};
+        for(int n=0;n<2;n++) {
+            int x=n?width-margin-br_text_width(texts[n])*6:margin,used=0;
+            for(const char *p=texts[n];*p;) {
+                BrTextToken t=br_text_next(p);p+=t.bytes;
+                br_draw_glyph(r,t.codepoint,(SDL_Rect){x+used*6,height-19,t.columns*6,12},(SDL_Color){146,133,123,255});used+=t.columns;
+            }
+        }
         return;
     }
+    if(inventory) {draw_inventory(r,width,height);return;}
     if(tab_count) {draw_tabs(r,width,height);return;}
     if(object && !reading) {draw_object(r,width,height);return;}
     br_ui_frame(r,width,height,object?object_name:title,1);
@@ -312,7 +424,7 @@ void br_panel_draw(SDL_Renderer *r,int width,int height) {
             char caption[600];snprintf(caption,sizeof caption,"操作 %d/%d  < %s >",selected+1,count,choices[selected].label);
             line(r,caption,20,height-100,BR_UI_FOCUS,(width-40)/10);
         }
-        line(r,object?(read_from_inventory?"上下阅读  L2/R2翻页  A 操作  B 返回背包":"上下阅读  L2/R2翻页  A 操作  B 返回操作"):"上下阅读 左右选操作 [A]确认 [B]返回 L2/R2翻页",20,height-32,BR_UI_MUTED,(width-40)/10);
+        line(r,object?(read_from_inventory?"上下阅读  L1/R1翻页  A 操作  B 返回背包":"上下阅读  L1/R1翻页  A 操作  B 返回操作"):"上下阅读 左右选操作 [A]确认 [B]返回 L1/R1翻页",20,height-32,BR_UI_MUTED,(width-40)/10);
     } else {
         /* Physical controls need readable type, not touch-sized empty rows.
            Partition by rendered height so every wrapped name stays together. */
@@ -339,7 +451,7 @@ void br_panel_draw(SDL_Renderer *r,int width,int height) {
             item_label(r,choices[i].label,y,choices[i].enabled?(i==selected?BR_UI_FOCUS:BR_UI_INK):BR_UI_MUTED,(width-64)/10);
             y+=row_height[i];
         }
-        char hint[256];snprintf(hint,sizeof hint,"%d/%d 上下选择 [A]确认 %s[B]返回 L2/R2翻页",count?selected+1:0,count,inventory?"[X]详情 ":"");
+        char hint[256];snprintf(hint,sizeof hint,"%d/%d 上下选择 [A]确认 %s[B]返回 L1/R1翻页",count?selected+1:0,count,inventory?"[X]详情 ":"");
         line(r,hint_text[0]?hint_text:hint,20,height-32,BR_UI_MUTED,(width-40)/10);
     }
 }

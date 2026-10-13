@@ -25,6 +25,7 @@
 #include <time.h>
 
 #include "Rogue.h"
+#include "zh_commands.h"
 #include "zh_text.h"
 #include "zh_reader.h"
 #include "zh_catalog.h"
@@ -105,21 +106,21 @@ static void br_info_discovery(const char *name,int identified,int magic,int prob
 static void br_info_help(void) {
     BrInfo report;br_info_reset(&report);
     br_info_append(&report,"掌机探索\n"
-        "十字键：移动或攻击。同时按两个方向可斜向移动；每次按下走一步。按住 R2 再按方向可奔跑；遇到危险按 B 中断。\n"
+        "十字键：移动或攻击。同时按两个方向可斜向移动；轻按走一步，长按连续移动。按住 R2 再按方向可奔跑；遇到危险按 B 中断。\n"
         "A：开启检查光标；方向移动光标，A 前往目标，B 返回，X 切换目标。\n"
-        "B：取消操作或中断自动探索/休息。X：背包。Y：搜索一次。Start：等待一回合。\n"
-        "L2：常用行动和分类子菜单。上下选择，A 执行或进入，B 返回上一级。菜单记住上次路径和选择。使用、装备、卸下、投掷、丢弃、命名、上下楼和保存都在菜单中。\n"
-        "连续搜索、八方向奔跑和快速探索也在行动菜单中，沿用原版停止条件；B 可中断。巫师模式可用菜单生成物品或怪物。\n"
-        "Select：全图；方向浏览，A 放大，X 回角色，B 先回全图再返回探索。\n"
+        "B：取消操作或中断自动探索/休息。X：背包。Y：轻按搜索一次，长按连续搜索。ST：等待一回合。\n"
+        "Menu：常用行动和分类子菜单。上下选择，A 执行或进入，B 返回上一级。菜单记住上次路径和选择。使用、装备、卸下、投掷、丢弃、命名、上下楼和保存都在菜单中。\n"
+        "R2＋X：自动探索，B 中断。连续搜索、八方向奔跑和快速探索也在行动菜单中，沿用原版停止条件；B 可中断。巫师模式可用菜单生成物品或怪物。\n"
+        "Select：全图；方向浏览，A 放大，再按 A 查看光标对象详情；X 回角色，B 逐层返回。\n"
         "L1：大字阅读最近消息。R1：角色与附近信息。\n\n"
         "原生窗口与输入\n"
-        "列表上下选择、A 确认、B 返回；L2/R2 翻页。正文上下滚动、左右选操作。\n"
-        "阅读窗口可用 L2/R2 翻页。物品标记通过上下选择，不必输入字母。\n"
-        "屏幕输入：方向选字符、A 输入、X 删除、Start 完成、B 取消。当前支持原版 ASCII 和数字，尚无中文输入法。\n"
+        "背包只用方向键按网格选择，A 确认、X 详情、B 返回；物品动作纵向排列。其他列表 L1/R1 翻页。\n"
+        "阅读窗口可用 L1/R1 翻页。物品标记通过上下选择，不必输入字母。\n"
+        "屏幕输入：方向选字符、A 输入、X 删除、ST 完成、B 取消。当前支持原版 ASCII 和数字，尚无中文输入法。\n"
         "消息等待确认时 A/B 继续；死亡时 X 可查看背包。\n"
-        "Menu 组合键交给系统；音量和电源不作为游戏命令。\n\n"
+        "L2：附近浮窗依次左侧、右侧、关闭，显示原版已知生物、物品和地形。L1/R1 在窗口内翻页，行动菜单 L2/R2 切签。\nMenu 组合键交给系统；音量和电源不作为游戏命令。\n\n"
         "观看录像\n"
-        "Start 暂停/继续，方向左右逐回合前后、上下变速，L2 打开录像菜单，A 检查，X 背包，Y 全知视角。\n"
+        "ST 暂停/继续，方向左右逐回合前后、上下变速，Menu 打开录像菜单，A 检查，X 背包，Y 全知视角。\n"
         "录像菜单的操作帮助提供跳转和其他说明。\n");
     br_info_show("操作帮助",&report);
 }
@@ -214,8 +215,8 @@ static void br_sidebar_reset(void) {
     for(int y=0;y<ROWS;y++)br_sidebar_bars[y]=-1;
     br_map_nearby_reset();
 }
-static void br_sidebar_emit(int first,int end,int x,int y,int is_player) {
-    BrNearby entry={0};entry.x=x;entry.y=y;entry.player=is_player;
+static void br_sidebar_emit(int first,int end,int x,int y,int is_player,int is_creature) {
+    BrNearby entry={0};entry.x=x;entry.y=y;entry.player=is_player;entry.creature=is_creature;
     entry.ink=br_sidebar_symbol_ink;
     if(first<0 || first>=ROWS || !br_sidebar_rows[first][0])return;
     br_text_copy(entry.name,sizeof entry.name,br_sidebar_rows[first]);
@@ -272,6 +273,7 @@ static void br_sidebar_bar(int y,const char *label,long current,long maximum) {
 }
 static void br_hud_build(void) {
     br_map_searching(player.status[STATUS_SEARCHING]>0);
+    br_map_effects_reset();
     char values[1024], compact[1024]="", full[20000], line[512];
     int unknown=rogue.armor && !(rogue.armor->flags & ITEM_IDENTIFIED) && !rogue.playbackOmniscience;
     int armor=unknown ? estimatedArmorValue() : displayedArmorValue();
@@ -300,7 +302,9 @@ static void br_hud_build(void) {
         const char *name=br_tr(statusEffectCatalog[i].name);
         if(i==STATUS_POISONED && player.status[i]*player.poisonAmount>=player.currentHP) name=br_tr("Fatal Poison");
         int percent=player.maxStatus[i]>0 ? clamp(100*player.status[i]/player.maxStatus[i],0,100) : 0;
-        snprintf(line,sizeof line,"%s 约 %d%%",name,percent/5*5);
+        char progress[11];
+        for(int k=0;k<10;k++)progress[k]=k*10<percent?'|':'.';progress[10]=0;
+        snprintf(line,sizeof line,"%s 约 %d%%  [%s]",name,percent/5*5,progress);
         strcat(full,line);
         if(i==STATUS_POISONED) {
             snprintf(line,sizeof line,"  每回合伤害 %d",player.poisonAmount);strcat(full,line);
@@ -309,9 +313,10 @@ static void br_hud_build(void) {
         }
         strcat(full,"\n");count++;
         if(i==STATUS_SEARCHING)continue; /* Same live state, fixed upper-right label. */
+        const color *tone=(i==STATUS_POISONED || i==STATUS_BURNING || i==STATUS_PARALYZED || i==STATUS_WEAKENED || i==STATUS_SLOWED || i==STATUS_CONFUSED || i==STATUS_STUCK || i==STATUS_NAUSEOUS || i==STATUS_DISCORDANT || i==STATUS_MAGICAL_FEAR || i==STATUS_DARKNESS)?&badMessageColor:&goodMessageColor;
+        br_map_effect(name,percent,br_sidebar_color(tone,0));
         if(br_text_width(compact)+br_text_width(name)+2<=effect_space) {
             char ink[5];
-            const color *tone=(i==STATUS_POISONED || i==STATUS_BURNING || i==STATUS_PARALYZED || i==STATUS_WEAKENED || i==STATUS_SLOWED || i==STATUS_CONFUSED || i==STATUS_STUCK || i==STATUS_NAUSEOUS || i==STATUS_DISCORDANT || i==STATUS_MAGICAL_FEAR || i==STATUS_DARKNESS)?&badMessageColor:&goodMessageColor;
             encodeMessageColor(ink,0,tone);strcat(compact,ink);strcat(compact,name);strcat(compact,"  ");
         }
         else hidden++;
@@ -2763,7 +2768,7 @@ void executeMouseClick(rogueEvent *theEvent) {
     }
 }
 
-void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKey) {
+static void br_native_executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKey) {
     short direction = -1;
 
     confirmMessages();
@@ -4264,7 +4269,7 @@ void refreshSideBar(short focusX, short focusY, boolean focusedEntityMustGoFirst
                                       (focusEntity && (x != focusX || y != focusY)),
                                       (x == focusX && y == focusY));
         }
-        br_sidebar_emit(oldPrintY,printY,x,y,!br_sidebar_nearby);
+        br_sidebar_emit(oldPrintY,printY,x,y,!br_sidebar_nearby,entityType[i]==EDT_CREATURE);
         if (focusEntity && (x == focusX && y == focusY) && printY < ROWS) {
             gotFocusedEntityOnScreen = true;
         }
@@ -5520,4 +5525,40 @@ void br_game_target_view(int enabled,int x,int y) {
 static void br_game_inspect_view(const screenDisplayBuffer *buffer,int x,int y) {
     br_copy_cursor_display(buffer);
     br_map_inspect(1,x,y);
+}
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Explicit inspection only: visibility and hallucination gate object details.
+   Native describeLocation supplies remembered terrain and sensed silhouettes. */
+void br_game_map_caption(char *out,size_t capacity,int x,int y) {
+    char description[BR_MESSAGE_BYTES]="";
+    if(x<0 || x>=DCOLS || y<0 || y>=DROWS) {if(capacity)out[0]=0;return;}
+    describeLocation(description,x,y);
+    br_text_copy(out,capacity,description);
+}
+void br_game_map_details(int x,int y) {
+    if(x<0 || x>=DCOLS || y<0 || y>=DROWS)return;
+    char full[32000]="",title[BR_MESSAGE_BYTES]="光标位置";
+    assureCosmeticRNG;
+    creature *monst=monsterAtLoc((pos){x,y});
+    item *object=itemAtLoc((pos){x,y});
+    int reliable=!player.status[STATUS_HALLUCINATING] || rogue.playbackOmniscience;
+    if(monst && monst!=&player && canSeeMonster(monst) && reliable) {
+        monsterDetails(full,monst);br_display_monster_name(title,monst,false);
+    } else if(object && playerCanSeeOrSense(x,y) && reliable) {
+        itemDetails(full,object);itemName(object,title,false,false,NULL);
+        char *description=strstr(full,"\n\n");
+        if(description)memmove(full,description+2,strlen(description+2)+1);
+    } else describeLocation(full,x,y);
+    restoreRNG;
+    if(!full[0])snprintf(full,sizeof full,"此处尚无可查看的信息。");
+    br_reader_open(title,full);
+}
+
+void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKey) {
+    int origin=br_commands_begin(keystroke,0);
+    unsigned long turn=rogue.playerTurnNumber;
+    br_native_executeKeystroke(keystroke,controlKey,shiftKey);
+    br_commands_finish(origin,rogue.gameInProgress && !rogue.gameHasEnded
+        && rogue.playerTurnNumber==turn);
+    
 }

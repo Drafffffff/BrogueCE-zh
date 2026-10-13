@@ -105,7 +105,7 @@ static const Menu menus[]={
     MENU("播放",-1,replay_play),MENU("跳转",-1,replay_seek),MENU("见闻",-1,replay_info),MENU("显示",-1,replay_display),MENU("文件",-1,replay_files),
     MENU("奔跑方向",0,running),
 };
-static int active,closing,pending,view,scope,loaded;
+static int active,closing,pending,view,scope,loaded,suspended;
 static int remembered[sizeof menus/sizeof *menus],last_view[2]={0,5};
 static int wizard,easy,rethrow=1,swap=1,graphics=1;
 static Command selected_command;
@@ -140,7 +140,7 @@ void br_commands_state(int wizard_mode,int easy_mode,int can_rethrow,int can_swa
 }
 void br_commands_forget(void) {
     if(active)br_panel_end();
-    active=closing=pending=scope=view=0;loaded=1;
+    active=closing=pending=scope=view=suspended=0;loaded=1;
     memset(remembered,0,sizeof remembered);last_view[0]=0;last_view[1]=5;
 }
 void br_commands_reload(void) {br_commands_forget();loaded=0;}
@@ -180,6 +180,16 @@ int br_commands_take(int *key,int *control,int *shift) {
     pending=0;*key=selected_command.key;*control=selected_command.control&1;*shift=(selected_command.control&2)!=0;return 1;
 }
 int br_commands_active(void) {return active;}
+int br_commands_begin(long key,int playback) {
+    int origin=suspended && key==selected_command.key && scope==!!playback;
+    suspended=0;return origin;
+}
+void br_commands_finish(int origin,int resume) {
+    if(origin && resume) {show();active=1;closing=0;}
+}
+static int modal_command(int key) {
+    return strchr("iaertTdcRDF?M~SQN&ACVO0\n",key)!=NULL && key!=0;
+}
 int br_commands_event(SDL_Event *e,int context) {
     if(closing) {
         if(e->type==SDL_TEXTINPUT || e->type==SDL_KEYUP)return 1;
@@ -221,6 +231,7 @@ int br_commands_event(SDL_Event *e,int context) {
         remember();
         if(entry->child>=0) {view=entry->child;show();return 1;}
         selected_command=*command(entry);pending=selected_command.control!=0;
+        suspended=modal_command(selected_command.key);
         active=0;br_panel_end();
         Uint32 window=e->type==SDL_TEXTINPUT?e->text.windowID:e->key.windowID;
         memset(e,0,sizeof *e);

@@ -179,7 +179,7 @@ static boolean pollBrogueEvent(rogueEvent *returnEvent, boolean textInput) {
     br_map_playback(brPlayback,rogue.playbackPaused,rogue.playbackOOS,rogue.playerTurnNumber,rogue.howManyTurns);
     br_map_player(player.loc.x,player.loc.y,rogue.depthLevel,player.currentHP,player.info.maxHP);
     br_commands_state(WIZARD_MODE,rogue.mode==GAME_MODE_EASY,rogue.lastItemThrown!=NULL,rogue.swappedIn!=NULL && rogue.swappedOut!=NULL,hasGraphics);
-    br_pad_poll(br_keyboard_active()?2:br_reader_active()?6:(br_panel_active() || br_map_nearby_active())?8:br_map_browsing()?5:br_map_ack_active()==2?7:br_map_ack_active()?0:br_map_aiming()?3:brPlayback?4:br_map_moving());
+    br_pad_poll(br_keyboard_active()?2:br_reader_active()?6:br_commands_active()?10:br_panel_inventory_active()?9:(br_panel_active() || br_map_nearby_active())?8:br_map_browsing()?5:br_map_ack_active()==2?7:br_map_ack_active()?0:br_map_aiming()?3:brPlayback?4:br_map_moving());
     while (SDL_PollEvent(&event)) {
         boolean brTextEntry=br_keyboard_active() || br_panel_active();
         if (br_keyboard_event(&event)) { ret=false; returnEvent->eventType=EVENT_ERROR; refreshScreen(); updateScreen(); continue; }

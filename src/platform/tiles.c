@@ -689,7 +689,10 @@ void updateScreen() {
             }
             br_panel_draw(renderer,outputWidth,outputHeight);
         }
-        else br_map_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
+        else {
+            br_map_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
+            br_nearby_overlay_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
+        }
         SDL_RenderPresent(renderer);
         return;
     }
@@ -791,6 +794,8 @@ void updateScreen() {
     if (br_map_showing()) br_map_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
     br_reader_draw(renderer,outputWidth,outputHeight);
     if(br_panel_cover_active()) br_panel_draw(renderer,outputWidth,outputHeight);
+    if(!br_panel_active() && !br_reader_active() && !br_keyboard_active())
+        br_nearby_overlay_draw(renderer,outputWidth,outputHeight,br_local_atlas(renderer),18,22);
     SDL_RenderPresent(renderer);
 
     // the screen is now up to date

@@ -195,7 +195,7 @@
     "id": "c_ab77e7b3999c01a2",
     "file": "src/brogue/RogueMain.c",
     "source": "Press <?> for help at any time.",
-    "zh_CN": "随时按 L2 打开行动菜单查看帮助。",
+    "zh_CN": "随时按 Menu 打开行动菜单查看帮助。",
     "expected_count": 1,
     "status": "prototype"
   },

@@ -266,8 +266,8 @@ static void antiAlias(unsigned char mask[COLS][ROWS]) {
     }
 }
 
-#define MENU_TITLE_OFFSET_X (-7)
-#define MENU_TITLE_OFFSET_Y (-2)
+#define MENU_TITLE_OFFSET_X (0)
+#define MENU_TITLE_OFFSET_Y (-6)
 
 static void initializeMenuFlames(boolean includeTitle,
                           const color *colors[COLS][(ROWS + MENU_FLAME_ROW_PADDING)],

@@ -24,6 +24,7 @@
 #include <math.h>
 #include <limits.h>
 #include "Rogue.h"
+#include "zh_commands.h"
 #include "zh_panel.h"
 #include "zh_text.h"
 #include "zh_reader.h"
@@ -617,13 +618,13 @@ static boolean unpause() {
 static void printPlaybackHelpScreen() {
     const SavedDisplayBuffer rbuf=saveDisplayBuffer();
     br_panel_begin("录像操作帮助",
-        "Start：暂停或继续播放。B：播放时暂停。\n"
+        "ST：暂停或继续播放。B：播放时暂停。\n"
         "方向键左右：前进或后退一回合；方向键上下：加快或减慢播放。\n"
-        "L2：录像菜单，提供跳转到回合、楼层切换、背包与消息、打开其他录像等操作。\n"
+        "Menu：录像菜单，提供跳转到回合、楼层切换、背包与消息、打开其他录像等操作。\n"
         "A：检查周围。X：查看背包。Y：切换全知视角。\n"
         "Select：浏览全图。L1：大字阅读。R1：角色与附近信息。\n"
-        "跳转回合使用数字软键盘：方向选择，A 输入，Start 完成，B 取消。\n"
-        "L2 菜单可前后跳 5、20 或 100 回合。\n"
+        "跳转回合使用数字软键盘：方向选择，A 输入，ST 完成，B 取消。\n"
+        "Menu 菜单可前后跳 5、20 或 100 回合。\n"
         "回放由原版录像逻辑执行；全知视角只用于观看录像。");
     br_panel_add("返回录像",ACKNOWLEDGE_KEY,1);
     rogue.playbackMode=false;
@@ -798,7 +799,7 @@ void pausePlayback() {
 }
 
 // Used to interact with playback -- e.g. changing speed, pausing.
-boolean executePlaybackInput(rogueEvent *recordingInput) {
+static boolean br_native_executePlaybackInput(rogueEvent *recordingInput) {
     signed long key;
     short newDelay, frameCount, x, y;
     unsigned long destinationFrame;
@@ -1488,4 +1489,13 @@ void RNGLog(char *message) {
 #ifdef AUDIT_RNG
     fputs(message, RNGLogFile);
 #endif
+}
+
+boolean executePlaybackInput(rogueEvent *recordingInput) {
+    int origin=br_commands_begin(recordingInput->eventType==KEYSTROKE?recordingInput->param1:0,1);
+    unsigned long turn=rogue.playerTurnNumber;
+    boolean result=br_native_executePlaybackInput(recordingInput);
+    br_commands_finish(origin,rogue.gameInProgress && !rogue.gameHasEnded
+        && rogue.playerTurnNumber==turn);
+    return result;
 }

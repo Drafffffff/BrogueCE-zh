@@ -124,7 +124,7 @@ static int history_cache(int columns) {
 static void draw_history(SDL_Renderer *r,int width,int height) {
     char title[128];snprintf(title,sizeof title,"消息 · 最近 %d 条",history_count);
     br_ui_frame(r,width,height,title,1);
-    draw_line(r,"上下回看  L2/R2 翻页  X 最新  B 返回  L1 关闭",20,height-32,BR_UI_MUTED);
+    draw_line(r,"上下回看  L1/R1 翻页  X 最新  B 返回",20,height-32,BR_UI_MUTED);
     if(!history_cache((width-40)/10))return;
     int visible=(height-100)/26;page_step=visible>1?visible-1:1;if(visible<1)visible=1;
     page_step=visible>1?visible-1:1;
@@ -147,7 +147,7 @@ void br_reader_draw(SDL_Renderer *r,int width,int height) {
     if(!active) return;
     if(history_shown) {draw_history(r,width,height);return;}
     br_ui_frame(r,width,height,use_alternate?alternate_title:"消息",1);
-    draw_line(r,"上下滚动  L2/R2 翻页  B 返回  L1 关闭",20,height-32,BR_UI_MUTED);
+    draw_line(r,"上下滚动  L1/R1 翻页  B 返回",20,height-32,BR_UI_MUTED);
     char wrapped[40000];
     int count=br_text_wrap(wrapped,sizeof wrapped,use_alternate?alternate:content,(width-40)/10);
     if(count<0) return;

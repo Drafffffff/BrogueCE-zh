@@ -12,11 +12,9 @@ typedef struct {
     SDL_Rect ink;
     int min_x, max_y, advance;
 } Glyph;
-static Glyph cache[256];
-static unsigned int cursor;
-static TTF_Font *font;
-static SDL_Renderer *owner;
-static int pixels;
+typedef struct {Glyph cache[256];unsigned int cursor;TTF_Font *font;SDL_Renderer *owner;int pixels;} GlyphBank;
+static GlyphBank banks[4];
+static unsigned int next_bank;
 extern char dataDirectory[];
 
 static void fail(void) {
@@ -26,7 +24,15 @@ static void fail(void) {
 
 void br_draw_glyph(SDL_Renderer *renderer, unsigned int cp, SDL_Rect area, SDL_Color color) {
     int target = area.h;
-    if (owner != renderer || pixels != target) {
+    GlyphBank *bank=NULL;
+    for(int i=0;i<4;i++)if(banks[i].owner==renderer && banks[i].pixels==target){bank=&banks[i];break;}
+    if(!bank)bank=&banks[next_bank++%4];
+#define cache (bank->cache)
+#define cursor (bank->cursor)
+#define font (bank->font)
+#define owner (bank->owner)
+#define glyph_pixels (bank->pixels)
+    if (owner != renderer || glyph_pixels != target) {
         for (int i = 0; i < 256; i++) {
             if (cache[i].texture) SDL_DestroyTexture(cache[i].texture);
             cache[i] = (Glyph){0};
@@ -39,7 +45,7 @@ void br_draw_glyph(SDL_Renderer *renderer, unsigned int cp, SDL_Rect area, SDL_C
         else snprintf(path, sizeof(path), "%s/assets/NotoSansCJKsc-Regular.otf", dataDirectory);
         font = TTF_OpenFont(path, target);
         if (!font) fail();
-        owner = renderer; pixels = target;
+        owner = renderer; glyph_pixels = target;
     }
     Glyph *glyph = NULL;
     for (int i = 0; i < 256; i++) if (cache[i].texture && cache[i].cp == cp) { glyph = &cache[i]; break; }
