@@ -110,7 +110,7 @@ static void br_info_help(void) {
         "A：开启检查光标；方向移动光标，A 前往目标，B 返回，X 切换目标。\n"
         "B：取消操作或中断自动探索/休息。X：背包。Y：轻按搜索一次，长按连续搜索。ST：等待一回合。\n"
         "L1：常用行动和分类子菜单。上下选择，A 执行或进入，B 返回上一级。菜单记住上次路径和选择。使用、装备、卸下、投掷、丢弃、命名、上下楼和保存都在菜单中。\n"
-        "R2＋X：自动探索，B 中断。连续搜索、八方向奔跑和快速探索也在行动菜单中，沿用原版停止条件；B 可中断。巫师模式可用菜单生成物品或怪物。\n"
+        "L2：自动探索，B 中断。连续搜索、八方向奔跑和快速探索也在行动菜单中，沿用原版停止条件；B 可中断。巫师模式可用菜单生成物品或怪物。\n"
         "Select：全图；方向浏览，A 放大，再按 A 查看光标对象详情；X 回角色，B 逐层返回。\n"
         "m：大字阅读最近消息。R1：角色与附近信息。\n\n"
         "原生窗口与输入\n"
@@ -118,7 +118,7 @@ static void br_info_help(void) {
         "阅读窗口可用 L1/R1 翻页。物品标记通过上下选择，不必输入字母。\n"
         "屏幕输入：方向选字符、A 输入、X 删除、ST 完成、B 取消。当前支持原版 ASCII 和数字，尚无中文输入法。\n"
         "消息等待确认时 A/B 继续；死亡时 X 可查看背包。\n"
-        "L2：附近浮窗依次左侧、右侧、关闭，显示原版已知生物、物品和地形。L1/R1 在窗口内翻页，行动菜单 L1/R1 切签，上下选项自动滚动。\nm 组合键交给系统；音量和电源不作为游戏命令。\n\n"
+        "R2＋R1：附近浮窗依次左侧、右侧、关闭（默认右侧），显示原版已知生物、物品和地形。L1/R1 在窗口内翻页，行动菜单 L1/R1 切签，上下选项自动滚动。\nm 组合键交给系统；音量和电源不作为游戏命令。\n\n"
         "观看录像\n"
         "ST 暂停/继续，方向左右逐回合前后、上下变速，L1 打开录像菜单，A 检查，X 背包，Y 全知视角。\n"
         "录像菜单的操作帮助提供跳转和其他说明。\n");
@@ -284,8 +284,13 @@ static void br_hud_build(void) {
        metrics line and into the R1 detail, where the exact numbers already are. */
     int hunger_level=nutrition>HUNGER_THRESHOLD ? 0 : nutrition>WEAK_THRESHOLD ? 1 :
         nutrition>FAINT_THRESHOLD ? 2 : 3;
-    snprintf(values,sizeof values,"力 %d 护甲 %d%s 潜行 %d",
-        rogue.strength-player.weaknessAmount,armor,unknown?"?":"",rogue.stealthRange);
+    /* Match the original player sidebar and lighting renderer exactly. */
+    const char *visibility=player.status[STATUS_INVISIBLE]?"隐形":playerInDarkness()?"暗处":
+        (pmapAt(player.loc)->flags & IS_IN_SHADOW)?"阴影":"明处";
+    char visibility_ink[5];
+    encodeMessageColor(visibility_ink,0,player.info.foreColor?player.info.foreColor:&goodMessageColor);
+    snprintf(values,sizeof values,"力 %d 护甲 %d%s 潜行 %d  %s%s",
+        rogue.strength-player.weaknessAmount,armor,unknown?"?":"",rogue.stealthRange,visibility_ink,visibility);
     snprintf(full,sizeof full,"第 %d 层    生命 %d/%d\n%s\n营养 %s %d/%d  金币 %lu\n\n状态\n",
         rogue.depthLevel,player.currentHP,player.info.maxHP,values,hunger,nutrition,STOMACH_SIZE,rogue.gold);
     const int priority[]={STATUS_POISONED,STATUS_BURNING,STATUS_PARALYZED,STATUS_CONFUSED,STATUS_STUCK,STATUS_WEAKENED};

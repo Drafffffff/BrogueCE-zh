@@ -13,7 +13,7 @@
 
 下载 `RG34XX-NextUI.zip`，将包中的 `Roms` 文件夹合并到 SD 卡根目录。安装前正常保存并退出 Brogue；覆盖同名程序文件，存档保存在 `.userdata/shared/brogue-rg34xx`，不要删除该目录。启动入口为 **Ports → Brogue**，附封面，标题保留原版动态火焰。
 
-完整按键见 [掌机操作](docs/掌机操作.md)：X 背包、Y 搜索、m 历史、R1 交互信息、L2 只读浮窗、L1 五页签、m 消息历史；长按方向和搜索可连续动作。顶部固定两行，生命条为红色。菜单、物品动作、阅读与瞄准均支持手柄。
+完整按键见 [掌机操作](docs/掌机操作.md)：X 背包、Y 搜索、m 历史、R1 交互信息、L2 自动探索，R2+R1 只读浮窗、L1 五页签、m 消息历史；长按方向和搜索可连续动作。顶部固定两行，生命条为红色。菜单、物品动作、阅读与瞄准均支持手柄。
 
 本分支包含汉化分支的中文文本，并增加独立掌机界面。桌面专用的 Ctrl+Tab 和软件渲染修复不适用于掌机；共用的投掷、怪物说明与目录漏译修复已同步。预发布包已做本地 ARM64 回归；本次共用文本修复尚未完成实机长时间游玩验证。仅以 RG34XX / NextUI 为目标，其他 H700 固件需自行适配。
 
@@ -56,6 +56,16 @@ macOS 安装同名开发依赖后使用 `make -B MAC_APP=YES RELEASE=YES`，应�
 
 上游、许可证与字体来源见 [UPSTREAM.md](UPSTREAM.md) 和 [LICENSE.txt](LICENSE.txt)。
 
-## 2026-10-14 掌机更新
+<<<<<<< HEAD
+## macOS SDL2 与 Terminal（2026-10-15）
 
-当前 RG34XX 二进制 `1bf362ba` 已完成本地构建；实机长时间游玩仍待验证。L2 将半透明浮窗依次切换左侧、右侧和关闭；R1 打开可交互对象栏；L1 打开行动菜单；m（Menu）打开消息历史。阅读与列表 L1/R1 翻页，行动菜单 L1/R1 切签、上下选项；L2/R2 在行动菜单中不执行动作。四列网格背包、状态剩余进度、地图放大后查看详情、逐级返回及道具结果补译均已包含。首页保留原版火焰与完整居中字标。长时间实机游玩仍待继续验证。
+本次提供两个原版键鼠汉化版本：SDL2 图形版保留火焰标题与原版界面；Terminal 版保留 ASCII 地牢并支持中文双宽字符、16 / 256 / 真彩色终端。两者共享 `~/Library/Application Support/Brogue/Brogue CE/` 存档，避免同时打开同一局。预编译包仅支持 Apple Silicon，SDL2 包最低系统版本见 Release。
+
+Terminal 包解压后双击 `Brogue Terminal.command`；终端至少需要 100 列、34 行。也可在已有终端中运行 `Brogue Terminal/launch.sh`。终端中的组合键和鼠标能力取决于终端模拟器；Steam Ctrl+Tab 修改主要针对 SDL2 版本。
+
+从源码构建 Terminal：`make -B -j4 TERMINAL=YES GRAPHICS=NO MAC_APP=NO RELEASE=YES`，需要 ncurses 开发库。Linux 可安装 `libncursesw5-dev` 并在构建时指定 `LDLIBS=-lncursesw`；Mac 使用系统 ncurses，无需 SDL 或中文字体文件。
+>>>>>>> 汉化
+
+## 2026-10-15 掌机更新
+
+RG34XX 版本 `07fe1f07` 已安装验证。L2 自动探索；R2+R1 切换浮窗左 / 右 / 关闭，默认右侧；R2+ST 休息。L1 行动菜单，m 消息历史，R1 交互信息。菜单 L1/R1 切签，阅读 L1/R1 翻页。顶部显示明处、阴影、暗处或隐形，遵循原版光照判定，固定两行不挤压地图。

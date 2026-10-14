@@ -38,7 +38,7 @@ static void copy_text(char *to,size_t capacity,const char *from);
 static BrNearby nearby[30];
 static int nearby_count,nearby_open,nearby_selected,nearby_located;
 static int nearby_page_size=3;
-static int nearby_overlay;
+static int nearby_overlay=2; /* Start on the right; then off -> left -> right. */
 void br_map_nearby_reset(void) {nearby_count=0;}
 void br_map_nearby_add(const BrNearby *entry) {
     if(nearby_count<30)nearby[nearby_count++]=*entry;
@@ -360,7 +360,7 @@ static void draw_nearby_overlay(SDL_Renderer *r,int width,int height,SDL_Texture
     SDL_Rect background={x,y,178,used+(total>count?16:count?0:20)};
     SDL_RenderFillRect(r,&background);
     SDL_SetRenderDrawBlendMode(r,blend);
-    char title[80];snprintf(title,sizeof title,"附近 %d  · L2 切换",total);
+    char title[80];snprintf(title,sizeof title,"附近 %d  · R2+R1",total);
     small_text(r,title,x+10,y+6,26,BR_UI_MUTED);
     if(!count && !total)small_text(r,"暂无附近对象",x+10,y+24,26,BR_UI_MUTED);
     int row=y+24;
@@ -578,7 +578,7 @@ void br_map_draw(SDL_Renderer *r, int width, int height, SDL_Texture *atlas, int
     else if (automated) snprintf(coordinates,sizeof coordinates,"[B] 中断自动行动");
     else if (aiming || mode) snprintf(coordinates,sizeof coordinates,"光标 %d,%d    角色 %d,%d",(aiming?tx:cx)+1,(aiming?ty:cy)+1,px+1,py+1);
     else if(replay) snprintf(coordinates,sizeof coordinates,"ST 播放  左右 逐回合  上下 变速  L1 菜单");
-    else snprintf(coordinates,sizeof coordinates,"X背包 Y搜索 ST等待 m消息 R1信息 L1行动 L2附近");
+    else snprintf(coordinates,sizeof coordinates,"X背包 Y搜索 ST等待 m消息 R1信息 L1行动 L2探索");
     if(aiming && !acknowledging) {
         size_t used=strlen(coordinates);snprintf(coordinates+used,sizeof coordinates-used,"  Select 全图  R1 信息");
     }

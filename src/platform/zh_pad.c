@@ -89,7 +89,7 @@ int br_pad_feed(BrPad *p,int code,int value,Uint32 now,int context,SDL_Event *ou
     switch(code) {
         case 304:return emit(out,SDLK_RETURN,0); /* A */
         case 305:return emit(out,SDLK_ESCAPE,0); /* B */
-        case 307:return context==6?emit(out,SDLK_END,0):(context==0 || context==8 || context==9 || context==10)?emit(out,SDLK_F8,0):context==5?emit(out,SDLK_HOME,0):context==7?emit(out,0,'i'):context==4?emit(out,0,'i'):context==3?emit(out,SDLK_TAB,0):context==2?emit(out,SDLK_BACKSPACE,0):context==1?emit(out,0,(p->held&(1u<<10))?'x':'i'):0; /* X: inventory; R2+X: explore */
+        case 307:return context==6?emit(out,SDLK_END,0):(context==0 || context==8 || context==9 || context==10)?emit(out,SDLK_F8,0):context==5?emit(out,SDLK_HOME,0):context==7?emit(out,0,'i'):context==4?emit(out,0,'i'):context==3?emit(out,SDLK_TAB,0):context==2?emit(out,SDLK_BACKSPACE,0):context==1?emit(out,0,'i'):0; /* X: inventory */
         case 306:
             if(context==1) {
                 if(p->held&(1u<<10)) {emit(out,SDLK_s,0);out->key.keysym.mod=KMOD_CTRL;return 1;}
@@ -97,10 +97,10 @@ int br_pad_feed(BrPad *p,int code,int value,Uint32 now,int context,SDL_Event *ou
             }
             return context==4?emit(out,SDLK_TAB,0):0; /* Y: search */
         case 308:return context==9?0:emit(out,context==10?SDLK_F2:(context==0 || context==6 || context==8)?SDLK_PAGEUP:SDLK_F6,0); /* L1: previous page in modals; actions in dungeon */
-        case 309:return context==9?0:emit(out,(context==0 || context==6 || context==8)?SDLK_PAGEDOWN:SDLK_F5,0); /* R1: next page in modals; interactive information in dungeon */
+        case 309:if((p->held&(1u<<10)) && (context==1 || context==3 || context==4 || context==5))return emit(out,SDLK_F9,0);return context==9?0:emit(out,(context==0 || context==6 || context==8)?SDLK_PAGEDOWN:SDLK_F5,0); /* R1: next page in modals; interactive information in dungeon */
         case 310:return emit(out,SDLK_F3,0); /* Select: map */
         case 311:return context==4?emit(out,0,' '):context==2?emit(out,SDLK_F7,0):context==1?emit(out,0,(p->held&(1u<<10))?'Z':'.'):emit(out,SDLK_RETURN,0); /* Start: wait/rest/confirm */
-        case 314:return (context==1 || context==3 || context==4 || context==5)?emit(out,SDLK_F9,0):0; /* L2: passive overlay in dungeon; disabled in modals */
+        case 314:return context==1?emit(out,0,'x'):0; /* L2: ordinary exploration in dungeon; disabled elsewhere */
         case 315:return 0; /* R2: dungeon modifier only */
         default:return 0;
     }

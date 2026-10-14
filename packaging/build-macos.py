@@ -65,7 +65,7 @@ for binary in queue:
  for ver in re.findall(r'\bminos\s+([0-9.]+)',run('otool','-l',str(binary))):minimum=max(minimum,tuple(map(int,ver.split('.'))))
 info=plistlib.loads((app/'Contents/Info.plist').read_bytes());info.update(CFBundleName='Brogue CE 中文',CFBundleDisplayName='Brogue CE 中文',LSMinimumSystemVersion='.'.join(map(str,minimum)))
 (app/'Contents/Info.plist').write_bytes(plistlib.dumps(info))
-for binary in queue:subprocess.run(['codesign','--force','--sign','-',str(binary)],check=True,stderr=subprocess.DEVNULL)
+for binary in list(frameworks.glob('*.dylib'))+[exe]:subprocess.run(['codesign','--force','--sign','-',str(binary)],check=True,stderr=subprocess.DEVNULL)
 subprocess.run(['codesign','--force','--sign','-',str(app)],check=True,stderr=subprocess.DEVNULL)
 subprocess.run(['codesign','--verify','--deep','--strict',str(app)],check=True)
 for binary in queue:
