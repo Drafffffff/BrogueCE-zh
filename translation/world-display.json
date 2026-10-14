@@ -2963,7 +2963,7 @@
     "id": "s_b45ac762792dee87",
     "file": "src/brogue/Globals.c",
     "source": "bursts, leaving behind an expanding cloud of caustic gas!",
-    "zh_CN": "爆裂，留下",
+    "zh_CN": "爆裂，释放出一团不断扩散的腐蚀性毒气！",
     "mode": "lookup",
     "status": "prototype"
   },
@@ -3131,7 +3131,7 @@
     "id": "s_4a13b211ceaf5d1c",
     "file": "src/brogue/Globals.c",
     "source": "absorbing",
-    "zh_CN": "吸取中",
+    "zh_CN": "吸收",
     "mode": "lookup",
     "status": "prototype"
   },
@@ -3395,7 +3395,7 @@
     "id": "s_c8ccee03fbf0656c",
     "file": "src/brogue/Globals.c",
     "source": "devouring",
-    "zh_CN": "吞食中",
+    "zh_CN": "吞食",
     "mode": "lookup",
     "status": "prototype"
   },
@@ -4147,7 +4147,7 @@
     "id": "s_b47b078f595c9e47",
     "file": "src/brogue/Globals.c",
     "source": "consecrating",
-    "zh_CN": "圣化中",
+    "zh_CN": "圣化",
     "mode": "lookup",
     "status": "prototype"
   },
@@ -4203,7 +4203,7 @@
     "id": "s_169345c76f0a6feb",
     "file": "src/brogue/Globals.c",
     "source": "cremating",
-    "zh_CN": "焚化中",
+    "zh_CN": "焚化",
     "mode": "lookup",
     "status": "prototype"
   },

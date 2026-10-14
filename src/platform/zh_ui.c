@@ -27,7 +27,7 @@ void br_ui_frame(SDL_Renderer *r,int width,int height,const char *title,int foot
     /* Hairlines are drawn, not spelled with hyphens: the typeface hyphen sits
        on a baseline of its own and breaks into a ragged dotted run. */
     br_ui_rule(r,start,25,width-20);
-    br_ui_rule(r,20,bottom+9,width-20);
+    if(footer_rows>=0)br_ui_rule(r,20,bottom+9,width-20);
 }
 void br_ui_rule(SDL_Renderer *r,int x,int y,int right) {
     if(right<=x)return;

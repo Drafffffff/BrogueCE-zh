@@ -3201,6 +3201,19 @@ char displayInventory(unsigned short categoryMask,
                 (SDL_Color){clamp(br_ink->red,0,100)*255/100,clamp(br_ink->green,0,100)*255/100,clamp(br_ink->blue,0,100)*255/100,255},
                 (itemList[br_i]->flags & ITEM_EQUIPPED)!=0);
             br_inventory_public_state(br_i,itemList[br_i]);
+            /* Native details disclose only known information. Keep the first
+               descriptive paragraph; never show its duplicate name header. */
+            char br_description[40000];itemDetails(br_description,itemList[br_i]);
+            const char *br_intro=strstr(br_description,"\n\n");
+            br_intro=br_intro?br_intro+2:br_description;
+            char br_summary[600];size_t br_used=0;
+            for(const char *br_p=br_intro;*br_p;) {
+                BrTextToken br_t=br_text_next(br_p);
+                if(br_t.codepoint=='\n' || br_used+br_t.bytes>=sizeof br_summary)break;
+                memcpy(br_summary+br_used,br_p,br_t.bytes);br_used+=br_t.bytes;br_p+=br_t.bytes;
+            }
+            br_summary[br_used]=0;
+            br_panel_inventory_info(br_i,(itemList[br_i]->category&(WEAPON|ARMOR))?itemList[br_i]->strengthRequired:0,br_summary);
         }
         const void *br_pack_rows[DROWS];
         for(int br_i=0;br_i<itemNumber;br_i++)br_pack_rows[br_i]=itemList[br_i];
@@ -5476,7 +5489,7 @@ boolean nextTargetAfter(const item *theItem,
         return false;
     }
     short selectedIndex = 0;
-    pos deduplicatedTargetList[ROWS];
+    pos deduplicatedTargetList[ROWS + DCOLS * DROWS];
 
     int targetCount = 0;
     for (int i=0; i<ROWS; i++) {
@@ -5488,6 +5501,18 @@ boolean nextTargetAfter(const item *theItem,
                     selectedIndex = targetCount;
                 }
                 targetCount++;
+            }
+        }
+    }
+    if(targetMode == AUTOTARGET_MODE_THROW || targetMode == AUTOTARGET_MODE_USE_STAFF_OR_WAND) {
+        for(creatureIterator it=iterateCreatures(monsters);hasNextCreature(it);) {
+            creature *candidate=nextCreature(&it);
+            if(!canAutoTargetMonster(candidate,theItem,targetMode))continue;
+            boolean listed=false;
+            for(int j=0;j<targetCount;j++)if(posEq(deduplicatedTargetList[j],candidate->loc)){listed=true;break;}
+            if(!listed && targetCount < ROWS + DCOLS * DROWS) {
+                if(posEq(candidate->loc,targetLoc))selectedIndex=targetCount;
+                deduplicatedTargetList[targetCount++]=candidate->loc;
             }
         }
     }

@@ -23,6 +23,7 @@ int br_panel_cover_active(void);
 void br_panel_inventory(void);
 int br_panel_inventory_active(void);
 void br_panel_inventory_item(int index,const char *name,unsigned glyph,SDL_Color color,int equipped);
+void br_panel_inventory_info(int index,int strength,const char *summary);
 void br_panel_inventory_state(int index,int quantity,const char *state,SDL_Color ink);
 int br_panel_take_detail(void);
 void br_panel_scroll_bottom(void);

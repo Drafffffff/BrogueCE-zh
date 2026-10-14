@@ -1,0 +1,34 @@
+[
+  {
+    "id": "monster_event_b0b2cb472447",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s incants darkly!",
+    "zh_CN": "%s阴森地念起咒语！",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "monster_event_1c31335f4d1c",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s begins %s the fallen %s.",
+    "zh_CN": "%s开始%s倒下的%s。",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "monster_event_2cccbae50f8a",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s finished %s the %s.",
+    "zh_CN": "%s结束了%s%s的过程。",
+    "mode": "lookup",
+    "status": "reviewed"
+  },
+  {
+    "id": "monster_event_bc51ce9e989f",
+    "file": "src/brogue/Monsters.c",
+    "source": "%s now %s!",
+    "zh_CN": "%s现在%s！",
+    "mode": "lookup",
+    "status": "reviewed"
+  }
+]

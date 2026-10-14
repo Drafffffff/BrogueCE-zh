@@ -6,7 +6,7 @@
 #include "zh_text.h"
 #include <string.h>
 #include <stdio.h>
-typedef struct {char label[512],name[512];char state[160];int quantity;SDL_Color state_color;int hotkey,enabled,equipped;SDL_Keycode key;unsigned glyph;SDL_Color color;} Choice;
+typedef struct {char label[512],name[512];char state[160],summary[600];int strength,quantity;SDL_Color state_color;int hotkey,enabled,equipped;SDL_Keycode key;unsigned glyph;SDL_Color color;} Choice;
 static Choice choices[50];
 static char title[160],body[20000],hint_text[256];
 static int active,count,selected,offset,maximum,inventory,detail;
@@ -138,6 +138,11 @@ void br_panel_inventory_state(int index,int quantity,const char *state,SDL_Color
     if(index<0 || index>=count)return;
     choices[index].quantity=quantity;choices[index].state_color=ink;
     copy(choices[index].state,sizeof choices[index].state,state);
+}
+void br_panel_inventory_info(int index,int strength,const char *summary) {
+    if(index<0 || index>=count)return;
+    choices[index].strength=strength;
+    copy(choices[index].summary,sizeof choices[index].summary,summary);
 }
 int br_panel_take_detail(void) {int value=detail;detail=0;return value;}
 int br_panel_active(void) {return active;}
@@ -331,7 +336,7 @@ static void grid_text(SDL_Renderer *r,const char *value,int x,int y,int columns,
     if(total>rows)br_draw_glyph(r,0x2026,(SDL_Rect){left+(columns-2)*10,first_y+(rows-1)*20,20,20},ink);
 }
 static void draw_inventory(SDL_Renderer *r,int width,int height) {
-    br_ui_frame(r,width,height,title,1);
+    br_ui_frame(r,width,height,title,-1);
     int left=18,cell=(width-36)/4,top=52,step=(height-172)/7;
 
     for(int i=0;i<MAX_PACK_ITEMS;i++) {
@@ -344,7 +349,15 @@ static void draw_inventory(SDL_Renderer *r,int width,int height) {
         Choice *choice=&choices[i];SDL_Color ink=choice->enabled?(choice->glyph=='!'?choice->color:BR_UI_INK):BR_UI_MUTED;
         if(!choice->glyph)ink=choice->enabled?BR_UI_INK:BR_UI_MUTED;
         br_draw_glyph(r,choice->glyph?choice->glyph:'*',(SDL_Rect){x+12,y,20,20},choice->enabled?choice->color:BR_UI_MUTED);
-        grid_text(r,choice->name[0]?choice->name:choice->label,x+36,y,(cell-40)/10,1,ink);
+        const char *name=choice->name[0]?choice->name:choice->label;
+        int name_columns=(cell-40)/10;
+        grid_text(r,name,x+36,y,name_columns,1,ink);
+        if(choice->strength>0) {
+            char requirement[24];snprintf(requirement,sizeof requirement," <%d>",choice->strength);
+            int used=br_text_width(name);
+            if(used+br_text_width(requirement)<=name_columns)
+                line(r,requirement,x+36+used*10,y,BR_UI_MUTED,name_columns-used);
+        }
         int reserve=choice->quantity>1?40:0;
         grid_text(r,choice->state,x+36,y+20,(cell-40-reserve)/10,1,choice->enabled?choice->state_color:BR_UI_MUTED);
         if(choice->quantity>1) {
@@ -353,11 +366,15 @@ static void draw_inventory(SDL_Renderer *r,int width,int height) {
             line(r,amount,x+cell-8-columns*10,y+20,choice->enabled?BR_UI_INK:BR_UI_MUTED,columns);
         }
     }
-    int footer=height-108;
+    int footer=height-70;
     SDL_SetRenderDrawColor(r,BR_UI_RULE.r,BR_UI_RULE.g,BR_UI_RULE.b,255);
-    for(int x=20;x<width-20;x+=10)SDL_RenderDrawLine(r,x,footer-10,x+4,footer-10);
-    if(count)grid_text(r,choices[selected].label,20,footer,(width-40)/10,3,BR_UI_INK);
-    line(r,"方向选物品  A 操作  X 详情  B 返回",20,height-30,BR_UI_MUTED,(width-40)/10);
+    for(int x=20;x<width-20;x+=10)SDL_RenderDrawLine(r,x,footer-6,x+4,footer-6);
+    if(count) {
+        grid_text(r,choices[selected].label,20,footer,(width-40)/10,1,BR_UI_INK);
+        grid_text(r,choices[selected].summary,20,footer+22,(width-40)/10,1,BR_UI_MUTED);
+    }
+    br_ui_rule(r,20,height-25,width-20);
+    line(r,"方向选物品  A 操作  X 详情  B 返回",20,height-20,BR_UI_MUTED,(width-40)/10);
 }
 void br_panel_draw(SDL_Renderer *r,int width,int height) {
     if(!active) return;
