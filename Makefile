@@ -6,7 +6,7 @@ cflags := -Isrc/brogue -Isrc/platform -Isrc/variants -std=c99 \
 libs := -lm
 cppflags := -DDATADIR=$(DATADIR)
 
-sources := src/platform/zh_text.c src/platform/zh_glyph.c src/platform/zh_catalog.c $(wildcard src/brogue/*.c) $(wildcard src/variants/*.c) $(addprefix src/platform/,main.c platformdependent.c null-platform.c)
+sources := src/platform/zh_text.c src/platform/zh_catalog.c $(wildcard src/brogue/*.c) $(wildcard src/variants/*.c) $(addprefix src/platform/,main.c platformdependent.c null-platform.c)
 objects :=
 
 ifeq ($(SYSTEM),WINDOWS)
@@ -38,6 +38,7 @@ endif
 endif
 
 ifeq ($(GRAPHICS),YES)
+sources += src/platform/zh_glyph.c
 sources += $(addprefix src/platform/,sdl2-platform.c tiles.c)
 cflags += $(shell $(SDL_CONFIG) --cflags)
 cppflags += -DBROGUE_SDL

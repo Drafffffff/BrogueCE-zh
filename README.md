@@ -45,3 +45,11 @@ cd bin
 macOS 安装同名开发依赖后使用 `make -B MAC_APP=YES RELEASE=YES`，应用打包脚本见 `packaging/`。默认中文，设置 `BROGUE_LANG=en` 可对照原版英文；`BROGUE_CJK_FONT` 可指定字体路径。
 
 上游、许可证与字体来源见 [UPSTREAM.md](UPSTREAM.md) 和 [LICENSE.txt](LICENSE.txt)。
+
+## macOS SDL2 与 Terminal（2026-10-15）
+
+本次提供两个原版键鼠汉化版本：SDL2 图形版保留火焰标题与原版界面；Terminal 版保留 ASCII 地牢并支持中文双宽字符、16 / 256 / 真彩色终端。两者共享 `~/Library/Application Support/Brogue/Brogue CE/` 存档，避免同时打开同一局。预编译包仅支持 Apple Silicon，SDL2 包最低系统版本见 Release。
+
+Terminal 包解压后双击 `Brogue Terminal.command`；终端至少需要 100 列、34 行。也可在已有终端中运行 `Brogue Terminal/launch.sh`。终端中的组合键和鼠标能力取决于终端模拟器；Steam Ctrl+Tab 修改主要针对 SDL2 版本。
+
+从源码构建 Terminal：`make -B -j4 TERMINAL=YES GRAPHICS=NO MAC_APP=NO RELEASE=YES`，需要 ncurses 开发库。Linux 可安装 `libncursesw5-dev` 并在构建时指定 `LDLIBS=-lncursesw`；Mac 使用系统 ncurses，无需 SDL 或中文字体文件。

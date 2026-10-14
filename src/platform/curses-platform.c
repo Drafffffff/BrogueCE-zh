@@ -1,3 +1,4 @@
+#include "zh_text.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
@@ -76,9 +77,8 @@ static void curses_plotChar(enum displayGlyph ch,
     back.g = (float) backGreen / 100;
     back.b = (float) backBlue / 100;
 
-    ch = glyphToAscii(ch);
-
-    if (ch < ' ' || ch > 127) ch = ' ';
+    if (ch & BR_UNICODE_FLAG) ch &= ~BR_UNICODE_FLAG;
+    else { ch = glyphToAscii(ch); if (ch < ' ' || ch > 127) ch = ' '; }
     Term.put(xLoc, yLoc, ch, &fore, &back);
 }
 

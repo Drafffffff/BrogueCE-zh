@@ -1,3 +1,7 @@
+#define _XOPEN_SOURCE_EXTENDED 1
+#include <locale.h>
+#include <wchar.h>
+#include "zh_text.h"
 #include <ncurses.h>
 #include "term.h"
 #include <math.h>
@@ -129,6 +133,7 @@ static int curses_init( ) {
     if (videomode.curses) return 0;
 
     // isterm?
+    setlocale(LC_ALL, "");
     initscr( );
     if (!has_colors( )) {
         endwin( );
@@ -458,6 +463,19 @@ static int coerce_prs (intcolor *fg, intcolor *bg) {
     return bestpair;
 }
 
+static int br_term_width(int ch) { return ch > 0 ? br_text_columns((unsigned)ch) : 1; }
+static void br_term_add(int ch) {
+    wchar_t text[2] = {(wchar_t)(ch > 0 ? ch : ' '), 0};
+    addwstr(text);
+}
+static void br_term_utf8(int ch) {
+    unsigned c=ch > 0 ? (unsigned)ch : ' ';
+    if(c<0x80)putchar(c);
+    else if(c<0x800){putchar(0xc0|(c>>6));putchar(0x80|(c&63));}
+    else if(c<0x10000){putchar(0xe0|(c>>12));putchar(0x80|((c>>6)&63));putchar(0x80|(c&63));}
+    else {putchar(0xf0|(c>>18));putchar(0x80|((c>>12)&63));putchar(0x80|((c>>6)&63));putchar(0x80|(c&63));}
+}
+
 static void buffer_plot(int ch, int x, int y, fcolor *fg, fcolor *bg) {
     // int pair = 256 + x + y * minsize.width;
     // intcolor cube_fg, cube_bg;
@@ -504,6 +522,8 @@ static void buffer_plot(int ch, int x, int y, fcolor *fg, fcolor *bg) {
     }
 
     int cell = x + y * minsize.width;
+    if (br_term_width(cell_buffer[cell].ch)==2 && x+1<minsize.width)
+        cell_buffer[cell+1].pair=-1;
     cell_buffer[cell].ch = ch;
     cell_buffer[cell].pair = -1;
     cell_buffer[cell].fore = cube_fg;
@@ -537,8 +557,10 @@ static void buffer_render_256() {
     for (y = 0; y < minsize.height; y++) {
         move(y, 0);
         for (x = 0; x < minsize.width; x++) {
+            if (x && br_term_width(cell_buffer[i-1].ch)==2) { i++; continue; }
+            move(y,x);
             color_set(cell_buffer[i].pair, NULL);
-            addch(cell_buffer[i].ch);
+            br_term_add(cell_buffer[i].ch);
             i++;
         }
     }
@@ -557,6 +579,7 @@ static void buffer_render_24bit() {
         for (int x = 0; x < minsize.width; x++) {
             pairmode_cell *c = &cell_buffer[x + y * minsize.width];
 
+            if (x && br_term_width(cell_buffer[x-1+y*minsize.width].ch)==2) { c->pair=0; continue; }
             // `pair` is set to -1 when a tile changes, which signals we need to print it
             if (!c->pair && !fullRefresh) continue;
             c->pair = 0;
@@ -580,8 +603,8 @@ static void buffer_render_24bit() {
             }
 
             // print the character
-            printf("%c", c->ch);
-            cx++;
+            br_term_utf8(c->ch);
+            cx += br_term_width(c->ch);
         }
     }
 
@@ -594,8 +617,9 @@ static void term_mvaddch(int x, int y, int ch, fcolor *fg, fcolor *bg) {
 
     if (colormode == coerce_16) {
         int c = best(fg, bg);
-        attrset(COLOR_ATTR(c));
-        mvaddch(y, x, ch);
+        int cell=x+y*minsize.width;
+        cell_buffer[cell].ch=ch;
+        cell_buffer[cell].pair=COLOR_ATTR(c);
     } else {
         buffer_plot(ch, x, y, fg, bg);
     }
@@ -632,6 +656,11 @@ static void term_refresh() {
     } else if (colormode == coerce_256) {
         buffer_render_256();
     } else if (colormode == coerce_16) {
+        for(int y=0;y<minsize.height;y++)for(int x=0;x<minsize.width;x++) {
+            int i=x+y*minsize.width;
+            if(x && br_term_width(cell_buffer[i-1].ch)==2)continue;
+            move(y,x);attrset(cell_buffer[i].pair);br_term_add(cell_buffer[i].ch);
+        }
         refresh();
     }
 }
