@@ -1640,7 +1640,7 @@ void killCreature(creature *decedent, boolean administrativeDeath) {
 
         if (monsterText[decedent->info.monsterID].DFMessage[0] && canSeeMonster(decedent)) {
             br_display_monster_name(monstName, decedent, true);
-            snprintf(buf, DCOLS * 3, br_tr("%s %s"), monstName, monsterText[decedent->info.monsterID].DFMessage);
+            snprintf(buf, sizeof buf, br_tr("%s %s"), monstName, br_tr(monsterText[decedent->info.monsterID].DFMessage));
             br_resolve_display_pronouns(buf, decedent);
             message(buf, 0);
         }

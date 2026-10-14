@@ -5363,7 +5363,7 @@ boolean nextTargetAfter(const item *theItem,
         return false;
     }
     short selectedIndex = 0;
-    pos deduplicatedTargetList[ROWS];
+    pos deduplicatedTargetList[ROWS + DCOLS * DROWS];
 
     int targetCount = 0;
     for (int i=0; i<ROWS; i++) {
@@ -5375,6 +5375,18 @@ boolean nextTargetAfter(const item *theItem,
                     selectedIndex = targetCount;
                 }
                 targetCount++;
+            }
+        }
+    }
+    if(targetMode == AUTOTARGET_MODE_THROW || targetMode == AUTOTARGET_MODE_USE_STAFF_OR_WAND) {
+        for(creatureIterator it=iterateCreatures(monsters);hasNextCreature(it);) {
+            creature *candidate=nextCreature(&it);
+            if(!canAutoTargetMonster(candidate,theItem,targetMode))continue;
+            boolean listed=false;
+            for(int j=0;j<targetCount;j++)if(posEq(deduplicatedTargetList[j],candidate->loc)){listed=true;break;}
+            if(!listed && targetCount < ROWS + DCOLS * DROWS) {
+                if(posEq(candidate->loc,targetLoc))selectedIndex=targetCount;
+                deduplicatedTargetList[targetCount++]=candidate->loc;
             }
         }
     }

@@ -1070,8 +1070,8 @@ static boolean summonMinions(creature *summoner) {
     const short hordeID = pickHordeType(0, summonerType, 0, 0);
     short seenMinionCount = 0, x, y;
     boolean atLeastOneMinion = false;
-    char buf[DCOLS];
-    char monstName[DCOLS];
+    char buf[BR_MESSAGE_BYTES];
+    char monstName[BR_MESSAGE_BYTES];
     short **grid;
 
     if (hordeID < 0) {
@@ -1127,11 +1127,11 @@ static boolean summonMinions(creature *summoner) {
     }
 
     if (canSeeMonster(summoner)) {
-        monsterName(monstName, summoner, true);
+        br_display_monster_name(monstName, summoner, true);
         if (monsterText[summoner->info.monsterID].summonMessage[0]) {
-            sprintf(buf, "%s %s", monstName, monsterText[summoner->info.monsterID].summonMessage);
+            sprintf(buf, br_tr("%s %s"), monstName, br_tr(monsterText[summoner->info.monsterID].summonMessage));
         } else {
-            sprintf(buf, "%s incants darkly!", monstName);
+            sprintf(buf, br_tr("%s incants darkly!"), monstName);
         }
         message(buf, 0);
     }
@@ -2850,7 +2850,7 @@ static void monsterCastSpell(creature *caster, creature *target, enum boltType b
 
     if (canDirectlySeeMonster(caster)) {
         monsterName(monstName, caster, true);
-        sprintf(buf, "%s %s", monstName, boltCatalog[boltIndex].description);
+        sprintf(buf, br_tr("%s %s"), monstName, boltCatalog[boltIndex].description);
         resolvePronounEscapes(buf, caster);
         combatMessage(buf, 0);
     }
@@ -3133,7 +3133,7 @@ static void moveAlly(creature *monst) {
     creature *closestMonster = NULL;
     short i, j, x, y, dir, shortestDistance, leashLength;
     short **enemyMap, **costMap;
-    char buf[DCOLS], monstName[DCOLS];
+    char buf[BR_MESSAGE_BYTES], monstName[BR_MESSAGE_BYTES];
 
     x = monst->loc.x;
     y = monst->loc.y;
@@ -3304,8 +3304,8 @@ static void moveAlly(creature *monst) {
         if (posEq(monst->loc, monst->targetCorpseLoc)
             && !(monst->bookkeepingFlags & MB_ABSORBING)) {
             if (canSeeMonster(monst)) {
-                monsterName(monstName, monst, true);
-                sprintf(buf, "%s begins %s the fallen %s.", monstName, monsterText[monst->info.monsterID].absorbing, monst->targetCorpseName);
+                br_display_monster_name(monstName, monst, true);
+                sprintf(buf, br_tr("%s begins %s the fallen %s."), monstName, br_tr(monsterText[monst->info.monsterID].absorbing), br_tr(monst->targetCorpseName));
                 messageWithColor(buf, &goodMessageColor, 0);
             }
             monst->corpseAbsorptionCounter = 20;
@@ -3341,7 +3341,7 @@ static void moveAlly(creature *monst) {
 // Returns whether to abort the turn.
 static boolean updateMonsterCorpseAbsorption(creature *monst) {
     short i;
-    char buf[COLS], buf2[COLS];
+    char buf[BR_MESSAGE_BYTES], buf2[BR_MESSAGE_BYTES];
 
     if (posEq(monst->loc, monst->targetCorpseLoc)
         && (monst->bookkeepingFlags & MB_ABSORBING)) {
@@ -3374,17 +3374,17 @@ static boolean updateMonsterCorpseAbsorption(creature *monst) {
                 monst->status[STATUS_INVISIBLE] = monst->maxStatus[STATUS_INVISIBLE] = 1000; // won't decrease
             }
             if (canSeeMonster(monst)) {
-                monsterName(buf2, monst, true);
-                sprintf(buf, "%s finished %s the %s.", buf2, monsterText[monst->info.monsterID].absorbing, monst->targetCorpseName);
+                br_display_monster_name(buf2, monst, true);
+                sprintf(buf, br_tr("%s finished %s the %s."), buf2, br_tr(monsterText[monst->info.monsterID].absorbing), br_tr(monst->targetCorpseName));
                 messageWithColor(buf, &goodMessageColor, 0);
                 if (monst->absorptionBolt != BOLT_NONE) {
-                    sprintf(buf, "%s %s!", buf2, boltCatalog[monst->absorptionBolt].abilityDescription);
+                    sprintf(buf, br_tr("%s %s!"), buf2, br_tr(boltCatalog[monst->absorptionBolt].abilityDescription));
                 } else if (monst->absorbBehavior) {
-                    sprintf(buf, "%s now %s!", buf2, monsterBehaviorCatalog[unflag(monst->absorptionFlags)].description);
+                    sprintf(buf, br_tr("%s now %s!"), buf2, br_tr(monsterBehaviorCatalog[unflag(monst->absorptionFlags)].description));
                 } else {
-                    sprintf(buf, "%s now %s!", buf2, monsterAbilityCatalog[unflag(monst->absorptionFlags)].description);
+                    sprintf(buf, br_tr("%s now %s!"), buf2, br_tr(monsterAbilityCatalog[unflag(monst->absorptionFlags)].description));
                 }
-                resolvePronounEscapes(buf, monst);
+                br_resolve_display_pronouns(buf, monst);
                 messageWithColor(buf, &advancementMessageColor, 0);
             }
             monst->absorptionFlags = 0;

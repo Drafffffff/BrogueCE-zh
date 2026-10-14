@@ -2574,7 +2574,7 @@ void executeKeystroke(signed long keystroke, boolean controlKey, boolean shiftKe
             break;
         case RETHROW_KEY:
             if (rogue.lastItemThrown != NULL && itemIsCarried(rogue.lastItemThrown)) {
-                throwCommand(rogue.lastItemThrown, true);
+                throwCommand(rogue.lastItemThrown, false);
             }
             break;
         case RELABEL_KEY:
@@ -4647,7 +4647,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
         } else if (percent != 0) {
             strcpy(buf, "       Health       ");
             sprintf(buf2, "(%s%i%%)", percent > 0 ? "+" : "", percent);
-            strcpy(&(buf[20 - strlen(buf2)]), buf2);
+            if(br_is_zh())snprintf(buf,sizeof buf,"%s %s",br_tr("Health"),buf2);else strcpy(&(buf[20 - strlen(buf2)]), buf2);
         } else {
             strcpy(buf, br_tr("Health"));
         }
