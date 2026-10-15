@@ -22,7 +22,11 @@ for name,term,color in [('truecolor','xterm-256color','truecolor')]:
             text='\n'.join(screen.display);(output/f'{name}-{stage}.txt').write_text(text);return text
         try:
             read(2);title=snap('title');assert '新的冒险' in title,title
-            os.write(master,b'n');read(2);dungeon=snap('dungeon');assert '@' in dungeon
+            os.write(master,b'n');read(2)
+            for attempt in range(20):
+                if '@' in '\n'.join(screen.display):break
+                read(.5)
+            dungeon=snap('dungeon');assert '@' in dungeon
             os.write(master,b'Q');read(.6);prompt=snap('confirm')
             assert '是 (Y)' in prompt and '否 (N)' in prompt,prompt
             os.write(master,b'n');read(.5);assert '是 (Y)' not in snap('cancel-N')
