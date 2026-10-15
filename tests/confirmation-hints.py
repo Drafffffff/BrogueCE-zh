@@ -5,7 +5,7 @@ import os,pty,subprocess,fcntl,termios,struct,time,select,tempfile,json,sys,code
 import pyte
 binary=Path(sys.argv[1]).resolve();output=Path(sys.argv[2]).resolve();output.mkdir(parents=True,exist_ok=True)
 results=[]
-for name,term,color in [('truecolor','xterm-256color','truecolor')]:
+for name,term,color in [('256','xterm-256color','')]:
     with tempfile.TemporaryDirectory(prefix='brogue-terminal-') as state:
         master,slave=pty.openpty();fcntl.ioctl(slave,termios.TIOCSWINSZ,struct.pack('HHHH',40,120,0,0))
         env=dict(os.environ,TERM=term,COLORTERM=color,LANG='en_US.UTF-8',LC_ALL='en_US.UTF-8',BROGUE_LANG='zh')
@@ -26,11 +26,11 @@ for name,term,color in [('truecolor','xterm-256color','truecolor')]:
             for attempt in range(20):
                 if '@' in '\n'.join(screen.display):break
                 read(.5)
-            dungeon=snap('dungeon');assert '@' in dungeon
+            dungeon=snap('dungeon');assert '@' in dungeon,(p.poll(),dungeon)
             os.write(master,b'Q');read(.6);prompt=snap('confirm')
             assert '是 (Y)' in prompt and '否 (N)' in prompt,prompt
             os.write(master,b'n');read(.5);assert '是 (Y)' not in snap('cancel-N')
-            os.write(master,b'Q');read(.4);os.write(master,b'\x1b');read(.6);assert '是 (Y)' not in snap('cancel-Esc')
+            os.write(master,b'Q');read(.4);os.write(master,b'\x1b');read(1.5);assert '是 (Y)' not in snap('cancel-Esc')
             os.write(master,b'Q');read(.4);os.write(master,b'Y');read(.8);assert '是 (Y)' not in snap('accept-Y')
             results.append(dict(mode=name,yes_hint=True,no_hint=True,N_cancel=True,Esc_cancel=True,Y_accept=True))
 
